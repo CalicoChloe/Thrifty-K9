@@ -20,6 +20,6 @@ still rely on.
 1. Documentation Lead: Chloe Jackson
 2. Team Manager: Julian Ellis
 3. Testing Lead: Abdoulie J NJie
-4. 
+4. Code Architect: Connor Murdock :sunglasses:
 5. 
 6. 
