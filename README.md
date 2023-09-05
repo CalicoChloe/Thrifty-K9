@@ -22,4 +22,4 @@ still rely on.
 3. Testing Lead: Abdoulie J NJie :smile:
 4. Code Architect: Connor Murdock :sunglasses:
 5. Data Modeler: Shianne Lesure :cherry_blossom: 
-6. UI/UX Designer: Barbara Yeboah
+6. UI/UX Designer: Barbara Yeboah 🤠
