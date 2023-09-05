@@ -21,5 +21,5 @@ still rely on.
 2. Team Manager: Julian Ellis
 3. Testing Lead: Abdoulie J NJie :smile:
 4. Code Architect: Connor Murdock :sunglasses:
-5. 
+5. Data Modeler: Shianne Lesure :cherry_blossom: 
 6. 
