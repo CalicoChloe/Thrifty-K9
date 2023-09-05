@@ -10,6 +10,9 @@
 - Microsoft Teams
 
 ## Team Members
-- Documentation Lead: Chloe Jackson
-- Team Manager: Julian Ellis
-- Testing Lead: Abdoulie J NJie
+1. Documentation Lead: Chloe Jackson
+2. Team Manager: Julian Ellis
+3. Testing Lead: Abdoulie J NJie
+4. 
+5. 
+6. 
