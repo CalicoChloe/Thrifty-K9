@@ -17,7 +17,7 @@ still rely on.
 - Microsoft Teams
 
 ## Team Members
-1. Documentation Lead: Chloe Jackson
+1. Documentation Lead: Chloe Jackson 🗒️
 2. Team Manager: Julian Ellis
 3. Testing Lead: Abdoulie J NJie :smile:
 4. Code Architect: Connor Murdock :sunglasses:
