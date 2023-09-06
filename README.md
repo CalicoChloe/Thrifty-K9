@@ -16,7 +16,7 @@ still rely on.
 - Discord
 - Microsoft Teams
 
-## Team Members
+# Team Members
 1. Documentation Lead: Chloe Jackson 🗒️
 2. Team Manager: Julian Ellis :stuck_out_tongue_winking_eye:
 3. Testing Lead: Abdoulie J NJie :smile:
