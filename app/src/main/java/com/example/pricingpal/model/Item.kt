@@ -1,4 +1,8 @@
 package com.example.pricingpal.model
 
-class Item {
+import java.io.FileInputStream
+import java.io.InputStream
+
+class Item (
+) {
 }
