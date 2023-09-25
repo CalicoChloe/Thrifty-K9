@@ -12,8 +12,8 @@ import java.util.Scanner
  * @author Julian Ellis
  * @version 2.1
  * @written 9/24/2023
- * This class extends AppCompatActivity and holds a function to read a CSV file
- *   from an assets folder.
+ * This class holds a function to read a CSV file from the assets folder. It can be
+ *  called in MainActivuty.kt using the keyword "this" as the context
  *
  */
 class CSVReader {
