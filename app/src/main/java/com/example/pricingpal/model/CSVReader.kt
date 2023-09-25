@@ -58,23 +58,6 @@ class CSVReader {
         //Return the list of items generated in the function
         return itemList
     }
-
-
-    //Original algorithm
-    /*fun readFile(): List<Item> {
-        val fileName = "testdata.csv"
-        val inputStream: InputStream = assets.open(fileName)
-        val n = Scanner(InputStreamReader(inputStream))
-
-        val itemList = ArrayList<Item>()
-        while(n.hasNext()) {
-            val line = n.nextLine()
-            val row = line.split(",")
-            val item = Item(row[0], row[1], row[2].toDouble())
-            itemList.add(item)
-        }
-        n.close()
-        return itemList
-    }*/
+    
 }
 
