@@ -13,7 +13,7 @@ import java.util.Scanner
  * @version 2.1
  * @written 9/24/2023
  * This class holds a function to read a CSV file from the assets folder. It can be
- *  called in MainActivuty.kt using the keyword "this" as the context
+ *  called in MainActivity.kt using the keyword "this" as the context
  *
  */
 class CSVReader {
