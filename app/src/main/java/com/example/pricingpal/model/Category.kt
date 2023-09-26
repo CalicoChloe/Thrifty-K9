@@ -7,7 +7,4 @@ package com.example.pricingpal.model
  * the item's category, name, and price.
  */
 
-data class Category(
-    val category: String,
-    val item: ArrayList<Item>
-)
+data class Category(val category: String, val item: ArrayList<Item>)
