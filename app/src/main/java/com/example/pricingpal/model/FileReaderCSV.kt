@@ -6,15 +6,16 @@ import com.example.pricingpal.model.Item
 object FileReaderCSV {
 
     /**
+     * Class: PopulateData
+     * @author Connor Murdock
+     * @version 1.1
+     * @written 2023/09/25
      * Loops through a list of item objects read from the CSV file to create the Category objects and assign the items to their respective categories.
      * @return the ArrayList of Category objects
-     * @author Connor Murdock
      */
-    fun PopulateData(): ArrayList<Category> {
+    fun PopulateData(allItems: ArrayList<Item>): ArrayList<Category> {
         //ArrayList containing every category from the file, empty by default
         val categories = ArrayList<Category>()
-        //Get the list of items from the CSV Reader
-        val allItems = readFile()
 
         //Keep running until all items have been added
         for(nextItem in allItems) {
