@@ -1,9 +1,6 @@
 package com.example.pricingpal.model
 
-import com.example.pricingpal.model.Category
-import com.example.pricingpal.model.Item
-
-object FileReaderCSV {
+object CSVParser {
 
     /**
      * Class: PopulateData
@@ -13,13 +10,13 @@ object FileReaderCSV {
      * Loops through a list of item objects read from the CSV file to create the Category objects and assign the items to their respective categories.
      * @return the ArrayList of Category objects
      */
-    fun PopulateData(allItems: ArrayList<Item>): ArrayList<Category> {
+    fun PopulateData(allItems: List<Item>): ArrayList<Category> {
         //ArrayList containing every category from the file, empty by default
         val categories = ArrayList<Category>()
 
         //Keep running until all items have been added
         for(nextItem in allItems) {
-            //grab the next item from the arraylist
+            //grab the next item from the list
             val i = nextItem
 
             //If there are no categories, make one
@@ -31,7 +28,7 @@ object FileReaderCSV {
                 var categoryExists = false
                 for (c in categories) {
                     //If the category already exists, add that item to the category's arraylist
-                    if (c.name == i.category) {
+                    if (c.category == i.category) {
                         c.item.add(i)
                         categoryExists = true
                     }

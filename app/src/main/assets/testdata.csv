@@ -1,38 +1,39 @@
-Clothing,Women_Tops,10
-Jewelry,Necklace,5
-Appliances,Blender,10
-Furniture,Chair,25
-Electronics,Computers,20
-Accessories,Hats,4
-Toys_And_Games,Stuff_Animals,5
-Clothing,Men_Tops,12
-Jewelry,Earrings,3
-Appliances,Toaster,7
-Furniture,Couch,80
-Electronics,Tablets,50
-Accessories,Purses,15
-Toys_And_ Games,Action_Figure,5
-Clothing,Kid_Tops,7
-Jewelry,Watches,10
-Appliances,Vacuum,20
-Furniture,Table,50
-Electronics,Cellphones,50
-Accessories,Headphones,5
-Toys_And_Games,Board_Games,10
-Clothing,Women_Bottoms,12
-Jewelry,Rings,2
-Appliances,Sewing_Machine,15
-Furniture,Drawer,25
-Electronics,Radios,20
-Accessories,Belts,5
-Toys_And_ Games,Puzzles,10
-Clothing,Men_Bottoms,15
-Jewelry,Bracelets,5
-Appliances,Steam_Cleaner,20
-Furniture,Rugs,12
-Electronics,Cameras,20
-Toys_And_Games,Card_Games,5
-Clothing,Kid_Bottoms,10
-Clothing,Women_Shoes,10
-Clothing,Men_Shoes,13
-Clothing,Kid_Shoes,8
+Category,Item,Price
+Clothing,Women's Tops,10.00
+Jewelry,Necklace,5.00
+Appliances,Blender,10.00
+Furniture,Chair,25.00
+Electronics,Computers,20.00
+Accessories,Hats,4.00
+Toys & Games,Stuff Animals,5.00
+Clothing,Men's Tops,12.00
+Jewelry,Earrings,3.00
+Appliances,Toaster,7.00
+Furniture,Couch,80.00
+Electronics,Tablets,50.00
+Accessories,Purses,15.00
+Toys & Games,Action Figure,5.00
+Clothing,Kid's Tops,7.00
+Jewelry,Watches,10.00
+Appliances,Vacuum,20.00
+Furniture,Table,50.00
+Electronics,Cell Phones,50.00
+Accessories,Headphones,5.00
+Toys & Games,Board Games,10.00
+Clothing,Women's Bottom,12.00
+Jewelry,Rings,2.00
+Appliances,Sewing Machine,15.00
+Furniture,Drawer,25.00
+Electronics,Radios,20.00
+Accessories,Belts,5.00
+Toys & Games,Puzzles,10.00
+Clothing,Men's Bottom,15.00
+Jewelry,Bracelets,5.00
+Appliances,Steam Cleaner,20.00
+Furniture,Rugs,12.00
+Electronics,Cameras,20.00
+Toys & Games,Card Games,5.00
+Clothing,Kid's Bottom,10.00
+Clothing,Women's Shoes,10.00
+Clothing,Men's Shoes,13.00
+Clothing,Kid's Shoes,8.00

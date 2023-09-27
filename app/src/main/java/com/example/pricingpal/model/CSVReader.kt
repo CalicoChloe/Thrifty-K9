@@ -16,7 +16,7 @@ import java.util.Scanner
  *  called in MainActivity.kt using the keyword "this" as the context
  *
  */
-class CSVReader {
+object CSVReader {
 
     /**
      * readFile
@@ -37,8 +37,7 @@ class CSVReader {
             val n = Scanner(InputStreamReader(inputStream))
             itemList = ArrayList<Item>()
             //Skip the first line if column headers are present, otherwise comment out
-            //NOTE: testdata.csv has no column headers
-            //val skipColumnHeader = n.nextLine()
+            val skipColumnHeader = n.nextLine()
             //Read file and put into Item objects list
             while (n.hasNext()) {
                 val line = n.nextLine()
