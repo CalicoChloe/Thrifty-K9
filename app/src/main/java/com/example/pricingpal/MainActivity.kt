@@ -18,7 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.pricingpal.model.FileReaderCSV
+import com.example.pricingpal.model.CSVReader
+import com.example.pricingpal.model.CSVParser
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.PricingpalTheme
 
@@ -26,8 +27,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val fr = FileReaderCSV
-            val categories = fr.PopulateData()
+            val csvp = CSVParser
+            val categories = csvp.PopulateData(CSVReader.readFile(this, "testdata.csv"))
             PricingpalTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -46,7 +47,7 @@ fun CategoryList(categories: ArrayList<Category>) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         for (category: Category in categories) {
             item {
-                CreateListItem(text = category.name, padding = 10)
+                CreateListItem(text = category.category, padding = 10)
             }
         }
     }
