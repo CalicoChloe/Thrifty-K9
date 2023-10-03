@@ -4,11 +4,14 @@ import com.example.pricingpal.model.CSVParser
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
 import org.junit.Assert
-/*
-    * This test will compare a list of known with a list of categories read
-    * in and populated by the CSVParser's function PopulateData
- */
 
+/**
+ *
+ *
+ * @constructor Create empty Csv parser test
+ * This test will compare a list of known with a list of categories read
+ * in and populated by the CSVParser's function PopulateData
+ */
 public class CSVParserTest {
     // private variables needed to conduct unit test
     private var testListCategory = ArrayList<Category>()
@@ -16,6 +19,10 @@ public class CSVParserTest {
     private var jewelryListItems = ArrayList<Item>()
     private var fullItemTestList = ArrayList<Item>()
 
+    /**
+     * Test getting list of categories
+     *
+     */
     @Test
    fun testGettingListOfCategories(){
         // series of items added to the clothing item array list to populate test category list
@@ -52,7 +59,15 @@ public class CSVParserTest {
        Assert.assertTrue(compareCategoryList(testListCategory, generatedCategoriesList))
     }
 
-    // boolean method used to compare the hard coded category list and the generated category list
+    /**
+     * Compare category list
+     *
+     * @param hardCodedList
+     * @param generatedList
+     * @return
+     * boolean method used to compare the generated category list with the hard coded category list
+     */
+
     fun compareCategoryList(hardCodedList: List<Category>, generatedList: List<Category>): Boolean{
         // boolean used to return if the two list are equal or not
         var categoryListEqualStatus = false;
