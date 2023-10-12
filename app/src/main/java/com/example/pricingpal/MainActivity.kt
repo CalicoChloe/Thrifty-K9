@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,22 +15,21 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Surface
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MediumTopAppBar
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.model.CSVReader
 import com.example.pricingpal.model.CSVParser
 import com.example.pricingpal.model.Category
-import com.example.pricingpal.ui.theme.PricingpalTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,62 +37,47 @@ class MainActivity : ComponentActivity() {
         setContent {
             val csvp = CSVParser
             val categories = csvp.PopulateData(CSVReader.readFile(this, "testdata.csv"))
-            PricingpalTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    //This changes the color of the background of the tablet.
-                    color = Color(0xFFC7F9CC)
-                ) {
-                    //This is an import of the paw Image. This will sit on top of the background color.
-                    Image(
-                        //Imports image from resource folder
-                        painter = painterResource(id = R.drawable.paw_background),
-                        //description of the image for accessibility
-                        contentDescription = "Pictures of paws",
-                        //crops the image
-                        contentScale = ContentScale.Crop,
-                        // changes the opacity of the image
-                        alpha = 0.1F
-                    )
-                    CategoryList(categories)
-                }
-            }
+            CategoryScaffold(categories)
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CategoryScaffold(categories: ArrayList<Category>) {
+    Scaffold (
+        topBar = {
+            MediumTopAppBar(
+                title = {
+                    // App bar title
+                    Text(text = "Pricing Pal")
+                }
+            )
+        },
+        //padding automatically adjusts to match the app bar size
+        content = { padding ->
+            CategoryList(categories, padding)
+        },
+        //Background color for the content
+        containerColor = Color(0xFFC7F9CC)
+    )
+}
 
 @Composable
 // this function will take categories cards and put them into a scrollable list
-fun CategoryList (categories: ArrayList<Category>){
+fun CategoryList (categories: ArrayList<Category>, padding: PaddingValues){
     LazyColumn(
         //aligns the categories within the center
+        modifier = Modifier.padding(padding).fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
-        item {
-            //Imports image from resource folder
-            Image(
-                painter = painterResource(id = R.drawable.picture2),
-                //description of the image for accessibility
-                contentDescription = "pricing pal logo",
-                modifier = Modifier
-                    // adds padding at the top of the image
-                    .padding(top = 10.dp)
-                    // Changes the image size
-                    .width(600.dp)
-                    .height(150.dp),
-            )
-        }
         // takes each category card and put into a list
         for(category : Category in categories) {
            item { CategoryCard(category = category)}
         }
     }
 }
-
-
 
 @Composable
 //puts the category name into a card view
