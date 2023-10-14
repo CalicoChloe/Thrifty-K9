@@ -24,14 +24,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pricingpal.model.CSVParser
+import com.example.pricingpal.model.CSVReader
 import com.example.pricingpal.model.Category
+import com.example.pricingpal.model.CategoryImages
+import com.example.pricingpal.model.ConnectingImage
 
 @Composable
 fun Header( name: String){
@@ -89,7 +92,7 @@ fun Header( name: String){
 }
 
 @Composable
-fun CategoryList (categories: ArrayList<Category>) {
+fun CategoryList (/*categories: ArrayList<Category>,*/ list1:List<CategoryImages>) {
 
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -97,16 +100,24 @@ fun CategoryList (categories: ArrayList<Category>) {
             .padding(top = 80.dp)
         //.padding(20.dp)
     ) {
+        /*
         for (category: Category in categories) {
             item { CategoryCard(category = category) }
         }
+
+         */
+        for (n1: CategoryImages in list1){
+            item { CategoryCard( n1 = n1) }
+        }
+
     }
 }
 
 @Composable
-fun CategoryCard(category: Category) {
+fun CategoryCard(/*category: Category,*/ n1: CategoryImages) {
     Card(modifier = Modifier
         .padding(15.dp)
+        .padding(start = 30.dp, end = 30.dp)
         //.background(Color(0xFF38A3A5))
         .fillMaxWidth()
         //.background(color = colorResource(id = R.color.pale_blue))
@@ -128,23 +139,25 @@ fun CategoryCard(category: Category) {
         ) {
 
         }
-        /*
+
             Image(
-                painter = painterResource(categories.imagesID),
+                painter = painterResource(n1.imagesID),
                 //bitmap = ImageBitmap.imageResource(id = categories.imagesID),
                 contentDescription = null,
                 modifier = Modifier
-                    .width(700.dp)
+                    //.width(700.dp)
+                    .fillMaxWidth()
                     .height(200.dp),
                 //.clip(RoundedCornerShape(16.dp)),
                 contentScale = ContentScale.Crop,
                 alpha = 0.8F
             )
 
-             */
+
 
         Text(
-            text = category.category,
+            //text = category.category,
+            text = n1.category,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             // textAlign = TextAlign.Center,
@@ -156,6 +169,23 @@ fun CategoryCard(category: Category) {
                 .align(alignment = Alignment.CenterHorizontally)
             //.align(alignment = Alignment.Center),
         )
+    }
+
+}
+
+@Composable
+fun ConnectCategoryImage(categoryName: Category, imageName: CategoryImages,categories: ArrayList<Category>){
+    val image = painterResource(imageName.imagesID)
+    val image1 = image.toString()
+
+    val list = ArrayList<CategoryImages>()
+    val imageCategories = CategoryImages(imageName.imagesID,categoryName.category)
+
+    for (categoryName: Category in categories) {
+        if(image1.equals(categoryName.category, ignoreCase = true))
+            list.add(imageCategories)
+        else
+            print("Not working")
     }
 }
 
