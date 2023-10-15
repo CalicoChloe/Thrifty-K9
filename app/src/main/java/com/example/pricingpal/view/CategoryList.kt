@@ -48,6 +48,7 @@ fun CategoryList (categories: HashMap<String, Category>, navController: NavContr
 fun CategoryCard(category: Category, navController: NavController){
     Card(
         modifier = Modifier
+            //Makes the card clickable, and when clicked navigates to the ItemList passing along the category name as a String
             .clickable(onClick = {navController.navigate(Screen.ItemList.withArgs(category.category))})
 
             // padding around the card

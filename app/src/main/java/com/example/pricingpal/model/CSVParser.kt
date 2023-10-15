@@ -3,12 +3,15 @@ package com.example.pricingpal.model
 object CSVParser {
 
     /**
-     * Class: PopulateData
+     * Function to create a HashMap of Category Items from a List of Item objects
+     *
+     * This class defines the item class and its properties.
+     *
+     * @property allItems the list of Items read in by the readFile() function
+     *
+     * @return The final HashMap of Category objects, using the Category name as the key and the respective Category object as the value
+     *
      * @author Connor Murdock
-     * @version 1.1
-     * @written 2023/09/25
-     * Loops through a list of item objects read from the CSV file to create the Category objects and assign the items to their respective categories.
-     * @return the ArrayList of Category objects
      */
     fun PopulateData(allItems: List<Item>): HashMap<String, Category> {
         //ArrayList containing every category from the file, empty by default
