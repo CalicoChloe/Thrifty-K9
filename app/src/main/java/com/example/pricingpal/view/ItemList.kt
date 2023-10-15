@@ -3,7 +3,6 @@ package com.example.pricingpal.view
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,15 +24,19 @@ import androidx.compose.ui.unit.sp
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
 
+
 @Composable
 fun ItemList(
     selectedCategory: String?,
     padding: PaddingValues,
     categories: HashMap<String, Category>
 ) {
+    //When the selectedCategory is received, it needs to not be null to avoid causing problems. Same with the currentCategory.
     if (selectedCategory != null) {
         val currentCategory = categories.get(selectedCategory)
         if (currentCategory != null) {
+            //Everything above this line should not be touched! It's required to make sure the current category isn't null before attempting to use the value!
+            //Everything below these comments is temporary code to display the item list. Please replace with the final UI design:
             LazyColumn(
                 modifier = Modifier
                     .padding(padding)
@@ -44,7 +47,7 @@ fun ItemList(
                 }
                 item {
                     for (i in currentCategory.item) {
-                        itemCard(i)
+                        ItemCard(i)
                 }
                 }
             }
@@ -52,8 +55,9 @@ fun ItemList(
     }
 }
 
+//Copy and pasted from the CategoryList.kt file. Please replace with final UI design:
 @Composable
-fun itemCard(item: Item) {
+fun ItemCard(item: Item) {
     Card(
         modifier = Modifier
             // padding around the card

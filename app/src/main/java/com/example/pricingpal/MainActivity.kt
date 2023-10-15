@@ -12,8 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pricingpal.model.CSVParser
-import com.example.pricingpal.model.CSVReader
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Navigation
 import com.example.pricingpal.viewmodel.CategoryViewModel
@@ -22,6 +20,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            /* Initialize the Category ViewModel
+             * This ViewModel will keep the data loaded properly even when the app status is updated
+             * factory is required to pass arguments to the ViewModel when instantiated (needs MainActivity context)
+             */
             val viewModel = viewModel<CategoryViewModel>(
                 factory = object : ViewModelProvider.Factory {
                     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -29,15 +31,18 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             )
+            //Create the scaffold passing in the HashMap of categories to be used for display
             CategoryScaffold(categories = viewModel.categories)
         }
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryScaffold(categories: HashMap<String, Category>) {
     Scaffold (
+        //Create an app bar of medium size at the top of the scaffold
         topBar = {
             MediumTopAppBar(
                 title = {
