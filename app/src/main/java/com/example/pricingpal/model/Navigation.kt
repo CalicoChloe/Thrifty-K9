@@ -12,7 +12,7 @@ import com.example.pricingpal.view.ItemList
 import com.example.pricingpal.view.Screen
 
 @Composable
-fun Navigation(categories: ArrayList<Category>, padding: PaddingValues) {
+fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.CategoryList.route) {
         composable(route = Screen.CategoryList.route) {
@@ -25,7 +25,7 @@ fun Navigation(categories: ArrayList<Category>, padding: PaddingValues) {
                 }
             )
         ) {entry ->
-            ItemList(selectedCategory = entry.arguments?.getString("categoryName"), padding = padding)
+            ItemList(selectedCategory = entry.arguments?.getString("categoryName"), padding = padding, categories)
         }
     }
 }

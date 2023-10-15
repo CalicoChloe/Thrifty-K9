@@ -10,9 +10,9 @@ object CSVParser {
      * Loops through a list of item objects read from the CSV file to create the Category objects and assign the items to their respective categories.
      * @return the ArrayList of Category objects
      */
-    fun PopulateData(allItems: List<Item>): ArrayList<Category> {
+    fun PopulateData(allItems: List<Item>): HashMap<String, Category> {
         //ArrayList containing every category from the file, empty by default
-        val categories = ArrayList<Category>()
+        val categories = HashMap<String, Category>()
 
         //Keep running until all items have been added
         for(nextItem in allItems) {
@@ -23,13 +23,13 @@ object CSVParser {
             if (categories.isEmpty()) {
                 val newCategory = Category(i.category, ArrayList())
                 newCategory.item.add(i)
-                categories.add(newCategory)
+                categories.put(newCategory.category, newCategory)
             } else {
                 var categoryExists = false
                 for (c in categories) {
                     //If the category already exists, add that item to the category's arraylist
-                    if (c.category == i.category) {
-                        c.item.add(i)
+                    if (c.key == i.category) {
+                        c.value.item.add(i)
                         categoryExists = true
                     }
                 }
@@ -38,7 +38,7 @@ object CSVParser {
                 if (!categoryExists) {
                     val newCategory = Category(i.category, ArrayList())
                     newCategory.item.add(i)
-                    categories.add(newCategory)
+                    categories.put(newCategory.category, newCategory)
                 }
 
             }
