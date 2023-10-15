@@ -12,6 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pricingpal.model.CSVParser
+import com.example.pricingpal.model.CSVReader
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Navigation
 import com.example.pricingpal.viewmodel.CategoryViewModel
@@ -34,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoryScaffold(categories: ArrayList<Category>) {
+fun CategoryScaffold(categories: HashMap<String, Category>) {
     Scaffold (
         topBar = {
             MediumTopAppBar(

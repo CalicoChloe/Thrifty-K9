@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import com.example.pricingpal.model.Category
 
 @Composable
-fun CategoryList (categories: ArrayList<Category>, navController: NavController, padding: PaddingValues){
+fun CategoryList (categories: HashMap<String, Category>, navController: NavController, padding: PaddingValues){
     LazyColumn(
         //aligns the categories within the center
         modifier = Modifier
@@ -36,7 +36,7 @@ fun CategoryList (categories: ArrayList<Category>, navController: NavController,
 
     ) {
         // takes each category card and put into a list
-        for(category : Category in categories) {
+        for(category : Category in categories.values) {
             item { CategoryCard(category = category, navController)}
         }
 
