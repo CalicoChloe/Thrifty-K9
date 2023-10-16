@@ -1,6 +1,7 @@
 package com.example.pricingpal.ui.theme
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,31 +16,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.pricingpal.CategoryCard
 import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
@@ -48,7 +38,6 @@ import com.example.pricingpal.model.Item
 fun ListHeader( name: String){
     Column() {
         Row(
-
             modifier = Modifier
                 // wraps completely around the text
                 .wrapContentSize(Alignment.TopCenter, false)
@@ -59,7 +48,7 @@ fun ListHeader( name: String){
         ) {
 
             Image(
-                painter = painterResource(id = R.drawable.picture2),
+                painter = painterResource(id = R.drawable.logo),
                 contentDescription = null,
                 modifier = Modifier
                     .padding(top = 10.dp, start = 15.dp)
@@ -107,31 +96,37 @@ fun ListHeader( name: String){
 }
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemList (itemList: List<Item>,categoryList: ArrayList<Category>) {
     Column(modifier = Modifier
         .padding(top = 80.dp)
     ) {
-        for (category: Category in categoryList) {
-            CategoryCard(categoryName = category)
-        }
-
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 //.padding(top = 175.dp)
             //.padding(20.dp)
         ) {
-            for (item: Item in itemList) {
-                item { ItemCard(itemView = item) }
-            }
+            /** This is the other code just encase the one below doesn't work. **/
             /*
-        items(itemList) {itemView ->
-            ItemCard(itemView = itemView)
-            //Divider()
-        }
+            for (category: Category in categoryList) {
+                CategoryCard(categoryName = category)
+            }
+            for (item: Item in itemList) {
+                    item { ItemCard(itemView = item) }
+                }
 
-         */
+             */
+
+            for (category: Category in categoryList) {
+                stickyHeader { CategoryCard(categoryName = category)}
+                for (item: Item in itemList) {
+                    if(item.category.contains(category.category, ignoreCase = true)) {
+                        item { ItemCard(itemView = item) }
+                    }
+                }
+            }
         }
     }
 
@@ -141,7 +136,6 @@ fun ItemList (itemList: List<Item>,categoryList: ArrayList<Category>) {
 fun CategoryCard(categoryName: Category) {
     Card(modifier = Modifier
         .padding(15.dp)
-        //.background(Color(0xFF38A3A5))
         .fillMaxWidth()
         .height(80.dp)
         .border(
@@ -161,20 +155,16 @@ fun CategoryCard(categoryName: Category) {
                 .background(color = Color(0xFF758BFD), shape = RectangleShape)
                 .fillMaxWidth()
                 .height(80.dp)
-            //.fillMaxHeight()
         )
         {
 
             Text(
                 text = categoryName.category,
-                //textAlign = TextAlign.Start,
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
                 modifier = Modifier
-                    // .padding(top = 8.dp, start = 5.dp)
                     .align(alignment = Alignment.CenterVertically)
-                //.background(Color(0xFF3ddc84))
             )
         }
     }
@@ -185,18 +175,13 @@ fun ItemCard(itemView: Item) {
     Card(
         modifier = Modifier
             .padding(15.dp)
-            //.background(Color(0xFF38A3A5))
-
             .border(
                 // puts a border around the card
                 border = BorderStroke(3.dp, Color(0xFF27187E)),
                 // shapes the card
                 shape = RectangleShape
             ),
-
-
         elevation = CardDefaults.cardElevation(8.dp),
-        // shape = RoundedCornerShape(16.dp)
     ) {
 
         Row(
@@ -206,31 +191,26 @@ fun ItemCard(itemView: Item) {
                 .background(color = Color(0xFFAEB8FE), shape = RectangleShape)
                 .fillMaxWidth()
                 .height(80.dp)
-            //.fillMaxHeight()
         )
         {
             Text(
                 text = itemView.name,
-                //textAlign = TextAlign.Center,
                 fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier
                     .padding(start = 20.dp)
                     .align(alignment = Alignment.CenterVertically)
-
-                //.background(Color(0xFF3ddc84))
             )
 
             Text(
                 text = itemView.price.toString(),
-                //textAlign = TextAlign.End,
                 fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier
                     .padding(end = 20.dp)
                     .align(alignment = Alignment.CenterVertically)
-                //.background(Color(0xFF3ddc84))
             )
+
         }
     }
 }

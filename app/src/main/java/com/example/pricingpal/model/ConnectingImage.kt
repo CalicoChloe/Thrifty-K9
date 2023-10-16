@@ -1,110 +1,96 @@
 package com.example.pricingpal.model
 
-import android.content.Context
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
 import com.example.pricingpal.R
-import java.io.InputStream
 
 class ConnectingImage() {
-
-    fun loadImages(categories: ArrayList<Category>): List<CategoryImages> {
-        val list = ArrayList<CategoryImages>()
+    val list = ArrayList<CategoryImages>()
+    val listTemp = ArrayList<CategoryImages>()
+    private fun temp(categories: ArrayList<Category>): List<CategoryImages>{
+        //val list = ArrayList<CategoryImages>()
         /*
-        for(load in im) {
-            for (category: Category in categories) {
-                //CategoryImages(load, category.category)
-                list.add(CategoryImages(im.size, category.category))
+        for (category: Category in categories) {
+            list.add(CategoryImages(images.size, category.category))
+        }
+
+         */
+
+        /*
+        val temp = "Temp string"
+        for(load in images) {
+            list.add(CategoryImages(load, "Temp"))
+        }
+
+         */
+
+
+            outer_loop@  for (category: Category in categories) {
+                for(load in images) {
+                    list.add(CategoryImages(load, category.category))
+                   // categories.clear()
+                }
+            if(list.size == 7){
+                break@outer_loop
             }
         }
 
-         */
 
-        for (category: Category in categories) {
-            //CategoryImages(load, category.category)
-            list.add(CategoryImages(im.size, category.category))
-        }
         /*
-        return listOf<CategoryImages>(
-            CategoryImages(R.drawable.clothing, category.),
-            CategoryImages(R.drawable.jewelry, category.category),
-            CategoryImages(R.drawable.appliances, category.category),
-            CategoryImages(R.drawable.furniture, category.category),
-            CategoryImages(R.drawable.electronics, category.category),
-            CategoryImages(R.drawable.toys_and_games, category.category),
-            CategoryImages(R.drawable.accessories, category.category),
-        )
-
-         */
-        return list
-    }
-
-    val im = arrayOf(
-        R.drawable.clothing,
-        R.drawable.jewelry,
-        R.drawable.appliances,
-        R.drawable.furniture,
-        R.drawable.electronics,
-        R.drawable.accessories,
-        R.drawable.toys_and_games
-    )
-    /*
-    val im = arrayOf(
-        R.drawable.clothing,
-        R.drawable.jewelry,
-        R.drawable.appliances,
-        R.drawable.furniture,
-        R.drawable.electronics,
-        R.drawable.accessories,
-        R.drawable.toys_and_games
-    )
-
-    val list = ArrayList<CategoryImages>()
-
-
-    @Composable
-    fun ConnectImages(categories1: List<Category>) {
-        //val list = ArrayList<CategoryImages>()
-        for (load in im) {
-            val new = load.toString()
-            for (cm in categories1) {
-                if (new.equals(cm.category, ignoreCase = true)) {
-                    val ic = CategoryImages(load, cm.category)
-                    list.add(ic)
-                } else {
-                    print("Not working")
+        for(l in images){
+            for(o in images) {
+                val oe = o
+                for (category: Category in categories) {
+                    if (images[0] != images[1]) {
+                        list.add(CategoryImages(l, "Temp"))
+                    }
+                    else {
+                        list.add(CategoryImages(l, category.category))
+                    }
                 }
             }
         }
-    }
 
-    fun loadList(): ArrayList<CategoryImages> {
-        return arrayListOf()
-    }
-
-     */
-
-}
-/*
-    @Composable
-    fun ConnectCategoryImage(categories1: List<Category>, im1: CategoryImages ) {
-        val list = ArrayList<CategoryImages>()
-        // val imageCategories = CategoryImages(imageName.imagesID,categoryName.category)
-
-        val image = painterResource( im.size /*im1.imagesID*/)
-        val image1 = image.toString()
-
-        for (categoryName in categories1) {
-            if(image1.equals(categoryName.category, ignoreCase = true)) {
-                val imageCategories = CategoryImages(im1.imagesID,categoryName.category)
-                list.add(imageCategories)
-            }
-            else
-                print("Not working")
-        }
+         */
         return list
+
     }
 
-}
+    fun loadImages(categories: ArrayList<Category>): List<CategoryImages> {
+        temp(categories)
+        val life = ArrayList<CategoryImages>()
+        life.add(CategoryImages(R.drawable.clothing, "Clothing"))
+        life.add(CategoryImages(R.drawable.jewelry, "Jewelry"))
+        life.add(CategoryImages(R.drawable.appliances, "Appliances"))
+        life.add(CategoryImages(R.drawable.furniture, "Furniture"))
+        life.add(CategoryImages(R.drawable.electronics, "electronics"))
+        life.add(CategoryImages(R.drawable.toys_and_games, "Toys & Games"))
+        life.add(CategoryImages(R.drawable.accessories, "Accessories"))
 
- */
+
+        /*
+        outer_loop@ for(ca: CategoryImages in list){
+            for(c: Category in categories){
+                if(ca.category != c.category){
+                    listTemp.add(CategoryImages(ca.imagesID, c.category))
+                }
+            }
+            if(list.size == 8){
+                break@outer_loop
+            }
+        }
+        return listTemp
+
+         */
+        return life
+    }
+
+
+     val images = arrayOf(
+        R.drawable.clothing,
+        R.drawable.jewelry,
+        R.drawable.appliances,
+        R.drawable.furniture,
+        R.drawable.electronics,
+        R.drawable.accessories,
+        R.drawable.toys_and_games
+    )
+}

@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,15 +15,25 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -30,11 +41,59 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.pricingpal.model.CSVParser
-import com.example.pricingpal.model.CSVReader
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.CategoryImages
 import com.example.pricingpal.model.ConnectingImage
+/** Connor this is my scaffold. It is not working some reason.
+ * When you modify the scaffold, can you keep it as the center app bar. I think it looks nicer for our project. **/
+/*
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CenterAlignedTopAppBarExample(categories: ArrayList<Category>) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+
+        topBar = {
+            CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = colorResource(id = R.color.pale_blue),
+                    titleContentColor = colorResource(id = R.color.sky_blue),
+                ),
+                title = {
+                    Text(
+                        "Centered Top App Bar",
+                        maxLines = 1,
+
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { /* do something */ }) {
+                        Icon(
+                            imageVector = Icons.Filled.Search, /*ImageVector.vectorResource(id = R.drawable.picture2),*/
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /* do something */ }) {
+                        Icon(
+                            imageVector = Icons.Filled.Search,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+            )
+        },
+    )
+    { innerPadding ->
+        CategoryList(list1 = ConnectingImage().loadImages(categories), innerPaddingValues = innerPadding)
+
+    }
+}
+
+ */
 
 @Composable
 fun Header( name: String){
@@ -48,7 +107,7 @@ fun Header( name: String){
             .background(color = colorResource(id = R.color.sky_blue), shape = RectangleShape)) {
 
         Image(
-            painter = painterResource(id = R.drawable.picture2),
+            painter = painterResource(id = R.drawable.logo),
             contentDescription = null,
             modifier = Modifier
                 .padding(top = 10.dp, start = 15.dp)
@@ -61,14 +120,12 @@ fun Header( name: String){
         Surface(
             shape = RectangleShape,
             color = colorResource(id = R.color.pale_blue),
-            //shadowElevation = 12.dp,
             modifier = Modifier
                 // wraps completely around the text
                 .wrapContentSize(Alignment.TopCenter, false)
                 //fills it to hit the edge of the device
                 .size(width = 490.dp, height = 70.dp)
                 .padding(top = 20.dp, bottom = 10.dp, start = 15.dp, end = 10.dp)
-            // .fillMaxWidth()
         ){
             Text(
                 text = name,
@@ -76,7 +133,6 @@ fun Header( name: String){
                 fontSize = 20.sp,
                 modifier = Modifier
                     .padding(top = 8.dp, start = 5.dp)
-                //.background(Color(0xFF3ddc84))
             )
         }
 
@@ -91,34 +147,28 @@ fun Header( name: String){
 
 }
 
+/** Until you can get the scaffold to work Connor, you can plug this in to see the UI design.
+ * Just remove the inner paddings, and uncomment the category arraylist. **/
 @Composable
-fun CategoryList (/*categories: ArrayList<Category>,*/ list1:List<CategoryImages>) {
+fun CategoryList (/*categories: ArrayList<Category>,*/ list1:List<CategoryImages> /*, innerPaddingValues: PaddingValues*/) {
 
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(top = 80.dp)
-        //.padding(20.dp)
+            //.padding(innerPaddingValues)
     ) {
-        /*
-        for (category: Category in categories) {
-            item { CategoryCard(category = category) }
-        }
-
-         */
-        for (n1: CategoryImages in list1){
-            item { CategoryCard( n1 = n1) }
+        for (categoryImages: CategoryImages in list1){
+            item { CategoryCard( categoryImages = categoryImages) }
         }
 
     }
 }
 
 @Composable
-fun CategoryCard(/*category: Category,*/ n1: CategoryImages) {
+fun CategoryCard( categoryImages: CategoryImages) {
     Card(modifier = Modifier
         .padding(15.dp)
-        .padding(start = 30.dp, end = 30.dp)
-        //.background(Color(0xFF38A3A5))
         .fillMaxWidth()
         //.background(color = colorResource(id = R.color.pale_blue))
         .border(
@@ -131,61 +181,32 @@ fun CategoryCard(/*category: Category,*/ n1: CategoryImages) {
         colors = CardDefaults.cardColors(
             containerColor = colorResource(id = R.color.pale_blue)
         )
-        // shape = RoundedCornerShape(16.dp)
-    ) {
-
+    )
+    {
         Column(modifier = Modifier
             .background(color = colorResource(id = R.color.pale_blue))
-        ) {
-
-        }
-
+        )
+        {
             Image(
-                painter = painterResource(n1.imagesID),
-                //bitmap = ImageBitmap.imageResource(id = categories.imagesID),
+                painter = painterResource(categoryImages.imagesID),
                 contentDescription = null,
                 modifier = Modifier
-                    //.width(700.dp)
                     .fillMaxWidth()
                     .height(200.dp),
-                //.clip(RoundedCornerShape(16.dp)),
                 contentScale = ContentScale.Crop,
                 alpha = 0.8F
             )
 
-
-
-        Text(
-            //text = category.category,
-            text = n1.category,
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            // textAlign = TextAlign.Center,
-            //lineHeight = 116.sp,
-            // color is in hex decimal = 3ddc84
-            color = Color.Black,
-            modifier = Modifier
-                .padding(10.dp)
-                .align(alignment = Alignment.CenterHorizontally)
-            //.align(alignment = Alignment.Center),
-        )
-    }
-
-}
-
-@Composable
-fun ConnectCategoryImage(categoryName: Category, imageName: CategoryImages,categories: ArrayList<Category>){
-    val image = painterResource(imageName.imagesID)
-    val image1 = image.toString()
-
-    val list = ArrayList<CategoryImages>()
-    val imageCategories = CategoryImages(imageName.imagesID,categoryName.category)
-
-    for (categoryName: Category in categories) {
-        if(image1.equals(categoryName.category, ignoreCase = true))
-            list.add(imageCategories)
-        else
-            print("Not working")
+            Text(
+                text = categoryImages.category,
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .align(alignment = Alignment.CenterHorizontally)
+            )
+        }
     }
 }
 

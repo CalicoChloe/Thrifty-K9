@@ -5,14 +5,30 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import com.example.pricingpal.model.CSVReader
 import com.example.pricingpal.model.CSVParser
 import com.example.pricingpal.model.ConnectingImage
+import com.example.pricingpal.ui.theme.ItemList
+import com.example.pricingpal.ui.theme.ListHeader
 import com.example.pricingpal.ui.theme.PricingpalTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,6 +38,8 @@ class MainActivity : ComponentActivity() {
             val csvp = CSVParser
             val categories = csvp.PopulateData(CSVReader.readFile(this, "testdata.csv"))
             val csvr = CSVReader
+
+            // This is to show the list of items for the list view page
             val items = csvr.readFile(this, "testdata.csv")
             PricingpalTheme {
                 // A surface container using the 'background' color from the theme
@@ -42,11 +60,13 @@ class MainActivity : ComponentActivity() {
                         // changes the opacity of the image
                         alpha = 0.1F
                     )
-                    //ConnectingImage().ConnectImages(categories1 = categories)
-                    Header(name = "search")
-                    //ConnectingImage().ConnectImages(categories1 = categories)
-                    CategoryList(list1 = ConnectingImage().loadImages(categories))
 
+                    Header(name = "search")
+                    CategoryList(list1 = ConnectingImage().loadImages(categories))
+                    /** This is the experimental scaffold that is suppose to fix the header, but it not working. Connor you might want to look at this. **/
+                    //CenterAlignedTopAppBarExample(categories = categories)
+
+                    /** This here is to display the list of categories for the list view page **/
                     //ListHeader(name = "search")
                     //ItemList(itemList = items, categories)
                 }
