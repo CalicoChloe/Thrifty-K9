@@ -1,5 +1,6 @@
 package com.example.pricingpal
 
+/** Some of the imports I didn't take out because they are connected to the functions below, they are just on pause**/
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -31,6 +32,8 @@ import com.example.pricingpal.ui.theme.ItemList
 import com.example.pricingpal.ui.theme.ListHeader
 import com.example.pricingpal.ui.theme.PricingpalTheme
 
+/** I took the UI out of the main page because I wanted to look similar to the set up for the navigation in the cupcake lab.
+ * Plus I didn't want too much to be crowding the main. **/
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,12 +64,15 @@ class MainActivity : ComponentActivity() {
                         alpha = 0.1F
                     )
 
+                    /** This is here to display the list of categories on the home page**/
                     Header(name = "search")
-                    CategoryList(list1 = ConnectingImage().loadImages(categories))
+                    HomePageApp()
+                    /** This is here if you can get the other function to work in connectingImages class **/
+                    //CategoryList(list1 = ConnectingImage().loadImagesTemp(categories))
                     /** This is the experimental scaffold that is suppose to fix the header, but it not working. Connor you might want to look at this. **/
                     //CenterAlignedTopAppBarExample(categories = categories)
 
-                    /** This here is to display the list of categories for the list view page **/
+                    /** This here is to display the list of items on the list view page **/
                     //ListHeader(name = "search")
                     //ItemList(itemList = items, categories)
                 }

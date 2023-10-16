@@ -1,5 +1,6 @@
 package com.example.pricingpal.ui.theme
 
+/** Some of the imports I didn't take out because they are connected to the functions below, they are just on pause**/
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -34,6 +35,7 @@ import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
 
+/** This is the header that holds the search bar. This will be change for the scaffold that Connor made**/
 @Composable
 fun ListHeader( name: String){
     Column() {
@@ -96,7 +98,7 @@ fun ListHeader( name: String){
 }
 
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class) // this is here because it is needed for the sticky header
 @Composable
 fun ItemList (itemList: List<Item>,categoryList: ArrayList<Category>) {
     Column(modifier = Modifier
@@ -119,9 +121,13 @@ fun ItemList (itemList: List<Item>,categoryList: ArrayList<Category>) {
 
              */
 
+            /** This allowed me to show visually the items with the correct category**/
             for (category: Category in categoryList) {
+                // allows for the header to show with the items , the header before gets replace when the next category shows up
+
                 stickyHeader { CategoryCard(categoryName = category)}
                 for (item: Item in itemList) {
+                    // if the name of the category is the same as the one from the category arraylist, show the item under that category
                     if(item.category.contains(category.category, ignoreCase = true)) {
                         item { ItemCard(itemView = item) }
                     }
@@ -132,6 +138,7 @@ fun ItemList (itemList: List<Item>,categoryList: ArrayList<Category>) {
 
 }
 
+/** This holds the title of the category name that is shown at the top**/
 @Composable
 fun CategoryCard(categoryName: Category) {
     Card(modifier = Modifier
@@ -159,8 +166,10 @@ fun CategoryCard(categoryName: Category) {
         {
 
             Text(
+                //shows the name of the category
                 text = categoryName.category,
                 fontSize = 40.sp,
+                // have it in bold to make it stand out
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
                 modifier = Modifier
@@ -170,6 +179,7 @@ fun CategoryCard(categoryName: Category) {
     }
 }
 
+/** This holds the name of the item and its price that is shown under the appropriated category**/
 @Composable
 fun ItemCard(itemView: Item) {
     Card(
@@ -189,11 +199,13 @@ fun ItemCard(itemView: Item) {
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .background(color = Color(0xFFAEB8FE), shape = RectangleShape)
+                // change to fill the screen because it looks nicer
                 .fillMaxWidth()
                 .height(80.dp)
         )
         {
             Text(
+                // shows name of item
                 text = itemView.name,
                 fontSize = 30.sp,
                 color = Color.Black,
@@ -203,6 +215,7 @@ fun ItemCard(itemView: Item) {
             )
 
             Text(
+                // shows price of item, had to convert it to a string for it to show
                 text = itemView.price.toString(),
                 fontSize = 30.sp,
                 color = Color.Black,

@@ -1,5 +1,6 @@
 package com.example.pricingpal
 
+/** Some of the imports I didn't take out because they are connected to the functions below, they are just on pause**/
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -147,6 +148,12 @@ fun Header( name: String){
 
 }
 
+/** Brings the data in for the Category Image s arraylist**/
+@Composable
+fun HomePageApp() {
+    CategoryList(list1 = ConnectingImage().loadImages())
+}
+
 /** Until you can get the scaffold to work Connor, you can plug this in to see the UI design.
  * Just remove the inner paddings, and uncomment the category arraylist. **/
 @Composable
@@ -156,6 +163,7 @@ fun CategoryList (/*categories: ArrayList<Category>,*/ list1:List<CategoryImages
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(top = 80.dp)
+        /** This is connected to the scaffold, that is why I didn't take it out**/
             //.padding(innerPaddingValues)
     ) {
         for (categoryImages: CategoryImages in list1){
@@ -165,6 +173,9 @@ fun CategoryList (/*categories: ArrayList<Category>,*/ list1:List<CategoryImages
     }
 }
 
+
+/** This holds the image and name of the category.
+ * I went with a different the class CategoryImages because it hold the arraylist for the images and categories**/
 @Composable
 fun CategoryCard( categoryImages: CategoryImages) {
     Card(modifier = Modifier
@@ -179,15 +190,18 @@ fun CategoryCard( categoryImages: CategoryImages) {
         ),
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(
+            // change the name for the colors. They are stored in the colors.xml under resource value
             containerColor = colorResource(id = R.color.pale_blue)
         )
     )
     {
         Column(modifier = Modifier
+            // change the name for the colors. They are stored in the colors.xml under resource value
             .background(color = colorResource(id = R.color.pale_blue))
         )
         {
             Image(
+                // shows the picture associated with the category
                 painter = painterResource(categoryImages.imagesID),
                 contentDescription = null,
                 modifier = Modifier
@@ -198,6 +212,7 @@ fun CategoryCard( categoryImages: CategoryImages) {
             )
 
             Text(
+                // shows the name of the category
                 text = categoryImages.category,
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
