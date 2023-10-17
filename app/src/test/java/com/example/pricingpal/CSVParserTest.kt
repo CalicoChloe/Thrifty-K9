@@ -11,6 +11,7 @@ import org.junit.Test
  * @constructor Create empty Csv parser test
  * This test will compare a list of known with a list of categories read
  * in and populated by the CSVParser's function PopulateData
+ * @author Abdoulie NJie
  */
 public class CSVParserTest {
     // private variables needed to conduct unit test
