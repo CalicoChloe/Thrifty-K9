@@ -45,6 +45,7 @@ fun PricingPalAppBar(
         title = {
             if (!canNavigateBack) {
                 TextButton(onClick = { navController.navigate(Screen.CategoryList.route) }) {
+                    // this is where the resource needed to change the image for the app bar
                     Image(
                         painter = painterResource(id = R.drawable.picture2),
                         contentDescription = null,
