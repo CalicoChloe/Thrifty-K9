@@ -1,12 +1,13 @@
 package com.example.pricingpal
 
+//import com.example.pricingpal.view.PricingPalScaffold
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pricingpal.model.PricingPalApp
+import com.example.pricingpal.view.PricingPalScaffo
 import com.example.pricingpal.viewmodel.CategoryViewModel
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +26,8 @@ class MainActivity : ComponentActivity() {
                 }
             )
             //Create the pricing pal app passing in the HashMap of categories to be used for display
-            PricingPalApp(categories = viewModel.categories)
+            PricingPalScaffo(categories = viewModel.categories)
+
         }
     }
 }

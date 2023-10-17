@@ -1,6 +1,7 @@
 package com.example.pricingpal.model
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -37,7 +38,6 @@ import com.example.pricingpal.view.Screen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PricingPalAppBar(
-    currentScreen: Screen.CategoryList,
     canNavigateBack: Boolean,
     navController: NavController,
 ) {
@@ -65,16 +65,47 @@ fun PricingPalAppBar(
  * Composable function to set up the Navigation between screens.
  *
  * This function creates the NavHost and NavController, and handles what should happen when the navigate function is called.
- * This function also creates a scaffold that calls the PricingPalAppBar to creates an app bar at the top of the application's screen.
+ *
  *
  * @property categories the HashMap of category objects, with category name as the key and the respective category object as the value.
  *
  * @author Connor Murdock
  */
+@Composable
+fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues){
+    //Initialize navController
+    val navController = rememberNavController()
 
+
+    //Setup the NavHost
+    NavHost(navController = navController, startDestination = Screen.CategoryList.route) {
+        //The route to the CategoryList. This is the start destination
+        composable(route = Screen.CategoryList.route) {
+            CategoryList(
+                categories = categories,
+                navController = navController,
+                padding = padding
+            )
+        }
+        //The route to the ItemList. This route requires a categoryName String to be passed in to get the list of items down the line
+        composable(route = Screen.ItemList.route + "/{categoryName}",
+            arguments = listOf(
+                navArgument("categoryName") {
+                    type = NavType.StringType
+                }
+            )
+        ) { entry ->
+            ItemList(
+                selectedCategory = entry.arguments?.getString("categoryName"),
+                padding = padding,
+                categories
+            )
+        }
+    }
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PricingPalApp(categories: HashMap<String, Category>) {
+fun PricingPalScaffold(categories: HashMap<String, Category>) {
     //Initialize navController
     val navController = rememberNavController()
 
@@ -84,13 +115,14 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
             // Get the name of the current screen
             val currentScreen = Screen.CategoryList
             PricingPalAppBar(
-                currentScreen = currentScreen,
                 canNavigateBack = currentScreen != Screen.CategoryList,
                 navController = navController
             )
         },
         //padding automatically adjusts to match the app bar size
         content = { padding ->
+//            //Initialize navController
+//            val navController = rememberNavController()
 
             //Setup the NavHost
             NavHost(navController = navController, startDestination = Screen.CategoryList.route) {
