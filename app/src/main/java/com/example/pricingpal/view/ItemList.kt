@@ -59,66 +59,7 @@ fun ItemList(
     }
 }
 
-/*@Composable
-fun ListHeader( name: String){
-    Column() {
-        Row(
-            modifier = Modifier
-                // wraps completely around the text
-                .wrapContentSize(Alignment.TopCenter, false)
-                //fills it to hit the edge of the device
-                .fillMaxWidth()
-                .height(80.dp)
-                .background(color = Color(0xFF758BFD), shape = RectangleShape)
-        ) {
 
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(top = 10.dp, start = 15.dp)
-                    .width(200.dp)
-                    .height(60.dp)
-                //.requiredSize(60.dp),
-
-            )
-
-            Surface(
-                shape = RectangleShape,
-                color = Color(0xFFAEB8FE),
-                //shadowElevation = 12.dp,
-                modifier = Modifier
-                    // wraps completely around the text
-                    .wrapContentSize(Alignment.TopCenter, false)
-                    //fills it to hit the edge of the device
-                    .size(width = 490.dp, height = 70.dp)
-                    .padding(top = 20.dp, bottom = 10.dp, start = 15.dp, end = 10.dp)
-                // .fillMaxWidth()
-            ) {
-                Text(
-                    text = name,
-                    textAlign = TextAlign.Start,
-                    fontSize = 20.sp,
-                    modifier = Modifier
-                        .padding(top = 8.dp, start = 5.dp)
-                    //.background(Color(0xFF3ddc84))
-                )
-            }
-
-            Image(
-                painter = painterResource(id = R.drawable.icons8_search_128),
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(top = 17.dp)
-                    .requiredSize(50.dp),
-            )
-        }
-
-
-    }
-
-
-}*/
 
 @Composable
 fun CategoryCard(categoryName: Category) {
