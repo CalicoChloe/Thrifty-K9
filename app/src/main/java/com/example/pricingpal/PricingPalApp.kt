@@ -29,9 +29,8 @@ import com.example.pricingpal.view.Screen
 /**
  * Composable that displays the topBar that contains the app's logo that can navigate back to
  * the landing page.
- * @param currentScreen value used to keep reference to current screen the app is on
- * @param canNavigateBack boolean used to check if the current page is the landing page or not
- * @param navController Navigation controller used to navigate back to the landing page
+ * @param returnToCategoryPage boolean used to check if the current page is the category list page or not
+ * @param navController Navigation controller used to navigate through the app
  *
  * @author Abdoulie NJie
  */
@@ -43,9 +42,11 @@ fun PricingPalAppBar(
 ) {
     TopAppBar(
         title = {
-            // if statement that checks if returnToCategoryPage is true or false
-            // if it is false, the user may click the logo and return to the category page
-            // if it is true, the user may click the logo to refresh the category page
+            /**
+             * If statement that checks if returnToCategoryPage is true or false
+             * The statement is set up to be false, since it is not
+             * compared to anything that could change it to ture
+            */
             if (!returnToCategoryPage) {
                 TextButton(onClick = { navController.navigate(Screen.CategoryList.route) }) {
                     // this is where the resource needed to change the image for the app bar
@@ -76,14 +77,13 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
             // Get the name of the current screen
             val currentScreen = Screen.CategoryList
             PricingPalAppBar(
-                returnToCategoryPage = currentScreen != Screen.CategoryList, // boolean is set to true
+                // bool used to indicate if the current screen is the category list screen or not
+                returnToCategoryPage = currentScreen != Screen.CategoryList,
                 navController = navController
             )
         },
         //padding automatically adjusts to match the app bar size
         content = { padding ->
-//            //Initialize navController
-//            val navController = rememberNavController()
 
             //Setup the NavHost
             NavHost(navController = navController, startDestination = Screen.CategoryList.route) {
