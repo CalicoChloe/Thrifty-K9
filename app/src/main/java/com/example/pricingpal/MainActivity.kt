@@ -29,41 +29,6 @@ class MainActivity : ComponentActivity() {
             PricingpalTheme {
                 PricingPalApp(categories = viewModel.categories)
             }
-            //Create the scaffold passing in the HashMap of categories to be used for display
-            //CategoryScaffold(categories = viewModel.categories)
         }
     }
 }
-//
-//
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Composable
-//fun CategoryScaffold(categories: HashMap<String, Category>) {
-//    Scaffold (
-//        //Create an app bar of medium size at the top of the scaffold
-//        topBar = {
-//            LargeTopAppBar(
-//                title = { Image(
-//                    painter = painterResource(id = R.drawable.picture2),
-//                    contentDescription = null,
-//                    modifier = Modifier
-//                        .height(90.dp)
-//                        .background(color = colorResource(id = R.color.pale_blue))
-//                        .padding(start = 100.dp)
-//                        .padding(end = 180.dp)
-//                )
-//                },
-//                //color = Color.DarkGray,
-//
-//            )
-//        },
-//
-//        //padding automatically adjusts to match the app bar size
-//        content = { padding ->
-//           Navigation(categories = categories, padding = padding)
-//        },
-//        //Background color for the content
-//        containerColor = colorResource(id = R.color.grey_blue)
-//
-//    )
-//}

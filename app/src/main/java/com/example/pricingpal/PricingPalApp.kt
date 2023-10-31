@@ -65,6 +65,21 @@ fun PricingPalAppBar(
         }
     )
 }
+
+
+/**
+ *
+ * Composable function to set up the app's top app bar, and navigation between screens.
+ *
+ * This function creates the Scaffold, NavHost and NavController,
+ * and handles what should happen when the PricingPalApp function is called.
+ *
+ * @property categories the HashMap of category objects,
+ * with category name as the key and the respective category object as the value.
+ *
+ * @author Connor Murdock
+ * @author Abdoulie NJie
+ **/
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PricingPalApp(categories: HashMap<String, Category>) {
@@ -84,7 +99,6 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
         },
         //padding automatically adjusts to match the app bar size
         content = { padding ->
-
             //Setup the NavHost
             NavHost(navController = navController, startDestination = Screen.CategoryList.route) {
                 //The route to the CategoryList. This is the start destination
