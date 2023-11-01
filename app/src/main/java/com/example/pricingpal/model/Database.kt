@@ -4,7 +4,19 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 
+/**
+ * Class: Database
+ * @author Chloe Jackson
+ * @version 1
+ * @written 11/01/2023
+ * This object class holds functions to handle database connections.
+ */
 object Database {
+    /**
+     * getClient
+     * This function creates a SupabaseClient object to be used for database connections.
+     * @return SupabaseClient The SupabaseClient object created by the function
+     */
     fun getClient(): SupabaseClient {
         return createSupabaseClient(
             supabaseUrl = "https://vpyawdponrgobslbwabo.supabase.co",
