@@ -15,3 +15,12 @@ val Persian_indigo = Color(0xFF27187E)
 val Cornflower_blue = Color(0xFF758BFD)
 val Periwinkle = Color(0xFFAEB8FE)
 val Anti_flash_white = Color(0xFFF1F2F6)
+val Uranian_Blue = Color(0xFFBDE0FE)
+
+
+//Pricing pals dark color palette
+val Dark_Mode_Background = Color(0xFF)
+val Dark_Mode_Middle_Ground = Color(0xFF)
+// Periwinkle
+// Anti_flash_white
+// Uranian_Blue
