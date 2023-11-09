@@ -53,7 +53,7 @@ fun startScreen(){
         ) {
             Image(
                 //Imports image from resource folder
-                painter = painterResource(id = R.drawable.picture2),
+                painter = painterResource(id = R.drawable.logo),
                 //description of the image for accessibility
                 contentDescription = "Pictures of paws",
                 modifier = Modifier
@@ -86,7 +86,7 @@ fun startScreen(){
                     modifier = Modifier
                 )
             }
-            
+
             ElevatedButton(
                 onClick = { /*TODO*/ },
                 shape = RectangleShape,

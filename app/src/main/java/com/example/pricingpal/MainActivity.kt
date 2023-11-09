@@ -27,6 +27,7 @@ import com.example.pricingpal.model.Navigation
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.PricingpalTheme
+import com.example.pricingpal.view.Loading
 import com.example.pricingpal.view.background
 import com.example.pricingpal.viewmodel.CategoryViewModel
 
@@ -48,7 +49,8 @@ class MainActivity : ComponentActivity() {
             )
             //Create the scaffold passing in the HashMap of categories to be used for display
             //CategoryScaffold(categories = viewModel.categories)
-            background()
+            //background()
+            Loading()
         }
     }
 }
@@ -62,7 +64,7 @@ class MainActivity : ComponentActivity() {
                 LargeTopAppBar(
                     title = {
                         Image(
-                            painter = painterResource(id = R.drawable.picture2),
+                            painter = painterResource(id = R.drawable.logo),
                             contentDescription = null,
                             modifier = Modifier
                                 .height(90.dp)
