@@ -15,6 +15,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -34,7 +35,7 @@ import com.example.pricingpal.view.Screen
 /**
  * Composable that displays the topBar, and a back button if navigation is possible
  *
- * @param canNavigateBack Navigation Controller Boolean used to check if the current page was accessed through a proceding page
+ * @param canNavigateBack Navigation Controller Boolean used to check if the current page was accessed through another page
  * @param navigateUp Navigation Controller Boolean used to navigate through the app
  *
  * @author Abdoulie NJie
@@ -42,19 +43,15 @@ import com.example.pricingpal.view.Screen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PricingPalAppBar(
-    //currentScreen: String,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    //navController: NavHostController,
 ) {
     TopAppBar(
-        title = {
-            TopAppBar(
-                title = {
+            title = {
                     Image(
                         painter = painterResource(id = R.drawable.picture2),
-                        contentDescription = null,
+                        contentDescription = "Pricing Pal Logo",
                         modifier = Modifier
                             .height(69.dp)
                             .padding(start = 150.dp)
@@ -70,15 +67,14 @@ fun PricingPalAppBar(
                         IconButton(onClick = navigateUp) {
                             Icon(
                                 imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back"
+                                contentDescription = "Back Button",
+                                Modifier.testTag("Back Button")
                             )
                         }
                     }
                 }
             )
         }
-    )
-}
 
 
 /**
@@ -101,7 +97,7 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
     val navController = rememberNavController()
     // Get current back stack entry
     val backStackEntry by navController.currentBackStackEntryAsState()
-    // Get the name of the current screen
+    // Get the name of the current screen for navigate up to work properly
     val currentScreen = Screen.valueOf(
         (backStackEntry?.destination?.route ?: Screen.CategoryList.route)
     )
@@ -110,8 +106,6 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
         //Create an app bar of medium size at the top of the scaffold
         topBar = {
             PricingPalAppBar(
-                //currentScreen = currentScreen,
-                //navController = navController,
                 navigateUp = { navController.navigateUp()},
                 canNavigateBack = navController.previousBackStackEntry != null
             )

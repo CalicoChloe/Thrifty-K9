@@ -1,6 +1,8 @@
 package com.example.pricingpal
 
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -9,7 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Test navigation features
+ * Test navigation features using the data from the testdata.csv file
  *
  * @constructor Create empty Test navigation features
  */
@@ -23,23 +25,52 @@ class TestNavigationFeatures {
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Test
-    fun test_clicking_category() {
-//        val csvp = CSVParser
-//        val categories = csvp.PopulateData(CSVReader.readFile(thi, "testdata.csv"))
+    fun test_clicking_categories() {
         composeTestRule.onNodeWithText("Appliances").performClick()
-        composeTestRule.onNodeWithText("Toaster").assertExists() // price $10.00
-        composeTestRule.onNodeWithText("Toaster").assertExists() // price $7.00
-        composeTestRule.onNodeWithText("Vacuum").assertExists() // price $20.00
-        composeTestRule.onNodeWithText("Sewing Machine").assertExists() // price $15.00
-        composeTestRule.onNodeWithText("Steam Cleaner").assertExists() // price $20.00
+
+        composeTestRule.onNodeWithText("Blender").assertExists()
+        composeTestRule.onNodeWithText("\$10.00").assertExists()
+
+        composeTestRule.onNodeWithText("Toaster").assertExists()
+        composeTestRule.onNodeWithText("\$7.00").assertExists()
+
+        composeTestRule.onNodeWithText("Vacuum").assertExists()
+        composeTestRule.onAllNodesWithText("\$20.00")[0].assertExists()
+
+        composeTestRule.onNodeWithText("Sewing Machine").assertExists()
+        composeTestRule.onNodeWithText("\$15.00").assertExists()
+
+        composeTestRule.onNodeWithText("Steam Cleaner").assertExists()
+        composeTestRule.onAllNodesWithText("\$20.00")[1].assertExists()
+
+        composeTestRule.activityRule.scenario.onActivity { activity ->
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
+        composeTestRule.waitForIdle()
+
+        composeTestRule.onNodeWithText("Jewelry").performClick()
+
+        composeTestRule.onNodeWithText("Necklace").assertExists()
+        composeTestRule.onAllNodesWithText("\$5.00")[0].assertExists()
+
+        composeTestRule.onNodeWithText("Earrings").assertExists()
+        composeTestRule.onNodeWithText("\$3.00")
+
+        composeTestRule.onNodeWithText("Watches").assertExists()
+        composeTestRule.onNodeWithText("\$10.00")
+
+        composeTestRule.onNodeWithText("Rings").assertExists()
+        composeTestRule.onNodeWithText("\$2.00")
+
+        composeTestRule.onNodeWithText("Bracelets").assertExists()
+        composeTestRule.onAllNodesWithText("\$5.00")[1].assertExists()
+
+        composeTestRule.activityRule.scenario.onActivity { activity ->
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
+        composeTestRule.waitForIdle()
 
 
-//        composeTestRule.onNodeWithText("Jewelry").performClick()
-//        composeTestRule.onNodeWithText("Necklace" + "$5.00").assertExists() // price $5.00
-//        composeTestRule.onNodeWithText("Earrings").assertExists() // price $3.00
-//        composeTestRule.onNodeWithText("Watches").assertExists() // price $10.00
-//        composeTestRule.onNodeWithText("Rings").assertExists() // price $2.00
-//        composeTestRule.onNodeWithText("Bracelets").assertExists() // price $5.00
 //        composeTestRule.activity.onBackPressedDispatcher.onBackPressed()
 //
 //        composeTestRule.onNodeWithText("Electronics").performClick()
@@ -59,7 +90,7 @@ class TestNavigationFeatures {
 //        composeTestRule.activity.onBackPressedDispatcher.onBackPressed()
 //
 //        composeTestRule.onNodeWithText("Accessories").performClick()
-//        composeTestRule.onNodeWithText("Hat" + "$4.00").assertExists() // price $4.00
+//      \  composeTestRule.onNodeWithText("Hat" + "$4.00").assertExists() // price $4.00
 //        composeTestRule.onNodeWithText("Purses").assertExists() // price $15.00
 //        composeTestRule.onNodeWithText("Headphones").assertExists() // price $5.00
 //        composeTestRule.onNodeWithText("Belts").assertExists() // price 5.00
@@ -84,6 +115,38 @@ class TestNavigationFeatures {
 //        composeTestRule.onNodeWithText("Men's Shoes").assertExists() // price $13.00
 //        composeTestRule.onNodeWithText("Kid's Shoes").assertExists() // price $8.00
 //        composeTestRule.activity.onBackPressedDispatcher.onBackPressed()
+    }
+
+    @Test
+    fun test_custom_back_button(){
+        val iconButton = composeTestRule.onNode(hasTestTag("Back Button"), useUnmergedTree = true)
+        composeTestRule.onNodeWithText("Appliances").performClick()
+        iconButton.performClick()
+        composeTestRule.waitForIdle()
+
+        composeTestRule.onNodeWithText("Jewelry").performClick()
+        iconButton.performClick()
+        composeTestRule.waitForIdle()
+
+        composeTestRule.onNodeWithText("Electronics").performClick()
+        iconButton.performClick()
+        composeTestRule.waitForIdle()
+
+        composeTestRule.onNodeWithText("Toys & Games").performClick()
+        iconButton.performClick()
+        composeTestRule.waitForIdle()
+
+        composeTestRule.onNodeWithText("Accessories").performClick()
+        iconButton.performClick()
+//        composeTestRule.waitForIdle()
+//
+//        composeTestRule.onNodeWithText("Furniture").performClick()
+//        iconButton.performClick()
+//        composeTestRule.waitForIdle()
+//
+//        composeTestRule.onNodeWithText("Clothing").performClick()
+//        iconButton.performClick()
+
     }
 
 }
