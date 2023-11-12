@@ -1,7 +1,5 @@
-package com.example.pricingpal.view.loginPassword
+package com.example.pricingpal.view.homepage.login
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -34,18 +34,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.R
-import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import java.time.format.TextStyle
 
 @Composable
 fun forgotPassword() {
     Card(
         modifier = Modifier
-            .padding(start = 40.dp, top = 100.dp, end = 40.dp, bottom = 100.dp)
+            .padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
@@ -54,7 +53,9 @@ fun forgotPassword() {
 
         Row(modifier = Modifier
             .border(4.dp, color = Persian_indigo)
+            .fillMaxWidth()
             .background(color = Cornflower_blue, shape = RectangleShape),
+            horizontalArrangement = Arrangement.Center,
         ) {
             Image(
                 //Imports image from resource folder
@@ -113,7 +114,7 @@ fun forgotPassword() {
                 )
             }
 
-            Spacer(modifier = Modifier.height(80.dp))
+            Spacer(modifier = Modifier.height(130.dp))
             
             ElevatedButton(
                 onClick = { /*TODO*/ },
@@ -129,7 +130,7 @@ fun forgotPassword() {
                 ) {
                 Text(
                     textAlign = TextAlign.Center,
-                    text = "Login Page",
+                    text = "Login",
                     fontSize = 30.sp,
                     color = Color.Black,
                 )
@@ -147,11 +148,12 @@ fun forgotPasswordInput(){
         value = forgotPassword,
         onValueChange = {forgotPassword = it},
         textStyle = androidx.compose.ui.text.TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("example@gmail.com", fontSize = 20.sp) },
+        placeholder = { Text("email", fontSize = 20.sp) },
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
     )
 }
+
 

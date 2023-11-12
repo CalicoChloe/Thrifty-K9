@@ -17,7 +17,8 @@ import androidx.compose.ui.unit.dp
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Periwinkle
-import com.example.pricingpal.view.loginPassword.forgotPassword
+import com.example.pricingpal.view.homepage.login.forgotPassword
+import com.example.pricingpal.view.homepage.login.login
 
 @Composable
 fun background(){
@@ -38,7 +39,8 @@ fun background(){
         )
         //settingRow()
         //startScreen()
-        forgotPassword()
+        //forgotPassword()
+        login()
     }
 }
 

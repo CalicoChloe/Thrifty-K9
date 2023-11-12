@@ -1,4 +1,4 @@
-package com.example.pricingpal.view
+package com.example.pricingpal.view.homepage
 
 import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.Image
