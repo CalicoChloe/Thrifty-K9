@@ -56,6 +56,7 @@ fun settingRow(){
             elevation = CardDefaults.cardElevation(12.dp),
             colors = CardDefaults.cardColors(containerColor = Periwinkle)
         ){
+
         }
     }
 

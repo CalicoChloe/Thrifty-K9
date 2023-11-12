@@ -106,7 +106,7 @@ fun login(){
 
             Spacer(modifier = Modifier.height(25.dp))
             loginEmailInput()
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(50.dp))
             loginPasswordInput()
             Spacer(modifier = Modifier.height(25.dp))
 
@@ -160,7 +160,7 @@ fun login(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(90.dp)
-                    .padding(start = 60.dp, top = 15.dp, end = 60.dp, bottom = 15.dp)
+                    .padding(start = 70.dp, top = 15.dp, end = 70.dp, bottom = 15.dp)
                     .border(4.dp, color = Persian_indigo),
 
                 ) {
@@ -219,13 +219,19 @@ fun loginEmailInput(){
         value = loginEmail,
         onValueChange = {loginEmail = it},
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("email", fontSize = 20.sp) },
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon")},
+        placeholder = { Text("Enter email", fontSize = 20.sp) },
+        supportingText = { Text(text = "*required")},
+        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
-            unfocusedContainerColor = Anti_flash_white),
+            unfocusedContainerColor = Anti_flash_white,
+            unfocusedIndicatorColor = Anti_flash_white,
+            focusedIndicatorColor = Persian_indigo
+        ),
         shape = RectangleShape,
-        )
+    )
+
+
 }
 
 @Composable
@@ -239,14 +245,18 @@ fun loginPasswordInput(){
         value = loginPassword,
         onValueChange = { loginPassword = it },
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-        placeholder = { Text("password", fontSize = 20.sp) },
+        placeholder = { Text("Enter password", fontSize = 20.sp) },
+        supportingText = { Text(text = "*required")},
         visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon")},
         trailingIcon = { Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
-            unfocusedContainerColor = Anti_flash_white),
+            unfocusedContainerColor = Anti_flash_white,
+            unfocusedIndicatorColor = Anti_flash_white,
+            focusedIndicatorColor = Persian_indigo
+        ),
         shape = RectangleShape,
 
     )
