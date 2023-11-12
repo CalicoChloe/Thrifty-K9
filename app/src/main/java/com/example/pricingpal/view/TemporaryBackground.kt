@@ -18,6 +18,7 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.view.homepage.guest.ownerOrGuess
+import com.example.pricingpal.view.homepage.guest.ownerRegistration
 import com.example.pricingpal.view.homepage.login.createPassword
 import com.example.pricingpal.view.homepage.login.forgotPassword
 import com.example.pricingpal.view.homepage.login.login
@@ -45,7 +46,8 @@ fun background(){
         //forgotPassword()
         //login()
         //createPassword()
-        ownerOrGuess()
+        //ownerOrGuess()
+        ownerRegistration()
     }
 }
 
