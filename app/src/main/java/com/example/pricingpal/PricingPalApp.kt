@@ -29,9 +29,8 @@ import com.example.pricingpal.model.Category
 import com.example.pricingpal.view.CategoryList
 import com.example.pricingpal.view.ItemList
 import com.example.pricingpal.view.Screen
-
-
-
+// const used to reference the custom back button for testing purposes
+const val BACK_BUTTON = "Back Button"
 /**
  * Composable that displays the topBar, and a back button if navigation is possible
  *
@@ -68,7 +67,7 @@ fun PricingPalAppBar(
                             Icon(
                                 imageVector = Icons.Filled.ArrowBack,
                                 contentDescription = "Back Button",
-                                Modifier.testTag("Back Button")
+                                Modifier.testTag(BACK_BUTTON)
                             )
                         }
                     }
