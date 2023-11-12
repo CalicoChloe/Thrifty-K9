@@ -7,6 +7,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -39,8 +42,10 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 fun startScreen(){
     Card(
         modifier = Modifier
-            .padding(start = 40.dp, top = 100.dp, end = 40.dp, bottom = 100.dp)
+            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
+            .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
@@ -49,7 +54,9 @@ fun startScreen(){
 
         Row(modifier = Modifier
             .border(4.dp, color = Persian_indigo)
-            .background(color = Cornflower_blue, shape = RectangleShape ),
+            .fillMaxWidth()
+            .background(color = Cornflower_blue, shape = RectangleShape),
+            horizontalArrangement = Arrangement.Center,
         ) {
             Image(
                 //Imports image from resource folder
@@ -63,8 +70,9 @@ fun startScreen(){
 
         Column(
             modifier = Modifier
-                .padding(top = 60.dp),
-            verticalArrangement = Arrangement.Center
+                .padding(top = 90.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             ElevatedButton(
                 onClick = { /*TODO*/ },
@@ -73,7 +81,7 @@ fun startScreen(){
                 elevation = ButtonDefaults.buttonElevation(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp)
+                    .height(140.dp)
                     .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
                     .border(4.dp, color = Persian_indigo),
 
@@ -81,10 +89,12 @@ fun startScreen(){
                 Text(
                     textAlign = TextAlign.Center,
                     text = "Login",
-                    fontSize = 40.sp,
+                    fontSize = 50.sp,
                     color = Color.Black,
                 )
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
 
             ElevatedButton(
                 onClick = { /*TODO*/ },
@@ -93,7 +103,7 @@ fun startScreen(){
                 elevation = ButtonDefaults.buttonElevation(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp)
+                    .height(140.dp)
                     .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
                     .border(4.dp, color = Persian_indigo),
 
@@ -101,10 +111,12 @@ fun startScreen(){
                 Text(
                     textAlign = TextAlign.Center,
                     text = "Register",
-                    fontSize = 40.sp,
+                    fontSize = 50.sp,
                     color = Color.Black,
                 )
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
 
             ElevatedButton(
                 onClick = { /*TODO*/ },
@@ -113,7 +125,7 @@ fun startScreen(){
                 elevation = ButtonDefaults.buttonElevation(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp)
+                    .height(140.dp)
                     .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
                     .border(4.dp, color = Persian_indigo),
 
@@ -121,7 +133,7 @@ fun startScreen(){
                 Text(
                     textAlign = TextAlign.Center,
                     text = "Volunteer",
-                    fontSize = 40.sp,
+                    fontSize = 50.sp,
                     color = Color.Black,
                 )
             }

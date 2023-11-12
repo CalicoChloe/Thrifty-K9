@@ -28,6 +28,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -64,7 +65,8 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 fun login(){
     Card(
         modifier = Modifier
-            .padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
+            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
+            .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
@@ -106,9 +108,9 @@ fun login(){
 
             Spacer(modifier = Modifier.height(25.dp))
             loginEmailInput()
-            Spacer(modifier = Modifier.height(50.dp))
-            loginPasswordInput()
             Spacer(modifier = Modifier.height(25.dp))
+            loginPasswordInput()
+            Spacer(modifier = Modifier.height(35.dp))
 
             ElevatedButton(
                 onClick = { /*TODO*/ },
@@ -139,9 +141,9 @@ fun login(){
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             lines()
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             TextButton(onClick = { /*TODO*/ }) {
                 Text(
@@ -230,8 +232,18 @@ fun loginEmailInput(){
         ),
         shape = RectangleShape,
     )
-
-
+    /** I did this in replacement of the supporting text*/
+    Row(horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5 .dp, start = 50.dp)
+    ) {
+        Text(
+            text = "*required",
+            fontSize = 20.sp,
+            color = Color.DarkGray
+        )
+    }
 }
 
 @Composable
@@ -246,11 +258,23 @@ fun loginPasswordInput(){
         onValueChange = { loginPassword = it },
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter password", fontSize = 20.sp) },
-        supportingText = { Text(text = "*required")},
+        /** The support text will not work if you have a modifier.*/
+        //supportingText = { Text(text = "*required")},
         visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon")},
-        trailingIcon = { Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon") },
+        trailingIcon = {
+            IconButton(onClick = { /*TODO*/ }) {
+            Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")}
+                       },
+        /** This is for the hidden Icon that will turn the password hidden again.
+
+        trailingIcon = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")}
+        },
+        */
+        supportingText = { Text(text = "*required")},
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -258,8 +282,18 @@ fun loginPasswordInput(){
             focusedIndicatorColor = Persian_indigo
         ),
         shape = RectangleShape,
-
     )
-
+    /** I did this in replacement of the supporting text*/
+    Row(horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5 .dp, start = 50.dp)
+    ) {
+        Text(
+            text = "*required",
+            fontSize = 20.sp,
+            color = Color.DarkGray
+        )
+    }
 
 }

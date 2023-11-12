@@ -54,7 +54,8 @@ import com.example.pricingpal.ui.theme.Uranian_Blue
 fun forgotPassword() {
     Card(
         modifier = Modifier
-            .padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
+            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
+            .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
@@ -86,6 +87,7 @@ fun forgotPassword() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            Spacer(modifier = Modifier.height(10.dp))
             Text(
                 textAlign = TextAlign.Center,
                 text = "Forgot Password?",
@@ -94,6 +96,7 @@ fun forgotPassword() {
                 fontWeight = FontWeight.Bold
             )
 
+            Spacer(modifier = Modifier.height(10.dp))
             Text(
                 textAlign = TextAlign.Center,
                 text = "Enter registered email for reset password",
@@ -102,11 +105,11 @@ fun forgotPassword() {
                 modifier = Modifier
             )
 
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(50.dp))
             forgotPasswordInput()
             Spacer(modifier = Modifier.height(50.dp))
             forgotPasswordDialog()
-            Spacer(modifier = Modifier.height(130.dp))
+            Spacer(modifier = Modifier.height(140.dp))
             
             ElevatedButton(
                 onClick = { /*TODO*/ },
@@ -137,15 +140,12 @@ fun forgotPasswordInput(){
     var forgotPassword by remember { mutableStateOf("") }
 
     TextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .padding(start = 30.dp, end = 30.dp),
         value = forgotPassword,
         onValueChange = {forgotPassword = it},
+        /** The support text will not work if you have a modifier.*/
+        //supportingText = { Text(text = "*required")},
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter email", fontSize = 20.sp) },
-        supportingText = { Text(text = "*required")},
         leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
@@ -153,8 +153,24 @@ fun forgotPasswordInput(){
             unfocusedIndicatorColor = Anti_flash_white,
             focusedIndicatorColor = Persian_indigo
         ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .padding(start = 30.dp, end = 30.dp),
         shape = RectangleShape,
     )
+    /** I did this in replacement of the supporting text*/
+    Row(horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5 .dp, start = 50.dp)
+        ) {
+        Text(
+            text = "*required",
+            fontSize = 20.sp,
+            color = Color.DarkGray
+        )
+    }
 }
 
 @Composable

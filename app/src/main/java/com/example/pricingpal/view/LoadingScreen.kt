@@ -6,13 +6,16 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
@@ -60,7 +63,9 @@ fun Loading(){
 fun loadingTimer(){
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
     ){
             Image(
                 //Imports image from resource folder
@@ -84,7 +89,7 @@ fun loadingTimer(){
 
         Card(
             modifier = Modifier
-                .padding(start = 50.dp, top = 20.dp, end = 50.dp)
+                .padding(start = 40.dp, top = 20.dp, end = 40.dp)
                 .border(4.dp, color = Persian_indigo)
                 .fillMaxWidth()
                 .height(75.dp),
