@@ -26,6 +26,7 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.view.homepage.guest.companyList
 import com.example.pricingpal.view.homepage.guest.companySearchBar
+import com.example.pricingpal.view.homepage.guest.guestRegistration
 import com.example.pricingpal.view.homepage.guest.ownerOrGuess
 import com.example.pricingpal.view.homepage.guest.ownerRegistration
 import com.example.pricingpal.view.homepage.guest.pricingPalBar
@@ -51,19 +52,14 @@ fun background(){
             // changes the opacity of the image
             alpha = 0.1F
         )
-        //settingRow()
         //startScreen()
         //forgotPassword()
         //login()
         //createPassword()
         //ownerOrGuess()
         //ownerRegistration()
-
-        //pricingPalBar()
-        //Spacer(modifier = Modifier.height(150.dp))
-        //companies()
-
-        companyList()
+        //companyList()
+        guestRegistration()
     }
 }
 
