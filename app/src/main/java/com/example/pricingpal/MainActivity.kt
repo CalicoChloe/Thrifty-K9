@@ -50,6 +50,7 @@ class MainActivity : ComponentActivity() {
             //Create the scaffold passing in the HashMap of categories to be used for display
             //CategoryScaffold(categories = viewModel.categories)
             background()
+            //Header()
             //Loading()
         }
     }
