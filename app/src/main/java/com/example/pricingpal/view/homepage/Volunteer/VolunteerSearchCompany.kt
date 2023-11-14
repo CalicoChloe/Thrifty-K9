@@ -1,4 +1,4 @@
-package com.example.pricingpal.view.homepage.guest
+package com.example.pricingpal.view.homepage.Volunteer
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -13,23 +13,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarColors
-import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -40,11 +33,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -54,64 +44,36 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.ui.theme.Pink40
 import com.example.pricingpal.ui.theme.Uranian_Blue
-
-@Composable
-fun pricingPalBar(){
-    Row(
-        //verticalAlignment = Alignment.CenterVertically,
-        verticalAlignment = Alignment.Top,
-
-    ){
-        Card(
-            modifier = Modifier
-                //.nestedScroll(rememberNestedScrollInteropConnection())
-                .fillMaxWidth(),
-                //.height(270.dp),
-            shape = RectangleShape,
-            //elevation = CardDefaults.cardElevation(12.dp),
-            colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
-        ){
-            Image(
-                //Imports image from resource folder
-                painter = painterResource(id = R.drawable.logo),
-                //description of the image for accessibility
-                contentDescription = "Pictures of paws",
-                modifier = Modifier
-                    .padding(top = 15.dp, start = 25.dp, end = 25.dp, bottom = 5.dp)
-            )
-        }
-    }
-}
+import com.example.pricingpal.view.homepage.guest.pricingPalBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun companySearchBar(){
+fun volunteerCompanySearchBar(){
     Card(
         modifier = Modifier
             //.nestedScroll(rememberNestedScrollInteropConnection())
             //.verticalScroll(rememberScrollState())
             .fillMaxWidth(),
-            //.shadow(12.dp)
-            //.height(500.dp),
+        //.shadow(12.dp)
+        //.height(500.dp),
         shape = RectangleShape,
         //elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
     ){
         Spacer(modifier = Modifier.height(20.dp))
-            var searching by remember { mutableStateOf("") }
-            TextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(start = 50.dp, end = 50.dp),
-                value = searching,
-                onValueChange = { searching = it },
-                textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-                placeholder = { Text("Search", fontSize = 20.sp) },
-                leadingIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+        var searching by remember { mutableStateOf("") }
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(start = 50.dp, end = 50.dp),
+            value = searching,
+            onValueChange = { searching = it },
+            textStyle = TextStyle.Default.copy(fontSize = 20.sp),
+            placeholder = { Text("Search", fontSize = 20.sp) },
+            leadingIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                         imageVector = Icons.Filled.Search,
                         contentDescription = "Search Icon",
@@ -121,9 +83,9 @@ fun companySearchBar(){
                             .padding(start = 10.dp)
                     )
                 }
-                },
-                trailingIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+            },
+            trailingIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = "Close Icon",
@@ -133,21 +95,21 @@ fun companySearchBar(){
                             .padding(end = 10.dp)
                     )
                 }
-                },
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Uranian_Blue,
-                    unfocusedContainerColor = Uranian_Blue,
-                    unfocusedIndicatorColor = Uranian_Blue,
-                    focusedIndicatorColor = Uranian_Blue
-                ),
-                shape = RectangleShape,
-            )
+            },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Uranian_Blue,
+                unfocusedContainerColor = Uranian_Blue,
+                unfocusedIndicatorColor = Uranian_Blue,
+                focusedIndicatorColor = Uranian_Blue
+            ),
+            shape = RectangleShape,
+        )
         Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
 @Composable
-fun companiesTitle(){
+fun volunteerCompaniesTitle(){
     Card(
         shape = RectangleShape,
         modifier = Modifier
@@ -190,7 +152,7 @@ fun companiesTitle(){
 }
 
 @Composable
-fun companyName(){
+fun volunteerCompanyName(){
     Card(
         modifier = Modifier
             // padding around the card
@@ -230,24 +192,22 @@ fun companyName(){
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun companyList(){
+fun volunteerCompanyList(){
     LazyColumn {
         item {
             pricingPalBar()
         }
         stickyHeader {
-            companySearchBar()
+            volunteerCompanySearchBar()
             Divider(thickness = 4.dp, color = Persian_indigo)
         }
         item {
-            companiesTitle()
+            volunteerCompaniesTitle()
         }
         for(i in 1..10) {
             item {
-                companyName()
+                volunteerCompanyName()
             }
         }
     }
 }
-
-

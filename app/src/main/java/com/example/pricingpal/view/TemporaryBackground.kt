@@ -24,6 +24,7 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.view.homepage.Volunteer.volunteerCompanyList
 import com.example.pricingpal.view.homepage.guest.companyList
 import com.example.pricingpal.view.homepage.guest.companySearchBar
 import com.example.pricingpal.view.homepage.guest.guestRegistration
@@ -59,7 +60,8 @@ fun background(){
         //ownerOrGuess()
         //ownerRegistration()
         //companyList()
-        guestRegistration()
+        //guestRegistration()
+        volunteerCompanyList()
     }
 }
 
