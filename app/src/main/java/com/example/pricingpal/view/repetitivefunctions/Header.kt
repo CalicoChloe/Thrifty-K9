@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
@@ -34,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.R
@@ -70,6 +73,50 @@ fun pricingPalBar(){
             )
         }
     }
+}
+
+@Composable
+fun settingsBar(){
+    Card(
+        modifier = Modifier
+            //.nestedScroll(rememberNestedScrollInteropConnection())
+            .fillMaxWidth(),
+        //.height(270.dp),
+        shape = RectangleShape,
+        //elevation = CardDefaults.cardElevation(12.dp),
+        colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
+    ){
+        Row(
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, bottom = 20.dp)
+                .background(color = Cornflower_blue),
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Settings,
+                contentDescription = "Setting Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(50.dp)
+                    .padding(start = 10.dp, top = 5.dp)
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Settings",
+                fontSize = 40.sp,
+                color = Color.Black,
+            )
+        }
+    }
+    Box(
+        modifier = Modifier
+            .height(height = 4.dp)
+            .fillMaxWidth()
+            .background(color = Persian_indigo)
+    )
 }
 
 @Composable
