@@ -80,14 +80,15 @@ fun login(){
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
         arrowNavigationBar()
-        innerPricingBar()
 
         Column(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .padding(top = 10.dp),
             // verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            innerPricingBar()
 
             Text(
                 textAlign = TextAlign.Center,

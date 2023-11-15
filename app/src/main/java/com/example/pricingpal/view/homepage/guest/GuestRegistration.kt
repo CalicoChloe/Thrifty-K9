@@ -64,22 +64,22 @@ fun guestRegistration(){
             //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+           // .verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
         arrowNavigationBar()
-        innerPricingBar()
 
         Column(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .padding(top = 10.dp),
             // verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            innerPricingBar()
             Text(
                 textAlign = TextAlign.Center,
                 text = "Guest Registration",
