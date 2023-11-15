@@ -73,7 +73,7 @@ fun accountSetting(){
             Spacer(modifier = Modifier.height(30.dp))
             Column(
                 modifier = Modifier
-                    .padding(top = 15.dp,start = 30.dp, bottom = 15.dp, end = 30.dp)
+                    .padding(top = 15.dp, start = 30.dp, bottom = 15.dp, end = 30.dp)
                     .border(4.dp, color = Persian_indigo)
                     .background(color = Cornflower_blue, shape = RectangleShape),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -92,7 +92,7 @@ fun accountSetting(){
             }
 
             Spacer(modifier = Modifier.height(150.dp))
-            deleteButton()
+            accountDialog()
             Spacer(modifier = Modifier.height(30.dp))
         }
     }
@@ -135,11 +135,12 @@ fun accountBackButton(){
             )
             Text(
                 text = "Account",
+                textAlign = TextAlign.Center,
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
                 modifier = Modifier
-                    .padding(end = 20.dp)
+                    .padding(end = 40.dp)
                     .align(alignment = Alignment.CenterVertically)
             )
         }
@@ -161,7 +162,7 @@ fun emailEdit(){
     {
         Text(
             text = "Email",
-            fontSize = 30.sp,
+            fontSize = 40.sp,
             color = Color.Black,
             modifier = Modifier
                 .padding(start = 20.dp)
@@ -205,7 +206,7 @@ fun passwordEdit(){
     {
         Text(
             text = "Password",
-            fontSize = 30.sp,
+            fontSize = 40.sp,
             color = Color.Black,
             modifier = Modifier
                 .padding(start = 20.dp)
@@ -231,28 +232,5 @@ fun passwordEdit(){
                 color = Color.Black,
             )
         }
-    }
-}
-
-@Composable
-fun deleteButton(){
-    ElevatedButton(
-        onClick = { /*TODO*/ },
-        shape = RectangleShape,
-        colors = ButtonDefaults.buttonColors(Cornflower_blue),
-        elevation = ButtonDefaults.buttonElevation(8.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(120.dp)
-            .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
-            .border(4.dp, color = Persian_indigo),
-
-        ) {
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Delete Account",
-            fontSize = 40.sp,
-            color = Color.Black,
-        )
     }
 }
