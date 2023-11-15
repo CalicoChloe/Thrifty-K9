@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Cornflower_blue
+import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
 @Composable
@@ -78,6 +79,90 @@ fun viewCategory(){
                 )
 
             }
+        }
+    }
+}
+
+@Composable
+fun categoryTitle(){
+    Card(
+        shape = RectangleShape,
+        modifier = Modifier
+            .padding(top = 15.dp)
+            .padding(15.dp),
+        elevation = CardDefaults.cardElevation(12.dp),
+    ) {
+        Column( //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .background(color = Cornflower_blue, shape = RectangleShape)
+                .border(
+                    // puts a border around the card
+                    border = BorderStroke(4.dp, color = Persian_indigo),
+                    // shapes the card
+                    shape = RectangleShape
+                )
+                .fillMaxWidth()
+                .padding(15.dp)
+        )
+        {
+
+            Text(
+                //shows the name of the category
+                text = "Category Name",
+                fontSize = 60.sp,
+                // have it in bold to make it stand out
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+            )
+        }
+    }
+}
+
+@Composable
+fun viewItems(){
+    Card(
+        modifier = Modifier
+            // padding around the card
+            .padding(15.dp)
+            .border(
+                // puts a border around the card
+                border = BorderStroke(4.dp, color = Persian_indigo),
+                // shapes the card
+                shape = RectangleShape
+            ),
+        // puts a shadow under the card to make it pop out
+        elevation = CardDefaults.cardElevation(12.dp),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                // changes the color of the card
+                .background(color = Periwinkle, shape = RectangleShape)
+                // changes the size of the card
+                .fillMaxWidth()
+                .height(80.dp)
+        )
+        {
+            Text(
+                text = "Items",
+                fontSize = 30.sp,
+                color = Color.Black,
+                modifier = Modifier
+                    .padding(start = 20.dp)
+                    .align(alignment = Alignment.CenterVertically)
+            )
+
+            Text(
+                text = "Price",
+                fontSize = 30.sp,
+                color = Color.Black,
+                modifier = Modifier
+                    .padding(end = 20.dp)
+                    .align(alignment = Alignment.CenterVertically)
+            )
+
         }
     }
 }
