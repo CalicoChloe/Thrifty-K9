@@ -1,68 +1,87 @@
-package com.example.pricingpal.view.editinglist.uploadcsv
+package com.example.pricingpal.view.editinglist.makelist
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
-import com.example.pricingpal.view.homepage.login.forgotPasswordDialog
-import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
-import com.example.pricingpal.view.repetitivefunctions.emailInput
-import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
+import com.example.pricingpal.view.editinglist.uploadcsv.addFile
+import com.example.pricingpal.view.editinglist.uploadcsv.fileName
+import com.example.pricingpal.view.editinglist.uploadcsv.uploadFileButton
+import com.example.pricingpal.view.repetitivefunctions.addAndTrashButton
+import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 
 @Composable
-fun uploadCSV() {
+fun addingCategoryNavigation(){
+    settingNavigationBar()
+    Spacer(modifier = Modifier.height(60.dp))
+    addCategories()
+
+}
+@Composable
+fun addCategories(){
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
+            //.safeContentPadding(40.dp,50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
+            .safeContentPadding()
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+            //.verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Periwinkle)
+        colors = CardDefaults.cardColors(containerColor = Periwinkle),
+
     ) {
-
         settingNavigationBar()
-
         Column(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .padding(top = 10.dp),
             // verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -71,59 +90,63 @@ fun uploadCSV() {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 textAlign = TextAlign.Center,
-                text = "CSV File",
+                text = "Categories",
                 fontSize = 60.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            addFile()
-            Spacer(modifier = Modifier.height(50.dp))
-            for(i in 1..2) {
-                fileName()
+            categoryInput()
+            Spacer(modifier = Modifier.height(30.dp))
+            addCategoryButton()
+            Spacer(modifier = Modifier.height(30.dp))
+            for(i in 1..10) {
+                categoryName()
             }
-            Spacer(modifier = Modifier.height(50.dp))
-            uploadFileButton()
-            Spacer(modifier = Modifier.height(140.dp))
+            Spacer(modifier = Modifier.height(30.dp))
+            uploadCategoriesButton()
+            Spacer(modifier = Modifier.height(30.dp))
         }
     }
 }
 
 @Composable
-fun addFile(){
-    Surface(
+fun categoryInput(){
+    var categoryInput by remember { mutableStateOf("") }
+    TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 40.dp, end = 40.dp)
-            .height(300.dp)
-            .background(color = Color.White, shape = RectangleShape),
+            .height(60.dp)
+            .padding(start = 30.dp, end = 30.dp),
+        value = categoryInput,
+        onValueChange = {categoryInput = it},
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
+        placeholder = { Text("Enter category name", fontSize = 20.sp) },
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Anti_flash_white,
+            unfocusedContainerColor = Anti_flash_white,
+            unfocusedIndicatorColor = Anti_flash_white,
+            focusedIndicatorColor = Persian_indigo
+        ),
+        shape = RectangleShape,
+    )
+    /** I did this in replacement of the supporting text*/
+    Row(horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp, start = 50.dp)
     ) {
-        ElevatedButton(
-            onClick = { /*TODO*/ },
-            shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-            elevation = ButtonDefaults.buttonElevation(8.dp),
-            modifier = Modifier
-                .padding(start = 70.dp, top = 15.dp, end = 70.dp, bottom = 15.dp)
-                .height(30.dp)
-                .padding(100.dp)
-                .border(4.dp, color = Persian_indigo),
-
-            ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Add File",
-                fontSize = 30.sp,
-                color = Color.Black,
-            )
-
-        }
+        Text(
+            text = "*required",
+            fontSize = 20.sp,
+            color = Color.DarkGray
+        )
     }
 }
 
 @Composable
-fun uploadFileButton(){
+fun addCategoryButton(){
     ElevatedButton(
         onClick = { /*TODO*/ },
         shape = RectangleShape,
@@ -138,7 +161,7 @@ fun uploadFileButton(){
         ) {
         Text(
             textAlign = TextAlign.Center,
-            text = "Upload File",
+            text = "Add Category",
             fontSize = 40.sp,
             color = Color.Black,
         )
@@ -146,7 +169,7 @@ fun uploadFileButton(){
 }
 
 @Composable
-fun fileName(){
+fun categoryName(){
     Card(
         modifier = Modifier
             // padding around the card
@@ -172,7 +195,7 @@ fun fileName(){
         )
         {
             Text(
-                text = "FileName",
+                text = "Category Name",
                 fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier
@@ -194,3 +217,28 @@ fun fileName(){
         }
     }
 }
+
+@Composable
+fun uploadCategoriesButton(){
+    ElevatedButton(
+        onClick = { /*TODO*/ },
+        shape = RectangleShape,
+        colors = ButtonDefaults.buttonColors(Cornflower_blue),
+        elevation = ButtonDefaults.buttonElevation(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(120.dp)
+            .padding(start = 50.dp, top = 15.dp, end = 50.dp, bottom = 15.dp)
+            .border(4.dp, color = Persian_indigo),
+
+        ) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Upload Categories",
+            fontSize = 40.sp,
+            color = Color.Black,
+        )
+    }
+}
+
+

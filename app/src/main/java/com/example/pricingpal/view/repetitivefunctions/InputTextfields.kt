@@ -134,7 +134,6 @@ fun newPasswordInput(){
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter password", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
-        /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required")},
         visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
