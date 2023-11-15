@@ -35,61 +35,7 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 import com.example.pricingpal.view.repetitivefunctions.searchBar
-
-@Composable
-fun volunteerCategory(){
-    Card(
-        shape = RectangleShape,
-        modifier = Modifier
-            .padding(15.dp),
-        elevation = CardDefaults.cardElevation(12.dp),
-    ) {
-        Column( //verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .background(color = Cornflower_blue, shape = RectangleShape)
-                .border(
-                    // puts a border around the card
-                    border = BorderStroke(4.dp, color = Persian_indigo),
-                    // shapes the card
-                    shape = RectangleShape
-                )
-                .fillMaxWidth()
-                //.padding(15.dp)
-        )
-        {
-            Image(
-                painter = painterResource(id =R.drawable.rectangle_22),
-                contentDescription = "Accessories image",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp),
-                contentScale = ContentScale.Crop,
-                alpha = 0.8F
-            )
-
-            Row(modifier = Modifier
-                .border(4.dp, color = Persian_indigo)
-                .fillMaxWidth()
-                .height(60.dp)
-                .background(color = Cornflower_blue, shape = RectangleShape),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Text(
-                    //shows the name of the category
-                    text = "Category",
-                    fontSize = 30.sp,
-                    // have it in bold to make it stand out
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                )
-
-            }
-        }
-    }
-}
+import com.example.pricingpal.view.repetitivefunctions.viewCategory
 
 @Composable
 fun volunteerHome(){
@@ -132,7 +78,7 @@ fun volunteerCategoryList(){
         }
         for(i in 1..2) {
             item {
-                volunteerCategory()
+               viewCategory()
             }
         }
         item{
