@@ -23,7 +23,7 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.settings.account.changePassword
+import com.example.pricingpal.view.settings.guestaccount.guestAccountSetting
 
 
 @Composable
@@ -71,7 +71,9 @@ fun background(){
         //settings()
         //accountSetting()
         //changeEmail()
-        changePassword()
+        //changePassword()
+
+        guestAccountSetting()
 
 
     }
