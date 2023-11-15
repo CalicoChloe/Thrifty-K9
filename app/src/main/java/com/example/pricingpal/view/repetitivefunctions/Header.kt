@@ -187,7 +187,7 @@ fun settingNavigationBar() {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Close Icon",
+                    contentDescription = "Back Arrow Icon",
                     tint = Color.Black,
                     modifier = Modifier
                         .size(40.dp)
@@ -198,7 +198,7 @@ fun settingNavigationBar() {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
-                    contentDescription = "Close Icon",
+                    contentDescription = "Settings Icon",
                     tint = Color.Black,
                     modifier = Modifier
                         .size(40.dp)
