@@ -178,11 +178,11 @@ fun settingNavigationBar() {
     ) {
         Row(
             verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.SpaceEvenly,
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(color = Periwinkle),
+                .background(color = Cornflower_blue),
         ) {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(

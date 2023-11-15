@@ -23,11 +23,7 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.editinglist.chooseList
-import com.example.pricingpal.view.homepage.volunteer.volunteerCategoryList
-
-import com.example.pricingpal.view.homepage.volunteer.volunteerCompanyList
-import com.example.pricingpal.view.homepage.volunteer.volunteerItemList
+import com.example.pricingpal.view.editinglist.uploadcsv.uploadCSV
 
 @Composable
 fun background(){
@@ -61,8 +57,9 @@ fun background(){
         //volunteerCategoryList()
         //volunteerItemList()
 
-        chooseList()
-        
+        //chooseList()
+        uploadCSV()
+
 
     }
 }
