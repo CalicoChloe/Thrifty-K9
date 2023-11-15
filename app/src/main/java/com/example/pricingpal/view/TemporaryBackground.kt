@@ -23,7 +23,7 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.editinglist.makelist.viewEditItemList
+import com.example.pricingpal.view.editinglist.makelist.addItems
 
 
 @Composable
@@ -62,7 +62,8 @@ fun background(){
         //uploadCSV()
         //viewEditList()
         //addCategories()
-        viewEditItemList()
+        //viewEditItemList()
+        addItems()
 
 
     }

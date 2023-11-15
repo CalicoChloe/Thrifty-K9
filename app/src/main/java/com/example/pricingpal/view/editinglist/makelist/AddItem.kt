@@ -1,12 +1,10 @@
 package com.example.pricingpal.view.editinglist.makelist
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -23,7 +20,6 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,15 +45,10 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
-import com.example.pricingpal.view.editinglist.uploadcsv.addFile
-import com.example.pricingpal.view.editinglist.uploadcsv.fileName
-import com.example.pricingpal.view.editinglist.uploadcsv.uploadFileButton
-import com.example.pricingpal.view.repetitivefunctions.addAndTrashButton
-import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 
 @Composable
-fun addCategories(){
+fun addItems(){
     Card(
         modifier = Modifier
             //.safeContentPadding(40.dp,50.dp, end = 40.dp, bottom = 50.dp)
@@ -70,7 +61,7 @@ fun addCategories(){
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle),
 
-    ) {
+        ) {
         settingNavigationBar()
         Column(
             modifier = Modifier
@@ -83,39 +74,41 @@ fun addCategories(){
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 textAlign = TextAlign.Center,
-                text = "Categories",
+                text = "Category Item",
                 fontSize = 60.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            categoryInput()
-            Spacer(modifier = Modifier.height(30.dp))
-            addCategoryButton()
-            Spacer(modifier = Modifier.height(30.dp))
-            for(i in 1..10) {
-                categoryName()
+            itemInput()
+            Spacer(modifier = Modifier.height(15.dp))
+            priceInput()
+            Spacer(modifier = Modifier.height(25.dp))
+            addItemButton()
+            Spacer(modifier = Modifier.height(25.dp))
+            for(i in 1..2) {
+                itemName()
             }
             Spacer(modifier = Modifier.height(30.dp))
-            uploadCategoriesButton()
+            uploadItemButton()
             Spacer(modifier = Modifier.height(30.dp))
         }
     }
 }
 
 @Composable
-fun categoryInput(){
-    var categoryInput by remember { mutableStateOf("") }
+fun itemInput(){
+    var itemInput by remember { mutableStateOf("") }
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
-        value = categoryInput,
-        onValueChange = {categoryInput = it},
+        value = itemInput,
+        onValueChange = {itemInput = it},
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("Enter category", fontSize = 20.sp) },
+        placeholder = { Text("Enter item", fontSize = 20.sp) },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -139,30 +132,41 @@ fun categoryInput(){
 }
 
 @Composable
-fun addCategoryButton(){
-    ElevatedButton(
-        onClick = { /*TODO*/ },
-        shape = RectangleShape,
-        colors = ButtonDefaults.buttonColors(Cornflower_blue),
-        elevation = ButtonDefaults.buttonElevation(8.dp),
+fun priceInput(){
+    var priceInput by remember { mutableStateOf("") }
+    TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
-            .padding(start = 50.dp, top = 15.dp, end = 50.dp, bottom = 15.dp)
-            .border(4.dp, color = Persian_indigo),
-
-        ) {
+            .height(60.dp)
+            .padding(start = 30.dp, end = 30.dp),
+        value = priceInput,
+        onValueChange = {priceInput = it},
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
+        placeholder = { Text("Enter price", fontSize = 20.sp) },
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Anti_flash_white,
+            unfocusedContainerColor = Anti_flash_white,
+            unfocusedIndicatorColor = Anti_flash_white,
+            focusedIndicatorColor = Persian_indigo
+        ),
+        shape = RectangleShape,
+    )
+    /** I did this in replacement of the supporting text*/
+    Row(horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp, start = 50.dp)
+    ) {
         Text(
-            textAlign = TextAlign.Center,
-            text = "Add Category",
-            fontSize = 40.sp,
-            color = Color.Black,
+            text = "*required",
+            fontSize = 20.sp,
+            color = Color.DarkGray
         )
     }
 }
 
 @Composable
-fun categoryName(){
+fun itemName(){
     Card(
         modifier = Modifier
             // padding around the card
@@ -184,17 +188,28 @@ fun categoryName(){
                 .background(color = Uranian_Blue, shape = RectangleShape)
                 // changes the size of the card
                 .fillMaxWidth()
-                .height(80.dp)
+                .height(100.dp)
         )
         {
-            Text(
-                text = "Category Name",
-                fontSize = 30.sp,
-                color = Color.Black,
-                modifier = Modifier
-                    .padding(start = 20.dp)
-                    .align(alignment = Alignment.CenterVertically)
-            )
+            Column() {
+                Text(
+                    text = "Item Name",
+                    fontSize = 30.sp,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(start = 20.dp)
+                        //.align(alignment = Alignment.CenterVertically)
+                )
+
+                Text(
+                    text = "Price",
+                    fontSize = 30.sp,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(start = 20.dp)
+                        //.align(alignment = Alignment.CenterVertically)
+                )
+            }
 
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
@@ -202,8 +217,8 @@ fun categoryName(){
                     contentDescription = "Delete Icon",
                     tint = Color.Black,
                     modifier = Modifier
-                        .size(40.dp)
-                        .padding(end = 10.dp, top = 5.dp)
+                        .size(50.dp)
+                        .padding(end = 10.dp)
                 )
             }
 
@@ -212,7 +227,7 @@ fun categoryName(){
 }
 
 @Composable
-fun uploadCategoriesButton(){
+fun addItemButton(){
     ElevatedButton(
         onClick = { /*TODO*/ },
         shape = RectangleShape,
@@ -227,11 +242,32 @@ fun uploadCategoriesButton(){
         ) {
         Text(
             textAlign = TextAlign.Center,
-            text = "Upload Categories",
+            text = "Add Item",
             fontSize = 40.sp,
             color = Color.Black,
         )
     }
 }
 
+@Composable
+fun uploadItemButton(){
+    ElevatedButton(
+        onClick = { /*TODO*/ },
+        shape = RectangleShape,
+        colors = ButtonDefaults.buttonColors(Cornflower_blue),
+        elevation = ButtonDefaults.buttonElevation(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(120.dp)
+            .padding(start = 50.dp, top = 15.dp, end = 50.dp, bottom = 15.dp)
+            .border(4.dp, color = Persian_indigo),
 
+        ) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Upload Items",
+            fontSize = 40.sp,
+            color = Color.Black,
+        )
+    }
+}
