@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,17 +23,8 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.homepage.Volunteer.volunteerCompanyList
-import com.example.pricingpal.view.homepage.guest.companyList
-import com.example.pricingpal.view.homepage.guest.companySearchBar
-import com.example.pricingpal.view.homepage.guest.guestRegistration
-import com.example.pricingpal.view.homepage.guest.ownerOrGuess
-import com.example.pricingpal.view.homepage.guest.ownerRegistration
-import com.example.pricingpal.view.homepage.guest.pricingPalBar
-import com.example.pricingpal.view.homepage.login.createPassword
-import com.example.pricingpal.view.homepage.login.forgotPassword
-import com.example.pricingpal.view.homepage.login.login
-import com.example.pricingpal.view.homepage.startScreen
+
+import com.example.pricingpal.view.homepage.volunteer.volunteerCompanyList
 
 @Composable
 fun background(){
@@ -54,14 +44,19 @@ fun background(){
             alpha = 0.1F
         )
         //startScreen()
-        //forgotPassword()
+
         //login()
+        //forgotPassword()
         //createPassword()
+
         //ownerOrGuess()
         //ownerRegistration()
-        //companyList()
+        //guestCompanyList()
         //guestRegistration()
+
         volunteerCompanyList()
+        //volunteerCategoryList()
+
     }
 }
 
@@ -88,7 +83,6 @@ fun settingRow(){
                     .padding(top = 15.dp, start = 25.dp, end = 25.dp, bottom = 5.dp)
             )
 
-            companySearchBar()
         }
     }
 }

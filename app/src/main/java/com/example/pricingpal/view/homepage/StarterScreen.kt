@@ -37,6 +37,8 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
+import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 
 @Composable
 fun startScreen(){
@@ -51,22 +53,7 @@ fun startScreen(){
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
-
-        Row(modifier = Modifier
-            .border(4.dp, color = Persian_indigo)
-            .fillMaxWidth()
-            .background(color = Cornflower_blue, shape = RectangleShape),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Image(
-                //Imports image from resource folder
-                painter = painterResource(id = R.drawable.logo),
-                //description of the image for accessibility
-                contentDescription = "Pictures of paws",
-                modifier = Modifier
-                    .padding(15.dp)
-            )
-        }
+        innerPricingBar()
 
         Column(
             modifier = Modifier
@@ -140,5 +127,6 @@ fun startScreen(){
         }
     }
 }
+
 
 

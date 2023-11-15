@@ -49,6 +49,9 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
+import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
+import com.example.pricingpal.view.repetitivefunctions.emailInput
+import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 
 @Composable
 fun forgotPassword() {
@@ -64,21 +67,8 @@ fun forgotPassword() {
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
 
-        Row(modifier = Modifier
-            .border(4.dp, color = Persian_indigo)
-            .fillMaxWidth()
-            .background(color = Cornflower_blue, shape = RectangleShape),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Image(
-                //Imports image from resource folder
-                painter = painterResource(id = R.drawable.logo),
-                //description of the image for accessibility
-                contentDescription = "Pictures of paws",
-                modifier = Modifier
-                    .padding(15.dp)
-            )
-        }
+        arrowNavigationBar()
+        innerPricingBar()
 
         Column(
             modifier = Modifier
@@ -106,72 +96,14 @@ fun forgotPassword() {
             )
 
             Spacer(modifier = Modifier.height(50.dp))
-            forgotPasswordInput()
+            emailInput()
             Spacer(modifier = Modifier.height(50.dp))
             forgotPasswordDialog()
             Spacer(modifier = Modifier.height(140.dp))
-            
-            ElevatedButton(
-                onClick = { /*TODO*/ },
-                shape = RectangleShape,
-                colors = ButtonDefaults.buttonColors(Cornflower_blue),
-                elevation = ButtonDefaults.buttonElevation(8.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(90.dp)
-                    .padding(start = 70.dp, top = 15.dp, end = 70.dp, bottom = 15.dp)
-                    .border(4.dp, color = Persian_indigo),
-
-                ) {
-                Text(
-                    textAlign = TextAlign.Center,
-                    text = "Login",
-                    fontSize = 30.sp,
-                    color = Color.Black,
-                )
-
-            }
         }
     }
 }
 
-@Composable
-fun forgotPasswordInput(){
-    var forgotPassword by remember { mutableStateOf("") }
-
-    TextField(
-        value = forgotPassword,
-        onValueChange = {forgotPassword = it},
-        /** The support text will not work if you have a modifier.*/
-        //supportingText = { Text(text = "*required")},
-        textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("Enter email", fontSize = 20.sp) },
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Anti_flash_white,
-            unfocusedContainerColor = Anti_flash_white,
-            unfocusedIndicatorColor = Anti_flash_white,
-            focusedIndicatorColor = Persian_indigo
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .padding(start = 30.dp, end = 30.dp),
-        shape = RectangleShape,
-    )
-    /** I did this in replacement of the supporting text*/
-    Row(horizontalArrangement = Arrangement.Start,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 5 .dp, start = 50.dp)
-        ) {
-        Text(
-            text = "*required",
-            fontSize = 20.sp,
-            color = Color.DarkGray
-        )
-    }
-}
 
 @Composable
 fun forgotPasswordDialog() {

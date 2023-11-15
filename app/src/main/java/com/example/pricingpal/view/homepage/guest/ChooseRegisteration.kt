@@ -33,6 +33,9 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
+import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
+import com.example.pricingpal.view.repetitivefunctions.lines
 
 @Composable
 fun ownerOrGuess(){
@@ -48,21 +51,8 @@ fun ownerOrGuess(){
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
 
-        Row(modifier = Modifier
-            .border(4.dp, color = Persian_indigo)
-            .fillMaxWidth()
-            .background(color = Cornflower_blue, shape = RectangleShape),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Image(
-                //Imports image from resource folder
-                painter = painterResource(id = R.drawable.logo),
-                //description of the image for accessibility
-                contentDescription = "Pictures of paws",
-                modifier = Modifier
-                    .padding(15.dp)
-            )
-        }
+        arrowNavigationBar()
+        innerPricingBar()
 
         Column(
             modifier = Modifier
@@ -91,9 +81,7 @@ fun ownerOrGuess(){
             }
 
             Spacer(modifier = Modifier.height(40.dp))
-
             lines()
-
             Spacer(modifier = Modifier.height(40.dp))
 
             ElevatedButton(
@@ -116,36 +104,5 @@ fun ownerOrGuess(){
                 )
             }
         }
-    }
-}
-
-@Composable
-fun lines(){
-    Row(modifier = Modifier
-        .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center,
-    ){
-        Box(
-            modifier = Modifier
-                .padding(top = 20.dp, end = 10.dp)
-                .height(height = 3.dp)
-                .width(260.dp)
-                .background(color = Color.Black)
-        )
-
-        Text(
-            textAlign = TextAlign.Center,
-            text = "OR",
-            fontSize = 30.sp,
-            color = Color.Black,
-        )
-
-        Box(
-            modifier = Modifier
-                .padding(top = 20.dp, start = 10.dp)
-                .width(260.dp)
-                .height(height = 3.dp)
-                .background(color = Color.Black)
-        )
     }
 }

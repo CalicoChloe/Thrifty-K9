@@ -60,6 +60,11 @@ import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
+import com.example.pricingpal.view.repetitivefunctions.emailInput
+import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
+import com.example.pricingpal.view.repetitivefunctions.lines
+import com.example.pricingpal.view.repetitivefunctions.passwordInput
 
 @Composable
 fun login(){
@@ -74,22 +79,8 @@ fun login(){
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
-
-        Row(modifier = Modifier
-            .border(4.dp, color = Persian_indigo)
-            .fillMaxWidth()
-            .background(color = Cornflower_blue, shape = RectangleShape),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Image(
-                //Imports image from resource folder
-                painter = painterResource(id = R.drawable.logo),
-                //description of the image for accessibility
-                contentDescription = "Pictures of paws",
-                modifier = Modifier
-                    .padding(15.dp)
-            )
-        }
+        arrowNavigationBar()
+        innerPricingBar()
 
         Column(
             modifier = Modifier
@@ -107,9 +98,9 @@ fun login(){
             )
 
             Spacer(modifier = Modifier.height(25.dp))
-            loginEmailInput()
+            emailInput()
             Spacer(modifier = Modifier.height(25.dp))
-            loginPasswordInput()
+            passwordInput()
             Spacer(modifier = Modifier.height(35.dp))
 
             ElevatedButton(
@@ -145,15 +136,6 @@ fun login(){
             lines()
             Spacer(modifier = Modifier.height(20.dp))
 
-            TextButton(onClick = { /*TODO*/ }) {
-                Text(
-                    textAlign = TextAlign.Center,
-                    text = "Register Here",
-                    fontSize = 30.sp,
-                    color = Color.Black,
-                )
-            }
-
             ElevatedButton(
                 onClick = { /*TODO*/ },
                 shape = RectangleShape,
@@ -168,132 +150,13 @@ fun login(){
                 ) {
                 Text(
                     textAlign = TextAlign.Center,
-                    text = "Home",
+                    text = "Register Here",
                     fontSize = 30.sp,
                     color = Color.Black,
                 )
 
             }
+
         }
     }
-}
-
-@Composable
-fun lines(){
-    Row(modifier = Modifier
-        .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center,
-    ){
-        Box(
-            modifier = Modifier
-                .padding(top = 20.dp, end = 10.dp)
-                .height(height = 3.dp)
-                .width(260.dp)
-                .background(color = Color.Black)
-        )
-
-        Text(
-            textAlign = TextAlign.Center,
-            text = "OR",
-            fontSize = 30.sp,
-            color = Color.Black,
-        )
-
-        Box(
-            modifier = Modifier
-                .padding(top = 20.dp, start = 10.dp)
-                .width(260.dp)
-                .height(height = 3.dp)
-                .background(color = Color.Black)
-        )
-    }
-}
-
-
-@Composable
-fun loginEmailInput(){
-    var loginEmail by remember { mutableStateOf("") }
-    TextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .padding(start = 30.dp, end = 30.dp),
-        value = loginEmail,
-        onValueChange = {loginEmail = it},
-        textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("Enter email", fontSize = 20.sp) },
-        supportingText = { Text(text = "*required")},
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Anti_flash_white,
-            unfocusedContainerColor = Anti_flash_white,
-            unfocusedIndicatorColor = Anti_flash_white,
-            focusedIndicatorColor = Persian_indigo
-        ),
-        shape = RectangleShape,
-    )
-    /** I did this in replacement of the supporting text*/
-    Row(horizontalArrangement = Arrangement.Start,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 5 .dp, start = 50.dp)
-    ) {
-        Text(
-            text = "*required",
-            fontSize = 20.sp,
-            color = Color.DarkGray
-        )
-    }
-}
-
-@Composable
-fun loginPasswordInput(){
-    var loginPassword by remember { mutableStateOf("") }
-    TextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .padding(start = 30.dp, end = 30.dp),
-        value = loginPassword,
-        onValueChange = { loginPassword = it },
-        textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-        placeholder = { Text("Enter password", fontSize = 20.sp) },
-        /** The support text will not work if you have a modifier.*/
-        //supportingText = { Text(text = "*required")},
-        visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon")},
-        trailingIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
-            Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")}
-                       },
-        /** This is for the hidden Icon that will turn the password hidden again.
-
-        trailingIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")}
-        },
-        */
-        supportingText = { Text(text = "*required")},
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Anti_flash_white,
-            unfocusedContainerColor = Anti_flash_white,
-            unfocusedIndicatorColor = Anti_flash_white,
-            focusedIndicatorColor = Persian_indigo
-        ),
-        shape = RectangleShape,
-    )
-    /** I did this in replacement of the supporting text*/
-    Row(horizontalArrangement = Arrangement.Start,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 5 .dp, start = 50.dp)
-    ) {
-        Text(
-            text = "*required",
-            fontSize = 20.sp,
-            color = Color.DarkGray
-        )
-    }
-
 }
