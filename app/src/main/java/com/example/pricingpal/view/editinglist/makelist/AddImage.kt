@@ -1,4 +1,4 @@
-package com.example.pricingpal.view.editinglist.uploadcsv
+package com.example.pricingpal.view.editinglist.makelist
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -12,11 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -39,14 +37,10 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
-import com.example.pricingpal.view.homepage.login.forgotPasswordDialog
-import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
-import com.example.pricingpal.view.repetitivefunctions.emailInput
-import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 
 @Composable
-fun uploadCSV() {
+fun addImage(){
     Card(
         modifier = Modifier
             //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
@@ -72,27 +66,28 @@ fun uploadCSV() {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 textAlign = TextAlign.Center,
-                text = "CSV File",
+                text = "Category Image",
                 fontSize = 60.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            addFile()
+            addImageButton()
             Spacer(modifier = Modifier.height(50.dp))
-            for(i in 1..2) {
-                fileName()
+            for(i in 1..5) {
+                imageName()
             }
             Spacer(modifier = Modifier.height(50.dp))
-            uploadFileButton()
+            uploadImageButton()
             Spacer(modifier = Modifier.height(140.dp))
         }
     }
 }
 
+
 @Composable
-fun addFile(){
+fun addImageButton(){
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -114,7 +109,7 @@ fun addFile(){
             ) {
             Text(
                 textAlign = TextAlign.Center,
-                text = "Add File",
+                text = "Add Image",
                 fontSize = 30.sp,
                 color = Color.Black,
             )
@@ -123,31 +118,9 @@ fun addFile(){
     }
 }
 
-@Composable
-fun uploadFileButton(){
-    ElevatedButton(
-        onClick = { /*TODO*/ },
-        shape = RectangleShape,
-        colors = ButtonDefaults.buttonColors(Cornflower_blue),
-        elevation = ButtonDefaults.buttonElevation(8.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(120.dp)
-            .padding(start = 50.dp, top = 15.dp, end = 50.dp, bottom = 15.dp)
-            .border(4.dp, color = Persian_indigo),
-
-        ) {
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Upload File",
-            fontSize = 40.sp,
-            color = Color.Black,
-        )
-    }
-}
 
 @Composable
-fun fileName(){
+fun imageName(){
     Card(
         modifier = Modifier
             // padding around the card
@@ -173,7 +146,7 @@ fun fileName(){
         )
         {
             Text(
-                text = "File Name",
+                text = "Image Name",
                 fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier
@@ -193,5 +166,28 @@ fun fileName(){
             }
 
         }
+    }
+}
+
+@Composable
+fun uploadImageButton(){
+    ElevatedButton(
+        onClick = { /*TODO*/ },
+        shape = RectangleShape,
+        colors = ButtonDefaults.buttonColors(Cornflower_blue),
+        elevation = ButtonDefaults.buttonElevation(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(120.dp)
+            .padding(start = 50.dp, top = 15.dp, end = 50.dp, bottom = 15.dp)
+            .border(4.dp, color = Persian_indigo),
+
+        ) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Upload Image",
+            fontSize = 40.sp,
+            color = Color.Black,
+        )
     }
 }
