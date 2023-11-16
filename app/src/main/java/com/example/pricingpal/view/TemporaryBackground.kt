@@ -23,7 +23,7 @@ import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.settings.displaySetting
+import com.example.pricingpal.view.settings.accessibilitySetting
 
 
 @Composable
@@ -74,54 +74,7 @@ fun background(){
         //changePassword()
 
         //guestAccountSetting()
-        displaySetting()
-
-
-    }
-}
-
-// This will be for the settings bar
-@Composable
-fun settingRow(){
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-    ){
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(270.dp),
-            shape = RectangleShape,
-            elevation = CardDefaults.cardElevation(12.dp),
-            colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
-        ){
-            Image(
-                //Imports image from resource folder
-                painter = painterResource(id = R.drawable.logo),
-                //description of the image for accessibility
-                contentDescription = "Pictures of paws",
-                modifier = Modifier
-                    .padding(top = 15.dp, start = 25.dp, end = 25.dp, bottom = 5.dp)
-            )
-
-        }
-    }
-}
-
-@Composable
-fun look(){
-    Row(modifier = Modifier
-        .border(4.dp, color = Persian_indigo)
-        .fillMaxWidth()
-        .background(color = Cornflower_blue, shape = RectangleShape),
-        horizontalArrangement = Arrangement.Center,
-    ) {
-        Image(
-            //Imports image from resource folder
-            painter = painterResource(id = R.drawable.logo),
-            //description of the image for accessibility
-            contentDescription = "Pictures of paws",
-            modifier = Modifier
-                .padding(15.dp)
-        )
+        //displaySetting()
+        accessibilitySetting()
     }
 }
