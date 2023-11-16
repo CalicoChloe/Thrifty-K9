@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
             //Loading()
             //volunteerLoading()
             //editLoading()
-            //background()
+            background()
         }
     }
 }

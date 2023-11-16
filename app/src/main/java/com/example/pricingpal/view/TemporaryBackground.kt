@@ -1,31 +1,23 @@
 package com.example.pricingpal.view
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
-import com.example.pricingpal.ui.theme.Cornflower_blue
-import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.settings.accessibilitySetting
+import com.example.pricingpal.view.homepage.startScreen
 
-
+/** This is a background that holds all the other screens because they share the same background.
+ * This is what you will use to see the screens until the navigation is set up,
+ * so please don't delete this file. Also when you do, make sure the surface background is still attach
+ * to the screens, or it will be a blank background.
+ *
+ * Note: when you are looking at each screen, you can only import it one at a time. I don't why it does that.
+ * Maybe is it just on my computer, but if it does happen that's why.*/
 @Composable
 fun background(){
     Surface(
@@ -43,7 +35,7 @@ fun background(){
             // changes the opacity of the image
             alpha = 0.1F
         )
-        //startScreen()
+        startScreen()
 
         //login()
         //forgotPassword()
@@ -75,6 +67,6 @@ fun background(){
 
         //guestAccountSetting()
         //displaySetting()
-        accessibilitySetting()
+        //accessibilitySetting()
     }
 }
