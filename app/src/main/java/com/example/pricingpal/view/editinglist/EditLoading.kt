@@ -1,4 +1,4 @@
-package com.example.pricingpal.view
+package com.example.pricingpal.view.editinglist
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -32,7 +32,7 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
 
 @Composable
-fun Loading(){
+fun editLoading(){
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -46,33 +46,25 @@ fun Loading(){
             // changes the opacity of the image
             alpha = 0.1F
         )
-        loadingTimer()
+        editLoadingTimer()
     }
 }
 
-/** This is to show the loading bar on the screen. The number on the bar will increase up until it
- * gets to 100%. I do not have it set up where it can do that. I was looking a youtube tutorial trying
- * to see which launch effect would work for this. Plus I got really busy with the UI, I didn't get to
- * finish the video.
- *
- * I assume we will need a sleep and thread for it, I am not sure.
- *
- *Base on our figma we have 3 loading screens. One when we launch the app, and the other 2 when it is
- * loading up the category list. I have 3 because they will navigate to 3 different screens.*/
+/** This is one of the loading screen, and it will navigate to the edit category list.*/
 @Composable
-fun loadingTimer(){
+fun editLoadingTimer(){
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ){
-            Image(
-                painter = painterResource(id = R.drawable.app_icon7),
-                contentDescription = "Pictures of paws",
-                modifier = Modifier
-                    .width(320.dp)
-                    .height(317.dp)
-                    .shadow(elevation = 12.dp, RoundedCornerShape(55.dp)),
-            )
+        Image(
+            painter = painterResource(id = R.drawable.app_icon7),
+            contentDescription = "Pictures of paws",
+            modifier = Modifier
+                .width(320.dp)
+                .height(317.dp)
+                .shadow(elevation = 12.dp, RoundedCornerShape(55.dp)),
+        )
         Text(
             text = "Pricing Pals",
             textAlign = TextAlign.Center,
@@ -122,5 +114,3 @@ fun loadingTimer(){
     }
 
 }
-
-

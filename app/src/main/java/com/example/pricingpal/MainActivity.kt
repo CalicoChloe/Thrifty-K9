@@ -29,6 +29,8 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.PricingpalTheme
 import com.example.pricingpal.view.Loading
 import com.example.pricingpal.view.background
+import com.example.pricingpal.view.editinglist.editLoading
+import com.example.pricingpal.view.homepage.volunteer.volunteerLoading
 import com.example.pricingpal.viewmodel.CategoryViewModel
 
 
@@ -49,9 +51,12 @@ class MainActivity : ComponentActivity() {
             )
             //Create the scaffold passing in the HashMap of categories to be used for display
             //CategoryScaffold(categories = viewModel.categories)
-            background()
-            //Header()
+
+            /** This is what I use to show my UI designs. Loading screen is separated because it uses a different background*/
             //Loading()
+            //volunteerLoading()
+            //editLoading()
+            //background()
         }
     }
 }
