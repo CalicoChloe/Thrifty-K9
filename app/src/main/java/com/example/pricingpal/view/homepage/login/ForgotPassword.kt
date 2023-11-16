@@ -1,31 +1,22 @@
 package com.example.pricingpal.view.homepage.login
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,19 +27,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import com.example.pricingpal.R
-import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.ui.theme.Uranian_Blue
 import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.emailInput
 import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
@@ -57,26 +43,21 @@ import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 fun forgotPassword() {
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
-           // .verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
-
-        arrowNavigationBar()
+        arrowNavigationBar() //holds the back arrow for navigation
 
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(top = 10.dp),
-           // verticalArrangement = Arrangement.Center,
+                .verticalScroll(rememberScrollState()), // allows for the items in the column scroll
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            innerPricingBar()
+            innerPricingBar() // holds the pricing pal logo
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 textAlign = TextAlign.Center,
@@ -96,19 +77,24 @@ fun forgotPassword() {
             )
 
             Spacer(modifier = Modifier.height(50.dp))
-            emailInput()
+            emailInput() // holds email text-field
             Spacer(modifier = Modifier.height(50.dp))
-            forgotPasswordDialog()
+            forgotPasswordDialog() // holds the send button that will take you to a dialog
             Spacer(modifier = Modifier.height(140.dp))
         }
     }
 }
 
 
+/** This functionality hold the dialog for when the user press the button send,
+ * it will show them the message "Email was sent"*/
 @Composable
 fun forgotPasswordDialog() {
+    // a variable that determines if the state of the dialog to be use or not
     var showDialog by remember { mutableStateOf(false) }
     Column {
+
+        // Send Button
     ElevatedButton(
         onClick = { showDialog = true },
         shape = RectangleShape,
@@ -129,9 +115,11 @@ fun forgotPasswordDialog() {
         )
     }
 }
+    // dialog shows if send button is clicked
     if (showDialog) {
         Dialog(onDismissRequest = {showDialog = false}) {
-            // Custom shape, background, and layout for the dialog
+
+            //Hold makes up the dialog box
             Surface(
                 shape = RectangleShape,
                 color = Color.White,
@@ -145,10 +133,14 @@ fun forgotPasswordDialog() {
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
+                    // Holds the message that will be shown in dialog
                     Text(text = "Email was sent",
                         fontSize = 35.sp,
                         color = Color.Black,
                     )
+
+                    //Hold Close button when dialog is shown
                     Button(
                         onClick = { showDialog = false },
                         shape =  RectangleShape,
