@@ -1,7 +1,5 @@
 package com.example.pricingpal.view.homepage.guest
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,18 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -37,12 +29,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -76,7 +65,7 @@ fun ownerRegistration(){
                 .verticalScroll(rememberScrollState()), // allows for the items in the column to scroll
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            innerPricingBar()
+            innerPricingBar() // holds the pricing pal logo
             Text(
                 textAlign = TextAlign.Center,
                 text = "Owner Registration",
@@ -86,13 +75,17 @@ fun ownerRegistration(){
             )
 
             Spacer(modifier = Modifier.height(25.dp))
-            ownerOrganizationInput()
+            ownerOrganizationInput() // holds the organization text-field
             Spacer(modifier = Modifier.height(25.dp))
-            emailInput()
+            emailInput() // holds the email text-field
             Spacer(modifier = Modifier.height(25.dp))
-            passwordInput()
+            passwordInput() // holds the password text-field
             Spacer(modifier = Modifier.height(25.dp))
 
+            // Sign up
+            // This will navigate to the the Edit Upload screen
+            // they can't click until they enter an organization, email, & password
+            // Therefore button needs to be  disabled
             ElevatedButton(
                 onClick = { /*TODO*/ },
                 shape = RectangleShape,
@@ -120,17 +113,17 @@ fun ownerRegistration(){
 
 @Composable
 fun ownerOrganizationInput(){
-    var ownerOrganization by remember { mutableStateOf("") }
+    var ownerOrganization by remember { mutableStateOf("") } // variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
         value = ownerOrganization,
-        onValueChange = {ownerOrganization = it},
+        onValueChange = {ownerOrganization = it}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter your organization", fontSize = 20.sp) },
-        supportingText = { Text(text = "*required") },
+        //supportingText = { Text(text = "*required") },
         leadingIcon = { Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_add_business_24), contentDescription = "Business Icon") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
@@ -141,6 +134,8 @@ fun ownerOrganizationInput(){
         shape = RectangleShape,
     )
     /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
