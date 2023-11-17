@@ -24,9 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
-import com.example.pricingpal.ui.theme.Cornflower_blue
-import com.example.pricingpal.ui.theme.Periwinkle
-import com.example.pricingpal.ui.theme.Persian_indigo
 
 
 @Composable
@@ -72,7 +69,7 @@ fun CategoryCard(categoryName: Category) {
         .height(80.dp)
         .border(
             // puts a border around the card
-            border = BorderStroke(3.dp, color = Persian_indigo),
+            border = BorderStroke(3.dp, Color(0xFF27187E)),
             // shapes the card
             shape = RectangleShape
         ),
@@ -84,7 +81,7 @@ fun CategoryCard(categoryName: Category) {
         Row(verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
-                .background(color = Cornflower_blue, shape = RectangleShape)
+                .background(color = Color(0xFF758BFD), shape = RectangleShape)
                 .fillMaxWidth()
                 .height(80.dp)
         )
@@ -111,7 +108,7 @@ fun ItemCard(item: Item) {
             .padding(15.dp)
             .border(
                 // puts a border around the card
-                border = BorderStroke(3.dp, color = Persian_indigo),
+                border = BorderStroke(3.dp, Color(0xFF22577A)),
                 // shapes the card
                 shape = RectangleShape
             ),
@@ -123,7 +120,7 @@ fun ItemCard(item: Item) {
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 // changes the color of the card
-                .background(color = Periwinkle, shape = RectangleShape)
+                .background(color = Color(0xFFAEB8FE), shape = RectangleShape)
                 // changes the size of the card
                 .fillMaxWidth()
                 .height(80.dp)

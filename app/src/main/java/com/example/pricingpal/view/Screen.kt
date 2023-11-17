@@ -35,7 +35,7 @@ sealed class Screen(val route: String) {
         /**
          * Value of
          *
-         * @param value the String value of the Screen route that is being displayed to the user
+         * @param value the String value of the Screen route that is being displayed for the user
          * @return the String value of whatever Screen is being displayed
          *
          * @author Abdoulie J NJie
