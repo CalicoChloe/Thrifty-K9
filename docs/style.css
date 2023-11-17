@@ -10,7 +10,7 @@ body:before {
     height: 100%;
     opacity: 0.2;
     background-color: #F1F2F6;
-    background-image: url("../app/src/main/res/drawable/paw_background.png");
+    background-image: url("./../app/src/main/res/drawable/paw_background.png");
     background-size: cover;
 }
 
