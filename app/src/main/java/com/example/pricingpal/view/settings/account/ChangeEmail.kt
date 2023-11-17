@@ -43,10 +43,7 @@ import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.homepage.login.confirmPasswordInput
-import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
-import com.example.pricingpal.view.repetitivefunctions.passwordInput
 import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 
 
@@ -54,24 +51,24 @@ import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 fun changeEmail(){
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
-            //.verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
+
+        // Holds the navigation of the back arrow and setting
+        // Navigates to the account setting screen
         settingNavigationBar()
 
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState()),
-            // verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            innerPricingBar()
+            innerPricingBar() // holds the pricing pals logo
             Text(
                 textAlign = TextAlign.Center,
                 text = "Change Email",
@@ -90,11 +87,11 @@ fun changeEmail(){
             )
 
             Spacer(modifier = Modifier.height(25.dp))
-            oldEmailInput()
+            oldEmailInput() // holds the old email text-field
             Spacer(modifier = Modifier.height(25.dp))
-            newEmailInput()
+            newEmailInput() // holds the new email text-field
             Spacer(modifier = Modifier.height(35.dp))
-            saveEmailDialog()
+            saveEmailDialog() //will take you to the save email dialog
             Spacer(modifier = Modifier.height(30.dp))
         }
     }
@@ -102,14 +99,14 @@ fun changeEmail(){
 
 @Composable
 fun oldEmailInput(){
-    var oldEmail by remember { mutableStateOf("") }
+    var oldEmail by remember { mutableStateOf("") } // variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
         value = oldEmail,
-        onValueChange = {oldEmail = it},
+        onValueChange = {oldEmail = it}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter old email", fontSize = 20.sp) },
         supportingText = { Text(text = "*required") },
@@ -123,6 +120,8 @@ fun oldEmailInput(){
         shape = RectangleShape,
     )
     /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
@@ -138,16 +137,16 @@ fun oldEmailInput(){
 
 @Composable
 fun newEmailInput(){
-    var newEmail by remember { mutableStateOf("") }
+    var newEmail by remember { mutableStateOf("") } // variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
         value = newEmail,
-        onValueChange = {newEmail = it},
+        onValueChange = {newEmail = it}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("Enter old email", fontSize = 20.sp) },
+        placeholder = { Text("Enter new email", fontSize = 20.sp) },
         supportingText = { Text(text = "*required") },
         leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
         colors = TextFieldDefaults.colors(
@@ -159,6 +158,8 @@ fun newEmailInput(){
         shape = RectangleShape,
     )
     /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
@@ -175,8 +176,10 @@ fun newEmailInput(){
 
 @Composable
 fun saveEmailDialog(){
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }// a variable that determines if the state of the dialog to be use or not
     Column {
+        //Save Button
+        // will save the new email into the database
         ElevatedButton(
             onClick = { showDialog = true },
             shape = RectangleShape,
@@ -197,7 +200,7 @@ fun saveEmailDialog(){
             )
         }
     }
-    if (showDialog) {
+    if (showDialog) { // the dialog shows if send button is clicked
         Dialog(onDismissRequest = {showDialog = false}) {
             // Custom shape, background, and layout for the dialog
             Surface(
@@ -217,6 +220,8 @@ fun saveEmailDialog(){
                         fontSize = 35.sp,
                         color = Color.Black,
                     )
+                    //Close Button
+                    // will navigate you account setting screen
                     Button(
                         onClick = { showDialog = false },
                         shape =  RectangleShape,

@@ -33,8 +33,10 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 
 @Composable
 fun accountDialog() {
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }  // a variable that determines if the state of the dialog to be use or not
     Column {
+        // Delete Account Button
+        // will send you to a dialog asking if you want to delete the account
         ElevatedButton(
             onClick = { showDialog = true },
             shape = RectangleShape,
@@ -43,7 +45,7 @@ fun accountDialog() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(120.dp)
-                .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
+                .padding(start = 35.dp, top = 15.dp, end = 35.dp, bottom = 15.dp)
                 .border(4.dp, color = Persian_indigo),
 
             ) {
@@ -56,7 +58,7 @@ fun accountDialog() {
         }
     }
     if (showDialog) {
-        Dialog(onDismissRequest = {showDialog = false}) {
+        Dialog(onDismissRequest = {showDialog = false}) { // the dialog shows if send button is clicked
             // Custom shape, background, and layout for the dialog
             Surface(
                 shape = RectangleShape,
@@ -83,8 +85,10 @@ fun accountDialog() {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ){
-                        deleteAccountDialog()
+                        deleteAccountDialog() // will navigate you to another dialog box
                         Spacer(modifier = Modifier.width(25.dp))
+                        //No Button
+                        // will close you out the dialog box
                         Button(
                             onClick = { showDialog = false },
                             shape =  RectangleShape,
@@ -108,8 +112,10 @@ fun accountDialog() {
 
 @Composable
 fun deleteAccountDialog() {
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) } // a variable that determines if the state of the dialog to be use or not
     Column {
+        // Yes Button
+        // will send you to a dialog telling you the account has been deleted
         ElevatedButton(
             onClick = { showDialog = true },
             elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -146,8 +152,14 @@ fun deleteAccountDialog() {
                 ) {
                     Text(text = "Your account has been deleted.",
                         fontSize = 40.sp,
+                        textAlign = TextAlign.Center,
                         color = Color.Black,
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+
                     )
+                    // Close Button
+                    // will navigate you to the starter screen
                     Button(
                         onClick = { showDialog = false },
                         shape =  RectangleShape,

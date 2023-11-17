@@ -50,7 +50,7 @@ fun settings(){
     ) {
 
         //holds the back arrow and settings icon
-        // will navigate
+        // will navigate to the screen previous before
         settingNavigationBar()
 
         Column(

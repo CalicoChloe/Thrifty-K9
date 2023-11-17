@@ -17,12 +17,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,11 +39,6 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
 import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.settingsBar
-import com.example.pricingpal.view.settings.accessibilityButton
-import com.example.pricingpal.view.settings.accountButton
-import com.example.pricingpal.view.settings.displayButton
-import com.example.pricingpal.view.settings.guestAccountsButton
-import com.example.pricingpal.view.settings.logoutButton
 
 @Composable
 fun accountSetting(){
@@ -57,6 +52,8 @@ fun accountSetting(){
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
 
+        //holds the back arrow and settings icon
+        // will navigate to the screen previous before
         settingNavigationBar()
 
         Column(
@@ -64,9 +61,9 @@ fun accountSetting(){
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            settingsBar()
+            settingsBar() // Holds the settings title
             Spacer(modifier = Modifier.height(20.dp))
-            accountBackButton()
+            accountBackButton() // will navigate back to the settings home page screen
             Spacer(modifier = Modifier.height(30.dp))
             Column(
                 modifier = Modifier
@@ -83,13 +80,13 @@ fun accountSetting(){
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                 )
-                emailEdit()
-                passwordEdit()
+                emailEdit() // will navigate to the change email screen
+                passwordEdit() // will navigate to the change password screen
                 Spacer(modifier = Modifier.height(20.dp))
             }
 
             Spacer(modifier = Modifier.height(150.dp))
-            accountDialog()
+            accountDialog() //will take you to the delete account dialog
             Spacer(modifier = Modifier.height(30.dp))
         }
     }
@@ -116,14 +113,18 @@ fun accountBackButton(){
                 .height(90.dp)
         )
         {
-            Icon(
-                imageVector = Icons.Filled.KeyboardArrowLeft,
-                contentDescription = "Backward Arrow Icon",
-                tint = Color.Black,
-                modifier = Modifier
-                    .size(50.dp)
-                    .padding(start = 10.dp, top = 5.dp)
-            )
+            //The account Back Button
+            //This will navigate to the setting home page screen
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Filled.KeyboardArrowLeft,
+                    contentDescription = "Backward Arrow Icon",
+                    tint = Color.Black,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .padding(start = 10.dp, top = 5.dp)
+                )
+            }
             Text(
                 text = "Account",
                 textAlign = TextAlign.Center,
@@ -156,6 +157,8 @@ fun emailEdit(){
                 .padding(start = 20.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
+        //Edit Button
+        // will navigate to the change email screen
         ElevatedButton(
             onClick = { /*TODO*/ },
             shape = RectangleShape,
@@ -197,6 +200,8 @@ fun passwordEdit(){
                 .padding(start = 20.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
+        // Edit Button
+        // will navigate to the change password screen
         ElevatedButton(
             onClick = { /*TODO*/ },
             shape = RectangleShape,
