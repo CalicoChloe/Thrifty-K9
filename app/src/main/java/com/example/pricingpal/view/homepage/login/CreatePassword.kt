@@ -1,10 +1,7 @@
 package com.example.pricingpal.view.homepage.login
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,12 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -26,7 +21,6 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -39,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -56,32 +49,29 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.repetitivefunctions.newPasswordInput
-import com.example.pricingpal.view.repetitivefunctions.passwordInput
 
 @Composable
 fun createPassword(){
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
-            //.verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
 
+        // Holds the navigation of the back arrow
+        // Navigates to the Starter Screen
         arrowNavigationBar()
 
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(top = 10.dp),
-            // verticalArrangement = Arrangement.Center,
+                .verticalScroll(rememberScrollState()), // allows for the items in the column to scroll
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            innerPricingBar()
+            innerPricingBar() // holds the pricing pal logo
             Text(
                 textAlign = TextAlign.Center,
                 text = "Create Password",
@@ -100,11 +90,16 @@ fun createPassword(){
             )
 
             Spacer(modifier = Modifier.height(25.dp))
-            newPasswordInput()
+            newPasswordInput() // holds the new password text-field
             Spacer(modifier = Modifier.height(25.dp))
-            confirmPasswordInput()
+            confirmPasswordInput() // confirms the new password text-field
             Spacer(modifier = Modifier.height(35.dp))
 
+            //Create Button
+            // This will navigate to the Login Screen
+            // they can't click until they enter new password and confirm password.
+            // Therefore button needs to be  disabled
+            //This should also replace the password within the database
             ElevatedButton(
                 onClick = { /*TODO*/ },
                 shape = RectangleShape,
@@ -134,34 +129,34 @@ fun createPassword(){
 
 @Composable
 fun confirmPasswordInput(){
-    var confirmPassword by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") } // variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
         value = confirmPassword,
-        onValueChange = { confirmPassword = it },
+        onValueChange = { confirmPassword = it }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter confirm new password", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required")},
-        visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        visualTransformation = PasswordVisualTransformation(), // makes the password not visible to the user
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), // This will show the black dots instead of letters
         leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon") },
         trailingIcon = {
+            //When clicked, it should switch the hidden icon to the eye icon
             IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")
+                Icon(imageVector = ImageVector.vectorResource(id = R.drawable.hidden), contentDescription = "Hidden Icon")
             }
         },
-        /** This is for the hidden Icon that will turn the password hidden again.
+        /** This is for the eye Icon that will allow for the user to see their password.
 
         trailingIcon = {
         IconButton(onClick = { /*TODO*/ }) {
-        Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")}
+        Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Eye Icon")}
         },
          */
-        supportingText = { Text(text = "*required") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -171,6 +166,8 @@ fun confirmPasswordInput(){
         shape = RectangleShape,
     )
     /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()

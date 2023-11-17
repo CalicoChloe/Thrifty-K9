@@ -60,23 +60,20 @@ import com.example.pricingpal.view.repetitivefunctions.passwordInput
 fun ownerRegistration(){
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
-            //.verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
-
+        // Holds the navigation of the back arrow
+        // Navigates to the Starter Screen
         arrowNavigationBar()
 
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(top = 10.dp),
-            // verticalArrangement = Arrangement.Center,
+                .verticalScroll(rememberScrollState()), // allows for the items in the column to scroll
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             innerPricingBar()

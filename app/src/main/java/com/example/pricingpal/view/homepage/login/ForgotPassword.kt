@@ -50,11 +50,13 @@ fun forgotPassword() {
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
-        arrowNavigationBar() //holds the back arrow for navigation
+        // Holds the navigation of the back arrow
+        // Navigates to the Starter Screen
+        arrowNavigationBar()
 
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState()), // allows for the items in the column scroll
+                .verticalScroll(rememberScrollState()), // allows for the items in the column to scroll
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             innerPricingBar() // holds the pricing pal logo
@@ -78,8 +80,9 @@ fun forgotPassword() {
 
             Spacer(modifier = Modifier.height(50.dp))
             emailInput() // holds email text-field
+
             Spacer(modifier = Modifier.height(50.dp))
-            forgotPasswordDialog() // holds the send button that will take you to a dialog
+            forgotPasswordDialog() // holds the send button that will take you to the forgot password dialog
             Spacer(modifier = Modifier.height(140.dp))
         }
     }
@@ -95,6 +98,8 @@ fun forgotPasswordDialog() {
     Column {
 
         // Send Button
+        //this will allow for the dialog to be open
+        // this button will also send a verification link to the user's email
     ElevatedButton(
         onClick = { showDialog = true },
         shape = RectangleShape,
@@ -115,7 +120,7 @@ fun forgotPasswordDialog() {
         )
     }
 }
-    // dialog shows if send button is clicked
+    // the dialog shows if send button is clicked
     if (showDialog) {
         Dialog(onDismissRequest = {showDialog = false}) {
 
@@ -140,7 +145,8 @@ fun forgotPasswordDialog() {
                         color = Color.Black,
                     )
 
-                    //Hold Close button when dialog is shown
+                    //Close button
+                    // will exit the dialog
                     Button(
                         onClick = { showDialog = false },
                         shape =  RectangleShape,

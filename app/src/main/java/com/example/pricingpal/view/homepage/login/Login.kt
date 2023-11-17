@@ -44,7 +44,9 @@ fun login(){
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
-        arrowNavigationBar() // This hold the back arrow for navigation
+        // This hold the back arrow for navigation
+        // Navigates to the Starter Screen
+        arrowNavigationBar()
 
         Column(
             modifier = Modifier
@@ -69,6 +71,8 @@ fun login(){
             Spacer(modifier = Modifier.height(35.dp))
 
             //Login Button
+            // will navigate to the Edit Upload Screen
+            // they can't move on until they enter their email and password. Therefore button needs to be  disabled
             ElevatedButton(
                 onClick = { /*TODO*/ },
                 shape = RectangleShape,
@@ -90,6 +94,7 @@ fun login(){
             }
 
             //Forgot Password Button
+            //will navigate to the Forgot Password Screen
             TextButton(onClick = { /*TODO*/ }) {
                 Text(
                     textAlign = TextAlign.Center,
@@ -105,6 +110,7 @@ fun login(){
             Spacer(modifier = Modifier.height(20.dp))
 
             //Register Here Button
+            // will navigate to the Choose Registration Screen
             ElevatedButton(
                 onClick = { /*TODO*/ },
                 shape = RectangleShape,
