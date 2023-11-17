@@ -185,13 +185,16 @@ fun categoryName(){
             )
             //Delete Button
             // Will allow for you to remove the category name
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .size(50.dp)
+                ) {
                 Icon(
                     imageVector = Icons.Filled.Delete,
                     contentDescription = "Delete Icon",
                     tint = Color.Black,
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(50.dp)
                         .padding(end = 10.dp, top = 5.dp)
                 )
             }

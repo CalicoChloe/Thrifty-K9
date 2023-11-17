@@ -54,7 +54,7 @@ fun volunteerHome(){
 @Composable
 fun volunteerCategoryList(){
     // Holds the navigation of the back arrow
-    // Navigates to the Starter Screen
+    // Navigates to the volunteer search company  Screen
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier

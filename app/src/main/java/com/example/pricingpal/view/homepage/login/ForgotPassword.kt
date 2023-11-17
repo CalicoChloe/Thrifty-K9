@@ -51,7 +51,7 @@ fun forgotPassword() {
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
         // Holds the navigation of the back arrow
-        // Navigates to the Starter Screen
+        // Navigates to the login Screen
         arrowNavigationBar()
 
         Column(

@@ -106,7 +106,10 @@ fun accountButton(){
             )
             /** Account Button
              * Will navigate you to the account setting screen*/
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .size(50.dp)
+                ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowRight,
                     contentDescription = "Forward Arrow Icon",
@@ -151,7 +154,10 @@ fun guestAccountsButton(){
             )
             /** Guest Account Button
              * Will navigate you to the guest account setting screen*/
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .size(50.dp)
+                ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowRight,
                     contentDescription = "Forward Arrow Icon",
@@ -196,7 +202,10 @@ fun displayButton(){
             )
             /** Display Button
              * Will navigate you to the display setting screen*/
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .size(50.dp)
+                ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowRight,
                     contentDescription = "Forward Arrow Icon",
@@ -241,7 +250,10 @@ fun accessibilityButton(){
             )
             /** Accessibility Button
              * Will navigate you to the accessibility setting screen*/
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .size(50.dp)
+                ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowRight,
                     contentDescription = "Forward Arrow Icon",

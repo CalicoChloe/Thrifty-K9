@@ -18,7 +18,7 @@ import com.example.pricingpal.view.repetitivefunctions.viewItems
 @Composable
 fun volunteerItemList(){
     // Holds the navigation of the back arrow
-    // Navigates to the Starter Screen
+    // Navigates to the volunteer category list  Screen
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier

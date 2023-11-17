@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.sp
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.repetitivefunctions.addAndTrashButton
 import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 

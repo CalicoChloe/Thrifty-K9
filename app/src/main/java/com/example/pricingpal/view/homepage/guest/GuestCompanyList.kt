@@ -109,7 +109,7 @@ fun companyName(){
 @Composable
 fun guestCompanyList(){
     // Holds the navigation of the back arrow
-    // Navigates to the Starter Screen
+    // Navigates to the choose registration Screen
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier

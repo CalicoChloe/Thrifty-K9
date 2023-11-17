@@ -115,7 +115,10 @@ fun accountBackButton(){
         {
             //The account Back Button
             //This will navigate to the setting home page screen
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .size(50.dp)
+                ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowLeft,
                     contentDescription = "Backward Arrow Icon",

@@ -86,7 +86,7 @@ fun addItems(){
             Spacer(modifier = Modifier.height(25.dp))
             addItemButton() // will add the item name and price to the list below
             Spacer(modifier = Modifier.height(25.dp))
-            for(i in 1..2) {
+            for(i in 1..1) {
                 itemName()// will show the item name and price
             }
             Spacer(modifier = Modifier.height(30.dp))
@@ -208,7 +208,10 @@ fun itemName(){
 
             //Delete Button
             // Will allow for you to remove the item file
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .size(50.dp)
+                ) {
                 Icon(
                     imageVector = Icons.Filled.Delete,
                     contentDescription = "Delete Icon",

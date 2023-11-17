@@ -41,13 +41,16 @@ fun deleteIconDialog(){
     Column {
         // Delete Icon Button
         // will send you to a dialog asking if you want to delete the guest account
-        IconButton(onClick = { showDialog = true }) {
+        IconButton(onClick = { showDialog = true },
+            modifier = Modifier
+                .size(50.dp)
+            ) {
             Icon(
                 imageVector = Icons.Filled.Delete,
                 contentDescription = "Delete Icon",
                 tint = Color.Black,
                 modifier = Modifier
-                    .size(110.dp)
+                    .size(50.dp)
                     .padding(end = 10.dp)
             )
         }
