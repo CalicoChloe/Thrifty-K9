@@ -1,0 +1,21 @@
+/* This block displays the static background image for the site.
+Unsure that this is the best way to handle background opacity (seems to be messing with content backgrounds), so may be altered.*/
+body:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    background-color: #F1F2F6;
+    background-image: url("../app/src/main/res/drawable/paw_background.png");
+    background-size: cover;
+}
+
+/* This block styles the content blocks of the site */
+.content {
+    opacity: 0.9;
+    background-color: #AEB8FE;
+}
