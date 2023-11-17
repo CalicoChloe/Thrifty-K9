@@ -9,7 +9,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
-import com.example.pricingpal.view.homepage.volunteer.volunteerCategoryList
+import com.example.pricingpal.view.homepage.volunteer.volunteerItemList
 
 
 /** This is a background that holds all the other screens because they share the same background.
@@ -48,8 +48,8 @@ fun background(){
         //guestRegistration()
 
         //volunteerCompanyList()
-        volunteerCategoryList()
-        //volunteerItemList()
+        //volunteerCategoryList()
+        volunteerItemList()
 
         //chooseList()
         //uploadCSV()

@@ -12,30 +12,37 @@ import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.categoryTitle
 import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 import com.example.pricingpal.view.repetitivefunctions.searchBar
-import com.example.pricingpal.view.repetitivefunctions.viewCategory
 import com.example.pricingpal.view.repetitivefunctions.viewItems
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun volunteerItemList(){
+    // Holds the navigation of the back arrow
+    // Navigates to the Starter Screen
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier
             .padding(top = 54.dp)
     ) {
         item {
+            // holds the pricing pal logo
+            // This will collapse when scrolling up
             pricingPalBar()
         }
         stickyHeader {
+            /** I tried to make a top bar that was collapsable, but it wasn't working on my end so I
+             * did this instead to get the same effect. The sticky header will allow for the search
+             * bar to still show when scrolling down.*/
+            // This will allow for you to look up the items and categories
             searchBar()
             Divider(thickness = 4.dp, color = Persian_indigo)
         }
         item{
-            categoryTitle()
+            categoryTitle() // Shows the name of the category
         }
         for(i in 1..10) {
             item {
-                viewItems()
+                viewItems() // shows list of items
             }
         }
     }

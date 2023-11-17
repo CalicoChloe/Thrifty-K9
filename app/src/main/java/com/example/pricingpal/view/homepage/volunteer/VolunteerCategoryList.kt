@@ -75,11 +75,11 @@ fun volunteerCategoryList(){
         }
         for(i in 1..2) {
             item {
-               viewCategory()
+               viewCategory() // Shows the name of the category
             }
         }
         item{
-            volunteerHome()
+            volunteerHome() // Shows list of categories
         }
     }
 }

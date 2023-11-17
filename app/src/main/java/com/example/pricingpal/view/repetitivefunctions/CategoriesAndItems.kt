@@ -37,18 +37,15 @@ fun viewCategory(){
             .padding(15.dp),
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
-        Column( //verticalArrangement = Arrangement.Center,
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .background(color = Cornflower_blue, shape = RectangleShape)
                 .border(
-                    // puts a border around the card
                     border = BorderStroke(4.dp, color = Persian_indigo),
-                    // shapes the card
                     shape = RectangleShape
                 )
                 .fillMaxWidth()
-            //.padding(15.dp)
         )
         {
             Image(
@@ -71,10 +68,8 @@ fun viewCategory(){
             ) {
 
                 Text(
-                    //shows the name of the category
                     text = "Category",
                     fontSize = 30.sp,
-                    // have it in bold to make it stand out
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                 )
@@ -93,14 +88,12 @@ fun categoryTitle(){
             .padding(15.dp),
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
-        Column( //verticalArrangement = Arrangement.Center,
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .background(color = Cornflower_blue, shape = RectangleShape)
                 .border(
-                    // puts a border around the card
                     border = BorderStroke(4.dp, color = Persian_indigo),
-                    // shapes the card
                     shape = RectangleShape
                 )
                 .fillMaxWidth()
@@ -109,10 +102,8 @@ fun categoryTitle(){
         {
 
             Text(
-                //shows the name of the category
                 text = "Category Name",
                 fontSize = 60.sp,
-                // have it in bold to make it stand out
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
             )
@@ -124,24 +115,19 @@ fun categoryTitle(){
 fun viewItems(){
     Card(
         modifier = Modifier
-            // padding around the card
+            .padding(start = 10.dp, end = 10.dp)
             .padding(15.dp)
             .border(
-                // puts a border around the card
                 border = BorderStroke(4.dp, color = Persian_indigo),
-                // shapes the card
                 shape = RectangleShape
             ),
-        // puts a shadow under the card to make it pop out
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
                 .background(color = Periwinkle, shape = RectangleShape)
-                // changes the size of the card
                 .fillMaxWidth()
                 .height(80.dp)
         )
