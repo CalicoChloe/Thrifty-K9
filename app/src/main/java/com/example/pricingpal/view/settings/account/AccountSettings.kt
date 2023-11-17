@@ -49,10 +49,8 @@ import com.example.pricingpal.view.settings.logoutButton
 fun accountSetting(){
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
-            //.verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
@@ -64,7 +62,6 @@ fun accountSetting(){
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState()),
-            // verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             settingsBar()
@@ -102,25 +99,19 @@ fun accountSetting(){
 fun accountBackButton(){
     Card(
         modifier = Modifier
-            // padding around the card
             .padding(5.dp)
             .padding(start = 30.dp, end = 30.dp)
             .border(
-                // puts a border around the card
                 border = BorderStroke(4.dp, color = Persian_indigo),
-                // shapes the card
                 shape = RectangleShape
             ),
         elevation = CardDefaults.cardElevation(8.dp),
-        // puts a shadow under the card to make it pop out
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
                 .background(color = Cornflower_blue, shape = RectangleShape)
-                // changes the size of the card
                 .fillMaxWidth()
                 .height(90.dp)
         )
@@ -137,7 +128,6 @@ fun accountBackButton(){
                 text = "Account",
                 textAlign = TextAlign.Center,
                 fontSize = 40.sp,
-                fontWeight = FontWeight.Bold,
                 color = Color.Black,
                 modifier = Modifier
                     .padding(end = 40.dp)
@@ -153,9 +143,7 @@ fun emailEdit(){
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            // changes the color of the card
             .background(color = Cornflower_blue, shape = RectangleShape)
-            // changes the size of the card
             .fillMaxWidth()
             .height(90.dp)
     )
@@ -177,7 +165,6 @@ fun emailEdit(){
                 .width(200.dp)
                 .height(60.dp)
                 .padding(end = 30.dp)
-                //.padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
                 .border(4.dp, color = Persian_indigo),
 
             ) {
@@ -197,9 +184,7 @@ fun passwordEdit(){
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            // changes the color of the card
             .background(color = Cornflower_blue, shape = RectangleShape)
-            // changes the size of the card
             .fillMaxWidth()
             .height(90.dp)
     )
@@ -221,7 +206,6 @@ fun passwordEdit(){
                 .width(200.dp)
                 .height(60.dp)
                 .padding(end = 30.dp)
-                //.padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
                 .border(4.dp, color = Persian_indigo),
 
             ) {

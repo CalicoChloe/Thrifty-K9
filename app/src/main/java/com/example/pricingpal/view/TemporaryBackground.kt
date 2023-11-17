@@ -9,7 +9,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
-import com.example.pricingpal.view.editinglist.makelist.editItemList
+import com.example.pricingpal.view.settings.account.accountSetting
 
 
 /** This is a background that holds all the other screens because they share the same background.
@@ -59,10 +59,10 @@ fun background(){
         //addItems()
         //addImage()
         //editCategoryList()
-        editItemList()
+        //editItemList()
 
         //settings()
-        //accountSetting()
+        accountSetting()
         //changeEmail()
         //changePassword()
 
