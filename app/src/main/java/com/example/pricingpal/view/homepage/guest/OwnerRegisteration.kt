@@ -11,10 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -37,13 +35,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
-import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.emailInput
 import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.repetitivefunctions.passwordInput
+import com.example.pricingpal.view.repetitivefunctions.signUpButton
 
 @Composable
 fun ownerRegistration(){
@@ -82,29 +80,8 @@ fun ownerRegistration(){
             passwordInput() // holds the password text-field
             Spacer(modifier = Modifier.height(25.dp))
 
-            // Sign up
-            // This will navigate to the the Edit Upload screen
-            // they can't click until they enter an organization, email, & password
-            // Therefore button needs to be  disabled
-            ElevatedButton(
-                onClick = { /*TODO*/ },
-                shape = RectangleShape,
-                colors = ButtonDefaults.buttonColors(Cornflower_blue),
-                elevation = ButtonDefaults.buttonElevation(8.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(120.dp)
-                    .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
-                    .border(4.dp, color = Persian_indigo),
-
-                ) {
-                Text(
-                    textAlign = TextAlign.Center,
-                    text = "Sign up",
-                    fontSize = 40.sp,
-                    color = Color.Black,
-                )
-            }
+            // Sign up Button
+            signUpButton()
 
             Spacer(modifier = Modifier.height(60.dp))
         }

@@ -175,6 +175,64 @@ fun searchBar(){
     }
 }
 
+/** I decided to make 2 different search bar because They are searching up to different things.
+ * This search bar should only should the companies not items and categories*/
+@Composable
+fun companySearchBar(){
+    Card(
+        modifier = Modifier
+            .fillMaxWidth(),
+        shape = RectangleShape,
+        //elevation = CardDefaults.cardElevation(12.dp),
+        colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
+    ){
+        Spacer(modifier = Modifier.height(20.dp))
+        var searching by remember { mutableStateOf("") }
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(start = 50.dp, end = 50.dp),
+            value = searching,
+            onValueChange = { searching = it },
+            textStyle = TextStyle.Default.copy(fontSize = 20.sp),
+            placeholder = { Text("Search", fontSize = 20.sp) },
+            leadingIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = "Search Icon",
+                        tint = Color.Black,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .padding(start = 10.dp)
+                    )
+                }
+            },
+            trailingIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Filled.Close,
+                        contentDescription = "Close Icon",
+                        tint = Color.Black,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .padding(end = 10.dp)
+                    )
+                }
+            },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Uranian_Blue,
+                unfocusedContainerColor = Uranian_Blue,
+                unfocusedIndicatorColor = Uranian_Blue,
+                focusedIndicatorColor = Uranian_Blue
+            ),
+            shape = RectangleShape,
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+    }
+}
+
 @Composable
 fun arrowNavigationBar() {
 

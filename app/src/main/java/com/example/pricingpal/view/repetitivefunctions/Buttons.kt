@@ -76,6 +76,10 @@ fun deleteCancelButton(){
     }
 }
 
+// Sign up
+// This will navigate to the the Edit Upload screen
+// they can't click until they enter an organization, email, & password
+// Therefore button needs to be  disabled
 @Composable
 fun signUpButton(){
     ElevatedButton(
@@ -99,6 +103,7 @@ fun signUpButton(){
     }
 }
 
+// -------------------- OR --------------------
 @Composable
 fun lines(){
     Row(modifier = Modifier

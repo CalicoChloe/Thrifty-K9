@@ -27,8 +27,8 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
+import com.example.pricingpal.view.repetitivefunctions.companySearchBar
 import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
-import com.example.pricingpal.view.repetitivefunctions.searchBar
 
 @Composable
 fun companiesTitle(){
@@ -125,7 +125,7 @@ fun guestCompanyList(){
              * did this instead to get the same effect. The sticky header will allow for the search
              * bar to still show when scrolling down.*/
             // This will allow for you to look up the company's name if the list became too long
-            searchBar()
+            companySearchBar()
             Divider(thickness = 4.dp, color = Persian_indigo)
         }
         item {
