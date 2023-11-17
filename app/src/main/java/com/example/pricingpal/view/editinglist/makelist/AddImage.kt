@@ -43,23 +43,22 @@ import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 fun addImage(){
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
-            //.verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
 
+        // Holds the navigation of the back arrow and setting
+        // Navigates to the Edit List Screen
         settingNavigationBar()
 
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState())// Allows for the column to scroll
                 .padding(top = 10.dp),
-            // verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -73,19 +72,20 @@ fun addImage(){
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            addImageButton()
+            addImageButton() // adds Image file from user's device to Screen
             Spacer(modifier = Modifier.height(50.dp))
-            for(i in 1..5) {
-                imageName()
+            for(i in 1..2) {
+                imageName() // will show the name of the Image file
             }
             Spacer(modifier = Modifier.height(50.dp))
-            uploadImageButton()
+            uploadImageButton()// upload Image to category
             Spacer(modifier = Modifier.height(140.dp))
         }
     }
 }
 
-
+/** The add Image Button
+ * once clicked, will show the Image file name underneath*/
 @Composable
 fun addImageButton(){
     Surface(
@@ -95,6 +95,9 @@ fun addImageButton(){
             .height(300.dp)
             .background(color = Color.White, shape = RectangleShape),
     ) {
+        /** When the image is being loaded, it has to be a certain size or the app will crash.
+         * An error can them above the button saying,
+         * "Your file is too big. Image needs to be no bigger than 430 X 300."*/
         ElevatedButton(
             onClick = { /*TODO*/ },
             shape = RectangleShape,
@@ -123,30 +126,24 @@ fun addImageButton(){
 fun imageName(){
     Card(
         modifier = Modifier
-            // padding around the card
             .padding(15.dp)
             .padding(start = 30.dp, end = 30.dp)
             .border(
-                // puts a border around the card
                 border = BorderStroke(4.dp, color = Persian_indigo),
-                // shapes the card
                 shape = RectangleShape
             ),
-        // puts a shadow under the card to make it pop out
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
                 .background(color = Uranian_Blue, shape = RectangleShape)
-                // changes the size of the card
                 .fillMaxWidth()
                 .height(80.dp)
         )
         {
             Text(
-                text = "Image Name",
+                text = "Image Name", // will be the name of the Image file
                 fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier
@@ -154,6 +151,8 @@ fun imageName(){
                     .align(alignment = Alignment.CenterVertically)
             )
 
+            //Delete Button
+            // Will allow for you to remove the Image file
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.Delete,
@@ -169,6 +168,8 @@ fun imageName(){
     }
 }
 
+/** will upload the Image file to the category
+ * will navigate to the Edit list Screen*/
 @Composable
 fun uploadImageButton(){
     ElevatedButton(

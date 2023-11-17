@@ -34,7 +34,6 @@ import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 fun chooseList(){
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
@@ -43,9 +42,10 @@ fun chooseList(){
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
-
+        // Holds the navigation of the back arrow and setting
+        // Navigates to the Starter Screen
         settingNavigationBar()
-        innerPricingBar()
+        innerPricingBar() // Holds the pricing pal logo
 
         Column(
             modifier = Modifier
@@ -53,6 +53,9 @@ fun chooseList(){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+
+            //Upload CSV Button
+            // will navigate to add CSV File Screen
             ElevatedButton(
                 onClick = { /*TODO*/ },
                 shape = RectangleShape,
@@ -74,9 +77,11 @@ fun chooseList(){
             }
 
             Spacer(modifier = Modifier.height(40.dp))
-            lines()
+            lines() // ----------- OR ------------
             Spacer(modifier = Modifier.height(40.dp))
 
+            //Make List Button
+            // will navigate to add Edit List Screen
             ElevatedButton(
                 onClick = { /*TODO*/ },
                 shape = RectangleShape,

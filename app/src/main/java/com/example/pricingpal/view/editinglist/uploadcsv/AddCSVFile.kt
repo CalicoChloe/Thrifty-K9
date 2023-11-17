@@ -12,11 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -39,33 +37,28 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
-import com.example.pricingpal.view.homepage.login.forgotPasswordDialog
-import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
-import com.example.pricingpal.view.repetitivefunctions.emailInput
-import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 
 @Composable
 fun uploadCSV() {
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
-            //.verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
 
+        // Holds the navigation of the back arrow and setting
+        // Navigates to the Edit Upload Screen
         settingNavigationBar()
 
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()) // Allows for the column to scroll
                 .padding(top = 10.dp),
-            // verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -79,18 +72,20 @@ fun uploadCSV() {
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            addFile()
+            addFile() // adds file from user's device to Screen
             Spacer(modifier = Modifier.height(50.dp))
             for(i in 1..2) {
-                fileName()
+                fileName() // will show the name of the CSV file
             }
             Spacer(modifier = Modifier.height(50.dp))
-            uploadFileButton()
+            uploadFileButton() // upload CSV file to database
             Spacer(modifier = Modifier.height(140.dp))
         }
     }
 }
 
+/** The add File Button
+ * once clicked, will show the file name underneath*/
 @Composable
 fun addFile(){
     Surface(
@@ -123,8 +118,11 @@ fun addFile(){
     }
 }
 
+/** will upload the CSV File and turn it into a viewable list.
+ * will navigate to the Edit loading Screen*/
 @Composable
 fun uploadFileButton(){
+
     ElevatedButton(
         onClick = { /*TODO*/ },
         shape = RectangleShape,
@@ -150,30 +148,24 @@ fun uploadFileButton(){
 fun fileName(){
     Card(
         modifier = Modifier
-            // padding around the card
             .padding(15.dp)
             .padding(start = 30.dp, end = 30.dp)
             .border(
-                // puts a border around the card
                 border = BorderStroke(4.dp, color = Persian_indigo),
-                // shapes the card
                 shape = RectangleShape
             ),
-        // puts a shadow under the card to make it pop out
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
                 .background(color = Uranian_Blue, shape = RectangleShape)
-                // changes the size of the card
                 .fillMaxWidth()
                 .height(80.dp)
         )
         {
             Text(
-                text = "File Name",
+                text = "File Name", // will be the name of the CSV file
                 fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier
@@ -181,6 +173,8 @@ fun fileName(){
                     .align(alignment = Alignment.CenterVertically)
             )
 
+            //Delete Button
+            // Will allow for you to remove the CSV file
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.Delete,

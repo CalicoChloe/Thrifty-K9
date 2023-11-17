@@ -10,12 +10,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +34,6 @@ import androidx.compose.ui.unit.sp
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.repetitivefunctions.addAndTrashButton
 import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 
@@ -42,14 +46,12 @@ fun editCategoryTitle(){
             .padding(15.dp),
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
-        Column( //verticalArrangement = Arrangement.Center,
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .background(color = Cornflower_blue, shape = RectangleShape)
                 .border(
-                    // puts a border around the card
                     border = BorderStroke(4.dp, color = Persian_indigo),
-                    // shapes the card
                     shape = RectangleShape
                 )
                 .fillMaxWidth()
@@ -58,10 +60,8 @@ fun editCategoryTitle(){
         {
 
             Text(
-                //shows the name of the category
                 text = "Category Name",
                 fontSize = 60.sp,
-                // have it in bold to make it stand out
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
             )
@@ -73,24 +73,18 @@ fun editCategoryTitle(){
 fun editItemCard(){
     Card(
         modifier = Modifier
-            // padding around the card
             .padding(15.dp)
             .border(
-                // puts a border around the card
                 border = BorderStroke(4.dp, color = Persian_indigo),
-                // shapes the card
                 shape = RectangleShape
             ),
-        // puts a shadow under the card to make it pop out
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
                 .background(color = Periwinkle, shape = RectangleShape)
-                // changes the size of the card
                 .fillMaxWidth()
                 .height(80.dp)
         )
@@ -117,6 +111,9 @@ fun editItemCard(){
     }
 }
 
+/** Upload Button
+ * will navigate to the Edit List Screen
+ * will upload to the item list*/
 @Composable
 fun uploadItemListButton(){
     ElevatedButton(
@@ -141,7 +138,61 @@ fun uploadItemListButton(){
 }
 
 @Composable
+fun itemAddAndTrashButton(){
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .height(200.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        //Add Circle Button
+        // Will navigate to the Add Item Screen
+        ElevatedButton(
+            onClick = { /*TODO*/ },
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(Cornflower_blue),
+            elevation = ButtonDefaults.buttonElevation(8.dp),
+            modifier = Modifier
+                .size(140.dp)
+                .border(4.dp, color = Persian_indigo),
+
+            ) {
+            Icon(
+                imageVector = Icons.Filled.AddCircle,
+                contentDescription = "Add Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(140.dp)
+            )
+        }
+
+        //Delete Button
+        // Will delete the entire item list
+        ElevatedButton(
+            onClick = { /*TODO*/ },
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(Cornflower_blue),
+            elevation = ButtonDefaults.buttonElevation(8.dp),
+            modifier = Modifier
+                .size(140.dp)
+                .border(4.dp, color = Persian_indigo),
+
+            ) {
+            Icon(
+                imageVector = Icons.Filled.Delete,
+                contentDescription = "Delete Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(140.dp)
+            )
+        }
+    }
+}
+
+@Composable
 fun viewEditItemList(){
+    // holds the back arrow and setting's navigation's
+    // will navigate back to Edit List Screen
     settingNavigationBar()
     LazyColumn(
         modifier = Modifier
@@ -152,6 +203,7 @@ fun viewEditItemList(){
             Divider(thickness = 4.dp, color = Persian_indigo)
             Spacer(modifier = Modifier.height(20.dp))
         }
+        /** I remove the search bar because I didn't think it was necessary when it comes to editing*/
         /*
         stickyHeader {
             searchBar()
@@ -164,14 +216,14 @@ fun viewEditItemList(){
         }
         for(i in 1..2) {
             item {
-                editItemCard()
+                editItemCard() // will show the item
             }
         }
         item{
-            addAndTrashButton()
+            itemAddAndTrashButton() // for you to add or delete items
         }
         item {
-            uploadItemListButton()
+            uploadItemListButton() // will upload the item list to the category
         }
     }
 }

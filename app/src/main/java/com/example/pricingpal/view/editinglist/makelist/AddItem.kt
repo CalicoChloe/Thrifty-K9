@@ -51,23 +51,22 @@ import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 fun addItems(){
     Card(
         modifier = Modifier
-            //.safeContentPadding(40.dp,50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .safeContentPadding()
             .fillMaxSize()
-            //.verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle),
 
         ) {
+        // Holds the navigation of the back arrow
+        // Navigates to the Edit Item List Screen
         settingNavigationBar()
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState())// allows for the items in the column to scroll
                 .padding(top = 10.dp),
-            // verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -81,17 +80,17 @@ fun addItems(){
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            itemInput()
+            itemInput()// the text-field for item Name
             Spacer(modifier = Modifier.height(15.dp))
-            priceInput()
+            priceInput()// the text-field for price
             Spacer(modifier = Modifier.height(25.dp))
-            addItemButton()
+            addItemButton() // will add the item name and price to the list below
             Spacer(modifier = Modifier.height(25.dp))
             for(i in 1..2) {
-                itemName()
+                itemName()// will show the item name and price
             }
             Spacer(modifier = Modifier.height(30.dp))
-            uploadItemButton()
+            uploadItemButton()// will upload the list of items to the edit item list Screen
             Spacer(modifier = Modifier.height(30.dp))
         }
     }
@@ -99,14 +98,14 @@ fun addItems(){
 
 @Composable
 fun itemInput(){
-    var itemInput by remember { mutableStateOf("") }
+    var itemInput by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
         value = itemInput,
-        onValueChange = {itemInput = it},
+        onValueChange = {itemInput = it},// will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter item", fontSize = 20.sp) },
         colors = TextFieldDefaults.colors(
@@ -118,6 +117,8 @@ fun itemInput(){
         shape = RectangleShape,
     )
     /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
@@ -133,14 +134,14 @@ fun itemInput(){
 
 @Composable
 fun priceInput(){
-    var priceInput by remember { mutableStateOf("") }
+    var priceInput by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
         value = priceInput,
-        onValueChange = {priceInput = it},
+        onValueChange = {priceInput = it},// will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter price", fontSize = 20.sp) },
         colors = TextFieldDefaults.colors(
@@ -152,6 +153,8 @@ fun priceInput(){
         shape = RectangleShape,
     )
     /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
@@ -169,24 +172,18 @@ fun priceInput(){
 fun itemName(){
     Card(
         modifier = Modifier
-            // padding around the card
             .padding(15.dp)
             .padding(start = 30.dp, end = 30.dp)
             .border(
-                // puts a border around the card
                 border = BorderStroke(4.dp, color = Persian_indigo),
-                // shapes the card
                 shape = RectangleShape
             ),
-        // puts a shadow under the card to make it pop out
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
                 .background(color = Uranian_Blue, shape = RectangleShape)
-                // changes the size of the card
                 .fillMaxWidth()
                 .height(100.dp)
         )
@@ -198,7 +195,6 @@ fun itemName(){
                     color = Color.Black,
                     modifier = Modifier
                         .padding(start = 20.dp)
-                        //.align(alignment = Alignment.CenterVertically)
                 )
 
                 Text(
@@ -207,10 +203,11 @@ fun itemName(){
                     color = Color.Black,
                     modifier = Modifier
                         .padding(start = 20.dp)
-                        //.align(alignment = Alignment.CenterVertically)
                 )
             }
 
+            //Delete Button
+            // Will allow for you to remove the item file
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.Delete,
@@ -228,6 +225,8 @@ fun itemName(){
 
 @Composable
 fun addItemButton(){
+    //Add item Button
+    // will load the item card below the button
     ElevatedButton(
         onClick = { /*TODO*/ },
         shape = RectangleShape,
@@ -251,6 +250,9 @@ fun addItemButton(){
 
 @Composable
 fun uploadItemButton(){
+    //Upload Item Button
+    // will navigate back to Edit Item list Screen
+    // will upload the items
     ElevatedButton(
         onClick = { /*TODO*/ },
         shape = RectangleShape,

@@ -1,7 +1,6 @@
 package com.example.pricingpal.view.editinglist.makelist
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,13 +10,18 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,24 +44,22 @@ fun editCategoryCard(){
     Card(
         shape = RectangleShape,
         modifier = Modifier
+            .padding(start = 10.dp, end = 10.dp)
             .padding(15.dp),
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
-        Column( //verticalArrangement = Arrangement.Center,
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .background(color = Cornflower_blue, shape = RectangleShape)
                 .border(
-                    // puts a border around the card
                     border = BorderStroke(4.dp, color = Persian_indigo),
-                    // shapes the card
                     shape = RectangleShape
                 )
                 .fillMaxWidth()
-            //.padding(15.dp)
         )
         {
-            imageAndItemButton()
+            imageAndItemButton() // will add images and items
 
             Row(modifier = Modifier
                 .border(4.dp, color = Persian_indigo)
@@ -69,10 +71,8 @@ fun editCategoryCard(){
             ) {
 
                 Text(
-                    //shows the name of the category
                     text = "Category",
                     fontSize = 30.sp,
-                    // have it in bold to make it stand out
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                 )
@@ -91,13 +91,14 @@ fun imageAndItemButton(){
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // Images Button
+        // Will navigate to Add Image Screen
         ElevatedButton(
             onClick = { /*TODO*/ },
             shape = RectangleShape,
             colors = ButtonDefaults.buttonColors(Cornflower_blue),
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier
-                //.padding(start = 70.dp, top = 15.dp, end = 70.dp, bottom = 15.dp)
                 .padding(start = 30.dp)
                 .height(60.dp)
                 .width(200.dp)
@@ -113,13 +114,14 @@ fun imageAndItemButton(){
 
         }
 
+        // Item Button
+        // will navigate to Edit Item List Screen
         ElevatedButton(
             onClick = { /*TODO*/ },
             shape = RectangleShape,
             colors = ButtonDefaults.buttonColors(Cornflower_blue),
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier
-                //.padding(start = 70.dp, top = 15.dp, end = 70.dp, bottom = 15.dp)
                 .padding(end = 30.dp)
                 .height(60.dp)
                 .width(200.dp)
@@ -137,19 +139,22 @@ fun imageAndItemButton(){
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun viewEditList(){
+    // Holds the navigation of the back arrow and setting
+    // Navigates to the Edit Upload Screen
     settingNavigationBar()
     LazyColumn(
         modifier = Modifier
             .padding(top = 54.dp)
     ) {
         item {
+            // Holds the Pricing pal logo
             pricingPalBar()
             Divider(thickness = 4.dp, color = Persian_indigo)
             Spacer(modifier = Modifier.height(20.dp))
         }
+        /** I remove the search bar because I didn't think it was necessary when it comes to editing*/
         /*
         stickyHeader {
             searchBar()
@@ -159,18 +164,21 @@ fun viewEditList(){
          */
         for(i in 1..1) {
             item {
-                editCategoryCard()
+                editCategoryCard() // will show the category
             }
         }
         item{
-            addAndTrashButton()
+            categoryAddAndTrashButton() // for you to add or delete categories
         }
         item {
-            uploadListButton()
+            uploadListButton() // will upload the item list to the category
         }
     }
 }
 
+/** Upload Button
+ * will navigate to the Edit List Screen
+ * will upload to the category list*/
 @Composable
 fun uploadListButton(){
     ElevatedButton(
@@ -191,6 +199,59 @@ fun uploadListButton(){
             fontSize = 40.sp,
             color = Color.Black,
         )
+    }
+}
+
+
+@Composable
+fun categoryAddAndTrashButton(){
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .height(200.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        //Add Circle Button
+        // Will navigate to the Add Category Screen
+        ElevatedButton(
+            onClick = { /*TODO*/ },
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(Cornflower_blue),
+            elevation = ButtonDefaults.buttonElevation(8.dp),
+            modifier = Modifier
+                .size(140.dp)
+                .border(4.dp, color = Persian_indigo),
+
+            ) {
+            Icon(
+                imageVector = Icons.Filled.AddCircle,
+                contentDescription = "Add Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(140.dp)
+            )
+        }
+
+        //Delete Button
+        // Will delete the entire category list
+        ElevatedButton(
+            onClick = { /*TODO*/ },
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(Cornflower_blue),
+            elevation = ButtonDefaults.buttonElevation(8.dp),
+            modifier = Modifier
+                .size(140.dp)
+                .border(4.dp, color = Persian_indigo),
+
+            ) {
+            Icon(
+                imageVector = Icons.Filled.Delete,
+                contentDescription = "Delete Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(140.dp)
+            )
+        }
     }
 }
 
