@@ -19,6 +19,7 @@ still rely on.
 # Team Members
 1. Documentation Lead: Chloe Jackson 🗒️
 2. Team Manager: Julian Ellis :stuck_out_tongue_winking_eye:
-3. Testing Lead/ Data Modeler: Abdoulie J NJie :smile:
+3. Testing Lead: Abdoulie J NJie :smile:
 4. Code Architect: Connor Murdock :sunglasses:
-5. UI/UX Designer: Shianne Lesure :cherry_blossom: 
+5. Data Modeler: Shianne Lesure :cherry_blossom: 
+6. UI/UX Designer: Barbara Yeboah 🤠

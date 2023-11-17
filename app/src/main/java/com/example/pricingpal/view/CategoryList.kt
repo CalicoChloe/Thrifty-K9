@@ -30,9 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
-import com.example.pricingpal.ui.theme.Cornflower_blue
-import com.example.pricingpal.ui.theme.Periwinkle
-import com.example.pricingpal.ui.theme.Persian_indigo
 
 const val  CATEGORY_NAMES = "categories"
 @Composable
@@ -66,7 +63,7 @@ fun CategoryCard(category: Category, navController: NavController){
             .fillMaxWidth()
             .border(
                 // puts a border around the card
-                border = BorderStroke(4.dp, color = Persian_indigo),
+                border = BorderStroke(4.dp, color = colorResource(id = R.color.deep_blue)),
                 // shapes the card
                 shape = RectangleShape
             ),
@@ -76,7 +73,7 @@ fun CategoryCard(category: Category, navController: NavController){
         // Column to display image and category name on card
         Column(modifier = Modifier
             // the size of the box
-            .background(color = Cornflower_blue)
+            .background(color = colorResource(id = R.color.pale_blue))
         ){
             //Here is where the code to display image would be. Current image is a placeholder
             Image(
