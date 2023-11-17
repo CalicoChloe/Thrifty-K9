@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -34,39 +33,33 @@ import androidx.compose.ui.unit.sp
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.ui.theme.Uranian_Blue
 import com.example.pricingpal.view.repetitivefunctions.settingNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.settingsBar
-import com.example.pricingpal.view.settings.account.accountBackButton
-import com.example.pricingpal.view.settings.account.accountDialog
-import com.example.pricingpal.view.settings.account.emailEdit
-import com.example.pricingpal.view.settings.account.passwordEdit
 
 @Composable
 fun guestAccountSetting(){
     Card(
         modifier = Modifier
-            //.padding(start = 40.dp, top = 50.dp, end = 40.dp, bottom = 50.dp)
             .padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
-            //.verticalScroll(rememberScrollState())
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Periwinkle)
     ) {
 
+        //holds the back arrow and settings icon
+        // will navigate to the screen previous before
         settingNavigationBar()
 
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState()),
-            // verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            settingsBar()
+            settingsBar()// Holds the settings title
             Spacer(modifier = Modifier.height(20.dp))
-            guestAccountBackButton()
+            guestAccountBackButton() // will navigate back to the settings home page screen
             Spacer(modifier = Modifier.height(30.dp))
             Text(
                 textAlign = TextAlign.Center,
@@ -78,8 +71,8 @@ fun guestAccountSetting(){
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            for(i in 1..4) {
-                guestName()
+            for(i in 1..3) {
+                guestName() // will show all the guest accounts under the company
             }
             Spacer(modifier = Modifier.height(30.dp))
         }
@@ -90,42 +83,39 @@ fun guestAccountSetting(){
 fun guestAccountBackButton(){
     Card(
         modifier = Modifier
-            // padding around the card
             .padding(10.dp)
             .padding(start = 30.dp, end = 30.dp)
             .border(
-                // puts a border around the card
                 border = BorderStroke(4.dp, color = Persian_indigo),
-                // shapes the card
                 shape = RectangleShape
             ),
         elevation = CardDefaults.cardElevation(8.dp),
-        // puts a shadow under the card to make it pop out
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
                 .background(color = Cornflower_blue, shape = RectangleShape)
-                // changes the size of the card
                 .fillMaxWidth()
                 .height(90.dp)
         )
         {
-            Icon(
-                imageVector = Icons.Filled.KeyboardArrowLeft,
-                contentDescription = "Backward Arrow Icon",
-                tint = Color.Black,
-                modifier = Modifier
-                    .size(50.dp)
-                    .padding(start = 10.dp, top = 5.dp)
-            )
+            //The Guest Account Back Button
+            //This will navigate to the setting home page screen
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Filled.KeyboardArrowLeft,
+                    contentDescription = "Backward Arrow Icon",
+                    tint = Color.Black,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .padding(start = 10.dp, top = 5.dp)
+                )
+            }
             Text(
                 text = "Guest Accounts",
                 textAlign = TextAlign.Center,
                 fontSize = 40.sp,
-                fontWeight = FontWeight.Bold,
                 color = Color.Black,
                 modifier = Modifier
                     .padding(end = 40.dp)
@@ -139,24 +129,19 @@ fun guestAccountBackButton(){
 fun guestName(){
     Card(
         modifier = Modifier
-            // padding around the card
             .padding(10.dp)
             .padding(start = 20.dp, end = 20.dp)
             .border(
-                // puts a border around the card
                 border = BorderStroke(4.dp, color = Persian_indigo),
-                // shapes the card
+
                 shape = RectangleShape
             ),
-        // puts a shadow under the card to make it pop out
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
                 .background(color = Cornflower_blue, shape = RectangleShape)
-                // changes the size of the card
                 .fillMaxWidth()
                 .height(110.dp)
         )
@@ -168,7 +153,6 @@ fun guestName(){
                     color = Color.Black,
                     modifier = Modifier
                         .padding(start = 20.dp)
-                    //.align(alignment = Alignment.CenterVertically)
                 )
 
                 Text(
@@ -177,10 +161,9 @@ fun guestName(){
                     color = Color.Black,
                     modifier = Modifier
                         .padding(start = 20.dp)
-                    //.align(alignment = Alignment.CenterVertically)
                 )
             }
-            deleteIconDialog()
+            deleteIconDialog()//will take you to the delete guest account dialog
         }
     }
 }

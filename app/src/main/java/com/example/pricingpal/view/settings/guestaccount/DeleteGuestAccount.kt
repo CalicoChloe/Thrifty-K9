@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -35,24 +34,25 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.settings.account.deleteAccountDialog
 
 @Composable
 fun deleteIconDialog(){
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }// a variable that determines if the state of the dialog to be use or not
     Column {
+        // Delete Icon Button
+        // will send you to a dialog asking if you want to delete the guest account
         IconButton(onClick = { showDialog = true }) {
             Icon(
                 imageVector = Icons.Filled.Delete,
                 contentDescription = "Delete Icon",
                 tint = Color.Black,
                 modifier = Modifier
-                    .size(70.dp)
+                    .size(110.dp)
                     .padding(end = 10.dp)
             )
         }
     }
-    if (showDialog) {
+    if (showDialog) {// the dialog shows if send button is clicked
         Dialog(onDismissRequest = {showDialog = false}) {
             // Custom shape, background, and layout for the dialog
             Surface(
@@ -78,8 +78,10 @@ fun deleteIconDialog(){
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ){
-                        deleteGuestDialog()
+                        deleteGuestDialog() // will navigate you to another dialog box
                         Spacer(modifier = Modifier.width(25.dp))
+                        //No Button
+                        // will close you out the dialog box
                         Button(
                             onClick = { showDialog = false },
                             shape =  RectangleShape,
@@ -103,8 +105,11 @@ fun deleteIconDialog(){
 
 @Composable
 fun deleteGuestDialog(){
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }// a variable that determines if the state of the dialog to be use or not
     Column {
+        // Yes Button
+        // will send you to a dialog telling you the guest account has been deleted
+        // this should be remove from the database
         ElevatedButton(
             onClick = { showDialog = true },
             elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -143,6 +148,8 @@ fun deleteGuestDialog(){
                         fontSize = 40.sp,
                         color = Color.Black,
                     )
+                    // Close Button
+                    // will close the dialog box
                     Button(
                         onClick = { showDialog = false },
                         shape =  RectangleShape,
