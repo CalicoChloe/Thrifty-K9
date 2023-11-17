@@ -35,17 +35,18 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 
 @Composable
 fun emailInput(){
-    var email by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
         value = email,
-        onValueChange = {email = it},
+        onValueChange = {email = it}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter email", fontSize = 20.sp) },
-        supportingText = { Text(text = "*required") },
+        /** The support text will not work if you have a modifier.*/
+        //supportingText = { Text(text = "*required") },
         leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
@@ -56,6 +57,8 @@ fun emailInput(){
         shape = RectangleShape,
     )
     /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
@@ -71,22 +74,23 @@ fun emailInput(){
 
 @Composable
 fun passwordInput(){
-    var password by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
         value = password,
-        onValueChange = { password = it },
+        onValueChange = { password = it }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter password", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required")},
-        visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        visualTransformation = PasswordVisualTransformation(),// makes the password not visible to the user
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), // This will show the black dots instead of letters
         leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon") },
         trailingIcon = {
+            //When clicked, it should switch the hidden icon to the eye icon
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")
             }
@@ -98,7 +102,6 @@ fun passwordInput(){
         Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")}
         },
          */
-        supportingText = { Text(text = "*required") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -108,6 +111,8 @@ fun passwordInput(){
         shape = RectangleShape,
     )
     /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
@@ -123,22 +128,23 @@ fun passwordInput(){
 
 @Composable
 fun newPasswordInput(){
-    var newPassword by remember { mutableStateOf("") }
+    var newPassword by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
         value = newPassword,
-        onValueChange = { newPassword = it },
+        onValueChange = { newPassword = it },// will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter password", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required")},
-        visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        visualTransformation = PasswordVisualTransformation(),// makes the password not visible to the user
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),// This will show the black dots instead of letters
         leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon") },
         trailingIcon = {
+            //When clicked, it should switch the hidden icon to the eye icon
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")
             }
@@ -150,7 +156,6 @@ fun newPasswordInput(){
         Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")}
         },
          */
-        supportingText = { Text(text = "*required") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -160,6 +165,8 @@ fun newPasswordInput(){
         shape = RectangleShape,
     )
     /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()

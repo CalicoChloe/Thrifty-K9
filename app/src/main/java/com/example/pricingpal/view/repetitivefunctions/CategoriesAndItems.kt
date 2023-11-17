@@ -49,7 +49,7 @@ fun viewCategory(){
         )
         {
             Image(
-                painter = painterResource(id = R.drawable.rectangle_22),
+                painter = painterResource(id = R.drawable.rectangle_22), // will display the image the that was uploaded
                 contentDescription = "Accessories image",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -68,7 +68,7 @@ fun viewCategory(){
             ) {
 
                 Text(
-                    text = "Category",
+                    text = "Category", // name of category
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
@@ -102,7 +102,7 @@ fun categoryTitle(){
         {
 
             Text(
-                text = "Category Name",
+                text = "Category Name", // name of category for when it is being viewed in item-list
                 fontSize = 60.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,

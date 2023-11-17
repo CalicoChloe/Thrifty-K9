@@ -2,7 +2,6 @@ package com.example.pricingpal.view.repetitivefunctions
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
@@ -41,19 +39,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Cornflower_blue
-import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
 
+/** displays the pricing pal logo*/
 @Composable
 fun pricingPalBar(){
     Card(
         modifier = Modifier
-            //.nestedScroll(rememberNestedScrollInteropConnection())
             .fillMaxWidth(),
-        //.height(270.dp),
         shape = RectangleShape,
-        //elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
     ){
         Row(
@@ -64,9 +59,7 @@ fun pricingPalBar(){
                 .background(color = Cornflower_blue),
         ) {
             Image(
-                //Imports image from resource folder
                 painter = painterResource(id = R.drawable.logo),
-                //description of the image for accessibility
                 contentDescription = "Pictures of paws",
                 modifier = Modifier
                     .padding(top = 5.dp, start = 25.dp, end = 25.dp)
@@ -75,15 +68,13 @@ fun pricingPalBar(){
     }
 }
 
+/** will display a header that shows the setting icon along with a name*/
 @Composable
 fun settingsBar(){
     Card(
         modifier = Modifier
-            //.nestedScroll(rememberNestedScrollInteropConnection())
             .fillMaxWidth(),
-        //.height(270.dp),
         shape = RectangleShape,
-        //elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
     ){
         Row(
@@ -119,13 +110,14 @@ fun settingsBar(){
     )
 }
 
+/** I decided to make 2 different search bar because They are searching up to different things.
+ * This search bar should only show the items and categories*/
 @Composable
 fun searchBar(){
     Card(
         modifier = Modifier
             .fillMaxWidth(),
         shape = RectangleShape,
-        //elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
     ){
         Spacer(modifier = Modifier.height(20.dp))
@@ -140,6 +132,8 @@ fun searchBar(){
             textStyle = TextStyle.Default.copy(fontSize = 20.sp),
             placeholder = { Text("Search", fontSize = 20.sp) },
             leadingIcon = {
+                // Search Icon Button
+                // Will navigate to what ever was searched.
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                         imageVector = Icons.Filled.Search,
@@ -152,6 +146,8 @@ fun searchBar(){
                 }
             },
             trailingIcon = {
+                // Close Icon Button
+                //will exit out the search bar
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
@@ -176,14 +172,13 @@ fun searchBar(){
 }
 
 /** I decided to make 2 different search bar because They are searching up to different things.
- * This search bar should only should the companies not items and categories*/
+ * This search bar should only show the companies */
 @Composable
 fun companySearchBar(){
     Card(
         modifier = Modifier
             .fillMaxWidth(),
         shape = RectangleShape,
-        //elevation = CardDefaults.cardElevation(12.dp),
         colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
     ){
         Spacer(modifier = Modifier.height(20.dp))
@@ -198,6 +193,8 @@ fun companySearchBar(){
             textStyle = TextStyle.Default.copy(fontSize = 20.sp),
             placeholder = { Text("Search", fontSize = 20.sp) },
             leadingIcon = {
+                // Search Icon Button
+                // Will navigate to what ever was searched.
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                         imageVector = Icons.Filled.Search,
@@ -210,6 +207,8 @@ fun companySearchBar(){
                 }
             },
             trailingIcon = {
+                // Close Icon Button
+                //will exit out the search bar
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
@@ -241,27 +240,26 @@ fun arrowNavigationBar() {
             .fillMaxWidth(),
         shape = RectangleShape,
         colors = CardDefaults.cardColors(Color.Transparent),
-        //colors = CardDefaults.cardColors(Color.Yellow),
     ) {
         Row(
             verticalAlignment = Alignment.Top,
-            //horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
                 .background(color = Cornflower_blue),
         ) {
+            //Back Arrow Button
+            //will take you back to the previous page
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Close Icon",
+                    contentDescription = "Back arrow Icon",
                     tint = Color.Black,
                     modifier = Modifier
                         .size(40.dp)
                         .padding(start = 10.dp, top = 5.dp)
                 )
             }
-            //Spacer(modifier = Modifier.height(10.dp))
         }
         Box(
             modifier = Modifier
@@ -279,7 +277,6 @@ fun settingNavigationBar() {
             .fillMaxWidth(),
         shape = RectangleShape,
         colors = CardDefaults.cardColors(Color.Transparent),
-        //colors = CardDefaults.cardColors(Color.Yellow),
     ) {
         Row(
             verticalAlignment = Alignment.Top,
@@ -289,6 +286,8 @@ fun settingNavigationBar() {
                 .height(50.dp)
                 .background(color = Cornflower_blue),
         ) {
+            //Back Arrow Button
+            //will take you back to the previous page
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
@@ -300,6 +299,8 @@ fun settingNavigationBar() {
                 )
             }
 
+            //Setting Button
+            // will take you straight to the settings page
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
@@ -320,6 +321,8 @@ fun settingNavigationBar() {
     }
 }
 
+
+/** Another version of showing the pricing pal logo*/
 @Composable
 fun innerPricingBar(){
     Row(modifier = Modifier
@@ -328,9 +331,7 @@ fun innerPricingBar(){
         horizontalArrangement = Arrangement.Center,
     ) {
         Image(
-            //Imports image from resource folder
             painter = painterResource(id = R.drawable.logo),
-            //description of the image for accessibility
             contentDescription = "logo",
             modifier = Modifier
                 .padding(15.dp)
