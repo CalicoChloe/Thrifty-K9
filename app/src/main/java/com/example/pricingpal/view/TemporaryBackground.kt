@@ -9,7 +9,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
-import com.example.pricingpal.view.homepage.guest.ownerRegistration
+import com.example.pricingpal.view.homepage.guest.guestCompanyList
 
 /** This is a background that holds all the other screens because they share the same background.
  * This is what you will use to see the screens until the navigation is set up,
@@ -42,8 +42,8 @@ fun background(){
         //createPassword()
 
         //ownerOrGuess()
-        ownerRegistration()
-        //guestCompanyList()
+        //ownerRegistration()
+        guestCompanyList()
         //guestRegistration()
 
         //volunteerCompanyList()

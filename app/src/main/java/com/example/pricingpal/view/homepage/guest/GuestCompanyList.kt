@@ -39,14 +39,12 @@ fun companiesTitle(){
             .padding(15.dp),
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
-        Column( //verticalArrangement = Arrangement.Center,
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .background(color = Cornflower_blue, shape = RectangleShape)
                 .border(
-                    // puts a border around the card
                     border = BorderStroke(4.dp, color = Persian_indigo),
-                    // shapes the card
                     shape = RectangleShape
                 )
                 .fillMaxWidth()
@@ -55,16 +53,13 @@ fun companiesTitle(){
         {
 
             Text(
-                //shows the name of the category
                 text = "Organizations",
                 fontSize = 60.sp,
-                // have it in bold to make it stand out
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
             )
 
             Text(
-                //shows the name of the category
                 text = "Select only one organization",
                 fontSize = 30.sp,
                 color = Color.Black,
@@ -73,34 +68,32 @@ fun companiesTitle(){
     }
 }
 
+/** This will show the name of the companies*/
 @Composable
 fun companyName(){
+    // The card needs to be clickable
+    // Only one card can be clicked at a time
+    // This will navigate to the Guest Registration Screen
     Card(
         modifier = Modifier
-            // padding around the card
             .padding(15.dp)
             .border(
-                // puts a border around the card
                 border = BorderStroke(4.dp, color = Persian_indigo),
-                // shapes the card
                 shape = RectangleShape
             ),
-        // puts a shadow under the card to make it pop out
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
                 .background(color = Periwinkle, shape = RectangleShape)
-                // changes the size of the card
                 .fillMaxWidth()
                 .height(80.dp)
         )
         {
             Text(
-                text = "Organization Name",
+                text = "Organization Name", // Will show up from database when Owner makes registration
                 fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier
@@ -115,15 +108,23 @@ fun companyName(){
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun guestCompanyList(){
+    // Holds the navigation of the back arrow
+    // Navigates to the Starter Screen
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier
             .padding(top = 54.dp)
     ) {
         item {
+            // holds the pricing pal logo
+            // This will collapse when scrolling up
             pricingPalBar()
         }
         stickyHeader {
+            /** I tried to make a top bar that was collapsable, but it wasn't working on my end so I
+             * did this instead to get the same effect. The sticky header will allow for the search
+             * bar to still show when scrolling down.*/
+            // This will allow for you to look up the company's name if the list became too long
             searchBar()
             Divider(thickness = 4.dp, color = Persian_indigo)
         }
