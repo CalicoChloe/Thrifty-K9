@@ -4,6 +4,7 @@ package com.example.pricingpal
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,6 +32,12 @@ import com.example.pricingpal.view.Loading
 import com.example.pricingpal.view.background
 import com.example.pricingpal.view.editinglist.editLoading
 import com.example.pricingpal.view.homepage.volunteer.volunteerLoading
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pricingpal.ui.theme.PricingpalTheme
+
 import com.example.pricingpal.viewmodel.CategoryViewModel
 
 
@@ -49,6 +56,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             )
+
             //Create the scaffold passing in the HashMap of categories to be used for display
             //CategoryScaffold(categories = viewModel.categories)
 
@@ -103,4 +111,12 @@ class MainActivity : ComponentActivity() {
 
         )
     }
+
+
+            PricingpalTheme {
+                PricingPalApp(categories = viewModel.categories)
+            }
+        }
+    }
+}
 

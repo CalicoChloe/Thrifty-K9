@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,11 +34,12 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
+const val  CATEGORY_NAMES = "categories"
 @Composable
 fun CategoryList (categories: HashMap<String, Category>, navController: NavController, padding: PaddingValues){
     LazyColumn(
         //aligns the categories within the center
-        modifier = Modifier
+        modifier = Modifier.testTag(CATEGORY_NAMES)
             .fillMaxSize()
             .padding(padding),
         horizontalAlignment = Alignment.CenterHorizontally
