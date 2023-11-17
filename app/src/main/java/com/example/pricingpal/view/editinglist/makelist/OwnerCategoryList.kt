@@ -32,6 +32,8 @@ import com.example.pricingpal.view.repetitivefunctions.viewCategory
 
 @Composable
 fun editButton(){
+    //Edit Button
+// Will navigate back to the Edit List Screen
     ElevatedButton(
         onClick = { /*TODO*/ },
         shape = RectangleShape,
@@ -66,25 +68,33 @@ fun editButton(){
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun editCategoryList(){
+    // Holds the navigation of the back arrow
+    // Navigates to the Edit Loading Screen
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier
             .padding(top = 54.dp)
     ) {
         item {
+            // holds the pricing pal logo
+            // This will collapse when scrolling up
             pricingPalBar()
         }
         stickyHeader {
+            /** I tried to make a top bar that was collapsable, but it wasn't working on my end so I
+             * did this instead to get the same effect. The sticky header will allow for the search
+             * bar to still show when scrolling down.*/
+            // This will allow for you to look up the items and categories
             searchBar()
             Divider(thickness = 4.dp, color = Persian_indigo)
         }
         for(i in 1..4) {
             item {
-                viewCategory()
+                viewCategory() // Shows the name of the category
             }
         }
         item{
-            editButton()
+            editButton() // Shows list of categories
         }
     }
 }

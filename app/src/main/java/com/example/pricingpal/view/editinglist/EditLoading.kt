@@ -50,7 +50,7 @@ fun editLoading(){
     }
 }
 
-/** This is one of the loading screen, and it will navigate to the edit category list.*/
+/** This is one of the loading screen, and it will navigate to the owner category list Screen.*/
 @Composable
 fun editLoadingTimer(){
     Column(
