@@ -50,8 +50,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
+        android.buildFeatures.buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
