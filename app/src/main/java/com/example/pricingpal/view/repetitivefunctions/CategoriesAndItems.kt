@@ -33,6 +33,7 @@ fun viewCategory(){
     Card(
         shape = RectangleShape,
         modifier = Modifier
+            .padding(start = 10.dp, end = 10.dp)
             .padding(15.dp),
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
