@@ -2,6 +2,7 @@ package com.example.pricingpal
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -9,14 +10,14 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
@@ -26,11 +27,16 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pricingpal.model.Category
+import com.example.pricingpal.ui.theme.Anti_flash_white
+import com.example.pricingpal.ui.theme.Cornflower_blue
+import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.view.CategoryList
 import com.example.pricingpal.view.ItemList
 import com.example.pricingpal.view.Screen
+
 // const used to reference the custom back button for testing purposes
 const val BACK_BUTTON = "Back Button"
+
 /**
  * Composable that displays the topBar, and a back button if navigation is possible
  *
@@ -46,34 +52,37 @@ fun PricingPalAppBar(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    TopAppBar(
-            title = {
-                    Image(
-                        painter = painterResource(id = R.drawable.picture2),
-                        contentDescription = "Pricing Pal Logo",
-                        modifier = Modifier
-                            .height(69.dp)
-                            .padding(start = 150.dp)
-                            .padding(end = 180.dp)
-                    )
-                        },
-                colors = TopAppBarDefaults.mediumTopAppBarColors(
-                    containerColor = colorResource(id = R.color.pale_blue)
-                ),
-                modifier = modifier,
-                navigationIcon = {
-                    if(canNavigateBack){
-                        IconButton(onClick = navigateUp) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back Button",
-                                Modifier.testTag(BACK_BUTTON)
-                            )
-                        }
-                    }
-                }
+    LargeTopAppBar(
+        title = {
+            Image(
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = null,
+                modifier = Modifier
+                    .height(90.dp)
+                    .background(color = Cornflower_blue)
+                    .padding(start = 100.dp)
+                    .padding(end = 180.dp)
             )
+        },
+        colors = TopAppBarDefaults.mediumTopAppBarColors(
+            containerColor =  Periwinkle
+        ),
+        modifier = modifier,
+        navigationIcon = {
+            if (canNavigateBack) {
+                IconButton(onClick = navigateUp) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Back Button",
+                        Modifier.testTag(BACK_BUTTON)
+
+                    )
+                }
+            }
         }
+    )
+
+}
 
 
 /**
@@ -105,12 +114,22 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
         //Create an app bar of medium size at the top of the scaffold
         topBar = {
             PricingPalAppBar(
-                navigateUp = { navController.navigateUp()},
+                navigateUp = { navController.navigateUp() },
                 canNavigateBack = navController.previousBackStackEntry != null
             )
         },
         //padding automatically adjusts to match the app bar size
         content = { padding ->
+            Image(
+                //Imports image from resource folder
+                painter = painterResource(id = R.drawable.paw_background),
+                //description of the image for accessibility
+                contentDescription = "Pictures of paws",
+                //crops the image
+                contentScale = ContentScale.Crop,
+                // changes the opacity of the image
+                alpha = 0.1F
+            )
             //Setup the NavHost
             NavHost(navController = navController, startDestination = Screen.CategoryList.route) {
                 //The route to the CategoryList. This is the start destination
@@ -138,6 +157,7 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
             }
         },
         //Background color for the content
-        containerColor = colorResource(id = R.color.grey_blue)
+        containerColor = Anti_flash_white
     )
+
 }
