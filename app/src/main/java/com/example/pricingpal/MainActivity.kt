@@ -1,18 +1,14 @@
 package com.example.pricingpal
 
 
+//import com.example.pricingpal.viewmodel.CategoryViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pricingpal.model.CategoryItemRepository
 import com.example.pricingpal.model.CategoryItemRepositoryImpl
 import com.example.pricingpal.model.Database
 import com.example.pricingpal.ui.theme.PricingpalTheme
 import com.example.pricingpal.view.background
-import com.example.pricingpal.viewmodel.CategoryViewModel
 import com.example.pricingpal.viewmodel.NewCategoryViewModel
 
 

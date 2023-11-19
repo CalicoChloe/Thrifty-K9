@@ -1,5 +1,6 @@
 package com.example.pricingpal.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Category
@@ -46,6 +47,7 @@ class NewCategoryViewModel @Inject constructor(
             val categories2 = categoryItemRepository.getCategories()
             _categoryList.emit(categories2?.map { it -> it.asDomainModel() })
         }
+        Log.e("SupaBase", _categoryList.toString())
     }
 
     private suspend fun CategoryDTO.asDomainModel(): Category {
@@ -61,9 +63,12 @@ class NewCategoryViewModel @Inject constructor(
 
     private fun ItemDTO.asDomainModel(): Item {
         return Item(
-            category = "",
+            id = this.itemId,
             name = this.itemName,
-            price = this.price.toDouble()
+            price = this.price.toDouble(),
+            categoryId = this.categoryId,
+            organizationId = this.organizationId.toString()
+
         )
     }
 }
