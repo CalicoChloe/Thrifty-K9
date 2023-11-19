@@ -7,9 +7,13 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pricingpal.model.CategoryItemRepository
+import com.example.pricingpal.model.CategoryItemRepositoryImpl
+import com.example.pricingpal.model.Database
 import com.example.pricingpal.ui.theme.PricingpalTheme
 import com.example.pricingpal.view.background
 import com.example.pricingpal.viewmodel.CategoryViewModel
+import com.example.pricingpal.viewmodel.NewCategoryViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -20,13 +24,14 @@ class MainActivity : ComponentActivity() {
              * This ViewModel will keep the data loaded properly even when the app status is updated
              * factory is required to pass arguments to the ViewModel when instantiated (needs MainActivity context)
              */
-            val viewModel = viewModel<CategoryViewModel>(
+/*            val viewModel = viewModel<CategoryViewModel>(
                 factory = object : ViewModelProvider.Factory {
                     override fun <T : ViewModel> create(modelClass: Class<T>): T {
                         return CategoryViewModel(context = this@MainActivity) as T
                     }
                 }
-            )
+            )*/
+            val viewModel = NewCategoryViewModel(categoryItemRepository = CategoryItemRepositoryImpl(Database.getClient()))
             /** This is what I use to show my UI designs. Loading screen is separated because it uses a different background*/
             //Loading()
             //volunteerLoading()

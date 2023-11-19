@@ -2,6 +2,7 @@ package com.example.pricingpal.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * Class: CategoryDTO
@@ -12,12 +13,14 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ItemDTO(
-    @SerialName("item_id")
+    @SerialName("id")
     val itemId: Int,
-    @SerialName("item")
+    @SerialName("name")
     val itemName: String,
     @SerialName("price")
     val price: Float,
     @SerialName("category_id")
-    val categoryId: Int
+    val categoryId: Int,
+    @SerialName("organization_id")
+    val organizationId: UUID
 )
