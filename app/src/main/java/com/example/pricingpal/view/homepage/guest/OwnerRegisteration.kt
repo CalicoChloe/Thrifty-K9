@@ -56,6 +56,7 @@ fun ownerRegistration(){
     ) {
         // Holds the navigation of the back arrow
         // Navigates to the choose registration Screen
+        // Located within repetitive functions/ header file
         arrowNavigationBar()
 
         Column(
@@ -63,7 +64,10 @@ fun ownerRegistration(){
                 .verticalScroll(rememberScrollState()), // allows for the items in the column to scroll
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            innerPricingBar() // holds the pricing pal logo
+
+            // Located within repetitive functions/ header file
+            // holds the pricing pal logo
+            innerPricingBar()
             Text(
                 textAlign = TextAlign.Center,
                 text = "Owner Registration",
@@ -75,11 +79,18 @@ fun ownerRegistration(){
             Spacer(modifier = Modifier.height(25.dp))
             ownerOrganizationInput() // holds the organization text-field
             Spacer(modifier = Modifier.height(25.dp))
-            emailInput() // holds the email text-field
-            Spacer(modifier = Modifier.height(25.dp))
-            passwordInput() // holds the password text-field
+
+            //Located within repetitive functions/ input text-fields file
+            // holds the email text-field
+            emailInput()
             Spacer(modifier = Modifier.height(25.dp))
 
+            //Located within repetitive functions/ input text-fields file
+            // holds the password text-field
+            passwordInput()
+            Spacer(modifier = Modifier.height(25.dp))
+
+            // Located within repetitive functions/ buttons file
             // Sign up Button
             signUpButton()
 

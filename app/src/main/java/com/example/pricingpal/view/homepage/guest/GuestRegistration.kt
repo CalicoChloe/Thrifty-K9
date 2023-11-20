@@ -46,6 +46,7 @@ fun guestRegistration(){
     ) {
         // Holds the navigation of the back arrow
         // Navigates to the choose registration Screen
+        // Located within repetitive functions/ header file
         arrowNavigationBar()
 
         Column(
@@ -54,7 +55,10 @@ fun guestRegistration(){
 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            innerPricingBar() // holds the pricing pal logo
+
+            // Located within repetitive functions/ header file
+            // holds the pricing pal logo
+            innerPricingBar()
             Text(
                 textAlign = TextAlign.Center,
                 text = "Guest Registration",
@@ -66,11 +70,18 @@ fun guestRegistration(){
             Spacer(modifier = Modifier.height(25.dp))
             organizationName()
             Spacer(modifier = Modifier.height(35.dp))
-            emailInput() // holds the email text-field
-            Spacer(modifier = Modifier.height(25.dp))
-            passwordInput() // holds the password text-field
+
+            //Located within repetitive functions/ input text-fields file
+            // holds the email text-field
+            emailInput()
             Spacer(modifier = Modifier.height(25.dp))
 
+            //Located within repetitive functions/ input text-fields file
+            // holds the password text-field
+            passwordInput()
+            Spacer(modifier = Modifier.height(25.dp))
+
+            // Located within repetitive functions/ buttons file
             // Sign up Button
             signUpButton()
 
@@ -79,6 +90,8 @@ fun guestRegistration(){
     }
 }
 
+/** this is the name of the organization the guest choose from the guest company list file.
+ * This should updated the name when the user clicks the organization from previous file*/
 @Composable
 fun organizationName(){
     Card(

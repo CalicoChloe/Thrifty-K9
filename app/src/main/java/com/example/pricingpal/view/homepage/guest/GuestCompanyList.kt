@@ -68,7 +68,8 @@ fun companiesTitle(){
     }
 }
 
-/** This will show the name of the companies*/
+/** This will show the name of the companies.
+ * A company should be added when the owner register their organization */
 @Composable
 fun companyName(){
     // The card needs to be clickable
@@ -110,6 +111,7 @@ fun companyName(){
 fun guestCompanyList(){
     // Holds the navigation of the back arrow
     // Navigates to the choose registration Screen
+    // Located within repetitive functions/ header file
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier
@@ -118,6 +120,7 @@ fun guestCompanyList(){
         item {
             // holds the pricing pal logo
             // This will collapse when scrolling up
+            // Located within repetitive functions/ header file
             pricingPalBar()
         }
         stickyHeader {

@@ -36,38 +36,38 @@ fun background(){
             // changes the opacity of the image
             alpha = 0.1F
         )
-        //startScreen()
+        //startScreen()    // Located within the homepage/ starter screen file
 
-        //login()
-        //forgotPassword()
-        //createPassword()
+        //login()   //Located within the homepage/ login/ Login file
+        //forgotPassword()  //Located within the homepage/ login/ forgot password file
+        //createPassword()   //Located within the homepage/ login/ create password file
 
-        //ownerOrGuess()
-        //ownerRegistration()
-        //guestCompanyList()
-        //guestRegistration()
+        //ownerOrGuess()     //Located within the homepage/ guest/ choose registration file
+        //ownerRegistration()   //Located within the homepage/ guest/ owner registration file
+        //guestCompanyList()   //Located within the homepage/ guest/ guest company list file
+        //guestRegistration()   //Located within the homepage/ guest/ guest registration file
 
-        //volunteerCompanyList()
-        //volunteerCategoryList()
-        //volunteerItemList()
+        //volunteerCompanyList()     //Located within the homepage/ volunteer/ volunteer search company file
+        //volunteerCategoryList()     //Located within the homepage/ volunteer/ volunteer category list file
+        //volunteerItemList()       //Located within the homepage/ volunteer/ volunteer item list file
 
-        //chooseList()
-        //uploadCSV()
-        //viewEditList()
-        //addCategories()
-        //viewEditItemList()
-        //addItems()
-        //addImage()
-        //editCategoryList()
-        //editItemList()
+        //chooseList()     //Located within the editing list/ edit upload file
+        //uploadCSV()     //Located within the editing list/ upload CSV/  add csv file file
+        //viewEditList()     //Located within the editing list/  make list/ edit list file
+        //addCategories()     //Located within the editing list/ make list/ add category file
+        //viewEditItemList()     //Located within the editing list/ make list/ edit item list file
+        //addItems()     //Located within the editing list/ make list/ add item file
+        //addImage()     //Located within the editing list/ make list/ add image file
+        //editCategoryList()     //Located within the editing list/ make list/ owner category list file
+        //editItemList()     //Located within the editing list/ make list/ owner item list file
 
-        //settings()
-        //accountSetting()
-        //changeEmail()
-        //changePassword()
+        //settings()     //Located within the settings/ setting home page file
+        //accountSetting()     //Located within the settings/ account/ account setting file
+        //changeEmail()     //Located within the settings/ account/ change email file
+        //changePassword()     //Located within the settings/ account/ change password file
 
-        guestAccountSetting()
-        //displaySetting()
-        //accessibilitySetting()
+        guestAccountSetting() //Located within the settings/ guest account/ guest account file
+        //displaySetting()     //Located within the settings/ display setting file
+        //accessibilitySetting()     //Located within the settings/ accessibility setting file
     }
 }

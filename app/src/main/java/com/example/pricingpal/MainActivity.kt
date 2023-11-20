@@ -40,57 +40,13 @@ class MainActivity : ComponentActivity() {
 
             /** This is what I use to show my UI designs. Loading screen is separated because it uses a different background*/
             //Loading()
-            //volunteerLoading()
-            //editLoading()
-            //background()
+            //volunteerLoading() //Located within homepage/ volunteer/ volunteer loading file
+            //editLoading()     //Located within editing list/ edit loading file
+            //background()  // Located within view/ temporary background file
         }
     }
 }
 
-/**
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun CategoryScaffold(categories: HashMap<String, Category>) {
-        Scaffold(
-            //Create an app bar of medium size at the top of the scaffold
-            topBar = {
-                LargeTopAppBar(
-                    title = {
-                        Image(
-                            painter = painterResource(id = R.drawable.logo),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .height(90.dp)
-                                .background(color = Cornflower_blue)
-                                .padding(start = 100.dp)
-                                .padding(end = 180.dp)
-                        )
-                    },
-                    //color = Color.DarkGray,
-
-                )
-            },
-
-            //padding automatically adjusts to match the app bar size
-            content = { padding ->
-                Image(
-                    //Imports image from resource folder
-                    painter = painterResource(id = R.drawable.paw_background),
-                    //description of the image for accessibility
-                    contentDescription = "Pictures of paws",
-                    //crops the image
-                    contentScale = ContentScale.Crop,
-                    // changes the opacity of the image
-                    alpha = 0.1F
-                )
-                androidx.navigation.Navigation(categories = categories, padding = padding)
-            },
-            //Background color for the content
-            containerColor = Anti_flash_white
-
-        )
-    }
-    */
 
 
 

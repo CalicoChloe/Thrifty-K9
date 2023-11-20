@@ -28,6 +28,8 @@ import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.repetitivefunctions.lines
 
+/** this will allow for the user to choose between 2 organizations,
+ * owner registration with the owner signing up the organization , or guest registration for management*/
 @Composable
 fun ownerOrGuess(){
     Card(
@@ -42,8 +44,12 @@ fun ownerOrGuess(){
 
         // Holds the navigation of the back arrow
         // Navigates to the Starter Screen
+        // Located within repetitive functions/ header file
         arrowNavigationBar()
-        innerPricingBar() // Holds the pricing pal logo
+
+        // Located within repetitive functions/ header file
+        // holds the pricing pal logo
+        innerPricingBar()
 
         Column(
             modifier = Modifier
@@ -75,7 +81,7 @@ fun ownerOrGuess(){
             }
 
             Spacer(modifier = Modifier.height(40.dp))
-            lines() //-------------OR-------------
+            lines() // Located within repetitive functions/ buttons file
             Spacer(modifier = Modifier.height(40.dp))
 
             // Guest Button
