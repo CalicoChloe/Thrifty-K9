@@ -6,7 +6,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.pricingpal.model.CategoryItemRepositoryImpl
-import com.example.pricingpal.model.Database
+//import com.example.pricingpal.model.Database
+import com.example.pricingpal.model.SupabaseModule
 import com.example.pricingpal.ui.theme.PricingpalTheme
 import com.example.pricingpal.view.background
 import com.example.pricingpal.viewmodel.NewCategoryViewModel
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             )*/
-            val viewModel = NewCategoryViewModel(categoryItemRepository = CategoryItemRepositoryImpl(Database.getClient()))
+            val viewModel = NewCategoryViewModel(categoryItemRepository = CategoryItemRepositoryImpl(SupabaseModule.provideSupabaseDatabase(SupabaseModule.provideSupabaseClient())))
             /** This is what I use to show my UI designs. Loading screen is separated because it uses a different background*/
             //Loading()
             //volunteerLoading()
