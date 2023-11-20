@@ -5,38 +5,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pricingpal.model.Category
-import com.example.pricingpal.model.Navigation
-import com.example.pricingpal.ui.theme.Anti_flash_white
-import com.example.pricingpal.ui.theme.Cornflower_blue
+
 import com.example.pricingpal.ui.theme.PricingpalTheme
-import com.example.pricingpal.view.Loading
 import com.example.pricingpal.view.background
-import com.example.pricingpal.view.editinglist.editLoading
-import com.example.pricingpal.view.homepage.volunteer.volunteerLoading
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pricingpal.ui.theme.PricingpalTheme
 
 import com.example.pricingpal.viewmodel.CategoryViewModel
 
@@ -56,6 +31,9 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             )
+            PricingpalTheme {
+                PricingPalApp(categories = viewModel.categories)
+            }
 
             //Create the scaffold passing in the HashMap of categories to be used for display
             //CategoryScaffold(categories = viewModel.categories)
@@ -64,11 +42,12 @@ class MainActivity : ComponentActivity() {
             //Loading()
             //volunteerLoading()
             //editLoading()
-            background()
+            //background()
         }
     }
 }
 
+/**
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun CategoryScaffold(categories: HashMap<String, Category>) {
@@ -104,19 +83,14 @@ class MainActivity : ComponentActivity() {
                     // changes the opacity of the image
                     alpha = 0.1F
                 )
-                Navigation(categories = categories, padding = padding)
+                androidx.navigation.Navigation(categories = categories, padding = padding)
             },
             //Background color for the content
             containerColor = Anti_flash_white
 
         )
     }
+    */
 
 
-            PricingpalTheme {
-                PricingPalApp(categories = viewModel.categories)
-            }
-        }
-    }
-}
 

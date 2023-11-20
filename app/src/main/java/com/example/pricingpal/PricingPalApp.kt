@@ -49,7 +49,7 @@ fun PricingPalAppBar(
     TopAppBar(
             title = {
                     Image(
-                        painter = painterResource(id = R.drawable.picture2),
+                        painter = painterResource(id = R.drawable.logo),
                         contentDescription = "Pricing Pal Logo",
                         modifier = Modifier
                             .height(69.dp)
