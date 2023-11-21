@@ -21,6 +21,7 @@ data class ItemDTO(
     val price: Float,
     @SerialName("category_id")
     val categoryId: Int,
+    @Serializable(with = UUIDSerializer::class)
     @SerialName("organization_id")
     val organizationId: UUID
 )
