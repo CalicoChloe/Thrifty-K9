@@ -11,8 +11,9 @@ import com.example.pricingpal.model.SupabaseModule
 import com.example.pricingpal.ui.theme.PricingpalTheme
 import com.example.pricingpal.view.background
 import com.example.pricingpal.viewmodel.NewCategoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
