@@ -43,6 +43,12 @@ import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.repetitivefunctions.passwordInput
 import com.example.pricingpal.view.repetitivefunctions.signUpButton
 
+/**
+ * This file will allow the user who is the owner to register their organization within the application.
+ * They will type in the organization they want to register, and type in their email and password
+ * associated with the organization.
+ * On the back end, the database should take the organization, email, and password connected to the organization table.
+ */
 @Composable
 fun ownerRegistration(){
     Card(
@@ -99,6 +105,7 @@ fun ownerRegistration(){
     }
 }
 
+/** On back end, this will be added to the organization table */
 @Composable
 fun ownerOrganizationInput(){
     var ownerOrganization by remember { mutableStateOf("") } // variable that holds a default state of text-field

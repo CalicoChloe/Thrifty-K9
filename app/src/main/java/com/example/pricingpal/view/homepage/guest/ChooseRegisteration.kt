@@ -28,8 +28,13 @@ import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.repetitivefunctions.lines
 
-/** this will allow for the user to choose between 2 organizations,
- * owner registration with the owner signing up the organization , or guest registration for management*/
+/** This file  will allow for the user to choose between 2 options.
+ * The 1st option is owner which will be through the owner of the company.
+ * This will navigate them to the screen owner registration where it would take organization, email, and password.
+ *
+ * The 2nd option is guest which will be through management or anyone else that the owner wants to allow have access to the list.
+ * This will navigate them to screen guest company list where it will show a list of companies that are registered from the owner.
+ * */
 @Composable
 fun ownerOrGuess(){
     Card(

@@ -32,6 +32,12 @@ import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.repetitivefunctions.passwordInput
 import com.example.pricingpal.view.repetitivefunctions.signUpButton
 
+/**
+ * This file will allow the user to register if within a organization that the owner made.
+ * The name of the organization that they choose will be at the top of the screen.
+ * Below, they will register with their email and password.
+ * On the back end, the database should take that email and password and connected to the client table.
+ */
 @Composable
 fun guestRegistration(){
     Card(
@@ -68,6 +74,7 @@ fun guestRegistration(){
             )
 
             Spacer(modifier = Modifier.height(25.dp))
+            // This will show the name of the organization the guest choose from previous screen
             organizationName()
             Spacer(modifier = Modifier.height(35.dp))
 

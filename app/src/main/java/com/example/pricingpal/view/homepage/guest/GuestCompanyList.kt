@@ -30,6 +30,12 @@ import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.companySearchBar
 import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 
+/**
+ * This file will allow the user to see a list of all of the organizations that are registered.
+ * On the back end, the list should be shown from the database.
+ * They can only select one organization. Once clicked, a loading screen will appear which will then
+ * load the registration for the guest.
+ */
 @Composable
 fun companiesTitle(){
     Card(
@@ -69,7 +75,8 @@ fun companiesTitle(){
 }
 
 /** This will show the name of the companies.
- * A company should be added when the owner register their organization */
+ * A company should be added when the owner register their organization.
+ * This will be pulled from the database*/
 @Composable
 fun companyName(){
     // The card needs to be clickable
@@ -134,7 +141,7 @@ fun guestCompanyList(){
         item {
             companiesTitle()
         }
-        for(i in 1..10) {
+        for(i in 1..10) { // this will change when it is being pulled from the database
             item {
                 companyName()
             }
