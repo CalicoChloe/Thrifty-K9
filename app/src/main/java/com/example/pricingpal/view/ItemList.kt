@@ -1,12 +1,13 @@
 package com.example.pricingpal.view
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,8 +25,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
+import com.example.pricingpal.ui.theme.Cornflower_blue
+import com.example.pricingpal.ui.theme.Periwinkle
+import com.example.pricingpal.ui.theme.Persian_indigo
 
-
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemList(
     selectedCategory: String?,
@@ -38,90 +42,71 @@ fun ItemList(
         if (currentCategory != null) {
             //Everything above this line should not be touched! It's required to make sure the current category isn't null before attempting to use the value!
             //Everything below these comments is temporary code to display the item list. Please replace with the final UI design:
-            //stickyHeader { CategoryCard(categoryName = currentCategory)}
-            //ListHeader(name = currentCategory.category)
             LazyColumn(
                 modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize()
+                    .padding(top = 54.dp)
             ) {
-                item {
-                    //Text(text = currentCategory.category, fontSize = 70.sp)
-                    CategoryCard(categoryName = currentCategory)
+                item{
+                    CategoryTitle(currentCategory) // Shows the name of the category
                 }
-                item {
-                    for (i in currentCategory.item) {
-                        ItemCard(i)
+                for(item in currentCategory.item) {
+                    item {
+                        ViewItems(item) // shows list of items
                     }
                 }
+            }  }
             }
         }
-    }
-}
-
-
 
 @Composable
-fun CategoryCard(categoryName: Category) {
-    Card(modifier = Modifier
-        .padding(15.dp)
-        .fillMaxWidth()
-        .height(80.dp)
-        .border(
-            // puts a border around the card
-            border = BorderStroke(3.dp, Color(0xFF27187E)),
-            // shapes the card
-            shape = RectangleShape
-        ),
-
-        elevation = CardDefaults.cardElevation(8.dp),
-        // shape = RoundedCornerShape(16.dp)
+fun CategoryTitle(c: Category){
+    Card(
+        shape = RectangleShape,
+        modifier = Modifier
+            .padding(top = 15.dp)
+            .padding(15.dp),
+        elevation = CardDefaults.cardElevation(12.dp),
     ) {
-
-        Row(verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .background(color = Color(0xFF758BFD), shape = RectangleShape)
+                .background(color = Cornflower_blue, shape = RectangleShape)
+                .border(
+                    border = BorderStroke(4.dp, color = Persian_indigo),
+                    shape = RectangleShape
+                )
                 .fillMaxWidth()
-                .height(80.dp)
+                .padding(15.dp)
         )
         {
 
             Text(
-                //shows the name of the category
-                text = categoryName.category,
-                fontSize = 40.sp,
-                // have it in bold to make it stand out
+                text = c.category, // name of category for when it is being viewed in item-list
+                fontSize = 60.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
-                modifier = Modifier
-                    .align(alignment = Alignment.CenterVertically)
             )
         }
     }
 }
+
 @Composable
-fun ItemCard(item: Item) {
+fun ViewItems(item: Item){
     Card(
         modifier = Modifier
-            // padding around the card
+            .padding(start = 10.dp, end = 10.dp)
             .padding(15.dp)
             .border(
-                // puts a border around the card
-                border = BorderStroke(3.dp, Color(0xFF22577A)),
-                // shapes the card
+                border = BorderStroke(4.dp, color = Persian_indigo),
                 shape = RectangleShape
             ),
-        // puts a shadow under the card to make it pop out
         elevation = CardDefaults.cardElevation(12.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                // changes the color of the card
-                .background(color = Color(0xFFAEB8FE), shape = RectangleShape)
-                // changes the size of the card
+                .background(color = Periwinkle, shape = RectangleShape)
                 .fillMaxWidth()
                 .height(80.dp)
         )
@@ -143,6 +128,8 @@ fun ItemCard(item: Item) {
                     .padding(end = 20.dp)
                     .align(alignment = Alignment.CenterVertically)
             )
+
         }
     }
 }
+
