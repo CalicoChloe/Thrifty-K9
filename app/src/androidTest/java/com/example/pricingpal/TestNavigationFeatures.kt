@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 
 /**
  * Test navigation features using the data from the testdata.csv file
- * As well as the UI design implemented before SupaBase backend support added to the app
+ * As well as the UI design implemented before SupaBase database added to app
  *
  * @constructor Create empty Test navigation features
  */
@@ -52,7 +52,7 @@ class TestNavigationFeatures {
         composeTestRule.activityRule.scenario.onActivity { activity ->
             activity.onBackPressedDispatcher.onBackPressed()
         }
-        // waits until the UI is idle
+        // waits until the ui is idle
         composeTestRule.waitForIdle()
 
         composeTestRule.onNodeWithText("Jewelry").performClick()
@@ -207,7 +207,6 @@ class TestNavigationFeatures {
         composeTestRule.onNodeWithText("Appliances").performClick()
         // performs click on the custom back button
         iconButton.performClick()
-        // waits until the UI is idle
         composeTestRule.waitForIdle()
 
         composeTestRule.onNodeWithText("Jewelry").performClick()
