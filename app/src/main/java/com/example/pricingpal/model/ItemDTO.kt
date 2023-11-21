@@ -22,8 +22,5 @@ data class ItemDTO(
     @SerialName("category_id")
     val categoryId: Int,
     @SerialName("organization_id")
-    @Serializable(with = UUIDSerializer::class)
     val organizationId: UUID
 )
-
-
