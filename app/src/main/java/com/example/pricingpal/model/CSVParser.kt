@@ -13,46 +13,7 @@ object CSVParser {
      *
      * @author Connor Murdock
      */
-    fun PopulateData(allItems: List<Item>): HashMap<String, Category> {
-        //HashMap containing every category from the file, empty by default
-        val categories = HashMap<String, Category>()
 
-        //Keep running until all items have been added
-        for(nextItem in allItems) {
-            //grab the next item from the list
-            val i = nextItem
-
-            //If there are no categories, make one
-            if (categories.isEmpty()) {
-                val newCategory = Category(i.category, ArrayList())
-                newCategory.item.add(i)
-                categories.put(newCategory.category, newCategory)
-            } else {
-                var categoryExists = false
-                for (c in categories) {
-                    //If the category already exists, add that item to the category's HashMap
-                    if (c.key == i.category) {
-                        c.value.item.add(i)
-                        categoryExists = true
-                    }
-                }
-                //If the category does not exist, create it and then add it to the categories HashMap.
-                //Also add the item to the new category
-                if (!categoryExists) {
-                    val newCategory = Category(i.category, ArrayList())
-                    newCategory.item.add(i)
-                    categories.put(newCategory.category, newCategory)
-                }
-
-            }
-        }
-        /* Return the categories HashMap
-         * This HashMap contains all of the categories, and each category contains all of its respective items
-         * HashMap Key: Category Name (String)
-         * HashMap Value: Category (object)
-         */
-        return categories
-    }
 }
 
 

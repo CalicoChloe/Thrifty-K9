@@ -127,7 +127,7 @@ fun ItemCard(item: Item) {
         )
         {
             Text(
-                text = item.name,
+                text = item.itemName,
                 fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier

@@ -10,4 +10,8 @@ package com.example.pricingpal.model
  * @Abdoulie NJie
  */
 
-data class Category(val category: String, val item: ArrayList<Item>)
+data class Category(
+    val categoryId: Int,
+    val category: String,
+    var item: ArrayList<Item>
+)

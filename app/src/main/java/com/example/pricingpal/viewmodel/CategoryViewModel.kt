@@ -15,6 +15,5 @@ import com.example.pricingpal.model.CSVReader
  * @author Connor Murdock
  */
 class CategoryViewModel(context: Context): ViewModel() {
-    val csvp = CSVParser
-    val categories = csvp.PopulateData(CSVReader.readFile(context, "testdata.csv"))
+
 }

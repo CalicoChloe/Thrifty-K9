@@ -1,5 +1,9 @@
 package com.example.pricingpal.model
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import java.util.UUID
+
 /**
  * Data class for an item.
  *
@@ -12,4 +16,11 @@ package com.example.pricingpal.model
  * @author Chloe Jackson
  */
 
-data class Item(val category: String, val name: String, val price: Double)
+data class Item(
+    val itemId: Int,
+    val itemName: String,
+    val price: Double,
+    val categoryId: Int,
+    val organizationId: UUID,
+    val category: String
+)
