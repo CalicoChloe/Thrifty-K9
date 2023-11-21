@@ -39,6 +39,13 @@ import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.emailInput
 import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 
+/**
+ * This file will allow for the user to enter their email to reset their password.
+ * They will enter the email they use for registration within the text field.
+ * When they click send, a dialog will pop up saying "email was sent".
+ * On the back end, a link should be sent to their email that will take them the the create password
+ * UI to make new password.
+ */
 @Composable
 fun forgotPassword() {
     Card(
@@ -52,6 +59,7 @@ fun forgotPassword() {
     ) {
         // Holds the navigation of the back arrow
         // Navigates to the login Screen
+        // Located within repetitive functions/ header file
         arrowNavigationBar()
 
         Column(
@@ -59,7 +67,10 @@ fun forgotPassword() {
                 .verticalScroll(rememberScrollState()), // allows for the items in the column to scroll
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            innerPricingBar() // holds the pricing pal logo
+
+            // Located within repetitive functions/ header file
+            // holds the pricing pal logo
+            innerPricingBar()
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 textAlign = TextAlign.Center,
@@ -79,7 +90,10 @@ fun forgotPassword() {
             )
 
             Spacer(modifier = Modifier.height(50.dp))
-            emailInput() // holds email text-field
+
+            //Located within repetitive functions/ input text-fields file
+            // holds the email text-field
+            emailInput()
 
             Spacer(modifier = Modifier.height(50.dp))
             forgotPasswordDialog() // holds the send button that will take you to the forgot password dialog
@@ -90,7 +104,8 @@ fun forgotPassword() {
 
 
 /** This functionality hold the dialog for when the user press the button send,
- * it will show them the message "Email was sent"*/
+ * it will show them the message "Email was sent".
+ * On the back end, the database should send a link to the user of the create password UI*/
 @Composable
 fun forgotPasswordDialog() {
     // a variable that determines if the state of the dialog to be use or not
@@ -144,6 +159,8 @@ fun forgotPasswordDialog() {
                         fontSize = 35.sp,
                         color = Color.Black,
                     )
+                    /** somewhere here is where the there a connection to where the link is sent to
+                     * their email from the database.*/
 
                     //Close button
                     // will exit the dialog

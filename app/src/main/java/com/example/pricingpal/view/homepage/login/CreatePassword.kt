@@ -50,6 +50,15 @@ import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.repetitivefunctions.newPasswordInput
 
+/**
+ * This file will allow the user to create a new password and confirm it.
+ * This UI will only show up when they click on the link that was given to them within the email.
+ * They will make a new password that is not the old password within a text-field.
+ * Below that they re type the new password confirming it to be the new password.
+ * On the back end, it needs to be made sure that both string are identical of they can not press send.
+ * Once they are done, the user can press create which will navigate them to the login screen.
+ * On the back end, the new password will be updated within the database.
+ */
 @Composable
 fun createPassword(){
     Card(
@@ -151,6 +160,7 @@ fun confirmPasswordInput(){
             }
         },
         /** This is for the eye Icon that will allow for the user to see their password.
+        There will be a if statement where when this button is click, it should show the password.
 
         trailingIcon = {
         IconButton(onClick = { /*TODO*/ }) {
@@ -168,6 +178,7 @@ fun confirmPasswordInput(){
     /** I did this in replacement of the supporting text*/
     // This message is below the text-field
     // The message can change if their input is wrong
+    // this will probably be done with an if statement giving the error "Confirm password does not match with password above."
     Row(horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
