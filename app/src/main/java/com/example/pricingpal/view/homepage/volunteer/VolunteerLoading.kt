@@ -31,6 +31,9 @@ import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
 
+/**
+ * This file will allow the data to be loaded before changing to the next UI screen
+ */
 @Composable
 fun volunteerLoading(){
     Surface(
@@ -46,11 +49,13 @@ fun volunteerLoading(){
             // changes the opacity of the image
             alpha = 0.1F
         )
+        //I think the launcher effect will be added here
         volunteerLoadingTimer()
     }
 }
 
-/** This is one of the loading screen, and it will navigate to the volunteer category list.*/
+/** This is one of the loading screen, and it will navigate to the volunteer category list.
+ * This loading screen */
 @Composable
 fun volunteerLoadingTimer(){
     Column(
@@ -100,6 +105,7 @@ fun volunteerLoadingTimer(){
                         .align(alignment = Alignment.CenterVertically)
                 )
 
+                // This number will change as the data loads
                 Text(
                     text = "0 %",
                     textAlign = TextAlign.End,

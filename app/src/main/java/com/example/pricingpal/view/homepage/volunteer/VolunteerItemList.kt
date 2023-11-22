@@ -14,11 +14,17 @@ import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 import com.example.pricingpal.view.repetitivefunctions.searchBar
 import com.example.pricingpal.view.repetitivefunctions.viewItems
 
+/**
+ * This file will allow the user to view the item list from the category they clicked.
+ * There will be a search bar that will allow the user to search for different categories and items.
+ * The user will use the back arrow to navigate back to the volunteer category list.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun volunteerItemList(){
     // Holds the navigation of the back arrow
-    // Navigates to the volunteer category list  Screen
+    // Navigates to the volunteer category list Screen
+    // Located within repetitive functions/ header file
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier
@@ -27,6 +33,7 @@ fun volunteerItemList(){
         item {
             // holds the pricing pal logo
             // This will collapse when scrolling up
+            // Located within repetitive functions/ header file
             pricingPalBar()
         }
         stickyHeader {

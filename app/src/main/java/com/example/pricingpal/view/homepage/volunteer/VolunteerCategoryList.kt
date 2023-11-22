@@ -24,6 +24,13 @@ import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 import com.example.pricingpal.view.repetitivefunctions.searchBar
 import com.example.pricingpal.view.repetitivefunctions.viewCategory
 
+/**
+ * This file will allow the user to view the category list from the organization they choose.
+ * At the bottom of the list will be a home button that will navigate back to the starter screen.
+ * There will be a search bar that will allow the user to search for different categories and items.
+ * The categories will be clickable, and once clicked, it will navigate to the item list that will
+ * show the list of items for that category.
+ */
 //Home Button
 // Will navigate back to the starter Screen
 @Composable
@@ -55,6 +62,7 @@ fun volunteerHome(){
 fun volunteerCategoryList(){
     // Holds the navigation of the back arrow
     // Navigates to the volunteer search company  Screen
+    // Located within repetitive functions/ header file
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier
@@ -63,6 +71,7 @@ fun volunteerCategoryList(){
         item {
             // holds the pricing pal logo
             // This will collapse when scrolling up
+            // Located within repetitive functions/ header file
             pricingPalBar()
         }
         stickyHeader {

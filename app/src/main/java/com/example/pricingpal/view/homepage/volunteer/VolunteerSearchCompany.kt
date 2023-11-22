@@ -30,7 +30,12 @@ import com.example.pricingpal.view.repetitivefunctions.arrowNavigationBar
 import com.example.pricingpal.view.repetitivefunctions.companySearchBar
 import com.example.pricingpal.view.repetitivefunctions.pricingPalBar
 
-
+/**
+ * This file will allow the user to see a list of all of the organizations that are registered.
+ * On the back end, the list should be shown from the database.
+ * They can only select one organization. Once clicked, a loading screen will appear which will then
+ * load the category list for volunteers.
+ */
 
 @Composable
 fun volunteerCompaniesTitle(){
@@ -70,6 +75,9 @@ fun volunteerCompaniesTitle(){
     }
 }
 
+/** This will show the name of the companies.
+ * A company should be added when the owner register their organization.
+ * This will be pulled from the database*/
 @Composable
 fun volunteerCompanyName(){
     // The card needs to be clickable
@@ -111,6 +119,7 @@ fun volunteerCompanyName(){
 fun volunteerCompanyList(){
     // Holds the navigation of the back arrow
     // Navigates to the choose registration Screen
+    // Located within repetitive functions/ header file
     arrowNavigationBar()
     LazyColumn(
         modifier = Modifier
@@ -119,6 +128,7 @@ fun volunteerCompanyList(){
         item {
             // holds the pricing pal logo
             // This will collapse when scrolling up
+            // Located within repetitive functions/ header file
             pricingPalBar()
         }
         stickyHeader {
@@ -132,7 +142,7 @@ fun volunteerCompanyList(){
         item {
             volunteerCompaniesTitle()
         }
-        for(i in 1..10) {
+        for(i in 1..10) { // this will change when it is being pulled from the database
             item {
                 volunteerCompanyName()
             }
