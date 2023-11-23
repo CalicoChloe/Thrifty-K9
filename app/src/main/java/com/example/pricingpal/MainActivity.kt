@@ -2,11 +2,12 @@ package com.example.pricingpal
 
 
 //import com.example.pricingpal.viewmodel.CategoryViewModel
+//import com.example.pricingpal.model.Database
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.pricingpal.model.CategoryItemRepositoryImpl
-//import com.example.pricingpal.model.Database
 import com.example.pricingpal.model.SupabaseModule
 import com.example.pricingpal.ui.theme.PricingpalTheme
 import com.example.pricingpal.view.background
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
             background()
             PricingpalTheme {
                 PricingPalApp(categories = viewModel.categories)
+                Log.e("VIEWMODEL", viewModel.categories.toString())
             }
         }
     }
