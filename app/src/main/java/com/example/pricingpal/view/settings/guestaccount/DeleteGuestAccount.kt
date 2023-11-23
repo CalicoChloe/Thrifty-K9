@@ -149,7 +149,10 @@ fun deleteGuestDialog(){
                 ) {
                     Text(text = "The account has been deleted.",
                         fontSize = 40.sp,
+                        textAlign = TextAlign.Center,
                         color = Color.Black,
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
                     )
                     // Close Button
                     // will close the dialog box

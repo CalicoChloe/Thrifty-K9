@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 }
             )
             PricingpalTheme {
-                PricingPalApp(categories = viewModel.categories)
+                //PricingPalApp(categories = viewModel.categories)
             }
 
             //Create the scaffold passing in the HashMap of categories to be used for display
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
             //Loading()
             //volunteerLoading() //Located within homepage/ volunteer/ volunteer loading file
             //editLoading()     //Located within editing list/ edit loading file
-            //background()  // Located within view/ temporary background file
+            background()  // Located within view/ temporary background file
         }
     }
 }
