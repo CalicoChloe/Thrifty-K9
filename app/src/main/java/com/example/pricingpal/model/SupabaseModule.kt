@@ -57,5 +57,10 @@ object SupabaseModule {
     fun provideSupabaseStorage(client: SupabaseClient): Storage {
         return client.storage
     }
-
+    sealed class ApiResults<out R> {
+        data class Succeed <out R>(val data: R): ApiResults<R>()
+        data class Error (val message: String?):ApiResults<Nothing>()
+        object Loading: ApiResults<Nothing>()
+    }
 }
+

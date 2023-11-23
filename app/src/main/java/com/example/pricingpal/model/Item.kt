@@ -12,5 +12,5 @@ package com.example.pricingpal.model
  * @author Chloe Jackson
  */
 
-data class Item(val id: Int, val name: String,  val price: Double, val categoryId: Int, val organizationId: String)
+data class Item(val id: Int, val name: String,  val price: Double, val categoryId: Int, val organizationId: String) {}
 

@@ -1,6 +1,5 @@
 package com.example.pricingpal.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Category
@@ -8,14 +7,18 @@ import com.example.pricingpal.model.CategoryDTO
 import com.example.pricingpal.model.CategoryItemRepository
 import com.example.pricingpal.model.Item
 import com.example.pricingpal.model.ItemDTO
+import com.example.pricingpal.model.SupabaseModule
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewCategoryViewModel @Inject constructor(
+
     private val categoryItemRepository: CategoryItemRepository
 ) : ViewModel() {
+
 
     val categories = HashMap<String, Category>()
 
@@ -29,9 +32,11 @@ class NewCategoryViewModel @Inject constructor(
 
     fun observeCategories() {
         viewModelScope.launch {
-            categoryList.collect {categoryList -> categoryList?.let {
+            categoryList.collect { categoryList ->
+                categoryList?.let {
                     populateCategories(it)
                 }
+
             }
         }
     }
@@ -42,13 +47,21 @@ class NewCategoryViewModel @Inject constructor(
         }
     }
 
-    fun getCategories() {
-        viewModelScope.launch {
-            val categories2 = categoryItemRepository.getCategories()
-            _categoryList.emit(categories2?.map { it -> it.asDomainModel() })
+    fun getCategories() : Flow<SupabaseModule.ApiResults<Unit>> {
+        return  flow {
+            emit(SupabaseModule.ApiResults.Loading)
+            try {
+                viewModelScope.launch {
+                    val categories2 = categoryItemRepository.getCategories()
+                    _categoryList.emit(categories2?.map { it -> it.asDomainModel() })
+                }
+                emit(SupabaseModule.ApiResults.Succeed(Unit))
+
+            } catch (e: Exception) {
+                emit(SupabaseModule.ApiResults.Error(e.message))
+            }
         }
-        Log.e("SupaBase", _categoryList.toString())
-    }
+}
 
     private suspend fun CategoryDTO.asDomainModel(): Category {
         return Category(
