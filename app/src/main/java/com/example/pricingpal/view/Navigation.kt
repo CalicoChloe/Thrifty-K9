@@ -64,3 +64,18 @@ fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues) {
     }
 }
 
+@Composable
+fun NonScaffoldNavigateScreens(categories: HashMap<String, Category>){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "loading_screen") {
+        composable("loading_screen"){
+            AnimatedSlashScreen(navController = navController)
+        }
+        composable("starter_screen"){
+        }
+
+        composable("category_list") {
+            PricingPalApp(categories = categories)
+        }
+    }
+}

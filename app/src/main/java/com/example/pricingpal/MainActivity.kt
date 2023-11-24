@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.PricingpalTheme
+import com.example.pricingpal.view.NonScaffoldNavigateScreens
 import com.example.pricingpal.view.background
 import com.example.pricingpal.view.settings.guestaccount.guestAccountSetting
 import com.example.pricingpal.viewmodel.NewCategoryViewModel
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
             //editLoading()
             //background()
             PricingpalTheme {
-                PricingPalApp(categories = viewModel.categories)
+                NonScaffoldNavigateScreens(categories = viewModel.categories)
                 //PricingPalApp(categories = viewModel.categories)
                 //Log.e("VIEWMODEL", viewModel.categories.toString())
             }
