@@ -2,6 +2,7 @@ package com.example.pricingpal.view
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,8 +14,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,6 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,10 +38,12 @@ import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Cornflower_blue
+import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.viewmodel.NewCategoryViewModel
 
 const val  CATEGORY_NAMES = "categories"
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CategoryList (categories: HashMap<String, Category>,
                   navController: NavController,
@@ -45,6 +52,7 @@ fun CategoryList (categories: HashMap<String, Category>,
     val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value
     Log.e("Category-List" ,categoryList.toString())
     if(!categoryList.isNullOrEmpty()) {
+        Divider(thickness = 4.dp, color = Persian_indigo)
         LazyColumn(
             //aligns the categories within the center
             modifier = Modifier
@@ -54,10 +62,23 @@ fun CategoryList (categories: HashMap<String, Category>,
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
+            item {
+                // holds the pricing pal logo
+                // This will collapse when scrolling up
+                pricingPalBar()
+            }
+            stickyHeader {
+                // This will allow for you to look up the items and categories
+                searchBar()
+                Divider(thickness = 4.dp, color = Persian_indigo)
+            }
 
             // takes each category card and put into a list
             for (category: Category in categories.values) {
                 item { CategoryCard(category = category, navController) }
+            }
+            item {
+                volunteerHome()
             }
 
         }
@@ -114,5 +135,29 @@ fun CategoryCard(category: Category, navController: NavController){
                     .align(alignment = Alignment.CenterHorizontally)
             )
         }
+    }
+}
+
+@Composable
+fun volunteerHome(){
+    ElevatedButton(
+        onClick = { /*TODO*/ },
+        shape = RectangleShape,
+        colors = ButtonDefaults.buttonColors(Cornflower_blue),
+        elevation = ButtonDefaults.buttonElevation(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(90.dp)
+            .padding(start = 70.dp, top = 15.dp, end = 70.dp, bottom = 15.dp)
+            .border(4.dp, color = Persian_indigo),
+
+        ) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Home",
+            fontSize = 30.sp,
+            color = Color.Black,
+        )
+
     }
 }

@@ -1,6 +1,7 @@
 package com.example.pricingpal.view
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,6 +31,7 @@ import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemList(
     selectedCategory: String?,
@@ -48,6 +51,16 @@ fun ItemList(
                     .padding(padding)
                     .fillMaxSize()
             ) {
+                item {
+                    // holds the pricing pal logo
+                    // This will collapse when scrolling up
+                    pricingPalBar()
+                }
+                stickyHeader {
+                    // This will allow for you to look up the items and categories
+                    searchBar()
+                    Divider(thickness = 4.dp, color = Persian_indigo)
+                }
                 item {
                     //Text(text = currentCategory.category, fontSize = 70.sp)
                     CategoryCard(categoryName = currentCategory)
