@@ -1,7 +1,7 @@
 package com.example.pricingpal.model.repositories
 
 import com.example.pricingpal.model.Item
-import com.example.pricingpal.model.ItemDTO
+import com.example.pricingpal.model.dto.ItemDTO
 
 interface ItemRepository {
     //Create or get a list of all Items or a single Item

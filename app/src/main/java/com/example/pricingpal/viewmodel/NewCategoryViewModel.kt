@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Category
-import com.example.pricingpal.model.CategoryDTO
 import com.example.pricingpal.model.Item
-import com.example.pricingpal.model.ItemDTO
+import com.example.pricingpal.model.dto.CategoryDTO
+import com.example.pricingpal.model.dto.ItemDTO
 import com.example.pricingpal.model.repositories.CategoryRepository
 import com.example.pricingpal.model.repositories.ItemRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

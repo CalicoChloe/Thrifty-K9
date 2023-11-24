@@ -1,5 +1,8 @@
 package com.example.pricingpal.model
 
+import com.example.pricingpal.model.dto.CategoryDTO
+import com.example.pricingpal.model.dto.ItemDTO
+
 interface CategoryItemRepository {
     //Create or get a list of all Items or a single Item
     suspend fun createItem(item: Item): Boolean

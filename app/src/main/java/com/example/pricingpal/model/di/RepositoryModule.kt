@@ -3,9 +3,9 @@ package com.example.pricingpal.model.di
 
 
 import com.example.pricingpal.model.repositories.CategoryRepository
-import com.example.pricingpal.model.repositories.CategoryRepositoryImpl
+import com.example.pricingpal.model.repositories.impl.CategoryRepositoryImpl
 import com.example.pricingpal.model.repositories.ItemRepository
-import com.example.pricingpal.model.repositories.ItemRepositoryImpl
+import com.example.pricingpal.model.repositories.impl.ItemRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

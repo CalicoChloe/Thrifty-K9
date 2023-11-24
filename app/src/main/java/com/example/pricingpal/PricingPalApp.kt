@@ -20,18 +20,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
-import com.example.pricingpal.view.CategoryList
-import com.example.pricingpal.view.ItemList
+import com.example.pricingpal.view.Navigation
 import com.example.pricingpal.view.Screen
 
 // const used to reference the custom back button for testing purposes
@@ -120,6 +115,7 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
         },
         //padding automatically adjusts to match the app bar size
         content = { padding ->
+            Navigation(categories = categories, padding )
             Image(
                 //Imports image from resource folder
                 painter = painterResource(id = R.drawable.paw_background),
@@ -129,33 +125,7 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
                 contentScale = ContentScale.Crop,
                 // changes the opacity of the image
                 alpha = 0.1F
-            )
-            //Setup the NavHost
-            NavHost(navController = navController, startDestination = Screen.CategoryList.route) {
-                //The route to the CategoryList. This is the start destination
-                composable(route = Screen.CategoryList.route) {
-                    CategoryList(
-                        categories = categories,
-                        navController = navController,
-                        padding = padding
-                    )
-                }
-                //The route to the ItemList. This route requires a categoryName String to be passed in to get the list of items down the line
-                composable(route = Screen.ItemList.route + "/{categoryName}",
-                    arguments = listOf(
-                        navArgument("categoryName") {
-                            type = NavType.StringType
-                        }
-                    )
-                ) { entry ->
-                    ItemList(
-                        selectedCategory = entry.arguments?.getString("categoryName"),
-                        padding = padding,
-                        categories
-                    )
-                }
-            }
-        },
+            )},
         //Background color for the content
         containerColor = Anti_flash_white
     )

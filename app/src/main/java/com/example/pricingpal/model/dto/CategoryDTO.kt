@@ -1,4 +1,4 @@
-package com.example.pricingpal.model
+package com.example.pricingpal.model.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

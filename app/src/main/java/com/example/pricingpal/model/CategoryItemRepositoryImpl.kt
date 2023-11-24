@@ -1,5 +1,7 @@
 package com.example.pricingpal.model
 
+import com.example.pricingpal.model.dto.CategoryDTO
+import com.example.pricingpal.model.dto.ItemDTO
 import io.github.jan.supabase.postgrest.Postgrest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

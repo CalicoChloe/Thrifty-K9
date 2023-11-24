@@ -1,7 +1,7 @@
 package com.example.pricingpal.model.repositories
 
 import com.example.pricingpal.model.Category
-import com.example.pricingpal.model.CategoryDTO
+import com.example.pricingpal.model.dto.CategoryDTO
 
 interface CategoryRepository {
     //Create or get a list of all Categories or a single Category
