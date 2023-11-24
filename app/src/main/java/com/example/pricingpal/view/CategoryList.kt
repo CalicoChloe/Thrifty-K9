@@ -1,5 +1,6 @@
 package com.example.pricingpal.view
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,40 +17,50 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Cornflower_blue
-import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.viewmodel.NewCategoryViewModel
 
 const val  CATEGORY_NAMES = "categories"
 @Composable
-fun CategoryList (categories: HashMap<String, Category>, navController: NavController, padding: PaddingValues){
-    LazyColumn(
-        //aligns the categories within the center
-        modifier = Modifier.testTag(CATEGORY_NAMES)
-            .fillMaxSize()
-            .padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally
+fun CategoryList (categories: HashMap<String, Category>,
+                  navController: NavController,
+                  padding: PaddingValues,
+                  viewModel: NewCategoryViewModel = hiltViewModel()){
+    val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value
+    Log.e("Category-List" ,categoryList.toString())
+    if(!categoryList.isNullOrEmpty()) {
+        LazyColumn(
+            //aligns the categories within the center
+            modifier = Modifier
+                .testTag(CATEGORY_NAMES)
+                .fillMaxSize()
+                .padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally
 
-    ) {
-        // takes each category card and put into a list
-        for(category : Category in categories.values) {
-            item { CategoryCard(category = category, navController)}
+        ) {
+
+            // takes each category card and put into a list
+            for (category: Category in categories.values) {
+                item { CategoryCard(category = category, navController) }
+            }
+
         }
-
     }
 }
 

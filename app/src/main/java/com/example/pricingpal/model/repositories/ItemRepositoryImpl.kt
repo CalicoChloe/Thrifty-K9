@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 class ItemRepositoryImpl@Inject constructor(
     private val postgrest: Postgrest
-    // private val storage: Storage,
 ) : ItemRepository {
     //Create or get a list of all Items or a single Item
     override suspend fun createItem(item: Item): Boolean {

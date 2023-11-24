@@ -1,22 +1,24 @@
 package com.example.pricingpal.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.CategoryDTO
-import com.example.pricingpal.model.CategoryItemRepository
 import com.example.pricingpal.model.Item
 import com.example.pricingpal.model.ItemDTO
-import com.example.pricingpal.model.SupabaseModule
+import com.example.pricingpal.model.repositories.CategoryRepository
+import com.example.pricingpal.model.repositories.ItemRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class NewCategoryViewModel @Inject constructor(
-
-    private val categoryItemRepository: CategoryItemRepository
+    private val categoryRepository: CategoryRepository,
+    private val itemRepository: ItemRepository
 ) : ViewModel() {
 
 
@@ -44,34 +46,26 @@ class NewCategoryViewModel @Inject constructor(
     fun populateCategories(categoryList: List<Category>) {
         for (c in categoryList) {
             categories.put(c.category, c)
+            Log.e("Category", c.toString())
         }
     }
 
-    fun getCategories() : Flow<SupabaseModule.ApiResults<Unit>> {
-        return  flow {
-            emit(SupabaseModule.ApiResults.Loading)
-            try {
+    fun getCategories(){
                 viewModelScope.launch {
-                    val categories2 = categoryItemRepository.getCategories()
+                    val categories2 = categoryRepository.getCategories()
                     _categoryList.emit(categories2?.map { it -> it.asDomainModel() })
                 }
-                emit(SupabaseModule.ApiResults.Succeed(Unit))
-
-            } catch (e: Exception) {
-                emit(SupabaseModule.ApiResults.Error(e.message))
-            }
-        }
 }
 
-    private suspend fun CategoryDTO.asDomainModel(): Category {
+    suspend fun CategoryDTO.asDomainModel(): Category {
         return Category(
             category = this.categoryName,
             item = getItems(this.categoryId)!!
         )
     }
 
-    private suspend fun getItems(categoryId: Int): ArrayList<Item>? {
-        return categoryItemRepository.getItems(categoryId)?.map { it.asDomainModel() } as ArrayList<Item>?
+    suspend fun getItems(categoryId: Int): ArrayList<Item>? {
+        return itemRepository.getItems(categoryId)?.map { it.asDomainModel() } as ArrayList<Item>?
     }
 
     private fun ItemDTO.asDomainModel(): Item {

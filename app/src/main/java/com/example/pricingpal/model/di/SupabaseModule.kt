@@ -1,4 +1,4 @@
-package com.example.pricingpal.model
+package com.example.pricingpal.model.di
 
 import com.example.pricingpal.BuildConfig
 import dagger.Module
@@ -8,7 +8,6 @@ import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.annotations.SupabaseExperimental
 import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.gotrue.FlowType
 import io.github.jan.supabase.gotrue.GoTrue
 import io.github.jan.supabase.gotrue.gotrue
 import io.github.jan.supabase.postgrest.Postgrest
@@ -30,12 +29,12 @@ object SupabaseModule {
             supabaseKey = BuildConfig.SUPABASE_ANON_KEY
         ) {
             install(Postgrest)
-            install(GoTrue) {
-                flowType = FlowType.PKCE
-                scheme = "public"
-                host = "supabase.com"
-            }
-            install(Storage)
+//            install(GoTrue) {
+//                flowType = FlowType.PKCE
+//                scheme = "public"
+//                host = "supabase.com"
+//            }
+//            install(Storage)
         }
     }
 
@@ -59,7 +58,7 @@ object SupabaseModule {
     }
     sealed class ApiResults<out R> {
         data class Succeed <out R>(val data: R): ApiResults<R>()
-        data class Error (val message: String?):ApiResults<Nothing>()
+        data class Error (val message: String?): ApiResults<Nothing>()
         object Loading: ApiResults<Nothing>()
     }
 }
