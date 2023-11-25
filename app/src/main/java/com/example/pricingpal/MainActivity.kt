@@ -1,11 +1,14 @@
 package com.example.pricingpal
 
+//import com.example.pricingpal.view.NonScaffoldNavigateScreens
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.pricingpal.ui.theme.PricingpalTheme
-import com.example.pricingpal.viewmodel.NewCategoryViewModel
+import com.example.pricingpal.view.rememberSize
+import com.example.pricingpal.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -14,10 +17,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             //Initialize the viewmodel
-            val viewModel: NewCategoryViewModel by viewModels()
+            val viewModel: CategoryViewModel by viewModels()
+            // Initialize the window
+            val window = rememberSize()
 
             PricingpalTheme {
-                PricingPalApp(categories = viewModel.categories)
+                PricingPalApp(categories = viewModel.categories, windowSize = window)
+
+
             }
         }
     }
