@@ -70,7 +70,7 @@ fun AnimatedSlashScreen(navController: NavController){
         startAnimation = true
         delay(5000)
         navController.popBackStack()
-        navController.navigate("category_list")
+        navController.navigate("starter_screen")
     }
     Surface(
         modifier = Modifier

@@ -72,6 +72,7 @@ fun NonScaffoldNavigateScreens(categories: HashMap<String, Category>){
             AnimatedSlashScreen(navController = navController)
         }
         composable("starter_screen"){
+            startScreen(navController = navController)
         }
 
         composable("category_list") {

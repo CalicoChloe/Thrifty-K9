@@ -77,10 +77,6 @@ fun CategoryList (categories: HashMap<String, Category>,
             for (category: Category in categories.values) {
                 item { CategoryCard(category = category, navController) }
             }
-            item {
-                volunteerHome()
-            }
-
         }
     }
 }
@@ -135,29 +131,5 @@ fun CategoryCard(category: Category, navController: NavController){
                     .align(alignment = Alignment.CenterHorizontally)
             )
         }
-    }
-}
-
-@Composable
-fun volunteerHome(){
-    ElevatedButton(
-        onClick = { /*TODO*/ },
-        shape = RectangleShape,
-        colors = ButtonDefaults.buttonColors(Cornflower_blue),
-        elevation = ButtonDefaults.buttonElevation(8.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(90.dp)
-            .padding(start = 70.dp, top = 15.dp, end = 70.dp, bottom = 15.dp)
-            .border(4.dp, color = Persian_indigo),
-
-        ) {
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Home",
-            fontSize = 30.sp,
-            color = Color.Black,
-        )
-
     }
 }
