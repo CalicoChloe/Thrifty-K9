@@ -3,7 +3,7 @@ body {
     width: 85%;
     margin: 0 auto;
     /*Linear gradient covers background to match the opacity of the app background*/
-    background: linear-gradient( rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9) ), url("./../app/src/main/res/drawable/paw_background.png");
+    background: linear-gradient( rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9) ), url("https://github.com/CalicoChloe/Thrifty-K9/blob/main/app/src/main/res/drawable/paw_background.png?raw=true");
     /*These lines handle the positioning of the background*/
     background-repeat: no-repeat;
     background-position: center;
