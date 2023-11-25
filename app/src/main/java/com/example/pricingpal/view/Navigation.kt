@@ -17,10 +17,12 @@ import com.example.pricingpal.model.Category
  * and handles the application's navigation  function is call.
  *
  * @property categories the HashMap of category objects,
- * @property padding the padding value of the screen
+ * @param  padding value used to store padding values of content
+ * @param currentScreen String used to title the name of the current screen being displayed by the app
+ *
  *
  * @author Connor Murdock
- *
+ * @author Abdoulie NJie
  **/
 
 @Composable
@@ -38,7 +40,6 @@ fun Navigation(
             CategoryList(
                 categories = categories,
                 navController = navController,
-                padding = padding,
                 currentScreen = currentScreen
             )
         }
@@ -52,7 +53,6 @@ fun Navigation(
         ) { entry ->
             ItemList(
                 selectedCategory = entry.arguments?.getString("categoryName"),
-                padding = padding,
                 categories,
                 navController = navController,
                 currentScreen = currentScreen

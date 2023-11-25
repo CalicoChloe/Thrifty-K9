@@ -4,7 +4,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +34,6 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 @Composable
 fun ItemList(
     selectedCategory: String?,
-    padding: PaddingValues,
     categories: HashMap<String, Category>,
     navController: NavController,
     currentScreen: String

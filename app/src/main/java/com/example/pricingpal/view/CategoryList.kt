@@ -7,7 +7,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,9 +42,9 @@ const val  CATEGORY_NAMES = "categories"
 fun CategoryList (
     categories: HashMap<String, Category>,
     navController: NavController,
-    padding: PaddingValues,
     currentScreen: String,
-    viewModel: NewCategoryViewModel = hiltViewModel()) {
+    viewModel: NewCategoryViewModel = hiltViewModel()
+) {
     val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value
 
     Log.e("Category-List", categoryList.toString())

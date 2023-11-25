@@ -34,6 +34,7 @@ const val BACK_BUTTON = "Back Button"
  *
  * @param canNavigateBack Navigation Controller Boolean used to check if the current page was accessed through another page
  * @param navigateUp Navigation Controller Boolean used to navigate through the app
+ * @param currentScreen String used to title the name of the current screen being displayed by the app
  *
  * @author Abdoulie NJie
  * @author Chloe Jackson
@@ -89,7 +90,6 @@ fun PricingPalAppBar(
  * @author Abdoulie NJie
  * @author Chloe Jackson
  **/
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PricingPalApp(categories: HashMap<String, Category>) {
     //Initialize navController
