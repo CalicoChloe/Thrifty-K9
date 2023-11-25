@@ -16,20 +16,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.view.Navigation
-import com.example.pricingpal.view.Screen
 import com.example.pricingpal.view.WindowSize
 
 // const used to reference the custom back button for testing purposes
@@ -40,10 +37,10 @@ const val BACK_BUTTON = "Back Button"
  *
  * @param canNavigateBack Navigation Controller Boolean used to check if the current page was accessed through another page
  * @param navigateUp Navigation Controller Boolean used to navigate through the app
- * @param currentScreen String used to title the name of the current screen being displayed by the app
  *
  * @author Abdoulie NJie
  * @author Chloe Jackson
+ * @author Shianne Lesure
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -89,23 +86,18 @@ fun PricingPalAppBar(
  * This function creates the Scaffold, NavHost and NavController,
  * and handles what should happen when the PricingPalApp function is called.
  *
- * @property categories the HashMap of category objects,
- * with category name as the key and the respective category object as the value.
+ * @param categories the HashMap of category objects, ith category name as the key and the respective category object as the value.
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
  * @author Connor Murdock
  * @author Abdoulie NJie
  * @author Chloe Jackson
+ * @author Shianne Lesure
  **/
 @Composable
 fun PricingPalApp(categories: HashMap<String, Category>, windowSize : WindowSize) {
     //Initialize navController
     val navController = rememberNavController()
-    // Get current back stack entry
-    val backStackEntry by navController.currentBackStackEntryAsState()
-    // Get the name of the current screen for navigate up to work properly
-    val currentScreen = Screen.valueOf(
-        (backStackEntry?.destination?.route ?: Screen.CategoryList.route)
-    )
 
     //Create an app bar of medium size at the top of the scaffold
     PricingPalAppBar(
