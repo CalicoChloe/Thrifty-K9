@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pricingpal.model.Category
+import com.example.pricingpal.view.homepage.StartScreen
 
 /**
  *
@@ -29,18 +30,24 @@ import com.example.pricingpal.model.Category
 fun Navigation(
     categories: HashMap<String, Category>,
     padding: PaddingValues,
-    currentScreen: String
+    windowSize: WindowSize
 ) {
     //Initialize navController
     val navController = rememberNavController()
     //Setup the NavHost
-    NavHost(navController = navController, startDestination = Screen.CategoryList.route) {
+    NavHost(navController = navController, startDestination = Screen.LoadingScreen.route) {
+        composable(route = Screen.LoadingScreen.route){
+            AnimatedSlashScreen(navController = navController,windowSize = windowSize)
+        }
+        composable(route = Screen.HomeScreen.route){
+            StartScreen(navController = navController,windowSize = windowSize)
+        }
         //The route to the CategoryList. This is the start destination
         composable(route = Screen.CategoryList.route) {
             CategoryList(
                 categories = categories,
                 navController = navController,
-                currentScreen = currentScreen
+                windowSize = windowSize
             )
         }
         //The route to the ItemList. This route requires a categoryName String to be passed in to get the list of items down the line
@@ -55,7 +62,7 @@ fun Navigation(
                 selectedCategory = entry.arguments?.getString("categoryName"),
                 categories,
                 navController = navController,
-                currentScreen = currentScreen
+                windowSize = windowSize
             )
         }
     }

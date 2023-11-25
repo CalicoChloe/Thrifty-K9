@@ -3,21 +3,26 @@ package com.example.pricingpal
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.pricingpal.model.Category
@@ -25,6 +30,7 @@ import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.view.Navigation
 import com.example.pricingpal.view.Screen
+import com.example.pricingpal.view.WindowSize
 
 // const used to reference the custom back button for testing purposes
 const val BACK_BUTTON = "Back Button"
@@ -44,28 +50,28 @@ const val BACK_BUTTON = "Back Button"
 fun PricingPalAppBar(
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
-    currentScreen: String,
     modifier: Modifier = Modifier,
 ) {
-    CenterAlignedTopAppBar(
+    /** I replaced the old with this one. I couldn't get the logo to look right with the UI scaling,
+     * and since there is no action that is being done with the logo, I removed it. Because I remove
+     * it, it allowed for the bar to be smaller since it will only have the back arrow within the bar.*/
+    TopAppBar(
+        title = { Text(text ="") }, // I left this in here because if I remove it, it will cause an error
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor =  Periwinkle
         ),
-        title = {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = currentScreen,
-                modifier = Modifier
-                    .fillMaxSize(0.5f)
-            )
-        },
+        modifier = modifier,
         navigationIcon = {
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Back Button",
-                        Modifier.testTag(BACK_BUTTON)
+                        tint = Color.Black,
+                        modifier = Modifier
+                            .testTag(BACK_BUTTON)
+                            .size(40.dp)
+                            .padding(start = 10.dp, top = 5.dp)
 
                     )
                 }
@@ -91,7 +97,7 @@ fun PricingPalAppBar(
  * @author Chloe Jackson
  **/
 @Composable
-fun PricingPalApp(categories: HashMap<String, Category>) {
+fun PricingPalApp(categories: HashMap<String, Category>, windowSize : WindowSize) {
     //Initialize navController
     val navController = rememberNavController()
     // Get current back stack entry
@@ -105,7 +111,6 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
     PricingPalAppBar(
         navigateUp =  {navController.navigateUp()},
         canNavigateBack = navController.previousBackStackEntry != null,
-        currentScreen = currentScreen
     )
 
     Scaffold(
@@ -126,9 +131,12 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
                     // changes the opacity of the image
                     alpha = 0.1F
                 )
-                Navigation(categories = categories, padding, currentScreen)
+
+                Navigation(categories = categories, padding, windowSize)
             }
-        }
+        },
+        //Background color for the content
+        containerColor = Anti_flash_white
     )
 
 }

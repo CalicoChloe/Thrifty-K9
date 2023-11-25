@@ -55,8 +55,7 @@ fun CategoryList (
         topBar = {
             PricingPalAppBar(
                 navigateUp = { navController.navigateUp() },
-                canNavigateBack = navController.previousBackStackEntry != null,
-
+                canNavigateBack = navController.previousBackStackEntry != null
             )
         },
         content = { padding ->
