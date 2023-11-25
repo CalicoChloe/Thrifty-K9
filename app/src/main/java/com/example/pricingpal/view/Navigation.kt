@@ -27,8 +27,6 @@ import com.example.pricingpal.model.Category
 fun Navigation(
     categories: HashMap<String, Category>,
     padding: PaddingValues,
-    navigateUp: Boolean,
-    canNavigateBack: Boolean,
     currentScreen: String
 ) {
     //Initialize navController
@@ -41,8 +39,6 @@ fun Navigation(
                 categories = categories,
                 navController = navController,
                 padding = padding,
-                navigateUp = navigateUp,
-                canNavigateBack = canNavigateBack,
                 currentScreen = currentScreen
             )
         }
@@ -58,8 +54,7 @@ fun Navigation(
                 selectedCategory = entry.arguments?.getString("categoryName"),
                 padding = padding,
                 categories,
-                navigateUp = navigateUp,
-                canNavigateBack = canNavigateBack,
+                navController = navController,
                 currentScreen = currentScreen
             )
         }

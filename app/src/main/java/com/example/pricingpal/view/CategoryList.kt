@@ -44,8 +44,6 @@ fun CategoryList (
     categories: HashMap<String, Category>,
     navController: NavController,
     padding: PaddingValues,
-    navigateUp: Boolean,
-    canNavigateBack: Boolean,
     currentScreen: String,
     viewModel: NewCategoryViewModel = hiltViewModel()) {
     val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value
@@ -55,8 +53,8 @@ fun CategoryList (
         //Create an app bar of medium size at the top of the scaffold
         topBar = {
             PricingPalAppBar(
-                navigateUp = { navigateUp },
-                canNavigateBack = canNavigateBack,
+                navigateUp = { navController.navigateUp() },
+                canNavigateBack = navController.previousBackStackEntry != null,
                 currentScreen = currentScreen
             )
         },

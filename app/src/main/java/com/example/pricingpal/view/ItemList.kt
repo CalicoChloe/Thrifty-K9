@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
@@ -36,16 +37,15 @@ fun ItemList(
     selectedCategory: String?,
     padding: PaddingValues,
     categories: HashMap<String, Category>,
-    navigateUp: Boolean,
-    canNavigateBack: Boolean,
+    navController: NavController,
     currentScreen: String
 ) {
     Scaffold(
         //Create an app bar of medium size at the top of the scaffold
         topBar = {
             PricingPalAppBar(
-                navigateUp = { navigateUp },
-                canNavigateBack = canNavigateBack,
+                navigateUp = { navController.navigateUp() },
+                canNavigateBack = navController.previousBackStackEntry != null,
                 currentScreen = currentScreen
             )
         },
