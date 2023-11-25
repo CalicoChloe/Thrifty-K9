@@ -18,6 +18,7 @@ import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.PricingpalTheme
 import com.example.pricingpal.view.NonScaffoldNavigateScreens
 import com.example.pricingpal.view.background
+import com.example.pricingpal.view.rememberSize
 import com.example.pricingpal.view.settings.guestaccount.guestAccountSetting
 import com.example.pricingpal.viewmodel.NewCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,13 +40,14 @@ class MainActivity : ComponentActivity() {
                 }
             )*/
             val viewModel: NewCategoryViewModel by viewModels()
+            val window = rememberSize()
             /** This is what I use to show my UI designs. Loading screen is separated because it uses a different background*/
             //Loading()
             //volunteerLoading()
             //editLoading()
             //background()
             PricingpalTheme {
-                NonScaffoldNavigateScreens(categories = viewModel.categories)
+                NonScaffoldNavigateScreens(categories = viewModel.categories, windowSize = window)
                 //PricingPalApp(categories = viewModel.categories)
                 //Log.e("VIEWMODEL", viewModel.categories.toString())
             }

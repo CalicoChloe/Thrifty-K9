@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,6 +23,9 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,7 +48,11 @@ import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
 import com.example.pricingpal.view.settings.guestaccount.guestAccountSetting
 
 @Composable
-fun startScreen(navController: NavController){
+fun startScreen(navController: NavController, windowSize: WindowSize){
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 140) }
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 50) }
+    val buttonSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 10 else 20) }
+    val linkSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 185 else 170) }
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -74,6 +83,7 @@ fun startScreen(navController: NavController){
 
             Column(
                 modifier = Modifier
+                    .verticalScroll(rememberScrollState())
                     .padding(top = 90.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,7 +97,7 @@ fun startScreen(navController: NavController){
                     elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(140.dp)
+                        .height(buttonHeight.dp)
                         .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
                         .border(4.dp, color = Persian_indigo),
 
@@ -95,12 +105,12 @@ fun startScreen(navController: NavController){
                     Text(
                         textAlign = TextAlign.Center,
                         text = "Login",
-                        fontSize = 50.sp,
+                        fontSize = textSize.sp,
                         color = Color.Black,
                     )
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(buttonSpacer.dp))
 
                 // Register Button
                 ElevatedButton(
@@ -110,7 +120,7 @@ fun startScreen(navController: NavController){
                     elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(140.dp)
+                        .height(buttonHeight.dp)
                         .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
                         .border(4.dp, color = Persian_indigo),
 
@@ -118,12 +128,12 @@ fun startScreen(navController: NavController){
                     Text(
                         textAlign = TextAlign.Center,
                         text = "Register",
-                        fontSize = 50.sp,
+                        fontSize = textSize.sp,
                         color = Color.Black,
                     )
                 }
 
-                Spacer(modifier = Modifier.height(20.dp)) // allows space between buttons without having to do padding
+                Spacer(modifier = Modifier.height(buttonSpacer.dp)) // allows space between buttons without having to do padding
 
                 //Volunteer Button
                 ElevatedButton(
@@ -133,7 +143,7 @@ fun startScreen(navController: NavController){
                     elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(140.dp)
+                        .height(buttonHeight.dp)
                         .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
                         .border(4.dp, color = Persian_indigo),
 
@@ -141,11 +151,11 @@ fun startScreen(navController: NavController){
                     Text(
                         textAlign = TextAlign.Center,
                         text = "Volunteer",
-                        fontSize = 50.sp,
+                        fontSize = textSize.sp,
                         color = Color.Black,
                     )
                 }
-                Spacer(modifier = Modifier.height(170.dp))
+                Spacer(modifier = Modifier.height(linkSpacer.dp))
                 volunteerHome()
             }
         }
