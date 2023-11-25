@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -69,22 +70,22 @@ fun PricingPalAppBar(
     modifier: Modifier = Modifier,
 ) {
     /*
-    LargeTopAppBar(
+    CenterAlignedTopAppBar(
         title = {
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = null,
                 modifier = Modifier
-                    .height(90.dp)
+                    .fillMaxSize(0.8f)
                     .background(color = Cornflower_blue)
-                    .padding(start = 100.dp)
-                    .padding(end = 180.dp)
+                    //.padding(start = 100.dp)
+                    //.padding(end = 180.dp)
             )
         },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor =  Periwinkle
+            containerColor =  Cornflower_blue
         ),
-        modifier = modifier,
+        //modifier = modifier,
         navigationIcon = {
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
@@ -160,13 +161,14 @@ fun PricingPalApp(categories: HashMap<String, Category>, windowSize: WindowSize)
     Scaffold(
         //Create an app bar of medium size at the top of the scaffold
         topBar = {
-            /*
+
             PricingPalAppBar(
                 navigateUp = { navController.navigateUp() },
                 canNavigateBack = navController.previousBackStackEntry != null
             )
 
-             */
+
+            /*
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Periwinkle),
                 title = {
@@ -191,6 +193,8 @@ fun PricingPalApp(categories: HashMap<String, Category>, windowSize: WindowSize)
                 }
 
             )
+
+             */
         },
         //padding automatically adjusts to match the app bar size
         content = { padding ->

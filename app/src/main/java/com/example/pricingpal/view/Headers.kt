@@ -76,7 +76,6 @@ fun pricingPalBar(){
 @Composable
 fun searchBar(windowSize: WindowSize){
     val searchHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 50 else 60) }
-    val iconSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.height == WindowType.Compact) 20 else 40) }
     val searchPaddingWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 50) }
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 16 else 20) }
     val spacerHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 10 else 20) }
@@ -107,7 +106,7 @@ fun searchBar(windowSize: WindowSize){
                         contentDescription = "Search Icon",
                         tint = Color.Black,
                         modifier = Modifier
-                            .size(iconSize.dp)
+                            .size(40.dp)
                             .padding(start = 10.dp)
                     )
                 }
@@ -121,7 +120,7 @@ fun searchBar(windowSize: WindowSize){
                         contentDescription = "Close Icon",
                         tint = Color.Black,
                         modifier = Modifier
-                            .size(iconSize.dp)
+                            .size(40.dp)
                             .padding(end = 10.dp)
                     )
                 }
