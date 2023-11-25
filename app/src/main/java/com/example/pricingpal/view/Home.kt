@@ -53,6 +53,7 @@ fun startScreen(navController: NavController, windowSize: WindowSize){
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 50) }
     val buttonSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 10 else 20) }
     val linkSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 182 else 170) }
+    val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -70,8 +71,9 @@ fun startScreen(navController: NavController, windowSize: WindowSize){
         )
         Card(
             modifier = Modifier
-                .padding(start = 40.dp, end = 40.dp)
+                .padding(start = cardSpacer.dp, end = cardSpacer.dp)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .border(4.dp, color = Persian_indigo),
             shape = RectangleShape,
             elevation = CardDefaults.cardElevation(12.dp),
@@ -83,7 +85,6 @@ fun startScreen(navController: NavController, windowSize: WindowSize){
 
             Column(
                 modifier = Modifier
-                    .verticalScroll(rememberScrollState())
                     .padding(top = 90.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -156,7 +157,7 @@ fun startScreen(navController: NavController, windowSize: WindowSize){
                     )
                 }
                 Spacer(modifier = Modifier.height(linkSpacer.dp))
-                volunteerHome()
+                webButton()
             }
         }
     }
@@ -164,7 +165,7 @@ fun startScreen(navController: NavController, windowSize: WindowSize){
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun volunteerHome(){
+fun webButton(){
     val context = LocalContext.current
     val webIntent: Intent = Intent(Intent.ACTION_VIEW,
         Uri.parse("https://calicochloe.github.io/Thrifty-K9/") )
