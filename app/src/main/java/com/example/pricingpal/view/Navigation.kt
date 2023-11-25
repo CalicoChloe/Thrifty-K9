@@ -19,11 +19,14 @@ import com.example.pricingpal.view.homepage.StartScreen
  *
  * @property categories the HashMap of category objects,
  * @param  padding value used to store padding values of content
- * @param currentScreen String used to title the name of the current screen being displayed by the app
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ *
  *
  *
  * @author Connor Murdock
  * @author Abdoulie NJie
+ * @author Shianne Lesure
  **/
 
 @Composable

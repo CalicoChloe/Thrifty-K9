@@ -53,15 +53,14 @@ fun ItemList(
             )
         },
         content = { padding ->
-            //When the selectedCategory is received, it needs to not be null to avoid causing problems. Same with the currentCategory.
+            //When the selectedCategory is received,
+            // it needs to not be null to avoid causing problems. Same with the currentCategory.
             if (selectedCategory != null) {
                 val currentCategory = categories.get(selectedCategory)
 
                 if (currentCategory != null) {
-                    //Everything above this line should not be touched! It's required to make sure the current category isn't null before attempting to use the value!
-                    //Everything below these comments is temporary code to display the item list. Please replace with the final UI design:
-                    //stickyHeader { CategoryCard(categoryName = currentCategory)}
-                    //ListHeader(name = currentCategory.category)
+                    //Everything above this line should not be touched!
+                    // It's required to make sure the current category isn't null before attempting to use the value!
                     LazyColumn(
                         modifier = Modifier
                             .padding(padding)

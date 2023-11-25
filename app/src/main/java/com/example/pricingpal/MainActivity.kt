@@ -1,7 +1,4 @@
 package com.example.pricingpal
-
-//import com.example.pricingpal.view.NonScaffoldNavigateScreens
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
