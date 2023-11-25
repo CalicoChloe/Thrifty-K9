@@ -1,22 +1,15 @@
-/* This block displays the static background image for the site.
-Unsure that this is the best way to handle background opacity (seems to be messing with content backgrounds), so may be altered.*/
-body:before {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.2;
-    background-color: #F1F2F6;
-    background-image: url("./../app/src/main/res/drawable/paw_background.png");
-    background-size: auto;
-}
-
 body {
+    /*These two lines create margins on each side of the page and center the site content*/
     width: 85%;
     margin: 0 auto;
+    /*Linear gradient covers background to match the opacity of the app background*/
+    background: linear-gradient( rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9) ), url("./../app/src/main/res/drawable/paw_background.png");
+    /*These lines handle the positioning of the background*/
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    /*Background image is fixed to ensure it covers screen fully*/
+    background-attachment: fixed;
 }
 
 #main {
@@ -25,7 +18,6 @@ body {
 
 /* This block styles the content blocks of the site */
 .item {
-    opacity: 0.9;
     flex: 1 1 0px;
     display: block;
     height: 60%;
@@ -56,6 +48,12 @@ body {
 @media (orientation: landscape) {
   #main {
     flex-direction: row;
+  }
+}
+
+@media (orientation: portrait) {
+  main {
+    flex-direction: column;
   }
 }
 
