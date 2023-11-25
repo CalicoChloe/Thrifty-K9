@@ -3,6 +3,7 @@ package com.example.pricingpal
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -12,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -115,17 +117,24 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
         },
         //padding automatically adjusts to match the app bar size
         content = { padding ->
-            Navigation(categories = categories, padding )
-            Image(
-                //Imports image from resource folder
-                painter = painterResource(id = R.drawable.paw_background),
-                //description of the image for accessibility
-                contentDescription = "Pictures of paws",
-                //crops the image
-                contentScale = ContentScale.Crop,
-                // changes the opacity of the image
-                alpha = 0.1F
-            )},
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize(),
+                color = Anti_flash_white
+            ) {
+                Image(
+                    //Imports image from resource folder
+                    painter = painterResource(id = R.drawable.paw_background),
+                    //description of the image for accessibility
+                    contentDescription = "Pictures of paws",
+                    //crops the image
+                    contentScale = ContentScale.Crop,
+                    // changes the opacity of the image
+                    alpha = 0.1F
+                )
+                Navigation(categories = categories, padding)
+            }
+        },
         //Background color for the content
         containerColor = Anti_flash_white
     )
