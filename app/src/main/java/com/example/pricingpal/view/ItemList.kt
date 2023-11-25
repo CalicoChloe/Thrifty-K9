@@ -62,7 +62,7 @@ fun ItemList(
                 }
                 stickyHeader {
                     // This will allow for you to look up the items and categories
-                    searchBar()
+                    searchBar(windowSize = windowSize)
                     Divider(thickness = 4.dp, color = Persian_indigo)
                 }
                 item {

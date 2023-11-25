@@ -48,6 +48,7 @@ const val  CATEGORY_NAMES = "categories"
 fun CategoryList (categories: HashMap<String, Category>,
                   navController: NavController,
                   padding: PaddingValues,
+                  windowSize: WindowSize,
                   viewModel: NewCategoryViewModel = hiltViewModel()){
     val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value
     Log.e("Category-List" ,categoryList.toString())
@@ -69,7 +70,7 @@ fun CategoryList (categories: HashMap<String, Category>,
             }
             stickyHeader {
                 // This will allow for you to look up the items and categories
-                searchBar()
+                searchBar(windowSize = windowSize)
                 Divider(thickness = 4.dp, color = Persian_indigo)
             }
 

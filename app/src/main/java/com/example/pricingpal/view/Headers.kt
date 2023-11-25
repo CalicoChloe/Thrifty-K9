@@ -11,15 +11,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -34,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -69,24 +74,30 @@ fun pricingPalBar(){
 
 
 @Composable
-fun searchBar(){
+fun searchBar(windowSize: WindowSize){
+    val searchHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 50 else 60) }
+    val iconSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.height == WindowType.Compact) 20 else 40) }
+    val searchPaddingWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 50) }
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 16 else 20) }
+    val spacerHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 10 else 20) }
     Card(
         modifier = Modifier
             .fillMaxWidth(),
         shape = RectangleShape,
         colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
     ){
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(spacerHeight.dp))
         var searching by remember { mutableStateOf("") }
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
-                .padding(start = 50.dp, end = 50.dp),
+                .height(searchHeight.dp)
+                .padding(start = searchPaddingWidth.dp, end = searchPaddingWidth.dp),
             value = searching,
             onValueChange = { searching = it },
-            textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-            placeholder = { Text("Search", fontSize = 20.sp) },
+
+            textStyle = TextStyle.Default.copy(fontSize = textSize.sp),
+            placeholder = { Text("Search", fontSize = textSize.sp) },
             leadingIcon = {
                 // Search Icon Button
                 // Will navigate to what ever was searched.
@@ -96,7 +107,7 @@ fun searchBar(){
                         contentDescription = "Search Icon",
                         tint = Color.Black,
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(iconSize.dp)
                             .padding(start = 10.dp)
                     )
                 }
@@ -110,7 +121,7 @@ fun searchBar(){
                         contentDescription = "Close Icon",
                         tint = Color.Black,
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(iconSize.dp)
                             .padding(end = 10.dp)
                     )
                 }
@@ -123,6 +134,7 @@ fun searchBar(){
             ),
             shape = RectangleShape,
         )
-        Spacer(modifier = Modifier.height(20.dp))
+
+        Spacer(modifier = Modifier.height(spacerHeight.dp))
     }
 }

@@ -44,7 +44,8 @@ fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues,win
             CategoryList(
                 categories = categories,
                 navController = navController,
-                padding = padding
+                padding = padding,
+                windowSize = windowSize
             )
         }
         //The route to the ItemList. This route requires a categoryName String to be passed in to get the list of items down the line
