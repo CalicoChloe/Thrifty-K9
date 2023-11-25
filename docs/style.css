@@ -74,3 +74,12 @@ body {
     margin-top: 40px;
     border: solid #27187E;
 }
+
+footer {
+    width: fit-content;
+    padding: 0px 20px 0px 20px;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    border: solid #27187E;
+    background-color: #758BFD;
+}
