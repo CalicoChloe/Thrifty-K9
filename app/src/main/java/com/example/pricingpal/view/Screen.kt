@@ -10,9 +10,12 @@ package com.example.pricingpal.view
  * @author Connor Murdock
  */
 sealed class Screen(val route: String) {
-    object CategoryList : Screen("Categories")
-    object ItemList : Screen("Items")
+    object CategoryList : Screen("Category List")
+    object ItemList : Screen("Items List")
     object SearchResults : Screen("Search Results")
+    object LoadingScreen : Screen("Loading Screen")
+    object HomeScreen : Screen("Home Screen")
+
 
     fun withArgs(vararg args: String): String {
         return buildString {

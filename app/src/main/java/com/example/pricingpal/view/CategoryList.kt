@@ -1,7 +1,7 @@
 package com.example.pricingpal.view
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,26 +36,27 @@ import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.viewmodel.NewCategoryViewModel
+import com.example.pricingpal.viewmodel.CategoryViewModel
 
 const val  CATEGORY_NAMES = "categories"
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CategoryList (
     categories: HashMap<String, Category>,
     navController: NavController,
-    currentScreen: String,
-    viewModel: NewCategoryViewModel = hiltViewModel()
-) {
+    windowSize: WindowSize,
+    viewModel: CategoryViewModel = hiltViewModel(),
+){
+
     val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value
 
-    Log.e("Category-List", categoryList.toString())
     Scaffold(
         //Create an app bar of medium size at the top of the scaffold
         topBar = {
             PricingPalAppBar(
                 navigateUp = { navController.navigateUp() },
                 canNavigateBack = navController.previousBackStackEntry != null,
-                currentScreen = currentScreen
+
             )
         },
         content = { padding ->
@@ -69,6 +71,16 @@ fun CategoryList (
                     horizontalAlignment = Alignment.CenterHorizontally
 
                 ) {
+                    item {
+                        // holds the pricing pal logo
+                        // This will collapse when scrolling up
+                        pricingPalBar()
+                    }
+                    stickyHeader {
+                        // This will allow for you to look up the items and categories
+                        searchBar(windowSize = windowSize)
+                        Divider(thickness = 4.dp, color = Persian_indigo)
+                    }
 
                     // takes each category card and put into a list
                     for (category: Category in categories.values) {
