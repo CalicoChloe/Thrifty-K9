@@ -68,7 +68,7 @@ fun AnimatedSlashScreen(navController: NavController){
                     OvershootInterpolator(4f).getInterpolation(it)
                 }))
         startAnimation = true
-        delay(5000)
+        delay(2000)
         navController.popBackStack()
         navController.navigate("starter_screen")
     }
@@ -83,7 +83,7 @@ fun AnimatedSlashScreen(navController: NavController){
             //crops the image
             contentScale = ContentScale.Crop,
             // changes the opacity of the image
-            alpha = 0.1F
+            alpha = 0.05F
         )
 
         Column(
@@ -99,6 +99,7 @@ fun AnimatedSlashScreen(navController: NavController){
                     .height(517.dp)
                 //.shadow(elevation = 12.dp, RoundedCornerShape(55.dp)),
             )
+            /*
             Text(
                 text = "Pricing Pals",
                 textAlign = TextAlign.Center,
@@ -107,6 +108,8 @@ fun AnimatedSlashScreen(navController: NavController){
                 modifier = Modifier
                     .alpha(animWord.value)
             )
+
+             */
 
         }
     }

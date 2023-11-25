@@ -215,7 +215,10 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
                     alpha = 0.1F
                 )
                 Column{ Navigation(categories = categories, padding ) }
+
                   },
+
+
         //Background color for the content
         containerColor = Anti_flash_white
     )
