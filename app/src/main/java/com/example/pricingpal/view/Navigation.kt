@@ -69,7 +69,7 @@ fun NonScaffoldNavigateScreens(categories: HashMap<String, Category>, windowSize
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "loading_screen") {
         composable("loading_screen"){
-            AnimatedSlashScreen(navController = navController)
+            AnimatedSlashScreen(navController = navController,windowSize =  windowSize  )
         }
         composable("starter_screen"){
             startScreen(navController = navController,windowSize =  windowSize )

@@ -50,14 +50,11 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
 
 @Composable
-fun AnimatedSlashScreen(navController: NavController){
+fun AnimatedSlashScreen(navController: NavController, windowSize: WindowSize){
     val scale = remember { androidx.compose.animation.core.Animatable(0f) }
     var startAnimation by remember { mutableStateOf(false) }
-    val animWord = animateFloatAsState(
-        targetValue = if(startAnimation) 1f else 0f,
-        animationSpec = tween(durationMillis = 4000),
-        label = "Animating Logo",
-    )
+    val imageHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 400 else 520) }
+    val imageWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.height == WindowType.Compact) 397 else 517) }
     LaunchedEffect(key1 = true){
         scale.animateTo(
             targetValue = 0.7f,
@@ -95,22 +92,10 @@ fun AnimatedSlashScreen(navController: NavController){
                 contentDescription = "Pictures of paws",
                 modifier = Modifier
                     .scale(scale.value)
-                    .width(520.dp)
-                    .height(517.dp)
+                    .width(imageHeight.dp)
+                    .height(imageWidth.dp)
                 //.shadow(elevation = 12.dp, RoundedCornerShape(55.dp)),
             )
-            /*
-            Text(
-                text = "Pricing Pals",
-                textAlign = TextAlign.Center,
-                fontSize = 60.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .alpha(animWord.value)
-            )
-
-             */
-
         }
     }
 }
