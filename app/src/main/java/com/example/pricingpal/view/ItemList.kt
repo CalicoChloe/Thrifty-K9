@@ -17,6 +17,9 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,7 +39,8 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 fun ItemList(
     selectedCategory: String?,
     padding: PaddingValues,
-    categories: HashMap<String, Category>
+    categories: HashMap<String, Category>,
+    windowSize: WindowSize
 ) {
     //When the selectedCategory is received, it needs to not be null to avoid causing problems. Same with the currentCategory.
     if (selectedCategory != null) {
@@ -67,7 +71,7 @@ fun ItemList(
                 }
                 item {
                     for (i in currentCategory.item) {
-                        ItemCard(i)
+                        ItemCard(i, windowSize = windowSize)
                     }
                 }
             }
@@ -117,11 +121,14 @@ fun CategoryCard(categoryName: Category) {
     }
 }
 @Composable
-fun ItemCard(item: Item) {
+fun ItemCard(item: Item, windowSize: WindowSize) {
+    val rowHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 80) }
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 30) }
+    val cardPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 10 else 15) }
     Card(
         modifier = Modifier
             // padding around the card
-            .padding(15.dp)
+            .padding(cardPadding.dp)
             .border(
                 // puts a border around the card
                 border = BorderStroke(3.dp, color = Persian_indigo),
@@ -139,12 +146,12 @@ fun ItemCard(item: Item) {
                 .background(color = Periwinkle, shape = RectangleShape)
                 // changes the size of the card
                 .fillMaxWidth()
-                .height(80.dp)
+                .height(rowHeight.dp)
         )
         {
             Text(
                 text = item.name,
-                fontSize = 30.sp,
+                fontSize = textSize.sp,
                 color = Color.Black,
                 modifier = Modifier
                     .padding(start = 20.dp)
@@ -153,7 +160,7 @@ fun ItemCard(item: Item) {
 
             Text(
                 text = "$" + item.price + "0",
-                fontSize = 30.sp,
+                fontSize = textSize.sp,
                 color = Color.Black,
                 modifier = Modifier
                     .padding(end = 20.dp)

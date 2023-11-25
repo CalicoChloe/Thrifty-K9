@@ -34,7 +34,7 @@ import com.example.pricingpal.view.settings.guestaccount.guestAccountSetting
  **/
 
 @Composable
-fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues) {
+fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues,windowSize: WindowSize ) {
     //Initialize navController
     val navController = rememberNavController()
     //Setup the NavHost
@@ -58,7 +58,8 @@ fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues) {
             ItemList(
                 selectedCategory = entry.arguments?.getString("categoryName"),
                 padding = padding,
-                categories
+                categories,
+                windowSize = windowSize
             )
         }
     }
@@ -69,14 +70,14 @@ fun NonScaffoldNavigateScreens(categories: HashMap<String, Category>, windowSize
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "loading_screen") {
         composable("loading_screen"){
-            AnimatedSlashScreen(navController = navController,windowSize =  windowSize  )
+            AnimatedSlashScreen(navController = navController,windowSize = windowSize)
         }
         composable("starter_screen"){
             startScreen(navController = navController,windowSize =  windowSize )
         }
 
         composable("category_list") {
-            PricingPalApp(categories = categories)
+            PricingPalApp(categories = categories, windowSize = windowSize)
         }
     }
 }

@@ -48,6 +48,7 @@ import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.view.Navigation
 import com.example.pricingpal.view.Screen
+import com.example.pricingpal.view.WindowSize
 
 // const used to reference the custom back button for testing purposes
 const val BACK_BUTTON = "Back Button"
@@ -146,7 +147,7 @@ fun PricingPalAppBar(
  **/
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PricingPalApp(categories: HashMap<String, Category>) {
+fun PricingPalApp(categories: HashMap<String, Category>, windowSize: WindowSize) {
     //Initialize navController
     val navController = rememberNavController()
     // Get current back stack entry
@@ -193,19 +194,6 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
         },
         //padding automatically adjusts to match the app bar size
         content = { padding ->
-            /*
-            Image(
-                //Imports image from resource folder
-                painter = painterResource(id = R.drawable.paw_background),
-                //description of the image for accessibility
-                contentDescription = "Pictures of paws",
-                //crops the image
-                contentScale = ContentScale.Crop,
-                // changes the opacity of the image
-                alpha = 0.1F
-            )
-
-             */
                 Image(
                     painter = painterResource(id = R.drawable.paw_background),
                     contentDescription = "Pictures of paws",
@@ -214,7 +202,7 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
                     // changes the opacity of the image
                     alpha = 0.1F
                 )
-                Column{ Navigation(categories = categories, padding ) }
+                Column{ Navigation(categories = categories, padding, windowSize = windowSize ) }
 
                   },
 
