@@ -24,7 +24,13 @@ import com.example.pricingpal.model.Category
  **/
 
 @Composable
-fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues) {
+fun Navigation(
+    categories: HashMap<String, Category>,
+    padding: PaddingValues,
+    navigateUp: Boolean,
+    canNavigateBack: Boolean,
+    currentScreen: String
+) {
     //Initialize navController
     val navController = rememberNavController()
     //Setup the NavHost
@@ -34,7 +40,10 @@ fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues) {
             CategoryList(
                 categories = categories,
                 navController = navController,
-                padding = padding
+                padding = padding,
+                navigateUp = navigateUp,
+                canNavigateBack = canNavigateBack,
+                currentScreen = currentScreen
             )
         }
         //The route to the ItemList. This route requires a categoryName String to be passed in to get the list of items down the line
@@ -48,7 +57,10 @@ fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues) {
             ItemList(
                 selectedCategory = entry.arguments?.getString("categoryName"),
                 padding = padding,
-                categories
+                categories,
+                navigateUp = navigateUp,
+                canNavigateBack = canNavigateBack,
+                currentScreen = currentScreen
             )
         }
     }

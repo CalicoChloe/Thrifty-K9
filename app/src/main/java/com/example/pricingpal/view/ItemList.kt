@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +23,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -33,55 +35,72 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 fun ItemList(
     selectedCategory: String?,
     padding: PaddingValues,
-    categories: HashMap<String, Category>
+    categories: HashMap<String, Category>,
+    navigateUp: Boolean,
+    canNavigateBack: Boolean,
+    currentScreen: String
 ) {
-    //When the selectedCategory is received, it needs to not be null to avoid causing problems. Same with the currentCategory.
-    if (selectedCategory != null) {
-        val currentCategory = categories.get(selectedCategory)
-        if (currentCategory != null) {
-            //Everything above this line should not be touched! It's required to make sure the current category isn't null before attempting to use the value!
-            //Everything below these comments is temporary code to display the item list. Please replace with the final UI design:
-            //stickyHeader { CategoryCard(categoryName = currentCategory)}
-            //ListHeader(name = currentCategory.category)
-            LazyColumn(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize()
-            ) {
-                item {
-                    //Text(text = currentCategory.category, fontSize = 70.sp)
-                    CategoryCard(categoryName = currentCategory)
-                }
-                item {
-                    for (i in currentCategory.item) {
-                        ItemCard(i)
+    Scaffold(
+        //Create an app bar of medium size at the top of the scaffold
+        topBar = {
+            PricingPalAppBar(
+                navigateUp = { navigateUp },
+                canNavigateBack = canNavigateBack,
+                currentScreen = currentScreen
+            )
+        },
+        content = { padding ->
+            //When the selectedCategory is received, it needs to not be null to avoid causing problems. Same with the currentCategory.
+            if (selectedCategory != null) {
+                val currentCategory = categories.get(selectedCategory)
+
+
+                if (currentCategory != null) {
+                    //Everything above this line should not be touched! It's required to make sure the current category isn't null before attempting to use the value!
+                    //Everything below these comments is temporary code to display the item list. Please replace with the final UI design:
+                    //stickyHeader { CategoryCard(categoryName = currentCategory)}
+                    //ListHeader(name = currentCategory.category)
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(padding)
+                            .fillMaxSize()
+                    ) {
+                        item {
+                            //Text(text = currentCategory.category, fontSize = 70.sp)
+                            CategoryCard(categoryName = currentCategory)
+                        }
+                        item {
+                            for (i in currentCategory.item) {
+                                ItemCard(i)
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
+        })
 }
-
 
 
 @Composable
 fun CategoryCard(categoryName: Category) {
-    Card(modifier = Modifier
-        .padding(15.dp)
-        .fillMaxWidth()
-        .height(80.dp)
-        .border(
-            // puts a border around the card
-            border = BorderStroke(3.dp, color = Persian_indigo),
-            // shapes the card
-            shape = RectangleShape
-        ),
+    Card(
+        modifier = Modifier
+            .padding(15.dp)
+            .fillMaxWidth()
+            .height(80.dp)
+            .border(
+                // puts a border around the card
+                border = BorderStroke(3.dp, color = Persian_indigo),
+                // shapes the card
+                shape = RectangleShape
+            ),
 
         elevation = CardDefaults.cardElevation(8.dp),
         // shape = RoundedCornerShape(16.dp)
     ) {
 
-        Row(verticalAlignment = Alignment.CenterVertically,
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .background(color = Cornflower_blue, shape = RectangleShape)
@@ -103,6 +122,7 @@ fun CategoryCard(categoryName: Category) {
         }
     }
 }
+
 @Composable
 fun ItemCard(item: Item) {
     Card(

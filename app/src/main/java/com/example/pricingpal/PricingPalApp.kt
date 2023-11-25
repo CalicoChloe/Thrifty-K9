@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,10 +46,12 @@ const val BACK_BUTTON = "Back Button"
 fun PricingPalAppBar(
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
+    currentScreen: String,
     modifier: Modifier = Modifier,
 ) {
     LargeTopAppBar(
         title = {
+            Text(currentScreen)
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = null,
@@ -104,18 +107,21 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
     val currentScreen = Screen.valueOf(
         (backStackEntry?.destination?.route ?: Screen.CategoryList.route)
     )
+    val navigateUp = navController.navigateUp()
+
+    val canNavigateBack = navController.previousBackStackEntry != null
+
+    PricingPalAppBar(
+        navigateUp = { navigateUp },
+        canNavigateBack = canNavigateBack,
+        currentScreen = currentScreen
+    )
+
 
     Scaffold(
-        //Create an app bar of medium size at the top of the scaffold
-        topBar = {
-            PricingPalAppBar(
-                navigateUp = { navController.navigateUp() },
-                canNavigateBack = navController.previousBackStackEntry != null
-            )
-        },
         //padding automatically adjusts to match the app bar size
         content = { padding ->
-            Navigation(categories = categories, padding )
+            Navigation(categories = categories, padding, navigateUp, canNavigateBack, currentScreen)
             Image(
                 //Imports image from resource folder
                 painter = painterResource(id = R.drawable.paw_background),
