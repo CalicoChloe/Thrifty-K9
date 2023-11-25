@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,16 +41,22 @@ import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.ui.theme.Uranian_Blue
-import com.example.pricingpal.view.repetitivefunctions.innerPricingBar
-import com.example.pricingpal.view.settings.guestaccount.guestAccountSetting
 
+/** This is the home page. It is where the user would go after the launcher is done. They will be able to
+ * navigate to the login, registration , and the volunteer section. We were only able to implement the
+ * volunteer section, so the volunteer button is the only one active. There is also a button at the bottom of the page
+ * that will navigate to the teams Gits docs*/
 @Composable
 fun startScreen(navController: NavController, windowSize: WindowSize){
+    // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 140) }
+    // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 50) }
+    // will scale the space between the buttons
     val buttonSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 10 else 20) }
+    // will scale the space between the volunteer button and web button
     val linkSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 182 else 170) }
+    //will scale the space width between the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
         modifier = Modifier
@@ -79,8 +83,7 @@ fun startScreen(navController: NavController, windowSize: WindowSize){
             elevation = CardDefaults.cardElevation(12.dp),
             colors = CardDefaults.cardColors(containerColor = Periwinkle)
         ) {
-            /** This is the header of the pricing pal logo. It is function is within the repetitive folder
-             * under Header*/
+            /** This is the header of the pricing pal logo. */
             innerPricingBar()
 
             Column(
@@ -137,6 +140,7 @@ fun startScreen(navController: NavController, windowSize: WindowSize){
                 Spacer(modifier = Modifier.height(buttonSpacer.dp)) // allows space between buttons without having to do padding
 
                 //Volunteer Button
+                // This will navigate to the category list screen
                 ElevatedButton(
                     onClick = { navController.navigate("category_list") },
                     shape = RectangleShape,
@@ -163,12 +167,13 @@ fun startScreen(navController: NavController, windowSize: WindowSize){
     }
 }
 
+/** This is the button that will send the user to the pricing pal git docs*/
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun webButton(){
     val context = LocalContext.current
     val webIntent: Intent = Intent(Intent.ACTION_VIEW,
-        Uri.parse("https://calicochloe.github.io/Thrifty-K9/") )
+        Uri.parse("https://calicochloe.github.io/Thrifty-K9/") ) // the link to the git docs
 
         ElevatedButton(
             onClick = { context.startActivity(webIntent) },

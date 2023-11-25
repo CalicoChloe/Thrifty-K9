@@ -120,10 +120,14 @@ fun CategoryCard(categoryName: Category) {
         }
     }
 }
+
 @Composable
 fun ItemCard(item: Item, windowSize: WindowSize) {
+    // will scale the height of the row
     val rowHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 80) }
+    // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 30) }
+    // will scale the padding around the card
     val cardPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 10 else 15) }
     Card(
         modifier = Modifier

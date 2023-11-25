@@ -1,23 +1,14 @@
 package com.example.pricingpal.view
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pricingpal.PricingPalApp
-import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
-import com.example.pricingpal.ui.theme.Anti_flash_white
-import com.example.pricingpal.view.settings.guestaccount.guestAccountSetting
 
 /**
  *
@@ -66,17 +57,21 @@ fun Navigation(categories: HashMap<String, Category>, padding: PaddingValues,win
     }
 }
 
+/** This functionally has the screens that don't use a scaffold within their screen.*/
 @Composable
 fun NonScaffoldNavigateScreens(categories: HashMap<String, Category>, windowSize: WindowSize){
+    //Initialize navController
     val navController = rememberNavController()
+    // start destination is with the loading launcher
     NavHost(navController = navController, startDestination = "loading_screen") {
         composable("loading_screen"){
             AnimatedSlashScreen(navController = navController,windowSize = windowSize)
         }
+        // navigates to the home screen
         composable("starter_screen"){
             startScreen(navController = navController,windowSize =  windowSize )
         }
-
+        // navigates to the category list and item list
         composable("category_list") {
             PricingPalApp(categories = categories, windowSize = windowSize)
         }

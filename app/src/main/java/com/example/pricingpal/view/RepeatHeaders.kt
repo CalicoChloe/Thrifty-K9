@@ -10,20 +10,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -38,8 +31,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.R
@@ -47,6 +38,9 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
 
+/** This is the bar that holds the pricing pal logo. Unlike the top app bar, this row is adjustable to
+ * fit with the screen and become out sight when you no longer can want to see it. Also I can adjust it
+ * to the UI scaling if need be. This bar is also on screens that do not have a scaffold.*/
 @Composable
 fun pricingPalBar(){
     Card(
@@ -72,12 +66,18 @@ fun pricingPalBar(){
     }
 }
 
-
+/** I tried to make a top bar that was collapsable, but it wasn't working on my end so I
+ * did this instead to get the same effect. The search bar is within a sticky header will allow for the search
+ * bar to still show when scrolling down. The search bar is affected by UI scaling therefore, has the window size parameter*/
 @Composable
 fun searchBar(windowSize: WindowSize){
+    // will scale the height of the search bar text field
     val searchHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 50 else 60) }
+    // will scale the width of the search bar text field
     val searchPaddingWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 50) }
+    // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 16 else 20) }
+    // will scale the height of space between elements
     val spacerHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 10 else 20) }
     Card(
         modifier = Modifier
@@ -93,7 +93,7 @@ fun searchBar(windowSize: WindowSize){
                 .height(searchHeight.dp)
                 .padding(start = searchPaddingWidth.dp, end = searchPaddingWidth.dp),
             value = searching,
-            onValueChange = { searching = it },
+            onValueChange = { searching = it }, // will take what the user is typing
 
             textStyle = TextStyle.Default.copy(fontSize = textSize.sp),
             placeholder = { Text("Search", fontSize = textSize.sp) },
@@ -136,4 +136,27 @@ fun searchBar(windowSize: WindowSize){
 
         Spacer(modifier = Modifier.height(spacerHeight.dp))
     }
+}
+
+/** Another version of showing the pricing pal logo. This is the one connected to the home screen*/
+@Composable
+fun innerPricingBar(){
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .background(color = Cornflower_blue, shape = RectangleShape),
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "logo",
+            modifier = Modifier
+                .padding(15.dp)
+        )
+    }
+    Box(
+        modifier = Modifier
+            .height(height = 4.dp)
+            .fillMaxWidth()
+            .background(color = Persian_indigo)
+    )
 }

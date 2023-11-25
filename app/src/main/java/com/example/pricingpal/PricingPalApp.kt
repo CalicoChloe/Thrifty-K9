@@ -1,52 +1,31 @@
 package com.example.pricingpal
 
-
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Anti_flash_white
-import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
-import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.view.Navigation
 import com.example.pricingpal.view.Screen
 import com.example.pricingpal.view.WindowSize
@@ -69,45 +48,11 @@ fun PricingPalAppBar(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    /*
-    CenterAlignedTopAppBar(
-        title = {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize(0.8f)
-                    .background(color = Cornflower_blue)
-                    //.padding(start = 100.dp)
-                    //.padding(end = 180.dp)
-            )
-        },
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor =  Cornflower_blue
-        ),
-        //modifier = modifier,
-        navigationIcon = {
-            if (canNavigateBack) {
-                IconButton(onClick = navigateUp) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back Button",
-                        tint = Color.Black,
-                        modifier = Modifier
-                            .testTag(BACK_BUTTON)
-                            .size(40.dp)
-                            .padding(start = 10.dp, top = 5.dp)
-                    )
-                }
-            }
-        }
-    )
-
-     */
-
+    /** I replaced the old with this one. I couldn't get the logo to look right with the UI scaling,
+     * and since there is no action that is being done with the logo, I removed it. Because I remove
+     * it, it allowed for the bar to be smaller since it will only have the back arrow within the bar.*/
     TopAppBar(
-        title = {
-            Text(text ="") },
+        title = { Text(text ="") }, // I left this in here because if I remove it, it will cause an error
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor =  Periwinkle
         ),
@@ -166,35 +111,6 @@ fun PricingPalApp(categories: HashMap<String, Category>, windowSize: WindowSize)
                 navigateUp = { navController.navigateUp() },
                 canNavigateBack = navController.previousBackStackEntry != null
             )
-
-
-            /*
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Periwinkle),
-                title = {
-                        PricingPalAppBar(canNavigateBack = navController.previousBackStackEntry != null, navigateUp = { navController.navigateUp() })
-                        },
-                navigationIcon = {
-                    if (navController.previousBackStackEntry != null) {
-                        IconButton(onClick = { navController.navigateUp() }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back Button",
-                                tint = Color.Black,
-                                modifier = Modifier
-                                    .testTag(BACK_BUTTON)
-                                    .size(40.dp)
-                                    .padding(start = 10.dp, top = 5.dp)
-
-                            )
-                        }
-                    }
-
-                }
-
-            )
-
-             */
         },
         //padding automatically adjusts to match the app bar size
         content = { padding ->

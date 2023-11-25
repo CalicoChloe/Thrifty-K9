@@ -14,11 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,7 +28,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,7 +35,6 @@ import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Cornflower_blue
-import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.viewmodel.NewCategoryViewModel
 
@@ -53,7 +49,6 @@ fun CategoryList (categories: HashMap<String, Category>,
     val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value
     Log.e("Category-List" ,categoryList.toString())
     if(!categoryList.isNullOrEmpty()) {
-        Divider(thickness = 4.dp, color = Persian_indigo)
         LazyColumn(
             //aligns the categories within the center
             modifier = Modifier
