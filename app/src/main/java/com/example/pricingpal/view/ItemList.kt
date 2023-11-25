@@ -2,6 +2,7 @@ package com.example.pricingpal.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,13 +26,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.pricingpal.PricingPalAppBar
+import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
+import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
@@ -53,6 +59,23 @@ fun ItemList(
             )
         },
         content = { padding ->
+
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize(),
+                color = Anti_flash_white
+            ) {
+                Image(
+                    //Imports image from resource folder
+                    painter = painterResource(id = R.drawable.paw_background),
+                    //description of the image for accessibility
+                    contentDescription = "Pictures of paws",
+                    //crops the image
+                    contentScale = ContentScale.Crop,
+                    // changes the opacity of the image
+                    alpha = 0.1F
+                )
+
             //When the selectedCategory is received,
             // it needs to not be null to avoid causing problems. Same with the currentCategory.
             if (selectedCategory != null) {
@@ -88,6 +111,7 @@ fun ItemList(
                     }
                 }
             }
+        }
         })
 }
 
