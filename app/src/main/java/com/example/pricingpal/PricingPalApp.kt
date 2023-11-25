@@ -3,6 +3,7 @@ package com.example.pricingpal
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -165,7 +166,8 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
             )
 
              */
-            TopAppBar( colors = TopAppBarDefaults.topAppBarColors(containerColor =  Periwinkle),
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Periwinkle),
                 title = {
                         PricingPalAppBar(canNavigateBack = navController.previousBackStackEntry != null, navigateUp = { navController.navigateUp() })
                         },
@@ -213,8 +215,6 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
                     alpha = 0.1F
                 )
                 Column{ Navigation(categories = categories, padding ) }
-
-
                   },
         //Background color for the content
         containerColor = Anti_flash_white

@@ -1,5 +1,6 @@
 package com.example.pricingpal.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -159,12 +161,11 @@ fun volunteerHome(){
         ElevatedButton(
             onClick = { context.startActivity(webIntent) },
             shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Uranian_Blue),
+            colors = ButtonDefaults.buttonColors(Cornflower_blue),
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(70.dp)
-                //.padding(start = 70.dp, top = 15.dp, end = 70.dp, bottom = 15.dp)
                 .border(4.dp, color = Persian_indigo),
 
             ) {
@@ -172,8 +173,8 @@ fun volunteerHome(){
                 textAlign = TextAlign.Center,
                 text = "About The App",
                 fontSize = 30.sp,
+                fontWeight = FontWeight.Bold,
                 color = Color.Black,
             )
         }
-
 }
