@@ -2,16 +2,13 @@ package com.example.pricingpal
 
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
@@ -21,12 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Anti_flash_white
-import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.view.Navigation
 import com.example.pricingpal.view.Screen
@@ -41,6 +36,7 @@ const val BACK_BUTTON = "Back Button"
  * @param navigateUp Navigation Controller Boolean used to navigate through the app
  *
  * @author Abdoulie NJie
+ * @author Chloe Jackson
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,22 +45,18 @@ fun PricingPalAppBar(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LargeTopAppBar(
+    CenterAlignedTopAppBar(
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor =  Periwinkle
+        ),
         title = {
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = null,
                 modifier = Modifier
-                    .height(90.dp)
-                    .background(color = Cornflower_blue)
-                    .padding(start = 100.dp)
-                    .padding(end = 180.dp)
+                    .fillMaxSize(0.5f)
             )
         },
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor =  Periwinkle
-        ),
-        modifier = modifier,
         navigationIcon = {
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
@@ -94,6 +86,7 @@ fun PricingPalAppBar(
  *
  * @author Connor Murdock
  * @author Abdoulie NJie
+ * @author Chloe Jackson
  **/
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -134,9 +127,7 @@ fun PricingPalApp(categories: HashMap<String, Category>) {
                 )
                 Navigation(categories = categories, padding)
             }
-        },
-        //Background color for the content
-        containerColor = Anti_flash_white
+        }
     )
 
 }
