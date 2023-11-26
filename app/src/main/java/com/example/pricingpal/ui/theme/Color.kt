@@ -21,6 +21,6 @@ val Uranian_Blue = Color(0xFFBDE0FE)
 //Pricing pals dark color palette
 val Dark_Mode_Background = Color(0xFF)
 val Dark_Mode_Middle_Ground = Color(0xFF)
-// Periwinkle
-// Anti_flash_white
-// Uranian_Blue
+//val Periwinkle = Color(0xFFAEB8FE) //  This is for buttons
+//val Anti_flash_white = Color(0xFFF1F2F6) // This is for the pricing pal logo
+//val Uranian_Blue = Color(0xFFBDE0FE) // this is for the border

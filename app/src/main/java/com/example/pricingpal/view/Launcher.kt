@@ -84,3 +84,6 @@ fun AnimatedSlashScreen(navController: NavController, windowSize: WindowSize) {
         }
     }
 }
+
+
+//Just like this launcher, I hope you launch in the right direction for your success!
