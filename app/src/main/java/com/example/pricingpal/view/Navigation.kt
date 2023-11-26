@@ -8,7 +8,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pricingpal.model.Category
-import com.example.pricingpal.view.homepage.StartScreen
 
 /**
  *

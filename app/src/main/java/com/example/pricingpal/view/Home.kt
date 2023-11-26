@@ -1,4 +1,4 @@
-package com.example.pricingpal.view.homepage
+package com.example.pricingpal.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -41,10 +41,6 @@ import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import com.example.pricingpal.view.Screen
-import com.example.pricingpal.view.WindowSize
-import com.example.pricingpal.view.WindowType
-import com.example.pricingpal.view.innerPricingBar
 
 /** This is the home page. It is where the user would go after the launcher is done. They will be able to
  * navigate to the login, registration , and the volunteer section. We were only able to implement the
