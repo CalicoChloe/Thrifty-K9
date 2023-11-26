@@ -44,19 +44,6 @@ body {
     padding: 20px;
 }
 
-
-@media (orientation: landscape) {
-  #main {
-    flex-direction: row;
-  }
-}
-
-@media (orientation: portrait) {
-  main {
-    flex-direction: column;
-  }
-}
-
 .header {
     opacity: 0.9;
     width: 100%;
