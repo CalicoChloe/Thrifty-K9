@@ -91,3 +91,10 @@ class CategoryViewModel @Inject constructor(
         )
     }
 }
+
+
+
+
+
+//IT'S A SECRET TO EVERYBODY.
+//If you're reading this, don't give up! がんばれ!
