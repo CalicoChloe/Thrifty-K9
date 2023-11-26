@@ -20,8 +20,6 @@ class MainActivity : ComponentActivity() {
 
             PricingpalTheme {
                 PricingPalApp(categories = viewModel.categories, windowSize = window)
-
-
             }
         }
     }

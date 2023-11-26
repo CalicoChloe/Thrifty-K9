@@ -7,7 +7,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 
 /** This file holds the UI scaling. The look of the app will change base of the size of the device as
- * well as whether the device is in portrait or landscape.*/
+ * well as whether the device is in portrait or landscape.
+ *
+ *@author Shianne Lesure
+ *
+ * */
 data class WindowSize(
     val width: WindowType,
     val height: WindowType
@@ -19,6 +23,11 @@ enum class WindowType {
     Expanded // basically the size of a computer
 }
 
+
+/**
+ *  This function will return the width and height of the window size the user is currently on.
+ *  @author Shianne Lesure
+ */
 @Composable
 fun rememberSize(): WindowSize {
     val configuration = LocalConfiguration.current // change UI in real time

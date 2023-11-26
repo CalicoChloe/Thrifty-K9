@@ -40,7 +40,11 @@ import com.example.pricingpal.ui.theme.Uranian_Blue
 
 /** This is the bar that holds the pricing pal logo. Unlike the top app bar, this row is adjustable to
  * fit with the screen and become out sight when you no longer can want to see it. Also I can adjust it
- * to the UI scaling if need be. This bar is also on screens that do not have a scaffold.*/
+ * to the UI scaling if need be. This bar is also on screens that do not have a scaffold.
+ *
+ *@author Shianne Lesure
+ *
+ * */
 @Composable
 fun pricingPalBar(){
     Card(
@@ -68,7 +72,12 @@ fun pricingPalBar(){
 
 /** I tried to make a top bar that was collapsable, but it wasn't working on my end so I
  * did this instead to get the same effect. The search bar is within a sticky header will allow for the search
- * bar to still show when scrolling down. The search bar is affected by UI scaling therefore, has the window size parameter*/
+ * bar to still show when scrolling down. The search bar is affected by UI scaling therefore, has the window size parameter
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ * @author Shianne Lesure
+ *
+ * */
 @Composable
 fun searchBar(windowSize: WindowSize){
     // will scale the height of the search bar text field
@@ -138,7 +147,9 @@ fun searchBar(windowSize: WindowSize){
     }
 }
 
-/** Another version of showing the pricing pal logo. This is the one connected to the home screen*/
+/** Another version of showing the pricing pal logo. This is the one connected to the home screen
+ * @author Shianne Lesure
+ * */
 @Composable
 fun innerPricingBar(){
     Row(modifier = Modifier
