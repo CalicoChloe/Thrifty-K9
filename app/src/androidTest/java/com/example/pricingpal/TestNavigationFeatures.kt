@@ -31,6 +31,7 @@ class TestNavigationFeatures {
 
     @Test
     fun test_clicking_categories() {
+        composeTestRule.onNodeWithText("Volunteer").performClick()
         // performs click on the category name according to the text
         composeTestRule.onNodeWithText("Appliances").performClick()
         // asserts that the following information is present on the UI
@@ -197,12 +198,17 @@ class TestNavigationFeatures {
         composeTestRule.activityRule.scenario.onActivity { activity ->
             activity.onBackPressedDispatcher.onBackPressed()
         }
+        composeTestRule.activityRule.scenario.onActivity { activity ->
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     @Test
     fun test_custom_back_button(){
         // val used to reference the back button created for the apps navigation
         val iconButton = composeTestRule.onNode(hasTestTag(BACK_BUTTON), useUnmergedTree = true)
+
+        composeTestRule.onNodeWithText("Volunteer").performClick()
         // performs click on the category name according to the text
         composeTestRule.onNodeWithText("Appliances").performClick()
         // performs click on the custom back button
