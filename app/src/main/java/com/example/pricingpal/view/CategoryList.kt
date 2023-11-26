@@ -6,7 +6,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -131,7 +133,7 @@ fun CategoryCard(category: Category, navController: NavController){
         ){
             //Here is where the code to display image would be. Current image is a placeholder
             Image(
-                painter = painterResource(id =R.drawable.accessories),
+                painter = painterResource(id =R.drawable.rectangle_22),
                 contentDescription = "Accessories image",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -139,20 +141,32 @@ fun CategoryCard(category: Category, navController: NavController){
                 contentScale = ContentScale.Crop,
                 alpha = 0.8F
             )
-            // Displays category name
-            Text(
-                // takes the text from the category variable
-                text = category.category,
-                // changes the size of the font
-                fontSize = 30.sp,
-                // allows for the font to be in bold
-                fontWeight = FontWeight.Bold,
-                //change the color of the text
-                color = Color.Black,
+            Row(
                 modifier = Modifier
-                    .padding(10.dp)
-                    .align(alignment = Alignment.CenterHorizontally)
-            )
+                    .fillMaxWidth()
+                    .border(
+                        // puts a border around the card
+                        border = BorderStroke(4.dp, color = Persian_indigo),
+                        // shapes the card
+                        shape = RectangleShape
+                    )
+                    .background(color = Cornflower_blue, shape = RectangleShape),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                // Displays category name
+                Text(
+                    // takes the text from the category variable
+                    text = category.category,
+                    // changes the size of the font
+                    fontSize = 30.sp,
+                    // allows for the font to be in bold
+                    fontWeight = FontWeight.Bold,
+                    //change the color of the text
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(10.dp)
+                )
+            }
         }
     }
 }
