@@ -2,6 +2,7 @@ package com.example.pricingpal.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -24,13 +25,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.pricingpal.PricingPalAppBar
+import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
+import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
@@ -53,6 +58,16 @@ fun ItemList(
             )
         },
         content = { padding ->
+            Image(
+                //Imports image from resource folder
+                painter = painterResource(id = R.drawable.paw_background),
+                //description of the image for accessibility
+                contentDescription = "Pictures of paws",
+                //crops the image
+                contentScale = ContentScale.Crop,
+                // changes the opacity of the image
+                alpha = 0.1F
+            )
             //When the selectedCategory is received,
             // it needs to not be null to avoid causing problems. Same with the currentCategory.
             if (selectedCategory != null) {
@@ -88,28 +103,33 @@ fun ItemList(
                     }
                 }
             }
-        })
+        },
+//Background color for the content
+        containerColor = Anti_flash_white
+    )
 }
 
 
 @Composable
 fun CategoryCard(categoryName: Category) {
-    Card(modifier = Modifier
-        .padding(15.dp)
-        .fillMaxWidth()
-        .height(80.dp)
-        .border(
-            // puts a border around the card
-            border = BorderStroke(3.dp, color = Persian_indigo),
-            // shapes the card
-            shape = RectangleShape
-        ),
+    Card(
+        modifier = Modifier
+            .padding(15.dp)
+            .fillMaxWidth()
+            .height(80.dp)
+            .border(
+                // puts a border around the card
+                border = BorderStroke(3.dp, color = Persian_indigo),
+                // shapes the card
+                shape = RectangleShape
+            ),
 
         elevation = CardDefaults.cardElevation(8.dp),
         // shape = RoundedCornerShape(16.dp)
     ) {
 
-        Row(verticalAlignment = Alignment.CenterVertically,
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .background(color = Cornflower_blue, shape = RectangleShape)
@@ -135,11 +155,11 @@ fun CategoryCard(categoryName: Category) {
 @Composable
 fun ItemCard(item: Item, windowSize: WindowSize) {
     // will scale the height of the row
-    val rowHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 80) }
+    val rowHeight by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 70 else 80) }
     // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 30) }
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 25 else 30) }
     // will scale the padding around the card
-    val cardPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 10 else 15) }
+    val cardPadding by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 10 else 15) }
     Card(
         modifier = Modifier
             // padding around the card
