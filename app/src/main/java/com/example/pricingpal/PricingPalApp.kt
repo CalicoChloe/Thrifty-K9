@@ -49,13 +49,13 @@ fun PricingPalAppBar(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    /** I replaced the old with this one. I couldn't get the logo to look right with the UI scaling,
-     * and since there is no action that is being done with the logo, I removed it. Because I remove
-     * it, it allowed for the bar to be smaller since it will only have the back arrow within the bar.*/
+
     TopAppBar(
-        title = { Text(text ="") }, // I left this in here because if I remove it, it will cause an error
+        title = {
+            Text(text = "") // text needed to access custom back button
+        },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor =  Periwinkle
+            containerColor = Periwinkle,
         ),
         modifier = modifier,
         navigationIcon = {
@@ -95,13 +95,13 @@ fun PricingPalAppBar(
  * @author Shianne Lesure
  **/
 @Composable
-fun PricingPalApp(categories: HashMap<String, Category>, windowSize : WindowSize) {
+fun PricingPalApp(categories: HashMap<String, Category>, windowSize: WindowSize) {
     //Initialize navController
     val navController = rememberNavController()
 
     //Create an app bar of medium size at the top of the scaffold
     PricingPalAppBar(
-        navigateUp =  {navController.navigateUp()},
+        navigateUp = { navController.navigateUp() },
         canNavigateBack = navController.previousBackStackEntry != null,
     )
 
