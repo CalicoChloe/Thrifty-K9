@@ -26,7 +26,12 @@ import com.example.pricingpal.ui.theme.Periwinkle
 import kotlinx.coroutines.delay
 
 /** This is the launcher page that that will use a splash screen to load  before showing the rest of
- * the UI screens. The loading will be a little longer when connected to the the data loading */
+ * the UI screens. The loading will be a little longer when connected to the the data loading
+ *
+ * @param navController allows functions to navigate to other functions
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * */
 @Composable
 fun AnimatedSlashScreen(navController: NavController, windowSize: WindowSize) {
     // the value that will allow the image to be animated

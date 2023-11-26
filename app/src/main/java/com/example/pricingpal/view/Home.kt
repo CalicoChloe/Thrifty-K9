@@ -45,7 +45,13 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 /** This is the home page. It is where the user would go after the launcher is done. They will be able to
  * navigate to the login, registration , and the volunteer section. We were only able to implement the
  * volunteer section, so the volunteer button is the only one active. There is also a button at the bottom of the page
- * that will navigate to the teams Gits docs*/
+ * that will navigate to the teams Gits docs
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ * @param navController allows functions to navigate to other functions
+ *
+ * @author Shianne Lesure
+ * */
 @Composable
 fun StartScreen(navController: NavController, windowSize: WindowSize){
     // will scale the height of the button
@@ -167,12 +173,14 @@ fun StartScreen(navController: NavController, windowSize: WindowSize){
     }
 }
 
-/** This is the button that will send the user to the pricing pal git docs*/
+/** This is the button that will send the user to the pricing pal git docs
+ * @author Shianne Lesure
+ * */
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun webButton(){
-    val context = LocalContext.current
-    val webIntent: Intent = Intent(Intent.ACTION_VIEW,
+    val context = LocalContext.current // will allow access for the app to run the website
+    val webIntent: Intent = Intent(Intent.ACTION_VIEW, // will allow the use to see the website when app is running
         Uri.parse("https://calicochloe.github.io/Thrifty-K9/") ) // the link to the git docs
 
         ElevatedButton(
