@@ -1,0 +1,72 @@
+body {
+    /*These two lines create margins on each side of the page and center the site content*/
+    width: 85%;
+    margin: 0 auto;
+    /*Linear gradient covers background to match the opacity of the app background*/
+    background: linear-gradient( rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9) ), url("https://github.com/CalicoChloe/Thrifty-K9/blob/main/app/src/main/res/drawable/paw_background.png?raw=true");
+    /*These lines handle the positioning of the background*/
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    /*Background image is fixed to ensure it covers screen fully*/
+    background-attachment: fixed;
+}
+
+#main {
+    display: flex;
+}
+
+/* This block styles the content blocks of the site */
+.item {
+    flex: 1 1 0px;
+    display: block;
+    height: 60%;
+    width: 100%;
+
+    border-left: solid #27187E;
+    border-right: solid #27187E;
+    border-bottom: solid #27187E;
+    box-sizing: border-box;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.item:last-child {
+    margin-right: 0;
+}
+
+.content {
+    clear: both;
+    background-color: #AEB8FE;
+    border: #FFFFFF;
+    height: 100%;
+    padding: 20px;
+}
+
+.header {
+    opacity: 0.9;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border-top: solid #27187E;
+    border-bottom: solid #27187E;
+    background-color: #758BFD;
+}
+
+#top_header {
+    width: fit-content;
+    padding: 0px 20px 0px 20px;
+    margin: 0 auto 0 auto;
+    margin-top: 40px;
+    border: solid #27187E;
+}
+
+footer {
+    width: fit-content;
+    padding: 0px 20px 0px 20px;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    border: solid #27187E;
+    background-color: #758BFD;
+}
