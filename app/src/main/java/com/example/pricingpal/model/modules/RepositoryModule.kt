@@ -1,6 +1,4 @@
-package com.example.pricingpal.model.di
-
-
+package com.example.pricingpal.model.modules
 
 import com.example.pricingpal.model.repositories.CategoryRepository
 import com.example.pricingpal.model.repositories.impl.CategoryRepositoryImpl
@@ -20,5 +18,4 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindItemRepository(impl: ItemRepositoryImpl): ItemRepository
-
 }

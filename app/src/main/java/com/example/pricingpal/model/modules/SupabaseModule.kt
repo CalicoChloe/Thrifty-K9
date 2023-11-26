@@ -1,4 +1,4 @@
-package com.example.pricingpal.model.di
+package com.example.pricingpal.model.modules
 
 import com.example.pricingpal.BuildConfig
 import dagger.Module
@@ -6,7 +6,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.annotations.SupabaseExperimental
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
 import io.github.jan.supabase.gotrue.gotrue
@@ -20,7 +19,6 @@ import javax.inject.Singleton
 @Module
 object SupabaseModule {
 
-    @OptIn(SupabaseExperimental::class)
     @Provides
     @Singleton
     fun provideSupabaseClient(): SupabaseClient {
@@ -29,12 +27,6 @@ object SupabaseModule {
             supabaseKey = BuildConfig.SUPABASE_ANON_KEY
         ) {
             install(Postgrest)
-//            install(GoTrue) {
-//                flowType = FlowType.PKCE
-//                scheme = "public"
-//                host = "supabase.com"
-//            }
-//            install(Storage)
         }
     }
 
@@ -50,12 +42,12 @@ object SupabaseModule {
         return client.gotrue
     }
 
-
     @Provides
     @Singleton
     fun provideSupabaseStorage(client: SupabaseClient): Storage {
         return client.storage
     }
+
     sealed class ApiResults<out R> {
         data class Succeed <out R>(val data: R): ApiResults<R>()
         data class Error (val message: String?): ApiResults<Nothing>()
