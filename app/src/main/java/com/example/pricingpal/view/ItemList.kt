@@ -41,7 +41,20 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
-
+/**
+ * This functionally is building the list of category cards that will display the of categories.
+ * It will be run within the scaffold as the content. This will allow for the back arrow navigation
+ * to work.
+ *
+ * @property categories the HashMap of category objects
+ * @param navController allows functions to navigate to other functions
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ * @param selectedCategory determines if a category is selected or not
+ *
+ * @author Connor Murdock
+ * @author Abdoulie NJie
+ * @author Shianne Lesure
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemList(
@@ -115,6 +128,16 @@ fun ItemList(
 }
 
 
+/**
+ * This functionally shows the name of the category within a card, so the user knows where the list
+ * is coming from.
+ *
+ * @property category taking the name of category
+ *
+ * @author Julian Ellis
+ * @author Abdoulie NJie
+ * @author Shianne Lesure
+ */
 @Composable
 fun CategoryCard(categoryName: Category) {
     Card(modifier = Modifier
@@ -155,6 +178,19 @@ fun CategoryCard(categoryName: Category) {
     }
 }
 
+
+/**
+ * This functionally is building the card that will hold the name and image of the category.
+ * This is will navigate to the list of items within each category
+ *
+ * @property item brings in the item's name and price
+ * @param navController allows functions to navigate to other functions
+ *
+ * @author Connor Murdock
+ * @author Abdoulie NJie
+ * @author Shianne Lesure
+ * @author Julian Ellis
+ */
 @Composable
 fun ItemCard(item: Item, windowSize: WindowSize) {
     // will scale the height of the row

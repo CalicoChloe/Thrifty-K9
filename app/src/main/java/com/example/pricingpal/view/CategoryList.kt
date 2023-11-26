@@ -42,6 +42,20 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.viewmodel.CategoryViewModel
 
+/**
+ * This functionally is building the list of category cards that will display the of categories.
+ * It will be run within the scaffold as the content. This will allow for the back arrow navigation
+ * to work.
+ * 
+ * @property categories the HashMap of category objects
+ * @param navController allows functions to navigate to other functions
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ * @param viewModel taking the data from supabase and adding them to the project
+ *
+ * @author Connor Murdock
+ * @author Abdoulie NJie
+ * @author Shianne Lesure
+ */
 const val  CATEGORY_NAMES = "categories"
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -109,6 +123,19 @@ fun CategoryList (
         })
 }
 
+
+/**
+ * This functionally is building the card that will hold the name and image of the category.
+ * This is will navigate to the list of items within each category
+ *
+ * @property category taking the name of category
+ * @param navController allows functions to navigate to other functions
+ *
+ * @author Connor Murdock
+ * @author Abdoulie NJie
+ * @author Shianne Lesure
+ * @author Chloe Jackson
+ */
 @Composable
 //puts the category name into a card view
 fun CategoryCard(category: Category, navController: NavController){
