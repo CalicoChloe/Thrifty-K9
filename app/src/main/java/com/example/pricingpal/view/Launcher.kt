@@ -46,7 +46,7 @@ fun AnimatedSlashScreen(navController: NavController, windowSize: WindowSize) {
                     OvershootInterpolator(4f).getInterpolation(it) // how much the logo will scale up
                 })
         )
-        delay(2000) // delay the screen for 2 seconds until it navigates to the home screen
+        delay(2500) // delay the screen for 2 seconds until it navigates to the home screen
         navController.popBackStack() // will navigate completely out the app
         navController.navigate(route = Screen.HomeScreen.route)
     }

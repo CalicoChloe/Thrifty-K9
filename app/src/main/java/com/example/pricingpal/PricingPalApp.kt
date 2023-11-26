@@ -2,6 +2,7 @@ package com.example.pricingpal
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -108,6 +109,7 @@ fun PricingPalApp(categories: HashMap<String, Category>, windowSize : WindowSize
     Scaffold(
         //padding automatically adjusts to match the app bar size
         content = { padding ->
+            /*
             Surface(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -126,6 +128,24 @@ fun PricingPalApp(categories: HashMap<String, Category>, windowSize : WindowSize
 
                 Navigation(categories = categories, padding, windowSize)
             }
+
+             */
+
+            Image(
+                //Imports image from resource folder
+                painter = painterResource(id = R.drawable.paw_background),
+                //description of the image for accessibility
+                contentDescription = "Pictures of paws",
+                //crops the image
+                contentScale = ContentScale.Crop,
+                // changes the opacity of the image
+                alpha = 0.1F
+            )
+
+            Column {
+                Navigation(categories = categories, padding, windowSize)
+            }
+
         },
         //Background color for the content
         containerColor = Anti_flash_white

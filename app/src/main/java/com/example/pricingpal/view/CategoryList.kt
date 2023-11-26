@@ -6,7 +6,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -34,6 +37,7 @@ import androidx.navigation.NavController
 import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.R
 import com.example.pricingpal.model.Category
+import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.viewmodel.CategoryViewModel
@@ -59,31 +63,46 @@ fun CategoryList (
             )
         },
         content = { padding ->
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize(),
+                color = Anti_flash_white
+            ) {
+                Image(
+                    //Imports image from resource folder
+                    painter = painterResource(id = R.drawable.paw_background),
+                    //description of the image for accessibility
+                    contentDescription = "Pictures of paws",
+                    //crops the image
+                    contentScale = ContentScale.Crop,
+                    // changes the opacity of the image
+                    alpha = 0.1F
+                )
+                if (!categoryList.isNullOrEmpty()) {
+                    LazyColumn(
+                        //aligns the categories within the center
+                        modifier = Modifier
+                            .testTag(CATEGORY_NAMES)
+                            .fillMaxSize()
+                            .padding(padding),
+                        horizontalAlignment = Alignment.CenterHorizontally
 
-            if (!categoryList.isNullOrEmpty()) {
-                LazyColumn(
-                    //aligns the categories within the center
-                    modifier = Modifier
-                        .testTag(CATEGORY_NAMES)
-                        .fillMaxSize()
-                        .padding(padding),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        item {
+                            // holds the pricing pal logo
+                            // This will collapse when scrolling up
+                            pricingPalBar()
+                        }
+                        stickyHeader {
+                            // This will allow for you to look up the items and categories
+                            searchBar(windowSize = windowSize)
+                            Divider(thickness = 4.dp, color = Persian_indigo)
+                        }
 
-                ) {
-                    item {
-                        // holds the pricing pal logo
-                        // This will collapse when scrolling up
-                        pricingPalBar()
-                    }
-                    stickyHeader {
-                        // This will allow for you to look up the items and categories
-                        searchBar(windowSize = windowSize)
-                        Divider(thickness = 4.dp, color = Persian_indigo)
-                    }
-
-                    // takes each category card and put into a list
-                    for (category: Category in categories.values) {
-                        item { CategoryCard(category = category, navController) }
+                        // takes each category card and put into a list
+                        for (category: Category in categories.values) {
+                            item { CategoryCard(category = category, navController) }
+                        }
                     }
                 }
             }
@@ -117,7 +136,7 @@ fun CategoryCard(category: Category, navController: NavController){
         ){
             //Here is where the code to display image would be. Current image is a placeholder
             Image(
-                painter = painterResource(id =R.drawable.accessories),
+                painter = painterResource(id =R.drawable.rectangle_22),
                 contentDescription = "Accessories image",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -126,19 +145,32 @@ fun CategoryCard(category: Category, navController: NavController){
                 alpha = 0.8F
             )
             // Displays category name
-            Text(
-                // takes the text from the category variable
-                text = category.category,
-                // changes the size of the font
-                fontSize = 30.sp,
-                // allows for the font to be in bold
-                fontWeight = FontWeight.Bold,
-                //change the color of the text
-                color = Color.Black,
+            Row(
                 modifier = Modifier
-                    .padding(10.dp)
-                    .align(alignment = Alignment.CenterHorizontally)
-            )
+                    .fillMaxWidth()
+                    .border(
+                    // puts a border around the card
+                    border = BorderStroke(4.dp, color = Persian_indigo),
+                    // shapes the card
+                    shape = RectangleShape
+                )
+                    .background(color = Cornflower_blue, shape = RectangleShape),
+                horizontalArrangement = Arrangement.Center,
+            ){
+                Text(
+                    // takes the text from the category variable
+                    text = category.category,
+                    // changes the size of the font
+                    fontSize = 30.sp,
+                    // allows for the font to be in bold
+                    fontWeight = FontWeight.Bold,
+                    //change the color of the text
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(10.dp)
+                )
+            }
+
         }
     }
 }
