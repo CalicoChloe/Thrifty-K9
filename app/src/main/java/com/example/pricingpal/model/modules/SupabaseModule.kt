@@ -83,6 +83,8 @@ object SupabaseModule {
     fun provideSupabaseStorage(client: SupabaseClient): Storage {
         return client.storage
     }
-
 }
 
+
+
+// There is nowhere else to go; face the king, or perish at his hands ~Abdoulie NJie
