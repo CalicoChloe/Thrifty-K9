@@ -33,12 +33,17 @@ object SupabaseModule {
      *
      * It also installs the Postgrest plugin needed to access the Supabase database
      */
+
+    // variables used to reference Supabase URL and anonymous key needed to run the app
+    val supabaseUrl = BuildConfig.SUPABASE_URL
+    val supabaseKey = BuildConfig.SUPABASE_ANON_KEY
+
     @Provides
     @Singleton
     fun provideSupabaseClient(): SupabaseClient {
         return createSupabaseClient(
-            supabaseUrl = BuildConfig.SUPABASE_URL,
-            supabaseKey = BuildConfig.SUPABASE_ANON_KEY
+           supabaseUrl,
+           supabaseKey
         ) {
             install(Postgrest)
         }
