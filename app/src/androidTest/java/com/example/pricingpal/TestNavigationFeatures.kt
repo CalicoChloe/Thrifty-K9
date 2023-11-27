@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 
 /**
  * Test navigation features using the data from the testdata.csv file
- * As well as the UI design implemented before SupaBase database added to app
+ * As well as the UI design implemented before SupaBase backend support added to the app
  *
  * @constructor Create empty Test navigation features
  */
@@ -31,6 +31,7 @@ class TestNavigationFeatures {
 
     @Test
     fun test_clicking_categories() {
+        composeTestRule.onNodeWithText("Volunteer").performClick()
         // performs click on the category name according to the text
         composeTestRule.onNodeWithText("Appliances").performClick()
         // asserts that the following information is present on the UI
@@ -52,7 +53,7 @@ class TestNavigationFeatures {
         composeTestRule.activityRule.scenario.onActivity { activity ->
             activity.onBackPressedDispatcher.onBackPressed()
         }
-        // waits until the ui is idle
+        // waits until the UI is idle
         composeTestRule.waitForIdle()
 
         composeTestRule.onNodeWithText("Jewelry").performClick()
@@ -197,16 +198,22 @@ class TestNavigationFeatures {
         composeTestRule.activityRule.scenario.onActivity { activity ->
             activity.onBackPressedDispatcher.onBackPressed()
         }
+        composeTestRule.activityRule.scenario.onActivity { activity ->
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     @Test
     fun test_custom_back_button(){
         // val used to reference the back button created for the apps navigation
         val iconButton = composeTestRule.onNode(hasTestTag(BACK_BUTTON), useUnmergedTree = true)
+
+        composeTestRule.onNodeWithText("Volunteer").performClick()
         // performs click on the category name according to the text
         composeTestRule.onNodeWithText("Appliances").performClick()
         // performs click on the custom back button
         iconButton.performClick()
+        // waits until the UI is idle
         composeTestRule.waitForIdle()
 
         composeTestRule.onNodeWithText("Jewelry").performClick()
