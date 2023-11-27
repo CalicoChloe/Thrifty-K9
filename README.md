@@ -2,6 +2,7 @@
 - Project Name: Pricing Pal
 - Website: https://calicochloe.github.io/Thrifty-K9/
 
+
 ## Table of Summary
 
 - [Project-Description](#project-description)
@@ -21,7 +22,9 @@ list creation/editing, admin authentication, and an in-app search function. The 
 to use technology to replace antiquated pen and paper style documentation that many of these charities
 still rely on.
 
+
 # Technologies-Used
+
 - Android Kotlin with Jetpack Compose (in Android Studio)
 - Supabase
 - HTML/CSS
@@ -29,10 +32,10 @@ still rely on.
 # Licensing
 - GPL-3.0 License
 
+
 # Supabase-Configuration
 
 These following steps are important in setting up the connection between the Supabase database and your app.
-
 1. Open the `local.properties` file.
 2. Replace `SUPABASE_URL=your-supabase-url` with your Supabase URL.
 3. Replace `SUPABASE_ANON_KEY=your-supabase-anon-key` with your Supabase anonymous key.

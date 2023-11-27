@@ -13,4 +13,5 @@ import dagger.hilt.android.HiltAndroidApp
  */
 @HiltAndroidApp
 class PricingPalApplication : Application(){
+  
 }
