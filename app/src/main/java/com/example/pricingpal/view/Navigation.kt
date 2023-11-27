@@ -69,3 +69,6 @@ fun Navigation(
         }
     }
 }
+
+//We hope future students enjoy navigating this project as much as we did!
+//Happy coding!
