@@ -208,6 +208,9 @@ fun Login(paddingValues: PaddingValues){
                 color = Color.Black,
             )
         }
+        Spacer(modifier = Modifier.height(20.dp))
+
+        googleLogin()
 
         Spacer(modifier = Modifier.height(20.dp))
         // --------- OR -------------
@@ -217,25 +220,13 @@ fun Login(paddingValues: PaddingValues){
 
         //Register Here Button
         // will navigate to the Choose Registration Screen
-        ElevatedButton(
-            onClick = { /*TODO*/ },
-            shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-            elevation = ButtonDefaults.buttonElevation(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(90.dp)
-                .padding(start = 70.dp, top = 15.dp, end = 70.dp, bottom = 15.dp)
-                .border(4.dp, color = Persian_indigo),
-
-            ) {
+        TextButton(onClick = { /*TODO*/ }) {
             Text(
                 textAlign = TextAlign.Center,
                 text = "Register Here",
                 fontSize = 30.sp,
                 color = Color.Black,
             )
-
         }
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -370,6 +361,31 @@ fun passwordStrength(){
             textAlign = TextAlign.Center,
             text = "Why?",
             fontSize = 30.sp,
+            color = Color.Black,
+        )
+    }
+}
+
+@Composable
+fun googleLogin(){
+    lines()
+    Spacer(modifier = Modifier.height(20.dp))
+    ElevatedButton(
+        onClick = { /*TODO*/ },
+        shape = RectangleShape,
+        colors = ButtonDefaults.buttonColors(Cornflower_blue),
+        elevation = ButtonDefaults.buttonElevation(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(120.dp)
+            .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
+            .border(4.dp, color = Persian_indigo),
+
+        ) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Login in with Google",
+            fontSize = 40.sp,
             color = Color.Black,
         )
     }
