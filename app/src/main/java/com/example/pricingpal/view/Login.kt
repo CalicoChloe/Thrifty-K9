@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -27,7 +26,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -52,7 +50,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
@@ -63,7 +60,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -147,13 +143,17 @@ fun LoginHeader(){
  * Function: Login
  * @author: Shianne Lesure
  *
- *
+ * This function sets up the rest of the content of the login screen.
+ * Users will see some text-field asking for an email and password as well as message telling them
+ * if their password is too weak and a dialog telling them what they need to do to fix it.
+ * Below that will be the list of buttons the user can navigate to.
  */
 @Composable
 fun Login(paddingValues: PaddingValues){
     Column(
         modifier = Modifier
             .padding(paddingValues)
+            // this is here so the line above the pricing pal logo
             .padding(top = 4.dp)
             .background(color = Periwinkle)
             //allows for the column to be scrollable. Might not show because there is not enough to scroll
@@ -181,10 +181,12 @@ fun Login(paddingValues: PaddingValues){
         passwordInputLogin()
         Spacer(modifier = Modifier.height(35.dp))
 
+        // tells the user whether their password is too weak
         passwordStrength()
         Spacer(modifier = Modifier.height(20.dp))
+
         //Login Button
-        // will navigate to the Edit Upload Screen
+        // will navigate to the Upload Screen
         // they can't move on until they enter their email and password. Therefore button needs to be  disabled
         ElevatedButton(
             onClick = { /*TODO*/ },
@@ -218,6 +220,8 @@ fun Login(paddingValues: PaddingValues){
         }
         Spacer(modifier = Modifier.height(20.dp))
 
+        // Google button
+        // will allow user to login through their google account
         googleLogin()
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -240,6 +244,13 @@ fun Login(paddingValues: PaddingValues){
     }
 }
 
+/**
+ * Function: Email Input Login
+ * @author: Shianne Lesure
+ *
+ * This function sets up the text-field for the user to be able to put in their email to be able to
+ * login. This is a requirement for the user to be able to navigate to the Upload screen.
+ */
 @Composable
 fun emailInputLogin(){
     var email by remember { mutableStateOf("") }// variable that holds a default state of text-field
@@ -279,6 +290,13 @@ fun emailInputLogin(){
     }
 }
 
+/**
+ * Function: Password Input Login
+ * @author: Shianne Lesure
+ *
+ * This function set up the text-field for the user to be able to put in their password to be able to
+ * login. This is a requirement for the user to be able to navigate to the Upload screen.
+ */
 @Composable
 fun passwordInputLogin(){
     var password by remember { mutableStateOf("") }// variable that holds a default state of text-field
@@ -333,6 +351,14 @@ fun passwordInputLogin(){
     }
 }
 
+/**
+ * Function: Password Strength
+ * @author: Shianne Lesure
+ *
+ * This function displays the message of whether their password is strong or weak.
+ * If their password is weak, a message pops up saying that that the passwords is weak and it needs
+ * to be stronger.
+ */
 @Composable
 fun passwordStrength(){
     Row(horizontalArrangement = Arrangement.Center,
@@ -347,6 +373,27 @@ fun passwordStrength(){
             color = Color.Black,
             fontWeight = FontWeight.Bold
         )
+
+        /*
+        The password check would be coming from database. A if statement will be letting the user
+        know if the password is weak or strong.
+
+        if(password doesn't meet requirement ){
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Weak",
+            fontSize = 30.sp,
+            color = Color.Black
+        )
+        } else{
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Strong",
+            fontSize = 30.sp,
+            color = Color.Black
+        )
+        }
+         */
         Text(
             textAlign = TextAlign.Center,
             text = "Weak",
@@ -366,6 +413,13 @@ fun passwordStrength(){
     passwordStrengthDialog()
 }
 
+/**
+ * Function: Password Strength Dialog
+ * @author: Shianne Lesure
+ *
+ * This function will display a dialog when the why button is clicked. The dialog will show the user
+ * what is needed to make their password stronger.
+ */
 @Composable
 fun passwordStrengthDialog(){
     // a variable that determines if the state of the dialog to be use or not
@@ -431,12 +485,26 @@ fun passwordStrengthDialog(){
     }
 }
 
+/**
+ * Function: Google Login
+ * @author: Shianne Lesure
+ *
+ * This function will display the button that will allow the user to login with their google account.
+ * This will be connected through the database and Google consent form.
+ */
 @Composable
 fun googleLogin(){
     lines()
     Spacer(modifier = Modifier.height(20.dp))
     ElevatedButton(
-        onClick = { /*TODO*/ },
+        onClick = {
+                  /*
+                  * When the button is clicked, the Google consent form will pop up letting them
+                  * that their login will be through their Google account. Once they click continue,
+                  * a message will show up letting them know they have sign in with the Google
+                  * account. The snack bar message is has not been made yet.
+                  * */
+                  },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),
         elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -456,6 +524,12 @@ fun googleLogin(){
     }
 }
 
+/**
+ * Function: Lines
+ * @author: Shianne Lesure
+ *
+ * This function will display the OR message that is between every button
+ */
 @Composable
 fun lines(){
     Row(modifier = Modifier
