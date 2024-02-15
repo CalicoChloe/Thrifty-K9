@@ -100,17 +100,15 @@ fun LoginHeader(){
                 .border(4.dp, color = Persian_indigo),
             shape = RectangleShape,
             elevation = CardDefaults.cardElevation(12.dp),
-            colors = CardDefaults.cardColors(containerColor = Periwinkle)
+           // colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
         ) {
-            // This hold the back arrow for navigation
-            // Navigates to the Home Screen
 
             Scaffold(
                 //Create an app bar of medium size at the top of the scaffold
                 topBar = {
                     TopAppBar(
                         colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = Periwinkle,
+                            containerColor = Cornflower_blue,
                         ),
                         title = {
                             Text(text = "")
@@ -131,69 +129,12 @@ fun LoginHeader(){
                 },
 
                 content = { padding ->
-                    Divider(thickness = 4.dp, color = Persian_indigo)
                     Login(padding)
                 },
+                containerColor = Persian_indigo
             )
         }
     }
-    /**
-    Card(
-        modifier = Modifier
-            .padding(start = 40.dp, end = 40.dp)
-            .fillMaxSize()
-            .border(4.dp, color = Persian_indigo),
-        shape = RectangleShape,
-        elevation = CardDefaults.cardElevation(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Periwinkle)
-    ) {
-        // This hold the back arrow for navigation
-        // Navigates to the Home Screen
-
-        Scaffold(
-            //Create an app bar of medium size at the top of the scaffold
-            topBar = {
-                TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Periwinkle,
-                    ),
-                    title = {
-                        Text(text = "")
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { /*TODO*/ },
-                        ) {
-                            Icon(imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back arrow Button",
-                                tint = Color.Black,
-                                modifier = Modifier
-                                    .size(50.dp)
-                            )
-
-                        }
-                    },
-                )
-            },
-
-            content = { padding ->
-                Divider(thickness = 4.dp, color = Persian_indigo)
-               Login(padding)
-            },
-        )
-
-        Image(
-            //Imports image from resource folder
-            painter = painterResource(id = R.drawable.paw_background),
-            //description of the image for accessibility
-            contentDescription = "Pictures of paws",
-            //crops the image
-            contentScale = ContentScale.Crop,
-            // changes the opacity of the image
-            alpha = 0.1F
-        )
-
-    }
-    */
 }
 
 @Composable
@@ -202,6 +143,7 @@ fun Login(paddingValues: PaddingValues){
         modifier = Modifier
             .padding(paddingValues)
             .padding(top = 4.dp)
+            .background(color = Periwinkle)
             //allows for the column to be scrollable. Might not show because there is not enough to scroll
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -231,6 +173,8 @@ fun Login(paddingValues: PaddingValues){
         passwordInputLogin()
         Spacer(modifier = Modifier.height(35.dp))
 
+        passwordStrength()
+        Spacer(modifier = Modifier.height(20.dp))
         //Login Button
         // will navigate to the Edit Upload Screen
         // they can't move on until they enter their email and password. Therefore button needs to be  disabled
@@ -260,7 +204,7 @@ fun Login(paddingValues: PaddingValues){
             Text(
                 textAlign = TextAlign.Center,
                 text = "Forgot Password?",
-                fontSize = 20.sp,
+                fontSize = 25.sp,
                 color = Color.Black,
             )
         }
@@ -294,6 +238,7 @@ fun Login(paddingValues: PaddingValues){
 
         }
 
+        Spacer(modifier = Modifier.height(30.dp))
     }
 }
 
@@ -386,6 +331,46 @@ fun passwordInputLogin(){
             text = "*required",
             fontSize = 20.sp,
             color = Color.DarkGray
+        )
+    }
+}
+
+@Composable
+fun passwordStrength(){
+    Row(horizontalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            //.padding(top = 5.dp, start = 50.dp)
+    ) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Password strength: ",
+            fontSize = 30.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Weak",
+            fontSize = 30.sp,
+            color = Color.Black
+        )
+    }
+    Text(
+        textAlign = TextAlign.Center,
+        text = "Password need to be stronger",
+        fontSize = 30.sp,
+        color = Color.Black
+    )
+
+    Spacer(modifier = Modifier.height(20.dp))
+
+    TextButton(onClick = { /*TODO*/ }) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Why?",
+            fontSize = 30.sp,
+            color = Color.Black,
         )
     }
 }
