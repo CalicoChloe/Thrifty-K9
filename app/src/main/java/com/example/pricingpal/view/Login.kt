@@ -434,7 +434,7 @@ fun passwordStrengthDialog(){
             )
         }
     }
-    // the dialog shows if send button is clicked
+    // the dialog shows if why button is clicked
     if (showDialog) {
         Dialog(onDismissRequest = {showDialog = false}) {
 

@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -20,8 +19,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material3.BottomSheetScaffoldState
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,22 +27,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,23 +50,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 /**
- * This file will allow for the user to enter their email to reset their password.
- * They will enter the email they use for registration within the text field.
- * When they click send, a dialog will pop up saying "email was sent".
- * On the back end, a link should be sent to their email that will take them the the create password
- * UI to make new password.
+ * Function: Forgot Password Header
+ * @author: Shianne Lesure
+ *
+ * This function sets up a scaffold with top bar for the forgot password screen.
+ * Users will see a display of the back arrow that will allow the user to navigate back to the login screen.
+ * Below the bar will show the rest of the content of the  forgot password screen.
+ *
+ * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
  */
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ForgotPasswordHeader(){
@@ -139,6 +129,15 @@ fun ForgotPasswordHeader(){
     }
 }
 
+/**
+ * Function: Forgot Password
+ * @author: Shianne Lesure
+ *
+ * This function sets up the rest of the content of the forgot password screen.
+ * Users will see some text-field asking for an email that will verify them to be able to reset their password.
+ * On the back end, a link should be sent to their email that will take them the the create password
+ * UI to make new password.
+ */
 @Composable
 fun forgotPassword(paddingValues: PaddingValues) {
     Column(
@@ -151,7 +150,6 @@ fun forgotPassword(paddingValues: PaddingValues) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        // Located within repetitive functions/ header file
         // holds the pricing pal logo
         innerPricingBar()
         Spacer(modifier = Modifier.height(10.dp))
@@ -174,17 +172,25 @@ fun forgotPassword(paddingValues: PaddingValues) {
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        //Located within repetitive functions/ input text-fields file
         // holds the email text-field
         emailInputForgotPassword()
 
         Spacer(modifier = Modifier.height(50.dp))
-       // forgotPasswordDialog() // holds the send button that will take you to the forgot password dialog
+
+        // Holds the send button that will display a snack message before navigating to a redirect URL
         forgotPasswordSnackBar()
         Spacer(modifier = Modifier.height(260.dp))
     }
 }
 
+/**
+ * Function: Email Input Forgot Password
+ * @author: Shianne Lesure
+ *
+ * This function sets up the text-field for the user to be able to put in their email to be able to
+ * have access to the URL to change their password.
+ * This is a requirement for the user to be able to navigate to the change password screen.
+ */
 @Composable
 fun emailInputForgotPassword(){
     var email by remember { mutableStateOf("") }// variable that holds a default state of text-field
@@ -224,8 +230,20 @@ fun emailInputForgotPassword(){
     }
 }
 
+/**
+ * Function: Forgot Password Snack Bar
+ * @author: Shianne Lesure
+ *
+ * This function will display a snack-bar when the send button is clicked. The snack bar will show a
+ * message verifying the user the email has been sent.
+ *
+ * NOTE: This isn't really how snack-bars are made. I tried to go the route it is usually made, but
+ * for some reason I couldn't get it quite right. If I can get the originally way to work, I will change
+ * it, but this should be fine for now.
+ */
 @Composable
 fun forgotPasswordSnackBar() {
+    // a variable that determines if the snack-bar will be displayed or not
     var showSnackBar by remember { mutableStateOf(false) }
     ElevatedButton(
         onClick = { showSnackBar = true },
@@ -246,11 +264,13 @@ fun forgotPasswordSnackBar() {
             color = Color.Black,
         )
     }
+    // the snack-bar will show if the send button is clicked
     if (showSnackBar) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable(onClick = { /*TODO*/ /* Will navigate to the next screen */ })
+                    .clickable(onClick = { /*TODO*/
+                    /* Will close the snack-bar and navigate to the next screen */ })
                     .height(80.dp)
                     .padding(start = 25.dp, end = 25.dp)
                     .border(2.dp, color = Persian_indigo)
