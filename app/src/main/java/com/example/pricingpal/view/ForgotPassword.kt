@@ -179,29 +179,9 @@ fun forgotPassword(paddingValues: PaddingValues) {
         emailInputForgotPassword()
 
         Spacer(modifier = Modifier.height(50.dp))
-        //forgotPasswordDialog() // holds the send button that will take you to the forgot password dialog
-        ElevatedButton(
-            onClick = { forgotPasswordSnackBar()},
-            shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-            elevation = ButtonDefaults.buttonElevation(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp)
-                .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
-                .border(4.dp, color = Persian_indigo),
-
-            ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Send",
-                fontSize = 40.sp,
-                color = Color.Black,
-            )
-        }
-        Spacer(modifier = Modifier.height(260.dp))
+       // forgotPasswordDialog() // holds the send button that will take you to the forgot password dialog
         forgotPasswordSnackBar()
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(260.dp))
     }
 }
 
@@ -244,224 +224,60 @@ fun emailInputForgotPassword(){
     }
 }
 
-/** This functionality hold the dialog for when the user press the button send,
- * it will show them the message "Email was sent".
- * On the back end, the database should send a link to the user of the create password UI*/
 @Composable
-fun forgotPasswordDialog() {
-    // a variable that determines if the state of the dialog to be use or not
-    var showDialog by remember { mutableStateOf(false) }
-    Column {
-
-        // Send Button
-        //this will allow for the dialog to be open
-        // this button will also send a verification link to the user's email
-        ElevatedButton(
-            onClick = { showDialog = true },
-            shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-            elevation = ButtonDefaults.buttonElevation(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp)
-                .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
-                .border(4.dp, color = Persian_indigo),
-
-            ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Send",
-                fontSize = 40.sp,
-                color = Color.Black,
-            )
-        }
-    }
-    // the dialog shows if send button is clicked
-    if (showDialog) {
-        Dialog(onDismissRequest = {showDialog = false}) {
-
-            //Hold makes up the dialog box
-            Surface(
-                shape = RectangleShape,
-                color = Color.White,
-                modifier = Modifier
-                    .shadow(elevation = 8.dp, RectangleShape)
-                    .border(2.dp, color = Color.Black),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    // Holds the message that will be shown in dialog
-                    Text(text = "Email was sent",
-                        fontSize = 35.sp,
-                        color = Color.Black,
-                    )
-                    /** somewhere here is where the there a connection to where the link is sent to
-                     * their email from the database.*/
-
-                    //Close button
-                    // will exit the dialog
-                    Button(
-                        onClick = { showDialog = false },
-                        shape =  RectangleShape,
-                        colors = ButtonDefaults.buttonColors(Cornflower_blue),
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .border(3.dp, color = Persian_indigo),
-                    ) {
-                        Text("Close",
-                            fontSize = 25.sp,
-                            color = Color.Black
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun forgotPasswordSnackBar(){
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { /* Will navigate the user to the next screen */ }
-            .height(80.dp)
-            .padding(start = 25.dp, end = 25.dp)
-            .border(2.dp, color = Persian_indigo)
-            .shadow(5.dp, shape = RectangleShape)
-            .background(color = Anti_flash_white, shape = RectangleShape),
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ){
-        Text(
-            textAlign = TextAlign.Start,
-            text = "Email was sent",
-            modifier = Modifier
-                .padding(top = 20.dp, start = 30.dp),
-                //.fillMaxWidth(),
-            fontSize = 25.sp,
-            color = Color.Black,
-        )
-
-        Text(
-            textAlign = TextAlign.End,
-            text = "OK",
-            modifier = Modifier
-                .padding(top = 20.dp, end = 30.dp),
-            fontSize = 30.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold
-        )
-    }
-
-    /*
+fun forgotPasswordSnackBar() {
+    var showSnackBar by remember { mutableStateOf(false) }
     ElevatedButton(
-        onClick = { /*TODO*/ },
+        onClick = { showSnackBar = true },
         shape = RectangleShape,
-        colors = ButtonDefaults.buttonColors(Anti_flash_white),
+        colors = ButtonDefaults.buttonColors(Cornflower_blue),
         elevation = ButtonDefaults.buttonElevation(8.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(120.dp)
             .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
-            .border(2.dp, color = Persian_indigo),
+            .border(4.dp, color = Persian_indigo),
 
         ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            //horizontalArrangement = Arrangement.Center,
-        ){
-            Text(
-                textAlign = TextAlign.Start,
-                text = "Email was sent",
-                modifier = Modifier
-                    .fillMaxWidth(),
-                fontSize = 30.sp,
-                color = Color.Black,
-            )
-
-            Text(
-                textAlign = TextAlign.Center,
-                text = "OK",
-                modifier = Modifier
-                    .fillMaxWidth(),
-                fontSize = 30.sp,
-                color = Color.Black,
-            )
-        }
-
-
-        /*
         Text(
             textAlign = TextAlign.Center,
-            text = "Email was sent",
-            modifier = Modifier
-                .fillMaxWidth(),
-            fontSize = 30.sp,
+            text = "Send",
+            fontSize = 40.sp,
             color = Color.Black,
         )
-
-         */
-
     }
-
-
-
-/*
-    Column {
-        val (snackbarVisibleState, setSnackBarState) = remember { mutableStateOf(false) }
-
-
-        Button(onClick = { setSnackBarState(!snackbarVisibleState) }) {
-            if (snackbarVisibleState) {
-                Text("Send")
-            }
-            /*
-            else {
-                Text("Send")
-            }
-
-             */
-        }
-
-
-        if (snackbarVisibleState) {
-            Snackbar(
-
-                action = {
-                    /*
-                    Button(onClick = {setSnackBarState(!snackbarVisibleState)}) {
-                        Text("MyAction")
-                    }
-
-                     */
-                    TextButton(onClick = { /*TODO*/ }) {
-                        Text(
-                            textAlign = TextAlign.Center,
-                            text = "Register Here",
-                            fontSize = 30.sp,
-                            color = Color.Black,
-                        )
-                    }
-                },
-
-
-                modifier = Modifier.padding(8.dp)
+    if (showSnackBar) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = { /*TODO*/ /* Will navigate to the next screen */ })
+                    .height(80.dp)
+                    .padding(start = 25.dp, end = 25.dp)
+                    .border(2.dp, color = Persian_indigo)
+                    .shadow(5.dp, shape = RectangleShape)
+                    .background(color = Anti_flash_white, shape = RectangleShape),
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Text(text = "This is a snack-bar!")
+                Text(
+                    textAlign = TextAlign.Start,
+                    text = "Email was sent",
+                    modifier = Modifier
+                        .padding(top = 20.dp, start = 30.dp),
+                    fontSize = 25.sp,
+                    color = Color.Black,
+                )
+
+                Text(
+                    textAlign = TextAlign.End,
+                    text = "OK",
+                    modifier = Modifier
+                        .padding(top = 20.dp, end = 30.dp),
+                    fontSize = 30.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold
+                )
             }
-        }
     }
-
- */
-
-*/
 
 }
 
