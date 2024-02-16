@@ -7,8 +7,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.gotrue.GoTrue
-import io.github.jan.supabase.gotrue.gotrue
+import io.github.jan.supabase.gotrue.Auth
+//import io.github.jan.supabase.gotrue.GoTrue
+import io.github.jan.supabase.gotrue.auth
+//import io.github.jan.supabase.gotrue.gotrue
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.storage.Storage
@@ -45,9 +47,24 @@ object SupabaseModule {
            supabaseUrl,
            supabaseKey
         ) {
+            install(Auth)
             install(Postgrest)
-        }
+            }
     }
+
+    /**
+     *
+     * @param client is a reference to the previous created SupabaseClient
+     * @return a singleton instance of Auth, which represents the authentication
+     * client for Supabase obtained from the SupabaseClient.
+     *
+     */
+    @Provides
+    @Singleton
+    fun provideSupabaseAuth(client: SupabaseClient): Auth {
+        return client.auth
+    }
+
     /**
      *
      * @param client is a reference to the previous created SupabaseClient
@@ -65,12 +82,12 @@ object SupabaseModule {
      * client for Supabase obtained from the SupabaseClient.
      *
      */
-    @Provides
-    @Singleton
-    fun provideSupabaseGoTrue(client: SupabaseClient): GoTrue {
+    //@Provides
+    //@Singleton
+    //fun provideSupabaseGoTrue(client: SupabaseClient): GoTrue {
 
-        return client.gotrue
-    }
+        //return client.gotrue
+    //}
     /**
      *
      * @param client is a reference to the previous created SupabaseClient
@@ -83,6 +100,8 @@ object SupabaseModule {
     fun provideSupabaseStorage(client: SupabaseClient): Storage {
         return client.storage
     }
+
+
 }
 
 
