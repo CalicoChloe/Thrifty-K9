@@ -4,6 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.pricingpal.ui.theme.PricingpalTheme
+import com.example.pricingpal.view.ForgotPasswordHeader
 import com.example.pricingpal.view.Login
 import com.example.pricingpal.view.LoginHeader
 import com.example.pricingpal.view.rememberSize
@@ -23,7 +24,8 @@ class MainActivity : ComponentActivity() {
             PricingpalTheme {
                 //PricingPalApp(categories = viewModel.categories, windowSize = window)
             }
-            LoginHeader()
+            //LoginHeader()
+            ForgotPasswordHeader()
         }
     }
 }
