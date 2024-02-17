@@ -8,6 +8,7 @@ import com.example.pricingpal.view.ChooseRegisterHeader
 import com.example.pricingpal.view.CreatePasswordHeader
 import com.example.pricingpal.view.ForgotPasswordHeader
 import com.example.pricingpal.view.GuestCompanyListHeader
+import com.example.pricingpal.view.GuestRegisterationHeader
 import com.example.pricingpal.view.Login
 import com.example.pricingpal.view.LoginHeader
 import com.example.pricingpal.view.OwnerRegisterationHeader
@@ -35,7 +36,8 @@ class MainActivity : ComponentActivity() {
             //ChooseRegisterHeader(window)
             //OwnerRegisterationHeader(window)
             //GuestCompanyListHeader(window)
-             VolunteerCompanyListHeader(window)
+            //VolunteerCompanyListHeader(window)
+            GuestRegisterationHeader(window)
 
         }
     }
