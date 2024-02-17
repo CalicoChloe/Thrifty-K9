@@ -4,6 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.pricingpal.ui.theme.PricingpalTheme
+import com.example.pricingpal.view.ChooseRegisterHeader
 import com.example.pricingpal.view.CreatePasswordHeader
 import com.example.pricingpal.view.ForgotPasswordHeader
 import com.example.pricingpal.view.Login
@@ -27,7 +28,8 @@ class MainActivity : ComponentActivity() {
             }
             //LoginHeader(window)
             //ForgotPasswordHeader(window)
-            CreatePasswordHeader(window)
+            //CreatePasswordHeader(window)
+            ChooseRegisterHeader(window)
         }
     }
 }
