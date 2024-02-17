@@ -11,8 +11,8 @@ import com.example.pricingpal.view.GuestCompanyListHeader
 import com.example.pricingpal.view.Login
 import com.example.pricingpal.view.LoginHeader
 import com.example.pricingpal.view.OwnerRegisterationHeader
+import com.example.pricingpal.view.VolunteerCompanyListHeader
 import com.example.pricingpal.view.rememberSize
-import com.example.pricingpal.view.volunteerCompanyList
 import com.example.pricingpal.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,8 +34,9 @@ class MainActivity : ComponentActivity() {
             //CreatePasswordHeader(window)
             //ChooseRegisterHeader(window)
             //OwnerRegisterationHeader(window)
-            GuestCompanyListHeader(window)
-            //volunteerCompanyList()
+            //GuestCompanyListHeader(window)
+             VolunteerCompanyListHeader(window)
+
         }
     }
 }

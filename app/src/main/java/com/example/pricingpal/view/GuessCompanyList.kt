@@ -70,7 +70,7 @@ import com.example.pricingpal.ui.theme.Uranian_Blue
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
- * This function sets up a scaffold with top bar for the login screen.
+ * This function sets up a scaffold with top bar for the guess company list screen.
  * Users will see a display of the back arrow that will allow the user to navigate back to the Home screen.
  * Below the bar will show the rest of the content of the guess company list screen.
  */
