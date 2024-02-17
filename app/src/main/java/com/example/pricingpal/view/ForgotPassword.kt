@@ -60,6 +60,8 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  * Function: Forgot Password Header
  * @author: Shianne Lesure
  *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
  * This function sets up a scaffold with top bar for the forgot password screen.
  * Users will see a display of the back arrow that will allow the user to navigate back to the login screen.
  * Below the bar will show the rest of the content of the  forgot password screen.
@@ -68,7 +70,10 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ForgotPasswordHeader(){
+fun ForgotPasswordHeader(windowSize: WindowSize){
+    // will scale the space of the card
+    val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
+
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -86,7 +91,7 @@ fun ForgotPasswordHeader(){
         )
         Card(
             modifier = Modifier
-                .padding(start = 40.dp, end = 40.dp)
+                .padding(start = cardSpacer.dp, end = cardSpacer.dp)
                 .fillMaxSize()
                 .border(4.dp, color = Persian_indigo),
             shape = RectangleShape,
@@ -119,7 +124,7 @@ fun ForgotPasswordHeader(){
                 },
 
                 content = { padding ->
-                    forgotPassword(padding)
+                    forgotPassword(padding, windowSize)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -133,13 +138,23 @@ fun ForgotPasswordHeader(){
  * Function: Forgot Password
  * @author: Shianne Lesure
  *
+ * @param paddingValues aligns the content with top app bar
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
  * This function sets up the rest of the content of the forgot password screen.
  * Users will see some text-field asking for an email that will verify them to be able to reset their password.
  * On the back end, a link should be sent to their email that will take them the the create password
  * UI to make new password.
  */
 @Composable
-fun forgotPassword(paddingValues: PaddingValues) {
+fun forgotPassword(paddingValues: PaddingValues, windowSize: WindowSize) {
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 40 else 60) }
+    // will scale the size of the text
+    val instructionTextSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 30) }
+    // will scale the space between the buttons
+    val buttonSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 180 else 260) }
+
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -156,7 +171,7 @@ fun forgotPassword(paddingValues: PaddingValues) {
         Text(
             textAlign = TextAlign.Center,
             text = "Forgot Password?",
-            fontSize = 60.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
         )
@@ -165,7 +180,7 @@ fun forgotPassword(paddingValues: PaddingValues) {
         Text(
             textAlign = TextAlign.Center,
             text = "Enter registered email for reset password",
-            fontSize = 30.sp,
+            fontSize = instructionTextSize.sp,
             color = Color.Black,
             modifier = Modifier
         )
@@ -178,8 +193,8 @@ fun forgotPassword(paddingValues: PaddingValues) {
         Spacer(modifier = Modifier.height(50.dp))
 
         // Holds the send button that will display a snack message before navigating to a redirect URL
-        forgotPasswordSnackBar()
-        Spacer(modifier = Modifier.height(260.dp))
+        forgotPasswordSnackBar(windowSize)
+        Spacer(modifier = Modifier.height(buttonSpacer.dp))
     }
 }
 
@@ -234,6 +249,8 @@ fun emailInputForgotPassword(){
  * Function: Forgot Password Snack Bar
  * @author: Shianne Lesure
  *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
  * This function will display a snack-bar when the send button is clicked. The snack bar will show a
  * message verifying the user the email has been sent.
  *
@@ -242,7 +259,18 @@ fun emailInputForgotPassword(){
  * it, but this should be fine for now.
  */
 @Composable
-fun forgotPasswordSnackBar() {
+fun forgotPasswordSnackBar(windowSize: WindowSize) {
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 120) }
+    // will scale the height of the snack-bar
+    val snackBarHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 80) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
+    // will scale the size of the snack-bar padding
+    val snackBarPaddingTop by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the size of the snack-bar padding
+    val snackBarPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 30) }
+
     // a variable that determines if the snack-bar will be displayed or not
     var showSnackBar by remember { mutableStateOf(false) }
     ElevatedButton(
@@ -252,7 +280,7 @@ fun forgotPasswordSnackBar() {
         elevation = ButtonDefaults.buttonElevation(8.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
+            .height(buttonHeight.dp)
             .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
             .border(4.dp, color = Persian_indigo),
 
@@ -260,7 +288,7 @@ fun forgotPasswordSnackBar() {
         Text(
             textAlign = TextAlign.Center,
             text = "Send",
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
         )
     }
@@ -271,7 +299,7 @@ fun forgotPasswordSnackBar() {
                     .fillMaxWidth()
                     .clickable(onClick = { /*TODO*/
                     /* Will close the snack-bar and navigate to the next screen */ })
-                    .height(80.dp)
+                    .height(snackBarHeight.dp)
                     .padding(start = 25.dp, end = 25.dp)
                     .border(2.dp, color = Persian_indigo)
                     .shadow(5.dp, shape = RectangleShape)
@@ -282,7 +310,7 @@ fun forgotPasswordSnackBar() {
                     textAlign = TextAlign.Start,
                     text = "Email was sent",
                     modifier = Modifier
-                        .padding(top = 20.dp, start = 30.dp),
+                        .padding(top = snackBarPaddingTop.dp, start = snackBarPadding.dp),
                     fontSize = 25.sp,
                     color = Color.Black,
                 )
@@ -291,8 +319,8 @@ fun forgotPasswordSnackBar() {
                     textAlign = TextAlign.End,
                     text = "OK",
                     modifier = Modifier
-                        .padding(top = 20.dp, end = 30.dp),
-                    fontSize = 30.sp,
+                        .padding(top = snackBarPaddingTop.dp, end = snackBarPadding.dp),
+                    fontSize = 25.sp,
                     color = Color.Black,
                     fontWeight = FontWeight.Bold
                 )

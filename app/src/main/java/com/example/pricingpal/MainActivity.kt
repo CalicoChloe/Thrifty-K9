@@ -25,8 +25,8 @@ class MainActivity : ComponentActivity() {
             PricingpalTheme {
                 //PricingPalApp(categories = viewModel.categories, windowSize = window)
             }
-            LoginHeader(window)
-            //ForgotPasswordHeader()
+            //LoginHeader(window)
+            ForgotPasswordHeader(window)
             //CreatePasswordHeader()
         }
     }

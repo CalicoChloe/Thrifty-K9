@@ -82,6 +82,7 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginHeader(windowSize: WindowSize){
+    // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
         modifier = Modifier
