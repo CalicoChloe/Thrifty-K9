@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,6 +31,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
@@ -55,6 +57,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -62,18 +65,10 @@ import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
 /**
- * This file will allow the user to create a new password and confirm it.
- * This UI will only show up when they click on the link that was given to them within the email.
- * They will make a new password that is not the old password within a text-field.
- * Below that they re type the new password confirming it to be the new password.
- * On the back end, it needs to be made sure that both string are identical of they can not press send.
- * Once they are done, the user can press create which will navigate them to the login screen.
- * On the back end, the new password will be updated within the database.
- */
-
-/**
  * Function: Create Password Header
  * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
  *This function sets up a scaffold with top bar for the create password screen.
  * Users will see a display of the back arrow that will allow the user to navigate back to the login screen.
@@ -83,7 +78,9 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreatePasswordHeader(){
+fun CreatePasswordHeader(windowSize: WindowSize){
+    // will scale the space of the card
+    val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -101,7 +98,7 @@ fun CreatePasswordHeader(){
         )
         Card(
             modifier = Modifier
-                .padding(start = 40.dp, end = 40.dp)
+                .padding(start = cardSpacer.dp, end = cardSpacer.dp)
                 .fillMaxSize()
                 .border(4.dp, color = Persian_indigo),
             shape = RectangleShape,
@@ -134,7 +131,7 @@ fun CreatePasswordHeader(){
                 },
 
                 content = { padding ->
-                    createPassword(padding)
+                    createPassword(padding, windowSize)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -148,11 +145,22 @@ fun CreatePasswordHeader(){
  * Function: Create Password
  * @author: Shianne Lesure
  *
+ * @param paddingValues aligns the content with top app bar
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
  * This function sets up the rest of the content of the create password screen.
- * Users will see some text-fields asking for an new password and a confirmed password to update
+ * Users will see some text-fields asking for an new password and a confirmed password to update their
+ * forgotten password as well as message telling them if their password is too weak and a dialog
+ * telling them what they need to do to fix it.
+ * Below will be a create button that will allow them to update the password and login
  */
 @Composable
-fun createPassword(paddingValues: PaddingValues){
+fun createPassword(paddingValues: PaddingValues, windowSize: WindowSize){
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 40 else 60) }
+    // will scale the size of the text
+    val instructionTextSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 30) }
+
     Column(
             modifier = Modifier
                 .padding(paddingValues)
@@ -166,7 +174,7 @@ fun createPassword(paddingValues: PaddingValues){
             Text(
                 textAlign = TextAlign.Center,
                 text = "Create Password",
-                fontSize = 60.sp,
+                fontSize = textSize.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold
             )
@@ -175,9 +183,10 @@ fun createPassword(paddingValues: PaddingValues){
             Text(
                 textAlign = TextAlign.Center,
                 text = "Enter a new password and confirm the new password below",
-                fontSize = 30.sp,
+                fontSize = instructionTextSize.sp,
                 color = Color.Black,
                 modifier = Modifier
+                    .padding(start = 5.dp, end = 5.dp)
             )
 
             Spacer(modifier = Modifier.height(25.dp))
@@ -185,7 +194,7 @@ fun createPassword(paddingValues: PaddingValues){
             Spacer(modifier = Modifier.height(25.dp))
             confirmPasswordInputCreatePassword() // confirms the new password text-field
             Spacer(modifier = Modifier.height(35.dp))
-            passwordStrengthCreatePassword()
+            passwordStrengthCreatePassword(windowSize)
             Spacer(modifier = Modifier.height(20.dp))
 
             //Create Button
@@ -193,12 +202,20 @@ fun createPassword(paddingValues: PaddingValues){
             // they can't click until they enter new password and confirm password.
             // Therefore button needs to be  disabled
             //This should also replace the password within the database
-            createPasswordSnackBar()
+            createPasswordSnackBar(windowSize)
 
             Spacer(modifier = Modifier.height(60.dp))
         }
 }
 
+/**
+ * Function: Password Input Create Password
+ * @author: Shianne Lesure
+ *
+ * This function set up the text-field for the user to be able to put in a new password to be able
+ * to be able to change their forgotten password. This is a requirement for the user to be able
+ * to reset their password.
+ */
 @Composable
 fun passwordInputCreatePassword(){
     var password by remember { mutableStateOf("") }// variable that holds a default state of text-field
@@ -253,6 +270,14 @@ fun passwordInputCreatePassword(){
     }
 }
 
+/**
+ * Function: Confirm Password Input Create Password
+ * @author: Shianne Lesure
+ *
+ * This function set up the text-field for the user to be able to confirm the new password to be able
+ * to be able to change their forgotten password. This is a requirement for the user to be able
+ * to reset their password.
+ */
 @Composable
 fun confirmPasswordInputCreatePassword(){
     var confirmPassword by remember { mutableStateOf("") } // variable that holds a default state of text-field
@@ -310,8 +335,20 @@ fun confirmPasswordInputCreatePassword(){
 
 }
 
+/**
+ * Function: Password Strength Create Password
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function displays the message of whether their password is strong or weak.
+ * If their password is weak, a message pops up saying that that the passwords is weak and it needs
+ * to be stronger.
+ */
 @Composable
-fun passwordStrengthCreatePassword(){
+fun passwordStrengthCreatePassword(windowSize: WindowSize){
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
     Row(horizontalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxWidth()
@@ -320,7 +357,7 @@ fun passwordStrengthCreatePassword(){
         Text(
             textAlign = TextAlign.Center,
             text = "Password strength: ",
-            fontSize = 30.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
         )
@@ -348,24 +385,125 @@ fun passwordStrengthCreatePassword(){
         Text(
             textAlign = TextAlign.Center,
             text = "Weak",
-            fontSize = 30.sp,
+            fontSize = textSize.sp,
             color = Color.Black
         )
     }
     Text(
         textAlign = TextAlign.Center,
         text = "Password need to be stronger",
-        fontSize = 30.sp,
+        fontSize = textSize.sp,
         color = Color.Black
     )
 
     Spacer(modifier = Modifier.height(20.dp))
 
-    //passwordStrengthDialog()
+    passwordStrengthCreateDialog(windowSize)
 }
 
+/**
+ * Function: Password Strength Create Dialog
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will display a dialog when the why button is clicked. The dialog will show the user
+ * what is needed to make their password stronger.
+ */
 @Composable
-fun createPasswordSnackBar(){
+fun passwordStrengthCreateDialog(windowSize: WindowSize){
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
+
+    // a variable that determines if the state of the dialog to be use or not
+    var showDialog by remember { mutableStateOf(false) }
+    Column {
+        TextButton(onClick = { showDialog = true }) {
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Why?",
+                fontSize = textSize.sp,
+                color = Color.Black,
+            )
+        }
+    }
+    // the dialog shows if why button is clicked
+    if (showDialog) {
+        Dialog(onDismissRequest = {showDialog = false}) {
+
+            //Hold makes up the dialog box
+            Surface(
+                shape = RectangleShape,
+                color = Color.White,
+                modifier = Modifier
+                    .shadow(elevation = 8.dp, RectangleShape)
+                    .border(2.dp, color = Color.Black),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
+                    // Holds the message that will be shown in dialog
+                    Text(text = "Passwords needs to be more than 8 characters.\n\n" +
+                            "Must consist of one of each:\n" +
+                            "- uppercase letter\n" +
+                            "- symbol\n" +
+                            "- digit\n" +
+                            "- lower case letter",
+                        fontSize = textSize.sp,
+                        color = Color.Black,
+                    )
+
+                    //Close button
+                    // will exit the dialog
+                    Button(
+                        onClick = { showDialog = false },
+                        shape =  RectangleShape,
+                        colors = ButtonDefaults.buttonColors(Cornflower_blue),
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .border(3.dp, color = Persian_indigo),
+                    ) {
+                        Text("Close",
+                            fontSize = textSize.sp,
+                            color = Color.Black
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Function: Create Password Snack Bar
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will display a snack-bar when the create button is clicked. The snack bar will show a
+ * message verifying the password has been reset.
+ *
+ * NOTE: This isn't really how snack-bars are made. I tried to go the route it is usually made, but
+ * for some reason I couldn't get it quite right. If I can get the originally way to work, I will change
+ * it, but this should be fine for now.
+ */
+@Composable
+fun createPasswordSnackBar(windowSize: WindowSize){
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 120) }
+    // will scale the height of the snack-bar
+    val snackBarHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 80) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
+    // will scale the size of the snack-bar padding
+    val snackBarPaddingTop by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the size of the snack-bar padding
+    val snackBarPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 30) }
+
     // a variable that determines if the snack-bar will be displayed or not
     var showSnackBar by remember { mutableStateOf(false) }
     ElevatedButton(
@@ -375,7 +513,7 @@ fun createPasswordSnackBar(){
         elevation = ButtonDefaults.buttonElevation(8.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
+            .height(buttonHeight.dp)
             .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
             .border(4.dp, color = Persian_indigo),
 
@@ -383,7 +521,7 @@ fun createPasswordSnackBar(){
         Text(
             textAlign = TextAlign.Center,
             text = "Create",
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
         )
     }
@@ -395,7 +533,7 @@ fun createPasswordSnackBar(){
                 .clickable(onClick = { /*TODO*/
                     /* Will close the snack-bar and navigate to the next screen */
                 })
-                .height(80.dp)
+                .height(snackBarHeight.dp)
                 .padding(start = 25.dp, end = 25.dp)
                 .border(2.dp, color = Persian_indigo)
                 .shadow(5.dp, shape = RectangleShape)
@@ -404,9 +542,9 @@ fun createPasswordSnackBar(){
         ) {
             Text(
                 textAlign = TextAlign.Start,
-                text = "Email was sent",
+                text = "Password reset",
                 modifier = Modifier
-                    .padding(top = 20.dp, start = 30.dp),
+                    .padding(top = snackBarPaddingTop.dp, start = snackBarPadding.dp),
                 fontSize = 25.sp,
                 color = Color.Black,
             )
@@ -415,8 +553,8 @@ fun createPasswordSnackBar(){
                 textAlign = TextAlign.End,
                 text = "OK",
                 modifier = Modifier
-                    .padding(top = 20.dp, end = 30.dp),
-                fontSize = 30.sp,
+                    .padding(top = snackBarPaddingTop.dp, end = snackBarPadding.dp),
+                fontSize = 25.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold
             )
