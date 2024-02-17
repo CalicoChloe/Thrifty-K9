@@ -3,6 +3,7 @@ package com.example.pricingpal.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -70,6 +71,8 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  * Function: Login Header
  * @author Shianne Lesure
  *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
  * This function sets up a scaffold with top bar for the login screen.
  * Users will see a display of the back arrow that will allow the user to navigate back to the Home screen.
  * Below the bar will show the rest of the content of the login screen.
@@ -78,7 +81,8 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginHeader(){
+fun LoginHeader(windowSize: WindowSize){
+    val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -96,7 +100,7 @@ fun LoginHeader(){
         )
         Card(
             modifier = Modifier
-                .padding(start = 40.dp, end = 40.dp)
+                .padding(start = cardSpacer.dp, end = cardSpacer.dp)
                 .fillMaxSize()
                 .border(4.dp, color = Persian_indigo),
             shape = RectangleShape,
@@ -129,7 +133,7 @@ fun LoginHeader(){
                 },
 
                 content = { padding ->
-                    Login(padding)
+                    Login(padding, windowSize)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -143,13 +147,19 @@ fun LoginHeader(){
  * Function: Login
  * @author: Shianne Lesure
  *
+ * @param paddingValues aligns the content with top app bar
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
  * This function sets up the rest of the content of the login screen.
- * Users will see some text-field asking for an email and password as well as message telling them
+ * Users will see some text-fields asking for an email and password as well as message telling them
  * if their password is too weak and a dialog telling them what they need to do to fix it.
  * Below that will be the list of buttons the user can navigate to.
  */
 @Composable
-fun Login(paddingValues: PaddingValues){
+fun Login(paddingValues: PaddingValues, windowSize: WindowSize){
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 50 else 60) }
+
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -166,7 +176,7 @@ fun Login(paddingValues: PaddingValues){
         Text(
             textAlign = TextAlign.Center,
             text = "Login",
-            fontSize = 60.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
         )
@@ -182,31 +192,14 @@ fun Login(paddingValues: PaddingValues){
         Spacer(modifier = Modifier.height(35.dp))
 
         // tells the user whether their password is too weak
-        passwordStrength()
+        passwordStrength(windowSize)
         Spacer(modifier = Modifier.height(20.dp))
 
         //Login Button
         // will navigate to the Upload Screen
         // they can't move on until they enter their email and password. Therefore button needs to be  disabled
-        ElevatedButton(
-            onClick = { /*TODO*/ },
-            shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-            elevation = ButtonDefaults.buttonElevation(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp)
-                .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
-                .border(4.dp, color = Persian_indigo),
-
-            ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Login",
-                fontSize = 40.sp,
-                color = Color.Black,
-            )
-        }
+        loginSnackBar(windowSize)
+        Spacer(modifier = Modifier.height(20.dp))
 
         //Forgot Password Button
         //will navigate to the Forgot Password Screen
@@ -222,11 +215,11 @@ fun Login(paddingValues: PaddingValues){
 
         // Google button
         // will allow user to login through their google account
-        googleLogin()
+        googleLogin(windowSize)
 
         Spacer(modifier = Modifier.height(20.dp))
         // --------- OR -------------
-        lines()
+        lines(windowSize)
         Spacer(modifier = Modifier.height(20.dp))
 
         //Register Here Button
@@ -355,21 +348,24 @@ fun passwordInputLogin(){
  * Function: Password Strength
  * @author: Shianne Lesure
  *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
  * This function displays the message of whether their password is strong or weak.
  * If their password is weak, a message pops up saying that that the passwords is weak and it needs
  * to be stronger.
  */
 @Composable
-fun passwordStrength(){
+fun passwordStrength(windowSize: WindowSize){
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
     Row(horizontalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxWidth()
-            //.padding(top = 5.dp, start = 50.dp)
     ) {
         Text(
             textAlign = TextAlign.Center,
             text = "Password strength: ",
-            fontSize = 30.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
         )
@@ -385,6 +381,12 @@ fun passwordStrength(){
             fontSize = 30.sp,
             color = Color.Black
         )
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Password need to be stronger",
+            fontSize = 30.sp,
+            color = Color.Black
+        )
         } else{
         Text(
             textAlign = TextAlign.Center,
@@ -397,31 +399,36 @@ fun passwordStrength(){
         Text(
             textAlign = TextAlign.Center,
             text = "Weak",
-            fontSize = 30.sp,
+            fontSize = textSize.sp,
             color = Color.Black
         )
     }
     Text(
         textAlign = TextAlign.Center,
         text = "Password need to be stronger",
-        fontSize = 30.sp,
+        fontSize = textSize.sp,
         color = Color.Black
     )
 
     Spacer(modifier = Modifier.height(20.dp))
 
-    passwordStrengthDialog()
+    passwordStrengthDialog(windowSize)
 }
 
 /**
  * Function: Password Strength Dialog
  * @author: Shianne Lesure
  *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
  * This function will display a dialog when the why button is clicked. The dialog will show the user
  * what is needed to make their password stronger.
  */
 @Composable
-fun passwordStrengthDialog(){
+fun passwordStrengthDialog(windowSize: WindowSize){
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
+
     // a variable that determines if the state of the dialog to be use or not
     var showDialog by remember { mutableStateOf(false) }
     Column {
@@ -429,7 +436,7 @@ fun passwordStrengthDialog(){
             Text(
                 textAlign = TextAlign.Center,
                 text = "Why?",
-                fontSize = 30.sp,
+                fontSize = textSize.sp,
                 color = Color.Black,
             )
         }
@@ -460,7 +467,7 @@ fun passwordStrengthDialog(){
                             "- symbol\n" +
                             "- digit\n" +
                             "- lower case letter",
-                        fontSize = 35.sp,
+                        fontSize = textSize.sp,
                         color = Color.Black,
                     )
 
@@ -475,7 +482,7 @@ fun passwordStrengthDialog(){
                             .border(3.dp, color = Persian_indigo),
                     ) {
                         Text("Close",
-                            fontSize = 30.sp,
+                            fontSize = textSize.sp,
                             color = Color.Black
                         )
                     }
@@ -486,15 +493,107 @@ fun passwordStrengthDialog(){
 }
 
 /**
+ * Function: Login Snack Bar
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will display a snack-bar when the login button is clicked. The snack bar will show a
+ * message verifying the user is login.
+ *
+ * NOTE: This isn't really how snack-bars are made. I tried to go the route it is usually made, but
+ * for some reason I couldn't get it quite right. If I can get the originally way to work, I will change
+ * it, but this should be fine for now.
+ */
+@Composable
+fun loginSnackBar(windowSize: WindowSize) {
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 120) }
+    // will scale the height of the snack-bar
+    val snackBarHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 80) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
+    // will scale the size of the snack-bar padding
+    val snackBarPaddingTop by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the size of the snack-bar padding
+    val snackBarPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 30) }
+
+    // a variable that determines if the snack-bar will be displayed or not
+    var showSnackBar by remember { mutableStateOf(false) }
+    ElevatedButton(
+        onClick = { showSnackBar = true },
+        shape = RectangleShape,
+        colors = ButtonDefaults.buttonColors(Cornflower_blue),
+        elevation = ButtonDefaults.buttonElevation(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(buttonHeight.dp)
+            .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
+            .border(4.dp, color = Persian_indigo),
+
+        ) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Login",
+            fontSize = textSize.sp,
+            color = Color.Black,
+        )
+    }
+    // the snack-bar will show if the login button is clicked
+    if (showSnackBar) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = { /*TODO*/
+                    /* Will close the snack-bar and navigate to the next screen */
+                })
+                .height(snackBarHeight.dp)
+                .padding(start = 25.dp, end = 25.dp)
+                .border(2.dp, color = Persian_indigo)
+                .shadow(5.dp, shape = RectangleShape)
+                .background(color = Anti_flash_white, shape = RectangleShape),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                textAlign = TextAlign.Start,
+                text = "You are login",
+                modifier = Modifier
+                    .padding(top = snackBarPaddingTop.dp, start = snackBarPadding.dp),
+                fontSize = 25.sp,
+                color = Color.Black,
+            )
+
+            Text(
+                textAlign = TextAlign.End,
+                text = "OK",
+                modifier = Modifier
+                    .padding(top = snackBarPaddingTop.dp, end = snackBarPadding.dp),
+                fontSize = 25.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+
+}
+
+/**
  * Function: Google Login
  * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
  * This function will display the button that will allow the user to login with their google account.
  * This will be connected through the database and Google consent form.
  */
 @Composable
-fun googleLogin(){
-    lines()
+fun googleLogin(windowSize: WindowSize){
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 140 else 120) }
+
+    lines(windowSize)
     Spacer(modifier = Modifier.height(20.dp))
     ElevatedButton(
         onClick = {
@@ -510,28 +609,123 @@ fun googleLogin(){
         elevation = ButtonDefaults.buttonElevation(8.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
+            .height(buttonHeight.dp)
             .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
             .border(4.dp, color = Persian_indigo),
 
         ) {
         Text(
+            text = "Login in with \n\n Google",
             textAlign = TextAlign.Center,
-            text = "Login in with Google",
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
         )
     }
 }
 
 /**
+ * Function: Google Snack Bar
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will display a snack-bar when the  user will click continuation of their google account.
+ * The snack-bar will show a message verifying they have login with their google account
+ *
+ * NOTE: This isn't really how snack-bars are made. I tried to go the route it is usually made, but
+ * for some reason I couldn't get it quite right. If I can get the originally way to work, I will change
+ * it, but this should be fine for now.
+ */
+@Composable
+fun googleSnackBar(windowSize: WindowSize) {
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 120) }
+    // will scale the height of the snack-bar
+    val snackBarHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 80) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
+    // will scale the size of the snack-bar padding
+    val snackBarPaddingTop by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the size of the snack-bar padding
+    val snackBarPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 30) }
+
+    // a variable that determines if the snack-bar will be displayed or not
+    //This button will be to continue as username button on from the oauth consent form.
+    var showSnackBar by remember { mutableStateOf(false) }
+    ElevatedButton(
+        onClick = { showSnackBar = true },
+        shape = RectangleShape,
+        colors = ButtonDefaults.buttonColors(Cornflower_blue),
+        elevation = ButtonDefaults.buttonElevation(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(buttonHeight.dp)
+            .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
+            .border(4.dp, color = Persian_indigo),
+
+        ) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Continue as Username",
+            fontSize = textSize.sp,
+            color = Color.Black,
+        )
+    }
+    // the snack-bar will show if the send button is clicked
+    if (showSnackBar) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = { /*TODO*/
+                    /* Will close the snack-bar and navigate to the next screen */
+                })
+                .height(snackBarHeight.dp)
+                .padding(start = 25.dp, end = 25.dp)
+                .border(2.dp, color = Persian_indigo)
+                .shadow(5.dp, shape = RectangleShape)
+                .background(color = Anti_flash_white, shape = RectangleShape),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                textAlign = TextAlign.Start,
+                text = "Login via Google",
+                modifier = Modifier
+                    .padding(top = snackBarPaddingTop.dp, start = snackBarPadding.dp),
+                fontSize = 25.sp,
+                color = Color.Black,
+            )
+
+            Text(
+                textAlign = TextAlign.End,
+                text = "OK",
+                modifier = Modifier
+                    .padding(top = snackBarPaddingTop.dp, end = snackBarPadding.dp),
+                fontSize = 25.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+
+}
+
+/**
  * Function: Lines
  * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
  * This function will display the OR message that is between every button
  */
 @Composable
-fun lines(){
+fun lines(windowSize: WindowSize){
+    // will scale the height of the button
+    val lineHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 2 else 3) }
+    // will scale the height of the button
+    val lineWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 130 else 260) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 30) }
+
     Row(modifier = Modifier
         .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
@@ -539,23 +733,23 @@ fun lines(){
         Box(
             modifier = Modifier
                 .padding(top = 20.dp, end = 10.dp)
-                .height(height = 3.dp)
-                .width(260.dp)
+                .height(height = lineHeight.dp)
+                .width(lineWidth.dp)
                 .background(color = Color.Black)
         )
 
         Text(
             textAlign = TextAlign.Center,
             text = "OR",
-            fontSize = 30.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
         )
 
         Box(
             modifier = Modifier
                 .padding(top = 20.dp, start = 10.dp)
-                .width(260.dp)
-                .height(height = 3.dp)
+                .width(lineWidth.dp)
+                .height(height = lineHeight.dp)
                 .background(color = Color.Black)
         )
     }

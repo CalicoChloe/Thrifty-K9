@@ -71,6 +71,16 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  * On the back end, the new password will be updated within the database.
  */
 
+/**
+ * Function: Create Password Header
+ * @author: Shianne Lesure
+ *
+ *This function sets up a scaffold with top bar for the create password screen.
+ * Users will see a display of the back arrow that will allow the user to navigate back to the login screen.
+ * Below the bar will show the rest of the content of the create password screen.
+ *
+ * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreatePasswordHeader(){
@@ -134,6 +144,13 @@ fun CreatePasswordHeader(){
     }
 }
 
+/**
+ * Function: Create Password
+ * @author: Shianne Lesure
+ *
+ * This function sets up the rest of the content of the create password screen.
+ * Users will see some text-fields asking for an new password and a confirmed password to update
+ */
 @Composable
 fun createPassword(paddingValues: PaddingValues){
     Column(
@@ -178,7 +195,7 @@ fun createPassword(paddingValues: PaddingValues){
             //This should also replace the password within the database
             createPasswordSnackBar()
 
-            Spacer(modifier = Modifier.height(160.dp))
+            Spacer(modifier = Modifier.height(60.dp))
         }
 }
 
@@ -344,7 +361,7 @@ fun passwordStrengthCreatePassword(){
 
     Spacer(modifier = Modifier.height(20.dp))
 
-    passwordStrengthDialog()
+    //passwordStrengthDialog()
 }
 
 @Composable
