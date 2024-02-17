@@ -9,6 +9,7 @@ import com.example.pricingpal.view.CreatePasswordHeader
 import com.example.pricingpal.view.ForgotPasswordHeader
 import com.example.pricingpal.view.Login
 import com.example.pricingpal.view.LoginHeader
+import com.example.pricingpal.view.OwnerRegisterationHeader
 import com.example.pricingpal.view.rememberSize
 import com.example.pricingpal.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,8 @@ class MainActivity : ComponentActivity() {
             //LoginHeader(window)
             //ForgotPasswordHeader(window)
             //CreatePasswordHeader(window)
-            ChooseRegisterHeader(window)
+            //ChooseRegisterHeader(window)
+            OwnerRegisterationHeader(window)
         }
     }
 }

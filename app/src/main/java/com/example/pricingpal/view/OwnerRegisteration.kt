@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -68,20 +66,20 @@ import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
 /**
- * Function: Login Header
+ * Function: Owner Registeration Header
  * @author Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
- * This function sets up a scaffold with top bar for the login screen.
- * Users will see a display of the back arrow that will allow the user to navigate back to the Home screen.
- * Below the bar will show the rest of the content of the login screen.
+ * This function sets up a scaffold with top bar for the owner registration screen.
+ * Users will see a display of the back arrow that will allow the user to navigate back to the choose registration screen.
+ * Below the bar will show the rest of the content of the owner registration screen.
  *
  * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginHeader(windowSize: WindowSize){
+fun OwnerRegisterationHeader(windowSize: WindowSize){
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -134,7 +132,7 @@ fun LoginHeader(windowSize: WindowSize){
                 },
 
                 content = { padding ->
-                    Login(padding, windowSize)
+                    ownerRegistration(padding, windowSize )
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -145,19 +143,19 @@ fun LoginHeader(windowSize: WindowSize){
 }
 
 /**
- * Function: Login
+ * Function: Owner Registration
  * @author: Shianne Lesure
  *
  * @param paddingValues aligns the content with top app bar
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
- * This function sets up the rest of the content of the login screen.
- * Users will see some text-fields asking for an email and password as well as message telling them
+ * This function sets up the rest of the content of the Owner Registration screen.
+ * Users will see some text-fields asking for an organization, email and password as well as message telling them
  * if their password is too weak and a dialog telling them what they need to do to fix it.
  * Below that will be the list of buttons the user can navigate to.
  */
 @Composable
-fun Login(paddingValues: PaddingValues, windowSize: WindowSize){
+fun ownerRegistration(paddingValues: PaddingValues, windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 50 else 60) }
 
@@ -167,86 +165,102 @@ fun Login(paddingValues: PaddingValues, windowSize: WindowSize){
             // this is here so the line above the pricing pal logo
             .padding(top = 4.dp)
             .background(color = Periwinkle)
-            //allows for the column to be scrollable. Might not show because there is not enough to scroll
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState()), // allows for the items in the column to scroll
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         // holds the pricing pal logo
         innerPricingBar()
-
         Text(
             textAlign = TextAlign.Center,
-            text = "Login",
+            text = "Owner Registration",
             fontSize = textSize.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
         )
 
         Spacer(modifier = Modifier.height(25.dp))
+        ownerOrganizationInput() // holds the organization text-field
+        Spacer(modifier = Modifier.height(25.dp))
 
         // holds the email text-field
-        emailInputLogin()
+        emailInputOwner()
         Spacer(modifier = Modifier.height(25.dp))
 
         // holds the password text-field
-        passwordInputLogin()
-        Spacer(modifier = Modifier.height(35.dp))
-
-        // tells the user whether their password is too weak
-        passwordStrength(windowSize)
+        passwordInputOwner()
+        Spacer(modifier = Modifier.height(25.dp))
+        // check whether password is strong or weak
+        passwordStrengthOwner(windowSize)
         Spacer(modifier = Modifier.height(20.dp))
 
-        //Login Button
-        // will navigate to the Upload Screen
-        // they can't move on until they enter their email and password. Therefore button needs to be  disabled
-        loginSnackBar(windowSize)
-        Spacer(modifier = Modifier.height(20.dp))
-
-        //Forgot Password Button
-        //will navigate to the Forgot Password Screen
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Forgot Password?",
-                fontSize = 25.sp,
-                color = Color.Black,
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // Google button
-        // will allow user to login through their google account
-        googleLogin(windowSize)
+        // Sign up Button
+        signSnackBar(windowSize)
 
         Spacer(modifier = Modifier.height(20.dp))
-        // --------- OR -------------
-        lines(windowSize)
-        Spacer(modifier = Modifier.height(20.dp))
 
-        //Register Here Button
-        // will navigate to the Choose Registration Screen
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Register Here",
-                fontSize = 30.sp,
-                color = Color.Black,
-            )
-        }
+        // sign in with google account
+        googleSign(windowSize)
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(60.dp))
+    }
+}
+
+
+/**
+ * Function: Owner Organization Input
+ * @author: Shianne Lesure
+ *
+ * This function sets up the text-field for the user to be able to put in their organization to be able to
+ * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
+ */
+@Composable
+fun ownerOrganizationInput(){
+    var ownerOrganization by remember { mutableStateOf("") } // variable that holds a default state of text-field
+    TextField(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .padding(start = 30.dp, end = 30.dp),
+        value = ownerOrganization,
+        onValueChange = {ownerOrganization = it}, // will take in the input from the user
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
+        placeholder = { Text("Enter your organization", fontSize = 20.sp) },
+        //supportingText = { Text(text = "*required") },
+        leadingIcon = { Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_add_business_24), contentDescription = "Business Icon") },
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Anti_flash_white,
+            unfocusedContainerColor = Anti_flash_white,
+            unfocusedIndicatorColor = Anti_flash_white,
+            focusedIndicatorColor = Persian_indigo
+        ),
+        shape = RectangleShape,
+    )
+    /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
+    Row(horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp, start = 50.dp)
+    ) {
+        Text(
+            text = "*required",
+            fontSize = 20.sp,
+            color = Color.DarkGray
+        )
     }
 }
 
 /**
- * Function: Email Input Login
+ * Function: Email Input Owner
  * @author: Shianne Lesure
  *
  * This function sets up the text-field for the user to be able to put in their email to be able to
- * login. This is a requirement for the user to be able to navigate to the Upload screen.
+ * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
  */
 @Composable
-fun emailInputLogin(){
+fun emailInputOwner(){
     var email by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
@@ -285,14 +299,14 @@ fun emailInputLogin(){
 }
 
 /**
- * Function: Password Input Login
+ * Function: Password Input Owner
  * @author: Shianne Lesure
  *
  * This function set up the text-field for the user to be able to put in their password to be able to
- * login. This is a requirement for the user to be able to navigate to the Upload screen.
+ * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
  */
 @Composable
-fun passwordInputLogin(){
+fun passwordInputOwner(){
     var password by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
@@ -346,7 +360,7 @@ fun passwordInputLogin(){
 }
 
 /**
- * Function: Password Strength
+ * Function: Password Strength Owner
  * @author: Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
@@ -356,7 +370,7 @@ fun passwordInputLogin(){
  * to be stronger.
  */
 @Composable
-fun passwordStrength(windowSize: WindowSize){
+fun passwordStrengthOwner(windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
     Row(horizontalArrangement = Arrangement.Center,
@@ -413,11 +427,11 @@ fun passwordStrength(windowSize: WindowSize){
 
     Spacer(modifier = Modifier.height(20.dp))
 
-    passwordStrengthDialog(windowSize)
+    passwordStrengthOwnerDialog(windowSize)
 }
 
 /**
- * Function: Password Strength Dialog
+ * Function: Password Strength Owner Dialog
  * @author: Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
@@ -426,7 +440,7 @@ fun passwordStrength(windowSize: WindowSize){
  * what is needed to make their password stronger.
  */
 @Composable
-fun passwordStrengthDialog(windowSize: WindowSize){
+fun passwordStrengthOwnerDialog(windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
 
@@ -494,12 +508,12 @@ fun passwordStrengthDialog(windowSize: WindowSize){
 }
 
 /**
- * Function: Login Snack Bar
+ * Function: Sign Snack Bar
  * @author: Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
- * This function will display a snack-bar when the login button is clicked. The snack bar will show a
+ * This function will display a snack-bar when the sign up button is clicked. The snack bar will show a
  * message verifying the user is login.
  *
  * NOTE: This isn't really how snack-bars are made. I tried to go the route it is usually made, but
@@ -507,7 +521,7 @@ fun passwordStrengthDialog(windowSize: WindowSize){
  * it, but this should be fine for now.
  */
 @Composable
-fun loginSnackBar(windowSize: WindowSize) {
+fun signSnackBar(windowSize: WindowSize) {
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 120) }
     // will scale the height of the snack-bar
@@ -535,7 +549,7 @@ fun loginSnackBar(windowSize: WindowSize) {
         ) {
         Text(
             textAlign = TextAlign.Center,
-            text = "Login",
+            text = "Sign Up",
             fontSize = textSize.sp,
             color = Color.Black,
         )
@@ -557,7 +571,7 @@ fun loginSnackBar(windowSize: WindowSize) {
         ) {
             Text(
                 textAlign = TextAlign.Start,
-                text = "You are login",
+                text = "You are sign up",
                 modifier = Modifier
                     .padding(top = snackBarPaddingTop.dp, start = snackBarPadding.dp),
                 fontSize = 25.sp,
@@ -579,16 +593,16 @@ fun loginSnackBar(windowSize: WindowSize) {
 }
 
 /**
- * Function: Google Login
+ * Function: Google Sign
  * @author: Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
- * This function will display the button that will allow the user to login with their google account.
+ * This function will display the button that will allow the user to sign in with their google account.
  * This will be connected through the database and Google consent form.
  */
 @Composable
-fun googleLogin(windowSize: WindowSize){
+fun googleSign(windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
     // will scale the size of the text
@@ -600,13 +614,13 @@ fun googleLogin(windowSize: WindowSize){
     Spacer(modifier = Modifier.height(20.dp))
     ElevatedButton(
         onClick = {
-                  /*
-                  * When the button is clicked, the Google consent form will pop up letting them
-                  * that their login will be through their Google account. Once they click continue,
-                  * a message will show up letting them know they have sign in with the Google
-                  * account. The snack bar message is has not been made yet.
-                  * */
-                  },
+            /*
+            * When the button is clicked, the Google consent form will pop up letting them
+            * that their login will be through their Google account. Once they click continue,
+            * a message will show up letting them know they have sign in with the Google
+            * account. The snack bar message is has not been made yet.
+            * */
+        },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),
         elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -618,7 +632,7 @@ fun googleLogin(windowSize: WindowSize){
 
         ) {
         Text(
-            text = "Login in with Google",
+            text = "Sign in with Google",
             textAlign = TextAlign.Center,
             fontSize = googleTextSize.sp,
             color = Color.Black,
@@ -627,7 +641,7 @@ fun googleLogin(windowSize: WindowSize){
 }
 
 /**
- * Function: Google Snack Bar
+ * Function: Google Owner Snack Bar
  * @author: Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
@@ -640,7 +654,7 @@ fun googleLogin(windowSize: WindowSize){
  * it, but this should be fine for now.
  */
 @Composable
-fun googleSnackBar(windowSize: WindowSize) {
+fun googleOwnerSnackBar(windowSize: WindowSize) {
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 120) }
     // will scale the height of the snack-bar
@@ -691,7 +705,7 @@ fun googleSnackBar(windowSize: WindowSize) {
         ) {
             Text(
                 textAlign = TextAlign.Start,
-                text = "Login via Google",
+                text = "Sign in via Google",
                 modifier = Modifier
                     .padding(top = snackBarPaddingTop.dp, start = snackBarPadding.dp),
                 fontSize = 25.sp,
@@ -710,50 +724,4 @@ fun googleSnackBar(windowSize: WindowSize) {
         }
     }
 
-}
-
-/**
- * Function: Lines
- * @author: Shianne Lesure
- *
- * @param windowSize an adjuster used to change scale of screens based on the user's device
- *
- * This function will display the OR message that is between every button
- */
-@Composable
-fun lines(windowSize: WindowSize){
-    // will scale the height of the button
-    val lineHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 2 else 3) }
-    // will scale the height of the button
-    val lineWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 130 else 260) }
-    // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 30) }
-
-    Row(modifier = Modifier
-        .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center,
-    ){
-        Box(
-            modifier = Modifier
-                .padding(top = 20.dp, end = 10.dp)
-                .height(height = lineHeight.dp)
-                .width(lineWidth.dp)
-                .background(color = Color.Black)
-        )
-
-        Text(
-            textAlign = TextAlign.Center,
-            text = "OR",
-            fontSize = textSize.sp,
-            color = Color.Black,
-        )
-
-        Box(
-            modifier = Modifier
-                .padding(top = 20.dp, start = 10.dp)
-                .width(lineWidth.dp)
-                .height(height = lineHeight.dp)
-                .background(color = Color.Black)
-        )
-    }
 }
