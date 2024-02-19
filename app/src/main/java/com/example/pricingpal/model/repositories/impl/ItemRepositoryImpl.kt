@@ -20,7 +20,10 @@ class ItemRepositoryImpl@Inject constructor(
 ) : ItemRepository {
     //This function will create a new item and push it to the database using the given Item object
     override suspend fun createItem(item: Item): Boolean {
-        TODO("Not yet implemented")
+        return withContext(Dispatchers.IO) {
+            val result = postgrest["item"].insert(item)
+            result.isSuccessful
+        }
     }
 
     //Gets a list of all items that belong to a specific categoryID value
@@ -44,11 +47,24 @@ class ItemRepositoryImpl@Inject constructor(
 
     //This function will remove an item from the database
     override suspend fun deleteItem(id: Int) {
-        TODO("Not yet implemented")
+        withContext(Dispatchers.IO) {
+            postgrest["item"]
+                    .delete()
+                    .eq("id", id)
+                    .execute()
+        }
     }
 
     //This function will update an existing item by replacing the categoryID, name, or price (or any combination of the above)
     override suspend fun updateItem(categoryID: Int, name: String, price: Float) {
-        TODO("Not yet implemented")
+        withContext(Dispatchers.IO) {
+            postgrest["item"]
+                    .update()
+                    .set("category_id", categoryID)
+                    .set("name", name)
+                    .set("price", price)
+                    .eq("id", id)
+                    .execute()
+        }
     }
 }
