@@ -1,5 +1,5 @@
 package com.example.pricingpal.model
-/*
+/**
  * Data class for a category
  *
  * This class defines the category class properties.
@@ -8,6 +8,6 @@ package com.example.pricingpal.model
  * @property item an array list of Item class objects
  *
  * @Abdoulie NJie
- */
+ **/
 
 data class Category(val category: String, val item: ArrayList<Item>)
