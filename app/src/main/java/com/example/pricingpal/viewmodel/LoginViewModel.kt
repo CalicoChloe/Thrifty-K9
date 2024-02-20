@@ -31,7 +31,7 @@ class LoginViewModel @Inject constructor(
         _password.value = password
     }
 
-    fun onSignIn() {
+    fun onLogin() {
         viewModelScope.launch {
             val result = loginUseCase.execute(
                 LoginUseCase.Input(
