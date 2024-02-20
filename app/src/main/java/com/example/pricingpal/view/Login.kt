@@ -23,7 +23,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -57,10 +56,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -81,7 +81,7 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginHeader(windowSize: WindowSize){
+fun LoginHeader(navController: NavController, windowSize: WindowSize){
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -192,10 +192,6 @@ fun Login(paddingValues: PaddingValues, windowSize: WindowSize){
         passwordInputLogin()
         Spacer(modifier = Modifier.height(35.dp))
 
-        // tells the user whether their password is too weak
-        passwordStrength(windowSize)
-        Spacer(modifier = Modifier.height(20.dp))
-
         //Login Button
         // will navigate to the Upload Screen
         // they can't move on until they enter their email and password. Therefore button needs to be  disabled
@@ -288,6 +284,7 @@ fun emailInputLogin(){
 @Composable
 fun passwordInputLogin(){
     var password by remember { mutableStateOf("") }// variable that holds a default state of text-field
+    var hidePass by remember { mutableStateOf(true) } // variable that holds a default state of the password being hidden
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -299,22 +296,16 @@ fun passwordInputLogin(){
         placeholder = { Text("Enter password", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required")},
-        visualTransformation = PasswordVisualTransformation(),// makes the password not visible to the user
+
+        visualTransformation = if(hidePass) PasswordVisualTransformation() else VisualTransformation.None,// makes the password not visible to the user
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), // This will show the black dots instead of letters
         leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon") },
         trailingIcon = {
             //When clicked, it should switch the hidden icon to the eye icon
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { hidePass = !hidePass }) {
                 Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")
             }
         },
-        /** This is for the hidden Icon that will turn the password hidden again.
-
-        trailingIcon = {
-        IconButton(onClick = { /*TODO*/ }) {
-        Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")}
-        },
-         */
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -339,153 +330,6 @@ fun passwordInputLogin(){
     }
 }
 
-/**
- * Function: Password Strength
- * @author: Shianne Lesure
- *
- * @param windowSize an adjuster used to change scale of screens based on the user's device
- *
- * This function displays the message of whether their password is strong or weak.
- * If their password is weak, a message pops up saying that that the passwords is weak and it needs
- * to be stronger.
- */
-@Composable
-fun passwordStrength(windowSize: WindowSize){
-    // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
-    Row(horizontalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Password strength: ",
-            fontSize = textSize.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold
-        )
-
-        /*
-        The password check would be coming from database. A if statement will be letting the user
-        know if the password is weak or strong.
-
-        if(password doesn't meet requirement ){
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Weak",
-            fontSize = 30.sp,
-            color = Color.Black
-        )
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Password need to be stronger",
-            fontSize = 30.sp,
-            color = Color.Black
-        )
-        } else{
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Strong",
-            fontSize = 30.sp,
-            color = Color.Black
-        )
-        }
-         */
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Weak",
-            fontSize = textSize.sp,
-            color = Color.Black
-        )
-    }
-    Text(
-        textAlign = TextAlign.Center,
-        text = "Password need to be stronger",
-        fontSize = textSize.sp,
-        color = Color.Black
-    )
-
-    Spacer(modifier = Modifier.height(20.dp))
-
-    passwordStrengthDialog(windowSize)
-}
-
-/**
- * Function: Password Strength Dialog
- * @author: Shianne Lesure
- *
- * @param windowSize an adjuster used to change scale of screens based on the user's device
- *
- * This function will display a dialog when the why button is clicked. The dialog will show the user
- * what is needed to make their password stronger.
- */
-@Composable
-fun passwordStrengthDialog(windowSize: WindowSize){
-    // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
-
-    // a variable that determines if the state of the dialog to be use or not
-    var showDialog by remember { mutableStateOf(false) }
-    Column {
-        TextButton(onClick = { showDialog = true }) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Why?",
-                fontSize = textSize.sp,
-                color = Color.Black,
-            )
-        }
-    }
-    // the dialog shows if why button is clicked
-    if (showDialog) {
-        Dialog(onDismissRequest = {showDialog = false}) {
-
-            //Hold makes up the dialog box
-            Surface(
-                shape = RectangleShape,
-                color = Color.White,
-                modifier = Modifier
-                    .shadow(elevation = 8.dp, RectangleShape)
-                    .border(2.dp, color = Color.Black),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    // Holds the message that will be shown in dialog
-                    Text(text = "Passwords needs to be more than 8 characters.\n\n" +
-                            "Must consist of one of each:\n" +
-                            "- uppercase letter\n" +
-                            "- symbol\n" +
-                            "- digit\n" +
-                            "- lower case letter",
-                        fontSize = textSize.sp,
-                        color = Color.Black,
-                    )
-
-                    //Close button
-                    // will exit the dialog
-                    Button(
-                        onClick = { showDialog = false },
-                        shape =  RectangleShape,
-                        colors = ButtonDefaults.buttonColors(Cornflower_blue),
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .border(3.dp, color = Persian_indigo),
-                    ) {
-                        Text("Close",
-                            fontSize = textSize.sp,
-                            color = Color.Black
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
 
 /**
  * Function: Login Snack Bar
