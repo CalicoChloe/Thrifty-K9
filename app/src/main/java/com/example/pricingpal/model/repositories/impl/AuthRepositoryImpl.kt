@@ -15,7 +15,7 @@ class AuthRepositoryImpl @Inject constructor(
     private val auth: Auth
 ) : AuthRepository {
     //This function will sign in a user using the given email and password
-    override suspend fun signIn(email: String, password: String): Boolean {
+    override suspend fun logIn(email: String, password: String): Boolean {
         return try {
             auth.signInWith(Email) {
                 this.email = email

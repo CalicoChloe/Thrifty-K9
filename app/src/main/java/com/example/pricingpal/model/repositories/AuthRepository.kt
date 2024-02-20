@@ -8,7 +8,7 @@ package com.example.pricingpal.model.repositories
  * This interface is a repository of functions that are required to authorize users through Supabase
  */
 interface AuthRepository {
-    suspend fun signIn(email: String, password: String): Boolean
+    suspend fun logIn(email: String, password: String): Boolean
     suspend fun signUp(email: String, password: String): Boolean
 
 }
