@@ -11,4 +11,4 @@ package com.example.pricingpal.model
  *
  * @Abdoulie NJie
  **/
-data class User(val fullName: String, val email: String, val organizationName : String)
+data class User( val fullName: String, val email: String, val organizationName : String)
