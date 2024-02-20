@@ -20,7 +20,10 @@ class CategoryRepositoryImpl @Inject constructor (
     ) : CategoryRepository {
     //This function will create a new category and push it to the database using the given Category object
     override suspend fun createCategory(category: Category): Boolean {
-        TODO("Not yet implemented")
+        return withContext(Dispatchers.IO) {
+            val result = postgrest["category"].insert(category)
+            result.isSuccessful
+        }
     }
 
     //Gets a list of all categories from the database
@@ -42,12 +45,22 @@ class CategoryRepositoryImpl @Inject constructor (
 
     //This function will remove a category from the database
     override suspend fun deleteCategory(id: Int) {
-        TODO("Not yet implemented")
-        //This function will remove a category from the database
+        withContext(Dispatchers.IO) {
+            postgrest["category"]
+                    .delete()
+                    .eq("id", id)
+                    .execute()
+        }
     }
 
     //This function will update an existing category's name using the given String value that will be input by the user
     override suspend fun updateCategory(name: String) {
-        TODO("Not yet implemented")
+        withContext(Dispatchers.IO) {
+            postgrest["category"]
+                    .update()
+                    .set("name", newName)
+                    .eq("id", id)
+                    .execute()
+        }
     }
 }
