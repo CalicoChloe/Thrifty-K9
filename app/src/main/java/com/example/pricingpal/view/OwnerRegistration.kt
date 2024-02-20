@@ -13,12 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
@@ -35,8 +33,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,6 +55,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
+import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -79,7 +77,7 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OwnerRegisterationHeader(windowSize: WindowSize){
+fun OwnerRegisterationHeader(navController: NavController, windowSize: WindowSize){
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -109,28 +107,11 @@ fun OwnerRegisterationHeader(windowSize: WindowSize){
             Scaffold(
                 // creates the top app bar for the back arrow navigation
                 topBar = {
-                    TopAppBar(
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = Cornflower_blue,
-                        ),
-                        title = {
-                            Text(text = "")
-                        },
-                        navigationIcon = {
-                            IconButton(onClick = { /*TODO*/ },
-                            ) {
-                                Icon(imageVector = Icons.Filled.ArrowBack,
-                                    contentDescription = "Back arrow Button",
-                                    tint = Color.Black,
-                                    modifier = Modifier
-                                        .size(50.dp)
-                                )
-
-                            }
-                        },
+                    PricingPalAppBar(
+                        navigateUp = { navController.navigateUp() },
+                        canNavigateBack = navController.previousBackStackEntry != null
                     )
                 },
-
                 content = { padding ->
                     ownerRegistration(padding, windowSize )
                 },

@@ -45,7 +45,7 @@ fun Navigation(
             StartScreen(navController = navController,windowSize = windowSize)
         }
         composable(route = Screen.RegisterScreen.route){
-            OwnerRegisterationHeader(windowSize = windowSize)
+            OwnerRegisterationHeader(navController = navController, windowSize = windowSize)
 
         }
         composable(route = Screen.LoginInScreen.route){

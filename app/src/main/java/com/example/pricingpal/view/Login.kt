@@ -13,13 +13,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ButtonDefaults
@@ -35,8 +33,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -61,6 +57,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -114,25 +111,9 @@ fun LoginHeader(navController: NavController, windowSize: WindowSize){
             Scaffold(
                 // creates the top app bar for the back arrow navigation
                 topBar = {
-                    TopAppBar(
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = Cornflower_blue,
-                        ),
-                        title = {
-                            Text(text = "")
-                        },
-                        navigationIcon = {
-                            IconButton(onClick = { /*TODO*/ },
-                            ) {
-                                Icon(imageVector = Icons.Filled.ArrowBack,
-                                    contentDescription = "Back arrow Button",
-                                    tint = Color.Black,
-                                    modifier = Modifier
-                                        .size(50.dp)
-                                )
-
-                            }
-                        },
+                    PricingPalAppBar(
+                        navigateUp = { navController.navigateUp() },
+                        canNavigateBack = navController.previousBackStackEntry != null
                     )
                 },
 
