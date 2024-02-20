@@ -34,10 +34,10 @@ class MainActivity : ComponentActivity() {
             //ForgotPasswordHeader(window)
             //CreatePasswordHeader(window)
             //ChooseRegisterHeader(window)
-            //OwnerRegisterationHeader(window)
+            OwnerRegisterationHeader(window)
             //GuestCompanyListHeader(window)
             //VolunteerCompanyListHeader(window)
-            GuestRegisterationHeader(window)
+            //GuestRegisterationHeader(window)
 
         }
     }

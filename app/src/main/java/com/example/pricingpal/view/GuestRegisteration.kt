@@ -182,6 +182,10 @@ fun guestRegistration(paddingValues: PaddingValues, windowSize: WindowSize){
 
         Spacer(modifier = Modifier.height(25.dp))
         guestOrganizationName(windowSize)
+        Spacer(modifier = Modifier.height(30.dp))
+
+        // holds the username text-field
+        usernameInputGuest()
         Spacer(modifier = Modifier.height(25.dp))
 
         // holds the email text-field
@@ -246,6 +250,51 @@ fun guestOrganizationName(windowSize: WindowSize){
                 color = Color.Black,
             )
         }
+    }
+}
+
+/**
+ * Function: Username Input Guest
+ * @author: Shianne Lesure
+ *
+ * This function sets up the text-field for the user to be able to put in their name to be able to
+ * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
+ */
+@Composable
+fun usernameInputGuest(){
+    var name by remember { mutableStateOf("") }// variable that holds a default state of text-field
+    TextField(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .padding(start = 30.dp, end = 30.dp),
+        value = name,
+        onValueChange = {name = it}, // will take in the input from the user
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
+        placeholder = { Text("Enter name", fontSize = 20.sp) },
+        /** The support text will not work if you have a modifier.*/
+        //supportingText = { Text(text = "*required") },
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Anti_flash_white,
+            unfocusedContainerColor = Anti_flash_white,
+            unfocusedIndicatorColor = Anti_flash_white,
+            focusedIndicatorColor = Persian_indigo
+        ),
+        shape = RectangleShape,
+    )
+    /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
+    Row(horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp, start = 50.dp)
+    ) {
+        Text(
+            text = "*required",
+            fontSize = 20.sp,
+            color = Color.DarkGray
+        )
     }
 }
 
