@@ -3,7 +3,6 @@ package com.example.pricingpal.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,13 +38,13 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -60,12 +59,16 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.viewmodel.LoginViewModel
+
+
 
 /**
  * Function: Login Header
@@ -134,7 +137,7 @@ fun LoginHeader(navController: NavController, windowSize: WindowSize){
                 },
 
                 content = { padding ->
-                    Login(padding, windowSize)
+                    Login(navController, padding, windowSize)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -157,9 +160,10 @@ fun LoginHeader(navController: NavController, windowSize: WindowSize){
  * Below that will be the list of buttons the user can navigate to.
  */
 @Composable
-fun Login(paddingValues: PaddingValues, windowSize: WindowSize){
+fun Login(navController: NavController, paddingValues: PaddingValues, windowSize: WindowSize, viewModel: LoginViewModel = hiltViewModel()){
     // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 50 else 60) }
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 50 else 60)
+    }
 
     Column(
         modifier = Modifier
@@ -185,17 +189,17 @@ fun Login(paddingValues: PaddingValues, windowSize: WindowSize){
         Spacer(modifier = Modifier.height(25.dp))
 
         // holds the email text-field
-        emailInputLogin()
+        emailInputLogin(viewModel)
         Spacer(modifier = Modifier.height(25.dp))
 
         // holds the password text-field
-        passwordInputLogin()
+        passwordInputLogin(viewModel)
         Spacer(modifier = Modifier.height(35.dp))
 
         //Login Button
         // will navigate to the Upload Screen
         // they can't move on until they enter their email and password. Therefore button needs to be  disabled
-        loginSnackBar(windowSize)
+        loginButton(windowSize, navController, viewModel)
         Spacer(modifier = Modifier.height(20.dp))
 
         //Forgot Password Button
@@ -230,21 +234,23 @@ fun Login(paddingValues: PaddingValues, windowSize: WindowSize){
 
 /**
  * Function: Email Input Login
- * @author: Shianne Lesure
+ * @author: Shianne Lesure, Chloe Jackson
  *
  * This function sets up the text-field for the user to be able to put in their email to be able to
  * login. This is a requirement for the user to be able to navigate to the Upload screen.
  */
 @Composable
-fun emailInputLogin(){
-    var email by remember { mutableStateOf("") }// variable that holds a default state of text-field
+fun emailInputLogin(viewModel: LoginViewModel){
+    val email = viewModel.email.collectAsState(initial = "")// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
-        value = email,
-        onValueChange = {email = it}, // will take in the input from the user
+        value = email.value,
+        onValueChange = {
+            viewModel.onEmailChange(it)
+        }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter email", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
@@ -276,22 +282,24 @@ fun emailInputLogin(){
 
 /**
  * Function: Password Input Login
- * @author: Shianne Lesure
+ * @author: Shianne Lesure, Chloe Jackson
  *
  * This function set up the text-field for the user to be able to put in their password to be able to
  * login. This is a requirement for the user to be able to navigate to the Upload screen.
  */
 @Composable
-fun passwordInputLogin(){
-    var password by remember { mutableStateOf("") }// variable that holds a default state of text-field
+fun passwordInputLogin(viewModel: LoginViewModel){
+    val password = viewModel.password.collectAsState()// variable that holds a default state of text-field
     var hidePass by remember { mutableStateOf(true) } // variable that holds a default state of the password being hidden
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
-        value = password,
-        onValueChange = { password = it }, // will take in the input from the user
+        value = password.value,
+        onValueChange = {
+            viewModel.onPasswordChange(it)
+        }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter password", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
@@ -332,35 +340,35 @@ fun passwordInputLogin(){
 
 
 /**
- * Function: Login Snack Bar
- * @author: Shianne Lesure
+ * Function: Login Button
+ * @author: Chloe Jackson
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
+ * @param viewModel the login view model
  *
- * This function will display a snack-bar when the login button is clicked. The snack bar will show a
- * message verifying the user is login.
+ * This function displays a log in button to be clicked after entering email and password.
+ * For now, the button simply displays the result of the login attempt for testing purposes.
  *
- * NOTE: This isn't really how snack-bars are made. I tried to go the route it is usually made, but
- * for some reason I couldn't get it quite right. If I can get the originally way to work, I will change
- * it, but this should be fine for now.
  */
 @Composable
-fun loginSnackBar(windowSize: WindowSize) {
+fun loginButton(windowSize: WindowSize, navController: NavController, viewModel: LoginViewModel){
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 120) }
-    // will scale the height of the snack-bar
-    val snackBarHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 80) }
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
-    // will scale the size of the snack-bar padding
-    val snackBarPaddingTop by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
-    // will scale the size of the snack-bar padding
-    val snackBarPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 30) }
+    val message by viewModel.message.collectAsState()
 
-    // a variable that determines if the snack-bar will be displayed or not
-    var showSnackBar by remember { mutableStateOf(false) }
     ElevatedButton(
-        onClick = { showSnackBar = true },
+        onClick = {
+            viewModel.onLogin()
+            if (message == "Login Successful") {
+                //navigate to the Upload Screen
+                navController.navigate(Screen.HomeScreen.route)
+            }
+            else {
+                //display the failure message (snackbar?)
+            }
+        },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),
         elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -373,50 +381,12 @@ fun loginSnackBar(windowSize: WindowSize) {
         ) {
         Text(
             textAlign = TextAlign.Center,
-            text = "Login",
+            text = message,
             fontSize = textSize.sp,
             color = Color.Black,
         )
     }
-    // the snack-bar will show if the login button is clicked
-    if (showSnackBar) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = { /*TODO*/
-                    /* Will close the snack-bar and navigate to the next screen */
-                })
-                .height(snackBarHeight.dp)
-                .padding(start = 25.dp, end = 25.dp)
-                .border(2.dp, color = Persian_indigo)
-                .shadow(5.dp, shape = RectangleShape)
-                .background(color = Anti_flash_white, shape = RectangleShape),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Text(
-                textAlign = TextAlign.Start,
-                text = "You are login",
-                modifier = Modifier
-                    .padding(top = snackBarPaddingTop.dp, start = snackBarPadding.dp),
-                fontSize = 25.sp,
-                color = Color.Black,
-            )
-
-            Text(
-                textAlign = TextAlign.End,
-                text = "OK",
-                modifier = Modifier
-                    .padding(top = snackBarPaddingTop.dp, end = snackBarPadding.dp),
-                fontSize = 25.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-
 }
-
-
 
 /**
  * Function: Lines
