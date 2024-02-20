@@ -15,6 +15,7 @@ sealed class Screen(val route: String) {
     object SearchResults : Screen("Search Results")
     object LoadingScreen : Screen("Loading Screen")
     object HomeScreen : Screen("Home Screen")
+    object LoginScreen : Screen("Login Screen")
 
 
     fun withArgs(vararg args: String): String {

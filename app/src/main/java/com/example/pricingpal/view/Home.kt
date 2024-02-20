@@ -101,7 +101,7 @@ fun StartScreen(navController: NavController, windowSize: WindowSize){
 
                 //Login Button
                 ElevatedButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { navController.navigate(Screen.LoginScreen.route) },
                     shape = RectangleShape,
                     colors = ButtonDefaults.buttonColors(Cornflower_blue),
                     elevation = ButtonDefaults.buttonElevation(8.dp),
