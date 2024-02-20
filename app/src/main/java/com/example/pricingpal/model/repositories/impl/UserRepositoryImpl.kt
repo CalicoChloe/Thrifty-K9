@@ -8,11 +8,11 @@ class UserRepositoryImpl @Inject constructor(
     private val postgrest: Postgrest
 ) : UserRepository {
     //Deletes a user from the database given the organization name
-    override suspend fun deleteUser(organizationName: String, userName: String): Boolean {
+    override suspend fun deleteUser(userName: String): Boolean {
         /*TODO("Not yet implemented")*/
         return try {
             postgrest["users"].delete {
-                eq("organizationName", organizationName)
+                eq("fullName", userName)
             }
             true
         } catch (e: Exception) {
