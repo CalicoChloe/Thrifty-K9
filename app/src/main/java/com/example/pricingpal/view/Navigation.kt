@@ -44,6 +44,14 @@ fun Navigation(
         composable(route = Screen.HomeScreen.route){
             StartScreen(navController = navController,windowSize = windowSize)
         }
+        composable(route = Screen.RegisterScreen.route){
+            OwnerRegisterationHeader(windowSize = windowSize)
+
+        }
+        composable(route = Screen.LoginInScreen.route){
+           LoginHeader(navController = navController , windowSize = windowSize )
+        }
+
         //The route to the CategoryList. This is the start destination
         composable(route = Screen.CategoryList.route) {
             CategoryList(

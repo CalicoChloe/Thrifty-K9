@@ -43,28 +43,18 @@ object SupabaseModule {
     @Singleton
     fun provideSupabaseClient(): SupabaseClient {
         return createSupabaseClient(
-           supabaseUrl,
-           supabaseKey
+            supabaseUrl,
+            supabaseKey
         ) {
-            install(Postgrest)
             install(Auth) {
                 flowType = FlowType.PKCE
                 scheme = "app"
                 host = "supabase.com"
             }
-            install(Storage)
+            install(Postgrest)
         }
     }
-    /**
-     *
-     * @param client is a reference to the previous created SupabaseClient
-     * @return a singleton instance of Postgrest, which represents the Supabase database client.
-     */
-    @Provides
-    @Singleton
-    fun provideSupabaseDatabase(client: SupabaseClient): Postgrest {
-        return client.postgrest
-    }
+
     /**
      *
      * @param client is a reference to the previous created SupabaseClient
@@ -77,6 +67,18 @@ object SupabaseModule {
     fun provideSupabaseAuth(client: SupabaseClient): Auth {
         return client.auth
     }
+
+    /**
+     *
+     * @param client is a reference to the previous created SupabaseClient
+     * @return a singleton instance of Postgrest, which represents the Supabase database client.
+     */
+    @Provides
+    @Singleton
+    fun provideSupabaseDatabase(client: SupabaseClient): Postgrest {
+        return client.postgrest
+    }
+
     /**
      *
      * @param client is a reference to the previous created SupabaseClient
@@ -89,6 +91,8 @@ object SupabaseModule {
     fun provideSupabaseStorage(client: SupabaseClient): Storage {
         return client.storage
     }
+
+
 }
 
 

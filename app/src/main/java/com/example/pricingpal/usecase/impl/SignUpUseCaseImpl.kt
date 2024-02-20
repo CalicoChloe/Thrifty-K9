@@ -7,11 +7,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SignUpUseCaseImpl@Inject constructor(
-    private val authenticationRepository: AuthRepository
+    private val authRepository: AuthRepository
 ) : SignUpUseCase {
-    suspend fun execute(input: SignUpUseCase.Input): SignUpUseCase.Output =
+    override suspend fun execute(input: SignUpUseCase.Input): SignUpUseCase.Output =
         withContext(Dispatchers.IO) {
-            val result = authenticationRepository.signUp(input.email, input.password)
+            val result = authRepository.signUp(input.email, input.password)
             if (result) {
                 SignUpUseCase.Output.Success
             } else {
