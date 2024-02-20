@@ -1,4 +1,5 @@
 package com.example.pricingpal.model
+
 /**
  * Data class for a user
  *
