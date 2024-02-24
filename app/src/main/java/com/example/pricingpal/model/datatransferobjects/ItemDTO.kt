@@ -1,13 +1,7 @@
 package com.example.pricingpal.model.datatransferobjects
 
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
-import java.util.UUID
 
 /**
  * Class: CategoryDTO
@@ -26,20 +20,8 @@ data class ItemDTO(
     val price: Float,
     @SerialName("category_id")
     val categoryId: Int,
-    @SerialName("organization_id")
-    @Serializable(with = UUIDSerializer::class)
-    val organizationId: UUID
+    @SerialName("organization_name")
+    val organizationName: String
 )
 
 
-object UUIDSerializer : KSerializer<UUID> {
-    override val descriptor = PrimitiveSerialDescriptor("UUID", PrimitiveKind.STRING)
-
-    override fun deserialize(decoder: Decoder): UUID {
-        return UUID.fromString(decoder.decodeString())
-    }
-
-    override fun serialize(encoder: Encoder, value: UUID) {
-        encoder.encodeString(value.toString())
-    }
-}

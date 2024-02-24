@@ -23,6 +23,7 @@ class CategoryRepositoryImpl @Inject constructor (
         TODO("Not yet implemented")
     }
 
+
     //Gets a list of all categories from the database
     override suspend fun getCategories(): List<CategoryDTO>? {
         return withContext(Dispatchers.IO) {

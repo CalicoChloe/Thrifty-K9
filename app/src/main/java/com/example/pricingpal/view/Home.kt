@@ -101,7 +101,7 @@ fun StartScreen(navController: NavController, windowSize: WindowSize){
 
                 //Login Button
                 ElevatedButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { navController.navigate(Screen.LoginInScreen.route) },
                     shape = RectangleShape,
                     colors = ButtonDefaults.buttonColors(Cornflower_blue),
                     elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -124,7 +124,7 @@ fun StartScreen(navController: NavController, windowSize: WindowSize){
 
                 // Register Button
                 ElevatedButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { navController.navigate(Screen.RegisterScreen.route) },
                     shape = RectangleShape,
                     colors = ButtonDefaults.buttonColors(Cornflower_blue),
                     elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -183,23 +183,23 @@ fun webButton(){
     val webIntent: Intent = Intent(Intent.ACTION_VIEW, // will allow the use to see the website when app is running
         Uri.parse("https://calicochloe.github.io/Thrifty-K9/") ) // the link to the git docs
 
-        ElevatedButton(
-            onClick = { context.startActivity(webIntent) },
-            shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-            elevation = ButtonDefaults.buttonElevation(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(70.dp)
-                .border(4.dp, color = Persian_indigo),
+    ElevatedButton(
+        onClick = { context.startActivity(webIntent) },
+        shape = RectangleShape,
+        colors = ButtonDefaults.buttonColors(Cornflower_blue),
+        elevation = ButtonDefaults.buttonElevation(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(70.dp)
+            .border(4.dp, color = Persian_indigo),
 
-            ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "About The App",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black,
-            )
-        }
+        ) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = "About The App",
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+        )
+    }
 }

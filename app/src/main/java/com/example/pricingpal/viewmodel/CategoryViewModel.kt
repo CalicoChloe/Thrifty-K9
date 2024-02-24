@@ -87,7 +87,7 @@ class CategoryViewModel @Inject constructor(
             name = this.itemName,
             price = this.price.toDouble(),
             categoryId = this.categoryId,
-            organizationId = this.organizationId.toString()
+            organizationName = this.organizationName
         )
     }
 }
