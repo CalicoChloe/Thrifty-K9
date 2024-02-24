@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.pricingpal.MainActivity
+import com.example.pricingpal.ui.theme.PricingpalTheme
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.handleDeeplinks
@@ -27,7 +31,7 @@ class DeepLinkHandlerActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         supabaseClient.handleDeeplinks(intent = intent,
             onSessionSuccess = { userSession ->
-                Log.d("LOGIN", "Log in successfully with user info: ${userSession.user}")
+                Log.d("SIGN UP", "Sign up successfully with user info: ${userSession.user}")
                 userSession.user?.apply {
                     callback(email ?: "", createdAt.toString())
                 }
@@ -42,20 +46,14 @@ class DeepLinkHandlerActivity : ComponentActivity() {
                     createdAtState.value = created
                 }
             }
-//            PricingpalTheme {
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    SignInSuccessScreen(
-//                        modifier = Modifier.padding(20.dp),
-//                        navController = navController,
-//                        email = emailState.value,
-//                        createdAt = createdAtState.value,
-//                        onClick = { navigateToMainApp() }
-//                    )
-//                }
-//            }
+            PricingpalTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+
+                }
+            }
         }
     }
 
@@ -66,3 +64,4 @@ class DeepLinkHandlerActivity : ComponentActivity() {
         startActivity(intent)
     }
 }
+
