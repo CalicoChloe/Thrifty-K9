@@ -5,6 +5,13 @@ import com.example.pricingpal.model.repositories.UserRepository
 import com.example.pricingpal.usecase.GetUserUseCase
 import javax.inject.Inject
 
+/**
+ * Class: GetUserUseCaseImpl
+ * @author Shianne Lesure
+ *
+ * This class acts as an implemented version of the GetUserUseCase that app can use to test whether
+ * the user's data is successfully came over from the database.
+ */
 class GetUserUseCaseImpl @Inject constructor(private val userRepository: UserRepository): GetUserUseCase {
     override suspend fun execute(input: GetUserUseCase.Input): GetUserUseCase.Output {
         val result = userRepository.getUser(input.id)

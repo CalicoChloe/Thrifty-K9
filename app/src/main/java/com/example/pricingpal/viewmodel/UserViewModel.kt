@@ -4,13 +4,21 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.usecase.GetUserUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
-//@HiltViewModel
+/**
+ * Class: UserViewModel
+ * @author Shianne Lesure
+ *
+ * This class is the ViewModel for the User's information. When this ViewModel is created it will connect
+ * to the SupaBase database, pull the user's information, and then turn them into usable data for the app.
+ */
+@HiltViewModel
 class UserViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     /*
@@ -31,7 +39,7 @@ class UserViewModel @Inject constructor(
     private val _isOwner = MutableStateFlow(false)
     val isOwner: Flow<Boolean> = _isOwner
 
-
+    //
     companion object {private const val UUID_KEY = "uuid_key"}
 
     private val savedStateHandle = savedStateHandle
@@ -53,6 +61,40 @@ class UserViewModel @Inject constructor(
         getUser(userID = userID.toString())
     }
 
+    /**
+     * Function: Get User
+     * @author Shianne Lesure
+     *
+     * @param userID is the UUID of the user, but in string form
+     *
+     * This function will get the userID's input from the GetUserUseCaseImpl and will execute either a
+     * successful output the user's full information from the DTO files or a failure output.
+     *
+     * @return the userID from string form back to UUID form.
+     */
+    fun getUser(userID: String): UUID {
+        viewModelScope.launch {
+            val result = getUserUseCase.execute(
+                GetUserUseCase.Input(
+                    id = userID
+                )
+            )
+            when (result){
+                is GetUserUseCase.Output.Success -> {
+                    _userFullName.emit(result.data.fullName)
+                    _userEmail.emit(result.data.email)
+                    _userOrganizationName.emit(result.data.organizationName)
+                    _isOwner.emit(result.data.isOwner)
+
+                }
+                is GetUserUseCase.Output.Failure -> {
+
+                }
+            }
+        }
+        return UUID.fromString(userID)
+    }
+
     // will take the full name of the user from the database and store it within a value
     fun onNameChange(fullName: String){
         _userFullName.value = fullName
@@ -72,41 +114,6 @@ class UserViewModel @Inject constructor(
     // will take whether the user is an owner or not from the database and store it within a value
     fun onIsOwnerChange(isOwner: Boolean){
         _isOwner.value = isOwner
-    }
-
-
-    /**
-     * Function: Get User
-     * @author Shianne Lesure
-     *
-     * @param userID is the UUID of the user, but in string form
-     *
-     * This function will get the userID's input from the GetUserUseCaseImpl and will execute either a
-     * successful output the user's full information from the DTO files or a failure output.
-     *
-     * @return the userID from string form back to UUID form.
-     */
-    fun getUser(userID: String): UUID {
-         viewModelScope.launch {
-             val result = getUserUseCase.execute(
-                 GetUserUseCase.Input(
-                     id = userID
-                 )
-             )
-             when (result){
-                 is GetUserUseCase.Output.Success -> {
-                     _userFullName.emit(result.data.fullName)
-                     _userEmail.emit(result.data.email)
-                     _userOrganizationName.emit(result.data.organizationName)
-                     _isOwner.emit(result.data.isOwner)
-
-                 }
-                 is GetUserUseCase.Output.Failure -> {
-
-                 }
-             }
-         }
-        return UUID.fromString(userID)
     }
 
     fun deleteUser(){

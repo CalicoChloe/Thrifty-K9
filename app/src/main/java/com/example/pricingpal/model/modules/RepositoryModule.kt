@@ -66,7 +66,6 @@ abstract class RepositoryModule {
      *
      * @author Shianne Lesure
      * @param impl reference to the UserRepositoryImpl
-     *
      */
     @Binds
     abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
