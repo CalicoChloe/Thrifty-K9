@@ -1,6 +1,7 @@
 package com.example.pricingpal.model.modules
 
 import com.example.pricingpal.usecase.*
+import com.example.pricingpal.usecase.impl.GetUserUseCaseImpl
 import com.example.pricingpal.usecase.impl.LoginUseCaseImpl
 import com.example.pricingpal.usecase.impl.SignUpUseCaseImpl
 import dagger.Binds
@@ -17,5 +18,8 @@ abstract class UseCaseModule {
 
     @Binds
     abstract fun bindSignUpUseCase(impl: SignUpUseCaseImpl): SignUpUseCase
+
+    @Binds
+    abstract fun bindGetUserUseCase(impl: GetUserUseCaseImpl): GetUserUseCase
 
 }
