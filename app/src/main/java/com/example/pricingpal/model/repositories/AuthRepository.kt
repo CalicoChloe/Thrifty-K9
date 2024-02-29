@@ -9,6 +9,6 @@ package com.example.pricingpal.model.repositories
  */
 interface AuthRepository {
     suspend fun signIn(email: String, password: String): Boolean
-    suspend fun signUp(email: String, password: String): Boolean
+    suspend fun signUp(email: String, password: String, fullName: String, organizationName: String, isOwner: Boolean) : Boolean
 
 }
