@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.usecase.DeleteUserUseCase
 import com.example.pricingpal.usecase.GetUserUseCase
+import com.example.pricingpal.usecase.UpdateUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,10 +24,9 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
-    /*
-    private val updateUserUseCase: UpdateUserUseCase
-     */
-    savedStateHandle: SavedStateHandle
+    private val updateUserUseCase: UpdateUserUseCase,
+    private val savedStateHandle: SavedStateHandle
+    //savedStateHandle: SavedStateHandle
 ): ViewModel() {
     private val _userFullName = MutableStateFlow("")
     val userFullName: Flow<String> = _userFullName
@@ -46,7 +46,7 @@ class UserViewModel @Inject constructor(
     // Is the value use for the input of UseCase functions for the user's id.
     private val userID = saveUUID(getUUID())
 
-    private val savedStateHandle = savedStateHandle
+    //private val savedStateHandle = savedStateHandle
 
     // This holds the UUID key that will be coming from the database. It is put inside a companion object
     // because it associates the constant value to the user's ViewModel and ensures it is scoped to the class.
@@ -153,7 +153,31 @@ class UserViewModel @Inject constructor(
         _isOwner.value = isOwner
     }
 
-    fun updateUser(){
+    /**
+     * Function: Update User
+     * @author Shianne Lesure
 
+     * This function will get the fullName, email, and organization's name input from the UpdateUserUseCaseImpl
+     * and will execute either a successful output with a message letting them know of user's been updated,
+     * while a fail output will message letting them know there was an error.
+     */
+    fun updateUser(){
+        viewModelScope.launch {
+           val result = updateUserUseCase.execute(
+                UpdateUserUseCase.Input(
+                    updateFullName = _userFullName.value,
+                    updateEmail = _userEmail.value,
+                    updateOrganizationName = _userOrganizationName.value
+                )
+            )
+            when (result){
+                is UpdateUserUseCase.Output.Success -> {
+                    userMessage.emit("User has been updated")
+                }
+                is UpdateUserUseCase.Output.Failure -> {
+                    userMessage.emit("Was not able to update user.")
+                }
+            }
+        }
     }
 }
