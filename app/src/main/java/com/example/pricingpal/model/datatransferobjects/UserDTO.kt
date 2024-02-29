@@ -26,7 +26,6 @@ data class UserDTO(
 
     // contextual is use as a fallback for the UUID because a serializer has not been found with UUID
     @Contextual val userId: String,
-    //val userID: String = id.toString(),
     @SerialName("full_name")
     val fullName: String,
     @SerialName("email")

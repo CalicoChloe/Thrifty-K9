@@ -16,19 +16,18 @@ import javax.inject.Inject
  */
 class UserRepositoryImpl@Inject constructor(private val postgrest: Postgrest ): UserRepository{
 
+    // Is calling the database and selecting the user's id from the user's table.
     override suspend fun getUser(userId: String): UserDTO{
         return postgrest["registered_user"].select {
             eq("user_id", userId)
         }.decodeSingle<UserDTO>()
-
     }
 
-    override suspend fun deleteUser(fullName: String, email: String, organizationName: String) {
-        withContext(Dispatchers.IO){
-            postgrest["registered_user"].delete{
-                eq("full_name", fullName)
-                eq("email",email)
-                eq("organization_name", organizationName)
+    // Is calling the database and deleting the selected user's id from the user's table.
+    override suspend fun deleteUser(userId: String) {
+        withContext(Dispatchers.IO) {
+            postgrest["registered_user"].delete {
+                eq("user_id", userId)
             }
         }
     }

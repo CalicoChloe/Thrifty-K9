@@ -15,7 +15,7 @@ interface UserRepository {
     suspend fun getUser(userId: String): UserDTO
 
     // delete user
-    suspend fun deleteUser(fullName: String,email: String, organizationName: String)
+    suspend fun deleteUser(userId: String)
 
     // update user
     suspend fun updateUser(fullName: String, email: String)

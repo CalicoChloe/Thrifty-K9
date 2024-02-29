@@ -1,6 +1,7 @@
 package com.example.pricingpal.model.modules
 
 import com.example.pricingpal.usecase.*
+import com.example.pricingpal.usecase.impl.DeleteUserUseCaseImpl
 import com.example.pricingpal.usecase.impl.GetUserUseCaseImpl
 import com.example.pricingpal.usecase.impl.LoginUseCaseImpl
 import com.example.pricingpal.usecase.impl.SignUpUseCaseImpl
@@ -29,5 +30,16 @@ abstract class UseCaseModule {
      */
     @Binds
     abstract fun bindGetUserUseCase(impl: GetUserUseCaseImpl): GetUserUseCase
+
+    /**
+     * This function uses the @Binds annotation to bind an abstract DeleteUserUseCase
+     * class its implementation, which informs Dagger Hilt to use DeleteUserUseCaseImpl
+     * whenever an instance of DeleteUserUseCase is required.
+     *
+     * @author Shianne Lesure
+     * @param impl reference to the DeleteUserUseCaseImpl
+     */
+    @Binds
+    abstract fun bindDeleteUserUseCase(impl: DeleteUserUseCaseImpl): DeleteUserUseCase
 
 }
