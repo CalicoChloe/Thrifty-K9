@@ -7,7 +7,6 @@ import com.example.pricingpal.usecase.DeleteUserUseCase
 import com.example.pricingpal.usecase.GetUserUseCase
 import com.example.pricingpal.usecase.UpdateUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -17,6 +16,11 @@ import javax.inject.Inject
  * Class: UserViewModel
  * @author Shianne Lesure
  *
+ * @property getUserUseCase is the UseCase that will get a success for fail with getting user from database
+ * @property deleteUserUseCase is the UseCase that will get get a success or fail with deleting user from database.
+ * @property updateUserUseCase is the UseCase that will get get a success or fail with updating user from database.
+ * @property savedStateHandle component for the ViewModel that will save and restore data through configuration changes.
+ * 
  * This class is the ViewModel for the User's information. When this ViewModel is created it will connect
  * to the SupaBase database, pull the user's information, and then turn them into usable data for the app.
  */
@@ -26,38 +30,41 @@ class UserViewModel @Inject constructor(
     private val deleteUserUseCase: DeleteUserUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
     private val savedStateHandle: SavedStateHandle
-    //savedStateHandle: SavedStateHandle
 ): ViewModel() {
+
     private val _userFullName = MutableStateFlow("")
-    val userFullName: Flow<String> = _userFullName
-
     private val _userEmail = MutableStateFlow("")
-    val userEmail: Flow<String> = _userEmail
-
     private val _userOrganizationName = MutableStateFlow("")
-    val userOrganizationName: Flow<String> = _userOrganizationName
-
     private val _isOwner = MutableStateFlow(false)
-    val isOwner: Flow<Boolean> = _isOwner
-
     private val _userMessage = MutableStateFlow("")
-    val userMessage = _userMessage
 
     // Is the value use for the input of UseCase functions for the user's id.
     private val userID = saveUUID(getUUID())
 
-    //private val savedStateHandle = savedStateHandle
-
-    // This holds the UUID key that will be coming from the database. It is put inside a companion object
-    // because it associates the constant value to the user's ViewModel and ensures it is scoped to the class.
+    /*
+     * This holds the UUID key that will be coming from the database. It is put inside a companion object
+     * because it associates the constant value to the user's ViewModel and ensures it is scoped to the class.
+     */
     companion object {private const val UUID_KEY = "uuid_key"}
 
-    // This will take the UUID and converted into a string so it can be saved into the state handle.
+    /**
+     * Function: saveUUID
+     * @author Shianne Lesure
+     *
+     * @param uuid is the id that is coming from the user's table from the database
+     *
+     * This will take the UUID and converted into a string so it can be saved into the state handle.
+     */
     fun saveUUID(uuid: UUID) {
         savedStateHandle[UUID_KEY] = uuid.toString()
     }
 
-    // This will get the string UUID value and return it back to a UUID object using fromString().
+    /**
+     * Function: getUUID
+     * @author Shianne Lesure
+     *
+     * This will get the string UUID value and return it back to a UUID object using fromString().
+     */
     fun getUUID(): UUID {
         val uuidString = savedStateHandle.get<String>(UUID_KEY)
         return uuidString.let { UUID.fromString(it) }
@@ -81,11 +88,7 @@ class UserViewModel @Inject constructor(
      */
     fun getUser(userID: String): UUID {
         viewModelScope.launch {
-            val result = getUserUseCase.execute(
-                GetUserUseCase.Input(
-                    id = userID
-                )
-            )
+            val result = getUserUseCase.execute(GetUserUseCase.Input(id = userID))
             when (result){
                 is GetUserUseCase.Output.Success -> {
                     _userFullName.emit(result.data.fullName)
@@ -118,39 +121,14 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
             when (deleteUserUseCase.execute(DeleteUserUseCase.Input(deleteId = deleteID))){
                 is DeleteUserUseCase.Output.Success -> {
-                    userMessage.emit("User has been deleted.")
+                    _userMessage.emit("User has been deleted.")
                 }
                 is DeleteUserUseCase.Output.Failure -> {
-                    userMessage.emit("Was not able to delete user.")
+                    _userMessage.emit("Was not able to delete user.")
                 }
             }
         }
         return UUID.fromString(deleteID)
-    }
-
-    // will take the full name of the user from the database and store it within a value.
-    // Will be use in the UI screens.
-    fun onNameChange(fullName: String){
-        _userFullName.value = fullName
-    }
-
-    // will take the email of the user from the database and store it within a value
-    // Will be use in the UI screens.
-    fun onEmailChange(email: String){
-        _userEmail.value = email
-
-    }
-
-    // will take the organization name of the user from the database and store it within a value
-    // Will be use in the UI screens.
-    fun onOrganizationNameChange(organizationName: String){
-        _userOrganizationName.value = organizationName
-    }
-
-    // will take whether the user is an owner or not from the database and store it within a value
-    // Will be use in the UI screens.
-    fun onIsOwnerChange(isOwner: Boolean){
-        _isOwner.value = isOwner
     }
 
     /**
@@ -163,7 +141,7 @@ class UserViewModel @Inject constructor(
      */
     fun updateUser(){
         viewModelScope.launch {
-           val result = updateUserUseCase.execute(
+            val result = updateUserUseCase.execute(
                 UpdateUserUseCase.Input(
                     updateFullName = _userFullName.value,
                     updateEmail = _userEmail.value,
@@ -172,12 +150,44 @@ class UserViewModel @Inject constructor(
             )
             when (result){
                 is UpdateUserUseCase.Output.Success -> {
-                    userMessage.emit("User has been updated")
+                    _userMessage.emit("User has been updated")
                 }
                 is UpdateUserUseCase.Output.Failure -> {
-                    userMessage.emit("Was not able to update user.")
+                    _userMessage.emit("Was not able to update user.")
                 }
             }
         }
+    }
+
+    /*
+      will take the full name of the user from the database and store it within a value.
+      Will be use in the UI screens.
+     */
+    fun onNameChange(fullName: String){
+        _userFullName.value = fullName
+    }
+
+    /*
+     will take the email of the user from the database and store it within a value
+     Will be use in the UI screens.
+     */
+    fun onEmailChange(email: String){
+        _userEmail.value = email
+    }
+
+    /*
+     will take the organization name of the user from the database and store it within a value
+     Will be use in the UI screens.
+     */
+    fun onOrganizationNameChange(organizationName: String){
+        _userOrganizationName.value = organizationName
+    }
+
+    /*
+     will take whether the user is an owner or not from the database and store it within a value
+     Will be use in the UI screens.
+     */
+    fun onIsOwnerChange(isOwner: Boolean){
+        _isOwner.value = isOwner
     }
 }

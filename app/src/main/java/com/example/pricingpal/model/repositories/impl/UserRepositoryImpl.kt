@@ -12,6 +12,9 @@ import javax.inject.Inject
  * @author Abdoulie NJie
  * @author Shianne Lesure
  * @written 2/19/2024
+ *
+ * @property postgrest is the database that is being called to get the information of the user.
+ *
  * This class acts as an implemented version of the UserRepository Interface the app can use to interact with the database's User
  */
 class UserRepositoryImpl@Inject constructor(private val postgrest: Postgrest ): UserRepository{
