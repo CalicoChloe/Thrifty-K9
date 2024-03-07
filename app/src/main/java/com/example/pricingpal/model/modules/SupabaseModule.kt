@@ -17,10 +17,14 @@ import io.github.jan.supabase.storage.storage
 import javax.inject.Singleton
 
 /**
+ * Object: SupabaseModule
+ * @author Abdoulie NJie
+ * @author Chloe Jackson
+ * @version 2
+ * @written 3/06/2024
+ *
  * This file contains a Dagger Hilt module that provides instances of the
  * Supabase client and related components
- *
- * @author Abdoulie NJie
  */
 
 @InstallIn(SingletonComponent::class)

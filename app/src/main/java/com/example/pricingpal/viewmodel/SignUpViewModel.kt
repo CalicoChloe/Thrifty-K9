@@ -3,91 +3,135 @@ package com.example.pricingpal.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Organization
+import com.example.pricingpal.model.User
 import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
-import com.example.pricingpal.model.repositories.AuthRepository
+import com.example.pricingpal.model.datatransferobjects.UserDTO
 import com.example.pricingpal.model.repositories.OrganizationRepository
-import com.example.pricingpal.utilites.ErrorMessages.ORGANIZATION_NAME_ALREADY_TAKEN
-import com.example.pricingpal.utilites.ErrorMessages.ORGANIZATION_NAME_EMPTY
+import com.example.pricingpal.model.repositories.UserRepository
+import com.example.pricingpal.usecase.SignUpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Class: SignUpViewModel
+ * @author Abdoulie NJie
+ * @version 1
+ * @written 03/06/2024
+ * This class is the ViewModel for the information that correlate with the sign up process. When this ViewModel is created it will connect
+ * to the SupaBase database, pull the information , then turn them into usable data for the app.
+ */
+
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
-    private val organizationRepository: OrganizationRepository
+    private val organizationRepository: OrganizationRepository,
+    private val userRepository: UserRepository,
+    private val signUpUseCase : SignUpUseCase
 ) : ViewModel() {
-
-    //lists of the organizations from the database
+    //list of the organizations from the database
     private val _organizationsList = MutableStateFlow<List<Organization>?>(listOf())
 
-    private val _email = MutableStateFlow("")
-    val email: Flow<String> = _email
+    //list of the organizations from the database
+    private val _userList = MutableStateFlow<List<User>?>(listOf())
 
+    //val used to store the user's input for their email
+    private val _email = MutableStateFlow("")
+    val email = _email
+
+    //val used to store the user's input for their password
     private val _password = MutableStateFlow("")
     val password = _password
 
+    //val used to store the user's input for their full name
     private val _fullName = MutableStateFlow("")
     val fullName = _fullName
 
+    //val used to store the user's input for their organization name
     private val _organizationName = MutableStateFlow("")
     val organizationName = _organizationName
 
+    //val used to store the message that will be displayed when the sign up process fails or succeeds
+    private val _message = MutableStateFlow("")
+    val message = _message
+
+    //function used to update user's input for their email
     fun onEmailChange(email: String) {
         _email.value = email
     }
 
+    //function used to update user's input for their password
     fun onPasswordChange(password: String) {
         _password.value = password
     }
 
-    fun onNameChange(fullName : String){
+    //function used to update user's input for their full name
+    fun onNameChange(fullName: String) {
         _fullName.value = fullName
     }
 
-    fun  onOrganizationChange(organizationName : String){
+    //function used to update user's input for their organization name
+    fun onOrganizationChange(organizationName: String) {
         _organizationName.value = organizationName
-    }
-
-suspend fun OrganizationDTO.asDomainModel(): Organization {
-        return Organization(
-            organizationName = this.organizationName
-        )
     }
 
     //Gets the list of organizations from the database and emits it to _organizationsList, then returns it
     fun getOrganizations () : MutableStateFlow<List<Organization>?> {
         viewModelScope.launch {
-            val organizationsList = organizationRepository.getOrganizations()
-            _organizationsList.emit(organizationsList?.map { it -> it.asDomainModel() })
+            val organizations = organizationRepository.getOrganizations()
+            _organizationsList.emit(organizations?.map { it -> it.asDomainModel() })
         }
-        return  _organizationsList
+        return _organizationsList
     }
 
-    fun onSignUp() {
-        if (organizationName.value.isBlank()) {
-            ORGANIZATION_NAME_EMPTY
-            return
-        }
+    //When the Organization data from the database is pulled, this function will translate it from a DTO to the real object
+    private fun OrganizationDTO.asDomainModel(): Organization {
+        return Organization(
+            organizationID = this.organizationID.toString(),
+            ownerID = this.ownerID.toString(),
+            organizationName = this.organizationName
+        )
+    }
+
+    //Gets the list of user from the database and emits it to _userList, then returns it
+    suspend fun getUsers():MutableStateFlow<List<User>?>{
         viewModelScope.launch {
-            // Check if any organization has the same name as the one entered by the user
-            if (getOrganizations().value?.contains(Organization(organizationName.value)) == true) {
-                // Display error message
-                ORGANIZATION_NAME_ALREADY_TAKEN
-                return@launch
+            val users = userRepository.getUsers()
+            _userList.emit(users?.map { it -> it.asDomainModel() })
+        }
+        return _userList
+    }
+    //When the User data from the database is pulled, this function will translate it from a DTO to the real object
+    private fun UserDTO.asDomainModel(): User {
+        return User(
+            userID = this.userID.toString(),
+            fullName = this.fullName,
+            email = this.email,
+            organizationName = this.organizationName,
+            isOwner = this.isOwner
+        )
+    }
+    //This function
+    fun onSignUp(isOwner : Boolean) {
+            viewModelScope.launch {
+                val result = signUpUseCase.execute(
+                SignUpUseCase.Input(
+                    email = _email.value,
+                    password = _password.value,
+                    fullName = _fullName.value,
+                    organizationName = _organizationName.value,
+                    isOwner = true
+                )
+                )
+                when (result) {
+                    is SignUpUseCase.Output.Success -> {
+                        _message.emit("Please check  you email to verify your account.")
+                    }
+                    is SignUpUseCase.Output.Failure -> {
+                        _message.emit("An error has occurred while creating your account.")
+                    }
+                }
             }
-        }
-        viewModelScope.launch {
-            authRepository.signUp(
-                email = _email.value,
-                password = _password.value,
-                fullName =  _fullName.value,
-                organizationName = _organizationName.value,
-                isOwner = true
-            )
-        }
     }
 }
 

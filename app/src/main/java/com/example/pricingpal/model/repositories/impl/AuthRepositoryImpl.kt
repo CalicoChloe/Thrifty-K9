@@ -10,8 +10,9 @@ import javax.inject.Inject
 /**
  * Class: AuthRepositoryImpl
  * @author Chloe Jackson
- * @version 1
- * @written 2/16/2024
+ * @author Abdoulie NJie
+ * @version 2
+ * @written 03/06/2024
  * This class acts as an implemented version of the AuthRepository Interface the app can use to authenticate users
  */
 class AuthRepositoryImpl @Inject constructor(
@@ -30,7 +31,7 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    //This function will sign up a user using the given email, password, and take the full name and organization name
+    //This function will sign up a user using the given email, password, and takes the full name and organization name
     // the user inputs to store it in the registered user table
     override suspend fun signUp(email: String, password: String, fullName: String, organizationName: String, isOwner: Boolean): Boolean {
         return try {
@@ -40,7 +41,7 @@ class AuthRepositoryImpl @Inject constructor(
                 buildJsonObject {
                     put("fullName", fullName)
                     put("organizationName", organizationName)
-                    put("isOwner", true)
+                    put("isOwner", isOwner)
                 }
             }
             if (result != null) {

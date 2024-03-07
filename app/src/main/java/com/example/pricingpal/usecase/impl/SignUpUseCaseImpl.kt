@@ -6,6 +6,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Class: SignUpUseCaseImpl
+ * @author Abdoulie NJie
+ * @version 1
+ * @written 03/06/2024
+ * This class acts as an implemented version of the SignUpUseCase that initializes the specific
+ * handling of the input and output of the sign up use case.
+ */
+
 class SignUpUseCaseImpl@Inject constructor(
     private val authRepository: AuthRepository
 ) : SignUpUseCase {

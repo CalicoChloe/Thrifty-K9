@@ -1,11 +1,14 @@
 package com.example.pricingpal.model
+
 /**
- * Data class for a category
+ * Class: Organization
+ * @author Abdoulie NJie
+ * @version 1
+ * @written 3/06/2024
+ * @property organizationID the ID of an organization.
+ * @property ownerID the ID of an owner of an organization.
+ * @property organizationName the name of an organization.
+ * This data class acts as an interface to transfer data of our Organization objects to and from the database.
  *
- * This class defines the category class properties.
- *
- * @property organizationName is the name of the organization the user belongs to.
- *
- * @Abdoulie NJie
- **/
-data class Organization(val organizationName: String)
+*/
+data class Organization(val organizationID: String, val ownerID: String,val organizationName: String)

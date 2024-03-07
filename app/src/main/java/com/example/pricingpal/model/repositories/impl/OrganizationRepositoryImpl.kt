@@ -7,6 +7,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Class: OrganizationRepositoryImpl
+ * @author Abdoulie NJie
+ * @version 1
+ * @written 03/06/2024
+ * This class acts as an implemented version of the Organization Repository Interface the app can use to interact with the database's Organizations
+ */
+
 class OrganizationRepositoryImpl @Inject constructor(
     private val postgrest: Postgrest
     ) : OrganizationRepository {
@@ -18,6 +26,7 @@ class OrganizationRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    //Gets a list of all organizations from the database
     override suspend fun getOrganizations() : List<OrganizationDTO>? {
         return withContext(Dispatchers.IO) {
             val results = postgrest["organization"].select().decodeList<OrganizationDTO>()
