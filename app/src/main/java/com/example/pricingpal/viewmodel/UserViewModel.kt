@@ -98,7 +98,7 @@ class UserViewModel @Inject constructor(
 
                 }
                 is GetUserUseCase.Output.Failure -> {
-
+                    _userMessage.emit("Error. User request failed.")
                 }
             }
         }
