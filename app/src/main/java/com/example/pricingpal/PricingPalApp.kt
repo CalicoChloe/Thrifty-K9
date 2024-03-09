@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Anti_flash_white
+import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.view.Navigation
 import com.example.pricingpal.view.WindowSize
@@ -54,7 +55,7 @@ fun PricingPalAppBar(
             Text(text = "") // text needed to access custom back button
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Periwinkle,
+            containerColor = Cornflower_blue, // I changed it back to the original color from the Figma
         ),
         modifier = modifier,
         navigationIcon = {

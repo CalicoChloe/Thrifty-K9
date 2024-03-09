@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -72,13 +73,26 @@ fun CategoryList (
                 // changes the opacity of the image
                 alpha = 0.1F
             )
+
+            /*
+            This function allows for the scaffold and the rest of the content to be separated by a divider.
+            This was done to match more of the figma prototype.
+             */
+            Box(
+                modifier = Modifier
+                    .padding(padding)
+                    .height(height = 4.dp)
+                    .fillMaxWidth()
+                    .background(color = Persian_indigo)
+            )
             if (!categoryList.isNullOrEmpty()) {
                 LazyColumn(
                     //aligns the categories within the center
                     modifier = Modifier
                         .testTag(CATEGORY_NAMES)
                         .fillMaxSize()
-                        .padding(padding),
+                        .padding(padding)
+                        .padding(top = 4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
 
                 ) {

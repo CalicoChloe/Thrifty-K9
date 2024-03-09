@@ -3,9 +3,11 @@ package com.example.pricingpal.model.modules
 import com.example.pricingpal.model.repositories.AuthRepository
 import com.example.pricingpal.model.repositories.CategoryRepository
 import com.example.pricingpal.model.repositories.ItemRepository
+import com.example.pricingpal.model.repositories.UserRepository
 import com.example.pricingpal.model.repositories.impl.AuthRepositoryImpl
 import com.example.pricingpal.model.repositories.impl.CategoryRepositoryImpl
 import com.example.pricingpal.model.repositories.impl.ItemRepositoryImpl
+import com.example.pricingpal.model.repositories.impl.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -56,4 +58,15 @@ abstract class RepositoryModule {
      */
     @Binds
     abstract fun bindAuthRepository(impl: AuthRepositoryImpl): AuthRepository
+
+    /**
+     * This function uses the @Binds annotation to bind an abstract UserRepository
+     * class its implementation, which informs Dagger Hilt to use UserRepositoryImpl
+     * whenever an instance of UserRepository is required.
+     *
+     * @author Shianne Lesure
+     * @param impl reference to the UserRepositoryImpl
+     */
+    @Binds
+    abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
 }
