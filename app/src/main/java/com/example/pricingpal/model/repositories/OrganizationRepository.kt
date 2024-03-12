@@ -12,4 +12,8 @@ interface OrganizationRepository {
     suspend fun deleteOrganization(organizationName: String)
     // update organization
     suspend fun updateOrganization(organizationName: String)
+
+    suspend fun getOrganization(organizationName: String)
+
+    suspend fun addOrganization(organizationName: String)
 }

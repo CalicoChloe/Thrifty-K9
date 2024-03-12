@@ -35,4 +35,20 @@ class OrganizationRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getOrganization(organizationName: String) {
+        withContext(Dispatchers.IO) {
+            postgrest["organization"].select {
+                eq("organizationName", organizationName)
+            }
+        }
+    }
+    //Error for the insert command...Don't know how to do that yet....Looking into it
+    override suspend fun addOrganization(organizationName: String) {
+        withContext(Dispatchers.IO) {
+            postgrest["organization"].insert {
+                value("organizationName", organizationName)
+            }
+        }
+    }
+
 }
