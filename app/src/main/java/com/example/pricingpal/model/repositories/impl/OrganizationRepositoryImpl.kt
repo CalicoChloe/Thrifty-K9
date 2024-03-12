@@ -1,5 +1,6 @@
 package com.example.pricingpal.model.repositories.impl
 
+import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
 import com.example.pricingpal.model.repositories.OrganizationRepository
 import io.github.jan.supabase.postgrest.Postgrest
 import kotlinx.coroutines.Dispatchers
@@ -35,19 +36,17 @@ class OrganizationRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getOrganization(organizationName: String) {
-        withContext(Dispatchers.IO) {
-            postgrest["organization"].select {
+    override suspend fun getOrganization(organizationName: String): OrganizationDTO {
+            return postgrest["organization"].select {
                 eq("organizationName", organizationName)
-            }
-        }
+            }.decodeSingle<OrganizationDTO>()
+
     }
     //Error for the insert command...Don't know how to do that yet....Looking into it
     override suspend fun addOrganization(organizationName: String) {
         withContext(Dispatchers.IO) {
-            postgrest["organization"].insert {
-                value("organizationName", organizationName)
-            }
+            val organization = OrganizationDTO(organizationName) // Assuming OrganizationDTO takes organizationName as a constructor parameter
+            postgrest["organization"].insert(organization)
         }
     }
 
