@@ -1,9 +1,8 @@
 package com.example.pricingpal.model.datatransferobjects
 
-import com.example.pricingpal.model.UUIDSerializer
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.util.UUID
 
 /**
  * Class: UserDTO
@@ -16,8 +15,8 @@ import java.util.UUID
 @Serializable
 data class UserDTO(
     @SerialName("user_id")
-    @Serializable(with = UUIDSerializer::class)
-    val userID: UUID,
+    @Contextual
+    val userID: String,
     @SerialName("full_Name")
     val fullName: String,
     @SerialName("email")

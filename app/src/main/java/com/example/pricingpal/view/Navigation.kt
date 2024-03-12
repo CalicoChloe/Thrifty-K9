@@ -38,6 +38,8 @@ fun Navigation(
     val navController = rememberNavController()
     //Setup the NavHost
     NavHost(navController = navController, startDestination = Screen.LoadingScreen.route) {
+        //variable used to determine if the user will be considered an owner or not
+        var isOwner : Boolean
         composable(route = Screen.LoadingScreen.route){
             AnimatedSlashScreen(navController = navController,windowSize = windowSize)
         }
@@ -45,7 +47,7 @@ fun Navigation(
             StartScreen(navController = navController,windowSize = windowSize)
         }
         composable(route = Screen.RegisterScreen.route){
-            OwnerRegisterationHeader(navController = navController, windowSize = windowSize)
+            OwnerRegisterationHeader(navController = navController, windowSize = windowSize, isOwner = true)
 
         }
         composable(route = Screen.LoginInScreen.route){
