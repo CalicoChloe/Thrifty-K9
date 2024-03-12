@@ -22,7 +22,7 @@ class ItemRepositoryImpl@Inject constructor(
     override suspend fun createItem(item: Item): Boolean {
         return withContext(Dispatchers.IO) {
             val result = postgrest["item"].insert(item)
-            result.isSuccessful
+            result != null
         }
     }
 
@@ -49,9 +49,9 @@ class ItemRepositoryImpl@Inject constructor(
     override suspend fun deleteItem(id: Int) {
         withContext(Dispatchers.IO) {
             postgrest["item"]
-                    .delete()
-                    .eq("id", id)
-                    .execute()
+                    .delete{
+                        eq("id", id)
+                    }
         }
     }
 
@@ -59,12 +59,13 @@ class ItemRepositoryImpl@Inject constructor(
     override suspend fun updateItem(categoryID: Int, name: String, price: Float) {
         withContext(Dispatchers.IO) {
             postgrest["item"]
-                    .update()
-                    .set("category_id", categoryID)
-                    .set("name", name)
-                    .set("price", price)
-                    .eq("id", id)
-                    .execute()
+                .update(
+                    {
+                        set("category_id", categoryID)
+                        set("name", name)
+                        set("price", price)
+                    }
+                )
         }
     }
 }

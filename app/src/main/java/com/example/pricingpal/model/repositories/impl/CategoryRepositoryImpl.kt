@@ -21,8 +21,9 @@ class CategoryRepositoryImpl @Inject constructor (
     //This function will create a new category and push it to the database using the given Category object
     override suspend fun createCategory(category: Category): Boolean {
         return withContext(Dispatchers.IO) {
-            val result = postgrest["category"].insert(category)
-            result.isSuccessful
+            val response = postgrest["category"].insert(category)
+            // Check if the response is successful (e.g., by checking for exceptions)
+            response != null
         }
     }
 
@@ -47,9 +48,9 @@ class CategoryRepositoryImpl @Inject constructor (
     override suspend fun deleteCategory(id: Int) {
         withContext(Dispatchers.IO) {
             postgrest["category"]
-                    .delete()
-                    .eq("id", id)
-                    .execute()
+                .delete{
+                    eq("id", id)
+                }
         }
     }
 
@@ -57,10 +58,11 @@ class CategoryRepositoryImpl @Inject constructor (
     override suspend fun updateCategory(name: String) {
         withContext(Dispatchers.IO) {
             postgrest["category"]
-                    .update()
-                    .set("name", newName)
-                    .eq("id", id)
-                    .execute()
+                    .update(
+                        {
+                            set("name", name)
+                        }
+            )
         }
     }
 }
