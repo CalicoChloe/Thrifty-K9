@@ -175,13 +175,21 @@ fun innerPricingBar(){
     )
 }
 
-/** will display a header that shows the setting icon along with a name*/
+/**
+ * Function: Settings Bar
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will display a header that shows the setting icon along with the name Settings.
+ */
 @Composable
 fun settingsBar(windowSize: WindowSize){
-    // will scale the height of the search bar text field
+    // will scale the height of the row
     val padHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
-    // will scale the width of the search bar text field
+    // will scale the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+    // will scale the icon
     val iconSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 45 else 50) }
 
     Card(

@@ -57,6 +57,18 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
+/**
+ * Function: Setting Header
+ * @author Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function sets up a scaffold with top bar for the setting header screen.
+ * Users will see a display of the back arrow that will allow the user to navigate back to whatever the prevoius screen was before.
+ * Below the bar will show the rest of the content of the setting header screen.
+ *
+ * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingHeader(windowSize: WindowSize){
@@ -112,8 +124,6 @@ fun SettingHeader(windowSize: WindowSize){
                 },
 
                 content = { padding ->
-                    //settingsBar(paddingValues = padding)
-
                     settings(padding, windowSize)
                 },
 
@@ -124,27 +134,30 @@ fun SettingHeader(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Settings
+ * @author: Shianne Lesure
+ *
+ * @param paddingValues aligns the content with top app bar
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function sets up the rest of the content of the settings screen.
+ * Users will see a list of buttons that will navigate to accounts, display, and accessability as well
+ * as being able to log out the app.
+ */
 @Composable
 fun settings(paddingValues: PaddingValues, windowSize: WindowSize){
-    //settingsBar(paddingValues)
+    // scale height of the lazy column
     val lazyHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 310 else 370) }
 
         Card(
             modifier = Modifier
                 .padding(paddingValues)
-                .padding(top = 4.dp)
-                /*
-                .border(
-                    border = BorderStroke(4.dp, color = Persian_indigo),
-                    shape = RectangleShape
-                )
-                 */
-                    ,
+                .padding(top = 4.dp),
             colors = CardDefaults.cardColors(containerColor = Periwinkle)
         ) {
             settingsBar(windowSize)
             LazyColumn(
-                //aligns the categories within the center
                 modifier = Modifier
                     .padding(start = 30.dp, end = 30.dp, top = 40.dp, bottom = lazyHeight.dp)
                     .fillMaxSize()
@@ -177,10 +190,19 @@ fun settings(paddingValues: PaddingValues, windowSize: WindowSize){
     logoutButton(paddingValues, windowSize)
 }
 
-
+/**
+ * Function: Owner Account Button
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function creates the button that will navigate to the owner's account screen.
+ */
 @Composable
 fun ownerAccountButton(windowSize: WindowSize){
+    // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
 
         Row(
@@ -218,9 +240,19 @@ fun ownerAccountButton(windowSize: WindowSize){
         }
 }
 
+/**
+ * Function: Guest Account Button
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function creates the button that will navigate to the guest account screen.
+ */
 @Composable
 fun guestAccountButton(windowSize: WindowSize){
+    // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
 
     Row(
@@ -258,9 +290,19 @@ fun guestAccountButton(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Display Button
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function creates the button that will navigate to the display screen.
+ */
 @Composable
 fun displayButton(windowSize: WindowSize){
+    // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
 
     Row(
@@ -298,9 +340,19 @@ fun displayButton(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Accessibility Button
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function creates the button that will navigate to the accessibility screen.
+ */
 @Composable
 fun accessibilityButton(windowSize: WindowSize){
+    // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
 
     Row(
@@ -337,48 +389,26 @@ fun accessibilityButton(windowSize: WindowSize){
         }
     }
 }
-/*
-@Composable
-fun logoutButton(paddingValues: PaddingValues){
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.End,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(paddingValues)
-            .padding(top = 700.dp)
 
-    ){
-        ElevatedButton(
-            onClick = { /*TODO*/ },
-            shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-            elevation = ButtonDefaults.buttonElevation(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp)
-                .padding(start = 35.dp, top = 15.dp, end = 35.dp, bottom = 15.dp)
-                .border(4.dp, color = Persian_indigo),
-
-            ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Logout",
-                fontSize = 40.sp,
-                color = Color.Black,
-            )
-        }
-    }
-}
-
+/**
+ * Function: Logout Button
+ * @author: Shianne Lesure
+ *
+ * @param paddingValues aligns the content with top app bar
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function creates the button that will navigate to a dialog display to the user whether they
+ * want to logout of the app or not.
  */
-
 @Composable
 fun logoutButton(paddingValues: PaddingValues, windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
+    // will scale space from the app bar to the logout button
     val topPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 580 else 700) }
+    // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 120) }
+    // will scale the size of button text
     val buttonText by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
 
     // a variable that determines if the state of the dialog to be use or not
@@ -442,10 +472,8 @@ fun logoutButton(paddingValues: PaddingValues, windowSize: WindowSize){
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly,
                     ){
-                        //Spacer(modifier = Modifier.width(25.dp))
 
-                        //No Button
-                        // will close you out the dialog box
+                        //No Button will close you out the dialog box
                         Button(
                             onClick = { showDialog = false },
                             shape =  RectangleShape,
@@ -463,6 +491,7 @@ fun logoutButton(paddingValues: PaddingValues, windowSize: WindowSize){
 
                         Spacer(modifier = Modifier.width(50.dp))
 
+                        // Yes button will close the user out the dialog box and naivgate them to the home page screen
                         Button(
                             onClick = { showDialog = false },
                             shape =  RectangleShape,
