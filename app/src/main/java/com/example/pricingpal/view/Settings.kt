@@ -107,18 +107,6 @@ fun SettingHeader(windowSize: WindowSize){
                                 )
 
                             }
-                        },
-                        actions = {
-                            IconButton(onClick = { /*TODO*/ },
-                            ) {
-                                Icon(imageVector = Icons.Filled.Settings,
-                                    contentDescription = "Setting Gear Button",
-                                    tint = Color.Black,
-                                    modifier = Modifier
-                                        .size(50.dp)
-                                )
-
-                            }
                         }
                     )
                 },
@@ -139,6 +127,7 @@ fun SettingHeader(windowSize: WindowSize){
 @Composable
 fun settings(paddingValues: PaddingValues, windowSize: WindowSize){
     //settingsBar(paddingValues)
+    val lazyHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 310 else 370) }
 
         Card(
             modifier = Modifier
@@ -153,11 +142,11 @@ fun settings(paddingValues: PaddingValues, windowSize: WindowSize){
                     ,
             colors = CardDefaults.cardColors(containerColor = Periwinkle)
         ) {
-            settingsBar()
+            settingsBar(windowSize)
             LazyColumn(
                 //aligns the categories within the center
                 modifier = Modifier
-                    .padding(start = 30.dp, end = 30.dp, top = 40.dp, bottom = 370.dp)
+                    .padding(start = 30.dp, end = 30.dp, top = 40.dp, bottom = lazyHeight.dp)
                     .fillMaxSize()
                     .border(
                         border = BorderStroke(4.dp, color = Persian_indigo),
@@ -167,21 +156,21 @@ fun settings(paddingValues: PaddingValues, windowSize: WindowSize){
 
             ) {
                 item {
-                    ownerAccountButton()
+                    ownerAccountButton(windowSize)
                     Divider(thickness = 4.dp, color = Persian_indigo)
                 }
 
                 item {
-                    guestAccountButton()
+                    guestAccountButton(windowSize)
                     Divider(thickness = 4.dp, color = Persian_indigo)
                 }
 
                 item {
-                    displayButton()
+                    displayButton(windowSize)
                     Divider(thickness = 4.dp, color = Persian_indigo)
                 }
 
-                item { accessibilityButton() }
+                item { accessibilityButton(windowSize) }
 
             }
         }
@@ -190,19 +179,22 @@ fun settings(paddingValues: PaddingValues, windowSize: WindowSize){
 
 
 @Composable
-fun ownerAccountButton(){
+fun ownerAccountButton(windowSize: WindowSize){
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .background(color = Cornflower_blue, shape = RectangleShape)
                 .fillMaxWidth()
-                .height(90.dp)
+                .height(buttonHeight.dp)
         )
         {
             Text(
                 text = "Account",
-                fontSize = 40.sp,
+                fontSize = textSize.sp,
                 color = Color.Black,
                 modifier = Modifier
                     .padding(start = 20.dp)
@@ -227,19 +219,22 @@ fun ownerAccountButton(){
 }
 
 @Composable
-fun guestAccountButton(){
+fun guestAccountButton(windowSize: WindowSize){
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .background(color = Cornflower_blue, shape = RectangleShape)
             .fillMaxWidth()
-            .height(90.dp)
+            .height(buttonHeight.dp)
     )
     {
         Text(
             text = "Guest Accounts",
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             modifier = Modifier
                 .padding(start = 20.dp)
@@ -264,19 +259,22 @@ fun guestAccountButton(){
 }
 
 @Composable
-fun displayButton(){
+fun displayButton(windowSize: WindowSize){
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .background(color = Cornflower_blue, shape = RectangleShape)
             .fillMaxWidth()
-            .height(90.dp)
+            .height(buttonHeight.dp)
     )
     {
         Text(
             text = "Display",
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             modifier = Modifier
                 .padding(start = 20.dp)
@@ -301,19 +299,22 @@ fun displayButton(){
 }
 
 @Composable
-fun accessibilityButton(){
+fun accessibilityButton(windowSize: WindowSize){
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .background(color = Cornflower_blue, shape = RectangleShape)
             .fillMaxWidth()
-            .height(90.dp)
+            .height(buttonHeight.dp)
     )
     {
         Text(
             text = "Accessibility",
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             modifier = Modifier
                 .padding(start = 20.dp)
@@ -376,6 +377,9 @@ fun logoutButton(paddingValues: PaddingValues){
 fun logoutButton(paddingValues: PaddingValues, windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
+    val topPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 580 else 700) }
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 120) }
+    val buttonText by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
 
     // a variable that determines if the state of the dialog to be use or not
     var showDialog by remember { mutableStateOf(false) }
@@ -386,7 +390,7 @@ fun logoutButton(paddingValues: PaddingValues, windowSize: WindowSize){
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(paddingValues)
-                .padding(top = 700.dp)
+                .padding(top = topPadding.dp)
 
         ){
             ElevatedButton(
@@ -396,7 +400,7 @@ fun logoutButton(paddingValues: PaddingValues, windowSize: WindowSize){
                 elevation = ButtonDefaults.buttonElevation(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp)
+                    .height(buttonHeight.dp)
                     .padding(start = 35.dp, top = 15.dp, end = 35.dp, bottom = 15.dp)
                     .border(4.dp, color = Persian_indigo),
 
@@ -404,7 +408,7 @@ fun logoutButton(paddingValues: PaddingValues, windowSize: WindowSize){
                 Text(
                     textAlign = TextAlign.Center,
                     text = "Logout",
-                    fontSize = 40.sp,
+                    fontSize = buttonText.sp,
                     color = Color.Black,
                 )
             }

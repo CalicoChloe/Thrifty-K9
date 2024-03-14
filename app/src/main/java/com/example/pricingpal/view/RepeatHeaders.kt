@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -178,7 +177,13 @@ fun innerPricingBar(){
 
 /** will display a header that shows the setting icon along with a name*/
 @Composable
-fun settingsBar(){
+fun settingsBar(windowSize: WindowSize){
+    // will scale the height of the search bar text field
+    val padHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the width of the search bar text field
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+    val iconSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 45 else 50) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -190,7 +195,7 @@ fun settingsBar(){
             horizontalArrangement = Arrangement.Start,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp, bottom = 20.dp)
+                .padding(top = padHeight.dp, bottom = padHeight.dp)
                 .background(color = Cornflower_blue),
         ) {
             Icon(
@@ -198,14 +203,14 @@ fun settingsBar(){
                 contentDescription = "Setting Icon",
                 tint = Color.Black,
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(iconSize.dp)
                     .padding(start = 10.dp, top = 5.dp)
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(
                 textAlign = TextAlign.Center,
                 text = "Settings",
-                fontSize = 40.sp,
+                fontSize = textSize.sp,
                 color = Color.Black,
             )
         }
