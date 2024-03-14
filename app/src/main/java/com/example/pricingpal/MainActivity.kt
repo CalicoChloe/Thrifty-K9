@@ -4,6 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.pricingpal.ui.theme.PricingpalTheme
+import com.example.pricingpal.view.SettingHeader
 import com.example.pricingpal.view.rememberSize
 import com.example.pricingpal.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,8 +20,10 @@ class MainActivity : ComponentActivity() {
             val window = rememberSize()
 
             PricingpalTheme {
-                PricingPalApp(categories = viewModel.categories, windowSize = window)
+                //PricingPalApp(categories = viewModel.categories, windowSize = window)
             }
+
+            SettingHeader(windowSize = window)
         }
     }
 }

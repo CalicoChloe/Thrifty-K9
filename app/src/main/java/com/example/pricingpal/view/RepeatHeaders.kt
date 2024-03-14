@@ -4,15 +4,18 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -31,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.R
@@ -163,6 +167,48 @@ fun innerPricingBar(){
             modifier = Modifier
                 .padding(15.dp)
         )
+    }
+    Box(
+        modifier = Modifier
+            .height(height = 4.dp)
+            .fillMaxWidth()
+            .background(color = Persian_indigo)
+    )
+}
+
+/** will display a header that shows the setting icon along with a name*/
+@Composable
+fun settingsBar(){
+    Card(
+        modifier = Modifier
+            .fillMaxWidth(),
+        shape = RectangleShape,
+        colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
+    ){
+        Row(
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, bottom = 20.dp)
+                .background(color = Cornflower_blue),
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Settings,
+                contentDescription = "Setting Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(50.dp)
+                    .padding(start = 10.dp, top = 5.dp)
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Settings",
+                fontSize = 40.sp,
+                color = Color.Black,
+            )
+        }
     }
     Box(
         modifier = Modifier
