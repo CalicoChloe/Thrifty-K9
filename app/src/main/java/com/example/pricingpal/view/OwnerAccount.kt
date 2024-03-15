@@ -145,13 +145,13 @@ fun ownerAccount(paddingValues: PaddingValues, windowSize: WindowSize){
                     .background(color = Cornflower_blue, shape = RectangleShape),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                accountTitle()
+                accountTitle(windowSize)
                 Spacer(modifier = Modifier.height(20.dp))
-                organizationNameEdit()
-                nameEdit()
-                emailEdit() // will navigate to the change email screen
-                passwordEdit() // will navigate to the change password screen
-                Spacer(modifier = Modifier.height(30.dp))
+                organizationNameEdit(windowSize)
+                nameEdit(windowSize)
+                emailEdit(windowSize) // will navigate to the change email screen
+                passwordEdit(windowSize) // will navigate to the change password screen
+                Spacer(modifier = Modifier.height(20.dp))
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -162,40 +162,11 @@ fun ownerAccount(paddingValues: PaddingValues, windowSize: WindowSize){
 }
 
 @Composable
-fun accountTitle(){
-    /*
-    Card(
-        modifier = Modifier
-            .padding(5.dp)
-            .padding(start = 30.dp, end = 30.dp)
-            .border(
-                border = BorderStroke(4.dp, color = Persian_indigo),
-                shape = RectangleShape
-            ),
-        elevation = CardDefaults.cardElevation(8.dp),
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .background(color = Cornflower_blue, shape = RectangleShape)
-                .fillMaxWidth()
-                .height(90.dp)
-        )
-        {
-            Text(
-                text = "Account",
-                textAlign = TextAlign.Center,
-                fontSize = 40.sp,
-                color = Color.Black,
-                modifier = Modifier
-                    .padding(end = 40.dp)
-                    .align(alignment = Alignment.CenterVertically)
-            )
-        }
-    }
-
-     */
+fun accountTitle(windowSize: WindowSize){
+    // will scale the height of the row
+    val rowHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -203,7 +174,7 @@ fun accountTitle(){
         modifier = Modifier
             .background(color = Cornflower_blue, shape = RectangleShape)
             .fillMaxWidth()
-            .height(90.dp)
+            .height(rowHeight.dp)
             .border(
                 border = BorderStroke(4.dp, color = Persian_indigo),
                 shape = RectangleShape
@@ -213,32 +184,49 @@ fun accountTitle(){
         Text(
             text = "Account",
             textAlign = TextAlign.Center,
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             modifier = Modifier
-                .padding(end = 40.dp)
+                //.padding(end = 40.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
     }
 }
 
 @Composable
-fun organizationNameEdit(){
+fun organizationNameEdit(windowSize: WindowSize){
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+    // will scale the size of the padding for the text
+    val startPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the height of the edit button
+    val editHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 45 else 60) }
+    // will scale the width of the edit button
+    val editWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 200) }
+    // will scale the size of the edit text
+    val editTextSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
+    // will scale the size of the edit padding
+    val editPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 30) }
+    // will scale the size of the edit border
+    val editBorder by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 3 else 4) }
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .background(color = Cornflower_blue, shape = RectangleShape)
             .fillMaxWidth()
-            .height(90.dp)
+            .height(buttonHeight.dp)
     )
     {
         Text(
-            text = "Organization Name",
-            fontSize = 40.sp,
+            text = "Organization",
+            fontSize = textSize.sp,
             color = Color.Black,
             modifier = Modifier
-                .padding(start = 20.dp)
+                .padding(start = startPadding.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
         // Edit Button
@@ -249,16 +237,16 @@ fun organizationNameEdit(){
             colors = ButtonDefaults.buttonColors(Uranian_Blue),
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier
-                .width(200.dp)
-                .height(60.dp)
-                .padding(end = 30.dp)
-                .border(4.dp, color = Persian_indigo),
+                .width(editWidth.dp)
+                .height(editHeight.dp)
+                .padding(end = editPadding.dp)
+                .border(editBorder.dp, color = Persian_indigo),
 
             ) {
             Text(
                 textAlign = TextAlign.Center,
                 text = "Edit",
-                fontSize = 30.sp,
+                fontSize = editTextSize.sp,
                 color = Color.Black,
             )
         }
@@ -266,22 +254,39 @@ fun organizationNameEdit(){
 }
 
 @Composable
-fun nameEdit(){
+fun nameEdit(windowSize: WindowSize){
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+    // will scale the size of the padding for the text
+    val startPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the height of the edit button
+    val editHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 45 else 60) }
+    // will scale the width of the edit button
+    val editWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 200) }
+    // will scale the size of the edit text
+    val editTextSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
+    // will scale the size of the edit padding
+    val editPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 30) }
+    // will scale the size of the edit border
+    val editBorder by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 3 else 4) }
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .background(color = Cornflower_blue, shape = RectangleShape)
             .fillMaxWidth()
-            .height(90.dp)
+            .height(buttonHeight.dp)
     )
     {
         Text(
             text = "Name",
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             modifier = Modifier
-                .padding(start = 20.dp)
+                .padding(start = startPadding.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
         // Edit Button
@@ -292,16 +297,16 @@ fun nameEdit(){
             colors = ButtonDefaults.buttonColors(Uranian_Blue),
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier
-                .width(200.dp)
-                .height(60.dp)
-                .padding(end = 30.dp)
-                .border(4.dp, color = Persian_indigo),
+                .width(editWidth.dp)
+                .height(editHeight.dp)
+                .padding(end = editPadding.dp)
+                .border(editBorder.dp, color = Persian_indigo),
 
             ) {
             Text(
                 textAlign = TextAlign.Center,
                 text = "Edit",
-                fontSize = 30.sp,
+                fontSize = editTextSize.sp,
                 color = Color.Black,
             )
         }
@@ -309,22 +314,39 @@ fun nameEdit(){
 }
 
 @Composable
-fun emailEdit(){
+fun emailEdit(windowSize: WindowSize){
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+    // will scale the size of the padding for the text
+    val startPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the height of the edit button
+    val editHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 45 else 60) }
+    // will scale the width of the edit button
+    val editWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 200) }
+    // will scale the size of the edit text
+    val editTextSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
+    // will scale the size of the edit padding
+    val editPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 30) }
+    // will scale the size of the edit border
+    val editBorder by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 3 else 4) }
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .background(color = Cornflower_blue, shape = RectangleShape)
             .fillMaxWidth()
-            .height(90.dp)
+            .height(buttonHeight.dp)
     )
     {
         Text(
             text = "Email",
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             modifier = Modifier
-                .padding(start = 20.dp)
+                .padding(start = startPadding.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
         //Edit Button
@@ -335,16 +357,16 @@ fun emailEdit(){
             colors = ButtonDefaults.buttonColors(Uranian_Blue),
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier
-                .width(200.dp)
-                .height(60.dp)
-                .padding(end = 30.dp)
-                .border(4.dp, color = Persian_indigo),
+                .width(editWidth.dp)
+                .height(editHeight.dp)
+                .padding(end = editPadding.dp)
+                .border(editBorder.dp, color = Persian_indigo),
 
             ) {
             Text(
                 textAlign = TextAlign.Center,
                 text = "Edit",
-                fontSize = 30.sp,
+                fontSize = editTextSize.sp,
                 color = Color.Black,
             )
         }
@@ -352,22 +374,39 @@ fun emailEdit(){
 }
 
 @Composable
-fun passwordEdit(){
+fun passwordEdit(windowSize: WindowSize){
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+    // will scale the size of the padding for the text
+    val startPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the height of the edit button
+    val editHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 45 else 60) }
+    // will scale the width of the edit button
+    val editWidth by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 200) }
+    // will scale the size of the edit text
+    val editTextSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
+    // will scale the size of the edit padding
+    val editPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 30) }
+    // will scale the size of the edit border
+    val editBorder by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 3 else 4) }
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .background(color = Cornflower_blue, shape = RectangleShape)
             .fillMaxWidth()
-            .height(90.dp)
+            .height(buttonHeight.dp)
     )
     {
         Text(
             text = "Password",
-            fontSize = 40.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
             modifier = Modifier
-                .padding(start = 20.dp)
+                .padding(start = startPadding.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
         // Edit Button
@@ -378,16 +417,16 @@ fun passwordEdit(){
             colors = ButtonDefaults.buttonColors(Uranian_Blue),
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier
-                .width(200.dp)
-                .height(60.dp)
-                .padding(end = 30.dp)
-                .border(4.dp, color = Persian_indigo),
+                .width(editWidth.dp)
+                .height(editHeight.dp)
+                .padding(end = editPadding.dp)
+                .border(editBorder.dp, color = Persian_indigo),
 
             ) {
             Text(
                 textAlign = TextAlign.Center,
                 text = "Edit",
-                fontSize = 30.sp,
+                fontSize = editTextSize.sp,
                 color = Color.Black,
             )
         }
@@ -398,12 +437,12 @@ fun passwordEdit(){
 fun deleteAccountButton(windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
-    // will scale space from the app bar to the logout button
-    val topPadding by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 580 else 700) }
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 120) }
     // will scale the size of button text
     val buttonText by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+    // will scale the size of the text
+    val textSize2 by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 25) }
 
     // a variable that determines if the state of the dialog to be use or not
     var showDialog by remember { mutableStateOf(false) }
@@ -431,7 +470,7 @@ fun deleteAccountButton(windowSize: WindowSize){
                 ) {
                 Text(
                     textAlign = TextAlign.Center,
-                    text = "Logout",
+                    text = "Delete Account",
                     fontSize = buttonText.sp,
                     color = Color.Black,
                 )
@@ -458,7 +497,8 @@ fun deleteAccountButton(windowSize: WindowSize){
                 ) {
 
                     // Holds the message that will be shown in dialog
-                    Text(text = "Are you sure you want to logout?",
+                    Text(text = "By deleting this account, you will be deleting the organization.\n " +
+                            "Do you still wish to delete?" ,
                         fontSize = textSize.sp,
                         color = Color.Black,
                     )
@@ -477,8 +517,8 @@ fun deleteAccountButton(windowSize: WindowSize){
                                 .padding(top = 16.dp)
                                 .border(3.dp, color = Persian_indigo),
                         ) {
-                            Text("No",
-                                fontSize = 25.sp,
+                            Text("Delete",
+                                fontSize = textSize2.sp,
                                 color = Color.Black
                             )
                         }
@@ -495,8 +535,8 @@ fun deleteAccountButton(windowSize: WindowSize){
                                 .padding(top = 16.dp)
                                 .border(3.dp, color = Persian_indigo),
                         ) {
-                            Text("Yes",
-                                fontSize = 25.sp,
+                            Text("Cancel",
+                                fontSize = textSize2.sp,
                                 color = Color.Black
                             )
                         }
