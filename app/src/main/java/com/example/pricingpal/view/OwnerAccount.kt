@@ -53,6 +53,18 @@ import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
 
+/**
+ * Function: Owner Account Header
+ * @author Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function sets up a scaffold with top bar for the owner account header screen.
+ * Users will see a display of the back arrow that will allow the user to navigate back to settings page.
+ * Below the bar will show the rest of the content of the owner account header screen.
+ *
+ * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ownerAccountHeader(windowSize: WindowSize){
@@ -118,12 +130,22 @@ fun ownerAccountHeader(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Owner Account
+ * @author: Shianne Lesure
+ *
+ * @param paddingValues aligns the content with top app bar
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function sets up the rest of the content of the owner account screen.
+ * Users will see a list of edit buttons that will allow them to edit their organization name,
+ * the user's name, email, & password. They will also have the option to delete their account.
+ */
 @Composable
 fun ownerAccount(paddingValues: PaddingValues, windowSize: WindowSize){
     Card(
         modifier = Modifier
             .padding(paddingValues)
-            //.padding(start = 40.dp, end = 40.dp)
             .fillMaxSize()
             .border(4.dp, color = Persian_indigo),
         shape = RectangleShape,
@@ -136,8 +158,6 @@ fun ownerAccount(paddingValues: PaddingValues, windowSize: WindowSize){
         ) {
             settingsBar(windowSize) // Holds the settings title
             Spacer(modifier = Modifier.height(30.dp))
-            //accountTitle()
-            //Spacer(modifier = Modifier.height(30.dp))
             Column(
                 modifier = Modifier
                     .padding(top = 15.dp, start = 30.dp, bottom = 15.dp, end = 30.dp)
@@ -149,18 +169,26 @@ fun ownerAccount(paddingValues: PaddingValues, windowSize: WindowSize){
                 Spacer(modifier = Modifier.height(20.dp))
                 organizationNameEdit(windowSize)
                 nameEdit(windowSize)
-                emailEdit(windowSize) // will navigate to the change email screen
-                passwordEdit(windowSize) // will navigate to the change password screen
+                emailEdit(windowSize)
+                passwordEdit(windowSize)
                 Spacer(modifier = Modifier.height(20.dp))
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-            deleteAccountButton(windowSize) //will take you to the delete account dialog
+            deleteAccountButton(windowSize)
             Spacer(modifier = Modifier.height(30.dp))
         }
     }
 }
 
+/**
+ * Function: Account Title
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function creates the title for the word account above the edit buttons.
+ */
 @Composable
 fun accountTitle(windowSize: WindowSize){
     // will scale the height of the row
@@ -187,12 +215,19 @@ fun accountTitle(windowSize: WindowSize){
             fontSize = textSize.sp,
             color = Color.Black,
             modifier = Modifier
-                //.padding(end = 40.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
     }
 }
 
+/**
+ * Function: Organization Name Edit
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will allow the user to change the organization through the edit button.
+ */
 @Composable
 fun organizationNameEdit(windowSize: WindowSize){
     // will scale the height of the button
@@ -229,8 +264,7 @@ fun organizationNameEdit(windowSize: WindowSize){
                 .padding(start = startPadding.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
-        // Edit Button
-        // will navigate to the change password screen
+        // Edit Button will navigate to the change organization screen
         ElevatedButton(
             onClick = { /*TODO*/ },
             shape = RectangleShape,
@@ -253,6 +287,14 @@ fun organizationNameEdit(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Name Edit
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will allow the user to change the name of the user through the edit button.
+ */
 @Composable
 fun nameEdit(windowSize: WindowSize){
     // will scale the height of the button
@@ -289,8 +331,7 @@ fun nameEdit(windowSize: WindowSize){
                 .padding(start = startPadding.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
-        // Edit Button
-        // will navigate to the change password screen
+        // Edit Button will navigate to the change password screen
         ElevatedButton(
             onClick = { /*TODO*/ },
             shape = RectangleShape,
@@ -313,6 +354,14 @@ fun nameEdit(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Email Edit
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will allow the user to change their email through the edit button.
+ */
 @Composable
 fun emailEdit(windowSize: WindowSize){
     // will scale the height of the button
@@ -349,8 +398,7 @@ fun emailEdit(windowSize: WindowSize){
                 .padding(start = startPadding.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
-        //Edit Button
-        // will navigate to the change email screen
+        //Edit Button will navigate to the change email screen
         ElevatedButton(
             onClick = { /*TODO*/ },
             shape = RectangleShape,
@@ -373,6 +421,14 @@ fun emailEdit(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Password Edit
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will allow the user to change the password through the edit button.
+ */
 @Composable
 fun passwordEdit(windowSize: WindowSize){
     // will scale the height of the button
@@ -433,6 +489,15 @@ fun passwordEdit(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Logout Button
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function creates the button that will navigate to a dialog display to the user whether they
+ * want to delete of the app or not.
+ */
 @Composable
 fun deleteAccountButton(windowSize: WindowSize){
     // will scale the size of the text
@@ -452,9 +517,6 @@ fun deleteAccountButton(windowSize: WindowSize){
             horizontalArrangement = Arrangement.End,
             modifier = Modifier
                 .fillMaxWidth()
-                //.padding(paddingValues)
-                //.padding(top = topPadding.dp)
-
         ){
             ElevatedButton(
                 onClick = { showDialog = true },
@@ -507,7 +569,7 @@ fun deleteAccountButton(windowSize: WindowSize){
                         horizontalArrangement = Arrangement.SpaceEvenly,
                     ){
 
-                        //No Button will close you out the dialog box
+                        //delete Button will close the user out the dialog box and navigate them to the home page screen
                         Button(
                             onClick = { showDialog = false },
                             shape =  RectangleShape,
@@ -525,7 +587,7 @@ fun deleteAccountButton(windowSize: WindowSize){
 
                         Spacer(modifier = Modifier.width(50.dp))
 
-                        // Yes button will close the user out the dialog box and naivgate them to the home page screen
+                        // Cancel button will close the user out the dialog box
                         Button(
                             onClick = { showDialog = false },
                             shape =  RectangleShape,
