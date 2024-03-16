@@ -52,6 +52,18 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
+/**
+ * Function: Change Email Header
+ * @author Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function sets up a scaffold with top bar for the change email screen.
+ * Users will see a display of the back arrow that will allow the user to navigate back to owner account page.
+ * Below the bar will show the rest of the content of the change email screen.
+ *
+ * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChangeEmailHeader(windowSize: WindowSize){
@@ -115,6 +127,17 @@ fun ChangeEmailHeader(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Change Email
+ * @author: Shianne Lesure
+ *
+ * @param paddingValues aligns the content with top app bar
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function sets up the rest of the content of the change email screen.
+ * Users will see a list of instructions with 2 text-fields explaining they need to input the old email
+ * and new email which will be saved for update.
+ */
 @Composable
 fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
     // will scale the size of the text
@@ -160,12 +183,19 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
         newEmailInputChangeEmail()
 
         Spacer(modifier = Modifier.height(50.dp))
-        
+
         saveButton(windowSize)
         Spacer(modifier = Modifier.height(buttonSpacer.dp))
     }
 }
 
+/**
+ * Function: Old Email Input Change Email
+ * @author: Shianne Lesure
+ *
+ * This function set up the text-field for the user to be able to input their old email.
+ * This is a requirement for the user to be able to reset their password.
+ */
 @Composable
 fun oldEmailInputChangeEmail(){
     var oldEmail by remember { mutableStateOf("") }// variable that holds a default state of text-field
@@ -205,6 +235,13 @@ fun oldEmailInputChangeEmail(){
     }
 }
 
+/**
+ * Function: New Email Input Change Email
+ * @author: Shianne Lesure
+ *
+ * This function set up the text-field for the user to be able to input their new email.
+ * This is a requirement for the user to be able to reset their password.
+ */
 @Composable
 fun newEmailInputChangeEmail(){
     var newEmail by remember { mutableStateOf("") }// variable that holds a default state of text-field
@@ -244,6 +281,14 @@ fun newEmailInputChangeEmail(){
     }
 }
 
+/**
+ * Function: Save Button
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will display a button that will allow the user to save the updated information.
+ */
 @Composable
 fun saveButton(windowSize: WindowSize){
     // will scale the height of the button
