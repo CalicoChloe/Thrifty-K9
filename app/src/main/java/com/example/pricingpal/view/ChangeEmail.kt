@@ -160,8 +160,7 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
         newEmailInputChangeEmail()
 
         Spacer(modifier = Modifier.height(50.dp))
-
-        // Holds the send button that will display a snack message before navigating to a redirect URL
+        
         saveButton(windowSize)
         Spacer(modifier = Modifier.height(buttonSpacer.dp))
     }
@@ -248,7 +247,7 @@ fun newEmailInputChangeEmail(){
 @Composable
 fun saveButton(windowSize: WindowSize){
     // will scale the height of the button
-    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 110 else 120) }
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 120) }
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
 
