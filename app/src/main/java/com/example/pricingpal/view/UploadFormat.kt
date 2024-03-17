@@ -130,19 +130,24 @@ fun upload(paddingValues: PaddingValues, windowSize: WindowSize){
             // holds the pricing pal logo
             innerPricingBar()
             Spacer(modifier = Modifier.height(90.dp))
-            uploadCSVButton()
+            uploadCSVButton(windowSize)
             Spacer(modifier = Modifier.height(40.dp))
             uploadLines(windowSize) // ----------- OR ------------
             Spacer(modifier = Modifier.height(40.dp))
-            makeListButton()
+            makeListButton(windowSize)
         }
     }
 }
 
 @Composable
-fun uploadCSVButton(){
+fun uploadCSVButton(windowSize: WindowSize){
     //Upload CSV Button
     // will navigate to add CSV File Screen
+
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 120 else 140) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 40 else 50) }
     ElevatedButton(
         onClick = { /*TODO*/ },
         shape = RectangleShape,
@@ -150,7 +155,7 @@ fun uploadCSVButton(){
         elevation = ButtonDefaults.buttonElevation(8.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(140.dp)
+            .height(buttonHeight.dp)
             .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
             .border(4.dp, color = Persian_indigo),
 
@@ -158,7 +163,7 @@ fun uploadCSVButton(){
         Text(
             textAlign = TextAlign.Center,
             text = "Upload CSV",
-            fontSize = 50.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
         )
     }
@@ -211,9 +216,14 @@ fun uploadLines(windowSize: WindowSize){
 }
 
 @Composable
-fun makeListButton(){
+fun makeListButton(windowSize: WindowSize){
     //Make List Button
     // will navigate to add Edit List Screen
+
+    // will scale the height of the button
+    val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 120 else 140) }
+    // will scale the size of the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 40 else 50) }
     ElevatedButton(
         onClick = { /*TODO*/ },
         shape = RectangleShape,
@@ -221,7 +231,7 @@ fun makeListButton(){
         elevation = ButtonDefaults.buttonElevation(8.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(140.dp)
+            .height(buttonHeight.dp)
             .padding(start = 25.dp, top = 15.dp, end = 25.dp, bottom = 15.dp)
             .border(4.dp, color = Persian_indigo),
 
@@ -229,7 +239,7 @@ fun makeListButton(){
         Text(
             textAlign = TextAlign.Center,
             text = "Make List",
-            fontSize = 50.sp,
+            fontSize = textSize.sp,
             color = Color.Black,
         )
     }
