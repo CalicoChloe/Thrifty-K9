@@ -152,14 +152,25 @@ fun ownerRegistration(paddingValues: PaddingValues, windowSize: WindowSize){
 
         // holds the pricing pal logo
         innerPricingBar()
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Owner Registration",
-            fontSize = textSize.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold
-        )
-
+        if(windowSize.width == WindowType.Compact){
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Owner \n\n Registration",
+                fontSize = textSize.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
+            )
+        } else {
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Owner Registration",
+                fontSize = textSize.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
+            )
+        }
+        Spacer(modifier = Modifier.height(25.dp))
+        nameInputGuest()
         Spacer(modifier = Modifier.height(25.dp))
         ownerOrganizationInput() // holds the organization text-field
         Spacer(modifier = Modifier.height(25.dp))
@@ -206,6 +217,51 @@ fun ownerOrganizationInput(){
         placeholder = { Text("Enter your organization", fontSize = 20.sp) },
         //supportingText = { Text(text = "*required") },
         leadingIcon = { Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_add_business_24), contentDescription = "Business Icon") },
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Anti_flash_white,
+            unfocusedContainerColor = Anti_flash_white,
+            unfocusedIndicatorColor = Anti_flash_white,
+            focusedIndicatorColor = Persian_indigo
+        ),
+        shape = RectangleShape,
+    )
+    /** I did this in replacement of the supporting text*/
+    // This message is below the text-field
+    // The message can change if their input is wrong
+    Row(horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp, start = 50.dp)
+    ) {
+        Text(
+            text = "*required",
+            fontSize = 20.sp,
+            color = Color.DarkGray
+        )
+    }
+}
+
+/**
+ * Function: Name Input Guest
+ * @author: Shianne Lesure
+ *
+ * This function sets up the text-field for the user to be able to put in their name to be able to
+ * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
+ */
+@Composable
+fun nameInputGuest(){
+    var name by remember { mutableStateOf("") }// variable that holds a default state of text-field
+    TextField(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .padding(start = 30.dp, end = 30.dp),
+        value = name,
+        onValueChange = {name = it}, // will take in the input from the user
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
+        placeholder = { Text("Enter name", fontSize = 20.sp) },
+        /** The support text will not work if you have a modifier.*/
+        //supportingText = { Text(text = "*required") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
