@@ -48,6 +48,18 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
+/**
+ * Function: Upload Format Header
+ * @author Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function sets up a scaffold with top bar for the upload format screen.
+ * Users will see a display of the back arrow that will allow the user to navigate back to home page.
+ * Below the bar will show the rest of the content of the upload format screen.
+ *
+ * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UploadFormatHeader(windowSize: WindowSize){
@@ -111,6 +123,17 @@ fun UploadFormatHeader(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Upload
+ * @author: Shianne Lesure
+ *
+ * @param paddingValues aligns the content with top app bar
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function sets up the rest of the content of the upload format screen.
+ * Users will see a list of buttons that will allow the user to either upload a CSV file or make their
+ * own list.
+ */
 @Composable
 fun upload(paddingValues: PaddingValues, windowSize: WindowSize){
     Card(
@@ -139,11 +162,16 @@ fun upload(paddingValues: PaddingValues, windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Upload CSV Button
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will display a button that will navigate to the CSV File Screen.
+ */
 @Composable
 fun uploadCSVButton(windowSize: WindowSize){
-    //Upload CSV Button
-    // will navigate to add CSV File Screen
-
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 120 else 140) }
     // will scale the size of the text
@@ -215,11 +243,16 @@ fun uploadLines(windowSize: WindowSize){
     }
 }
 
+/**
+ * Function: Make List Button
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will display a button that will navigate to the Edit List Screen.
+ */
 @Composable
 fun makeListButton(windowSize: WindowSize){
-    //Make List Button
-    // will navigate to add Edit List Screen
-
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 120 else 140) }
     // will scale the size of the text
