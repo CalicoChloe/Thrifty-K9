@@ -4,7 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.pricingpal.ui.theme.PricingpalTheme
-import com.example.pricingpal.view.ChangeEmailHeader
+import com.example.pricingpal.view.ChangeOrganizationHeader
 import com.example.pricingpal.view.rememberSize
 import com.example.pricingpal.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,8 @@ class MainActivity : ComponentActivity() {
 
             //SettingHeader(windowSize = window)
             //ownerAccountHeader(window)
-            ChangeEmailHeader(window)
+            //ChangeEmailHeader(window)
+            ChangeOrganizationHeader(window)
         }
     }
 }

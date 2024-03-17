@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -39,8 +38,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,20 +54,20 @@ import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
 /**
- * Function: Change Email Header
+ * Function: Change Organization Header
  * @author Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
- * This function sets up a scaffold with top bar for the change email screen.
+ * This function sets up a scaffold with top bar for the change organization screen.
  * Users will see a display of the back arrow that will allow the user to navigate back to owner account page.
- * Below the bar will show the rest of the content of the change email screen.
+ * Below the bar will show the rest of the content of the change organization screen.
  *
  * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChangeEmailHeader(windowSize: WindowSize){
+fun ChangeOrganizationHeader(windowSize: WindowSize){
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -117,7 +118,7 @@ fun ChangeEmailHeader(windowSize: WindowSize){
                     )
                 },
                 content = { padding ->
-                    changeEmail(padding, windowSize)
+                    changeOrganization(padding, windowSize)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -128,18 +129,18 @@ fun ChangeEmailHeader(windowSize: WindowSize){
 }
 
 /**
- * Function: Change Email
+ * Function: Change Organization
  * @author: Shianne Lesure
  *
  * @param paddingValues aligns the content with top app bar
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
- * This function sets up the rest of the content of the change email screen.
- * Users will see a list of instructions with 2 text-fields explaining they need to input the old email
- * and new email which will be saved for update.
+ * This function sets up the rest of the content of the change organization screen.
+ * Users will see a list of instructions with 2 text-fields explaining they need to input the old organization name
+ * and new organization name which will be saved for update.
  */
 @Composable
-fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
+fun changeOrganization(paddingValues: PaddingValues, windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 40 else 60) }
     // will scale the size of the text
@@ -156,21 +157,30 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        // holds the pricing pal logo
-        innerPricingBar()
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Change Email",
-            fontSize = textSize.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold
-        )
+        settingsBar(windowSize)
+        Spacer(modifier = Modifier.height(25.dp))
+        if(windowSize.width == WindowType.Compact){
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Change \n Organization",
+                fontSize = textSize.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
+            )
+        } else {
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Change Organization",
+                fontSize = textSize.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             textAlign = TextAlign.Center,
-            text = "New email should be different from old email",
+            text = "New organization should be different from old organization",
             fontSize = instructionTextSize.sp,
             color = Color.Black,
             modifier = Modifier
@@ -178,38 +188,38 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        oldEmailInputChangeEmail()
+        oldInputChangeOrganization()
         Spacer(modifier = Modifier.height(10.dp))
-        newEmailInputChangeEmail()
+        newInputChangeOrganization()
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        saveButton(windowSize)
+        saveOrganization(windowSize)
         Spacer(modifier = Modifier.height(buttonSpacer.dp))
     }
 }
 
 /**
- * Function: Old Email Input Change Email
+ * Function: Old Input Change Organization
  * @author: Shianne Lesure
  *
- * This function set up the text-field for the user to be able to input their old email.
+ * This function set up the text-field for the user to be able to input their old organization.
  */
 @Composable
-fun oldEmailInputChangeEmail(){
-    var oldEmail by remember { mutableStateOf("") }// variable that holds a default state of text-field
+fun oldInputChangeOrganization(){
+    var oldOrganization by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
-        value = oldEmail,
-        onValueChange = {oldEmail = it}, // will take in the input from the user
+        value = oldOrganization,
+        onValueChange = {oldOrganization = it}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("Enter old email", fontSize = 20.sp) },
+        placeholder = { Text("Enter old organization", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required") },
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
+        leadingIcon = { Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_add_business_24), contentDescription = "Business Icon") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -235,26 +245,26 @@ fun oldEmailInputChangeEmail(){
 }
 
 /**
- * Function: New Email Input Change Email
+ * Function: New Input Change Organization
  * @author: Shianne Lesure
  *
- * This function set up the text-field for the user to be able to input their new email.
+ * This function set up the text-field for the user to be able to input their new organization.
  */
 @Composable
-fun newEmailInputChangeEmail(){
-    var newEmail by remember { mutableStateOf("") }// variable that holds a default state of text-field
+fun newInputChangeOrganization(){
+    var newOrganization by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
-        value = newEmail,
-        onValueChange = {newEmail = it}, // will take in the input from the user
+        value = newOrganization,
+        onValueChange = {newOrganization = it}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("Enter new email", fontSize = 20.sp) },
+        placeholder = { Text("Enter new organization", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required") },
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
+        leadingIcon = { Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_add_business_24), contentDescription = "Business Icon") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -280,7 +290,7 @@ fun newEmailInputChangeEmail(){
 }
 
 /**
- * Function: Save Button
+ * Function: Save Organization
  * @author: Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
@@ -288,7 +298,7 @@ fun newEmailInputChangeEmail(){
  * This function will display a button that will allow the user to save the updated information.
  */
 @Composable
-fun saveButton(windowSize: WindowSize){
+fun saveOrganization(windowSize: WindowSize){
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 120) }
     // will scale the size of the text
