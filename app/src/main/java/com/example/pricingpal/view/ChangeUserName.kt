@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -53,20 +52,20 @@ import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 
 /**
- * Function: Change Email Header
+ * Function: Change Name Header
  * @author Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
- * This function sets up a scaffold with top bar for the change email screen.
+ * This function sets up a scaffold with top bar for the change name screen.
  * Users will see a display of the back arrow that will allow the user to navigate back to owner account page.
- * Below the bar will show the rest of the content of the change email screen.
+ * Below the bar will show the rest of the content of the change name screen.
  *
  * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChangeEmailHeader(windowSize: WindowSize){
+fun ChangeNameHeader(windowSize: WindowSize){
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -117,7 +116,7 @@ fun ChangeEmailHeader(windowSize: WindowSize){
                     )
                 },
                 content = { padding ->
-                    changeEmail(padding, windowSize)
+                    changeName(padding, windowSize)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -128,18 +127,18 @@ fun ChangeEmailHeader(windowSize: WindowSize){
 }
 
 /**
- * Function: Change Email
+ * Function: Change Name
  * @author: Shianne Lesure
  *
  * @param paddingValues aligns the content with top app bar
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
- * This function sets up the rest of the content of the change email screen.
- * Users will see a list of instructions with 2 text-fields explaining they need to input the old email
- * and new email which will be saved for update.
+ * This function sets up the rest of the content of the change name screen.
+ * Users will see a list of instructions with 2 text-fields explaining they need to input the old name
+ * and new name which will be saved for update.
  */
 @Composable
-fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
+fun changeName(paddingValues: PaddingValues, windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 40 else 60) }
     // will scale the size of the text
@@ -160,7 +159,7 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
         Spacer(modifier = Modifier.height(25.dp))
         Text(
             textAlign = TextAlign.Center,
-            text = "Change Email",
+            text = "Change Name",
             fontSize = textSize.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
@@ -169,7 +168,7 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             textAlign = TextAlign.Center,
-            text = "New email should be different from old email",
+            text = "New name should be different from old name",
             fontSize = instructionTextSize.sp,
             color = Color.Black,
             modifier = Modifier
@@ -177,38 +176,37 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        oldEmailInputChangeEmail()
+        oldInputChangeName()
         Spacer(modifier = Modifier.height(10.dp))
-        newEmailInputChangeEmail()
+        newInputChangeName()
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        saveButton(windowSize)
+        saveName(windowSize)
         Spacer(modifier = Modifier.height(buttonSpacer.dp))
     }
 }
 
 /**
- * Function: Old Email Input Change Email
+ * Function: Old Input Change Name
  * @author: Shianne Lesure
  *
- * This function set up the text-field for the user to be able to input their old email.
+ * This function set up the text-field for the user to be able to input their old name.
  */
 @Composable
-fun oldEmailInputChangeEmail(){
-    var oldEmail by remember { mutableStateOf("") }// variable that holds a default state of text-field
+fun oldInputChangeName(){
+    var oldName by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
-        value = oldEmail,
-        onValueChange = {oldEmail = it}, // will take in the input from the user
+        value = oldName,
+        onValueChange = {oldName = it}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("Enter old email", fontSize = 20.sp) },
+        placeholder = { Text("Enter old name", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required") },
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -234,26 +232,25 @@ fun oldEmailInputChangeEmail(){
 }
 
 /**
- * Function: New Email Input Change Email
+ * Function: New Input Change Name
  * @author: Shianne Lesure
  *
- * This function set up the text-field for the user to be able to input their new email.
+ * This function set up the text-field for the user to be able to input their new name.
  */
 @Composable
-fun newEmailInputChangeEmail(){
-    var newEmail by remember { mutableStateOf("") }// variable that holds a default state of text-field
+fun newInputChangeName(){
+    var newName by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
-        value = newEmail,
-        onValueChange = {newEmail = it}, // will take in the input from the user
+        value = newName,
+        onValueChange = {newName = it}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("Enter new email", fontSize = 20.sp) },
+        placeholder = { Text("Enter new name", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required") },
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -279,7 +276,7 @@ fun newEmailInputChangeEmail(){
 }
 
 /**
- * Function: Save Button
+ * Function: Save Name
  * @author: Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
@@ -287,7 +284,7 @@ fun newEmailInputChangeEmail(){
  * This function will display a button that will allow the user to save the updated information.
  */
 @Composable
-fun saveButton(windowSize: WindowSize){
+fun saveName(windowSize: WindowSize){
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 120) }
     // will scale the size of the text
