@@ -155,10 +155,9 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
             .background(color = Periwinkle),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        // holds the pricing pal logo
-        innerPricingBar()
-        Spacer(modifier = Modifier.height(10.dp))
+        
+        settingsBar(windowSize)
+        Spacer(modifier = Modifier.height(25.dp))
         Text(
             textAlign = TextAlign.Center,
             text = "Change Email",
