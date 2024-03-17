@@ -21,15 +21,6 @@ class MainActivity : ComponentActivity() {
             PricingpalTheme {
                 PricingPalApp(categories = viewModel.categories, windowSize = window)
             }
-
-            //SettingHeader(windowSize = window)
-            //ownerAccountHeader(window)
-            //ChangeEmailHeader(window)
-            //ChangeOrganizationHeader(window)
-            //ChangeNameHeader(window)
-            //ChangePasswordHeader(window)
-            //UploadFormatHeader(window)
-            //GuestRegisterationHeader(window)
         }
     }
 }
