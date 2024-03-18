@@ -1,6 +1,6 @@
 package com.example.pricingpal.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Organization
@@ -15,7 +15,6 @@ import com.example.pricingpal.utilites.SuccessMessages.SIGN_UP_SUCCESSFUL
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 /**
@@ -32,7 +31,6 @@ class SignUpViewModel @Inject constructor(
     private val organizationRepository: OrganizationRepository,
     private val userRepository: UserRepository,
     private val signUpUseCase : SignUpUseCase,
-    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     //list of the organizations from the database
     private val _organizationsList = MutableStateFlow<List<Organization>?>(listOf())
@@ -84,39 +82,6 @@ class SignUpViewModel @Inject constructor(
         _organizationName.value = organizationName
     }
 
-    // Is the value use for the input of UseCase functions for the user's id.
-    private val userID = saveUUID(getUUID())
-
-    /**
-     * This holds the UUID key that will be coming from the database. It is put inside a companion object
-     * because it associates the constant value to the user's ViewModel and ensures it is scoped to the class.
-     */
-    companion object {private const val UUID_KEY = "uuid_key"}
-
-    /**
-     * Function: saveUUID
-     * @author Shianne Lesure
-     *
-     * @param uuid is the id that is coming from the user's table from the database
-     *
-     * This will take the UUID and converted into a string so it can be saved into the state handle.
-     */
-    fun saveUUID(uuid: UUID) {
-        savedStateHandle[UUID_KEY] = uuid.toString()
-    }
-
-    /**
-     * Function: getUUID
-     * @author Shianne Lesure
-     *
-     * This will get the string UUID value and return it back to a UUID object using fromString().
-     */
-    fun getUUID(): UUID {
-        val uuidString = savedStateHandle.get<String>(UUID_KEY)
-        return uuidString.let { UUID.fromString(it) }
-    }
-
-
     //Gets the list of organizations from the database and emits it to _organizationsList, then returns it
     fun getOrganizations () {
         viewModelScope.launch {
@@ -128,8 +93,8 @@ class SignUpViewModel @Inject constructor(
     //When the Organization data from the database is pulled, this function will translate it from a DTO to the real object
     private fun OrganizationDTO.asDomainModel(): Organization {
         return Organization(
-            organizationID = this.organizationID.toString(),
-            ownerID = this.ownerID.toString(),
+            organizationID = this.organizationID,
+            ownerID = this.ownerID,
             organizationName = this.organizationName
         )
     }
@@ -171,6 +136,12 @@ class SignUpViewModel @Inject constructor(
                         _message.emit(SIGN_UP_FAILED)
                     }
                 }
+                Log.d("SignUpViewModel.kt", "Email:  $email")
+                Log.d("SignUpViewModel.kt", "password:  $password")
+                Log.d("SignUpViewModel.kt", "full name:  $fullName")
+                Log.d("SignUpViewModel.kt", "organization name:  $organizationName")
+                Log.d("SignUpViewModel.kt", "Owner status:  $isOwner")
+
             }
     }
 }

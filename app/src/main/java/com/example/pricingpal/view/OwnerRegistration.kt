@@ -1,5 +1,6 @@
 package com.example.pricingpal.view
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -71,6 +72,7 @@ import com.example.pricingpal.utilites.ErrorMessages.ORGANIZATION_NAME_ALREADY_T
 import com.example.pricingpal.viewmodel.SignUpViewModel
 
 
+
 /**
  * Function: Owner Registeration Header
  * @author Shianne Lesure
@@ -83,6 +85,7 @@ import com.example.pricingpal.viewmodel.SignUpViewModel
  *
  * NOTE: I have the scaffold set up this way, so it matches the design from figma, so please don't change it.
  */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OwnerRegisterationHeader(
@@ -150,10 +153,9 @@ fun OwnerRegisterationHeader(
  * Below that will be the list of buttons the user can navigate to.
  */
 @Composable
-fun ownerRegistration(paddingValues: PaddingValues, windowSize: WindowSize, isOwner: Boolean) {
+fun ownerRegistration(paddingValues: PaddingValues, windowSize: WindowSize, isOwner: Boolean, signUpViewModel: SignUpViewModel = hiltViewModel()) {
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 50 else 60) }
-    val signUpViewModel: SignUpViewModel = hiltViewModel()
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -177,7 +179,7 @@ fun ownerRegistration(paddingValues: PaddingValues, windowSize: WindowSize, isOw
         Spacer(modifier = Modifier.height(25.dp))
 
         // holds the full name text-field
-        ownerFullNameInput()
+        ownerFullNameInput(signUpViewModel)
         Spacer(modifier = Modifier.height(25.dp))
 
         // holds the organization text-field
@@ -189,7 +191,7 @@ fun ownerRegistration(paddingValues: PaddingValues, windowSize: WindowSize, isOw
         Spacer(modifier = Modifier.height(25.dp))
 
         // holds the password text-field
-        passwordInputOwner()
+        passwordInputOwner(signUpViewModel)
         Spacer(modifier = Modifier.height(25.dp))
 
         // check whether password is strong or weak
@@ -213,7 +215,7 @@ fun ownerRegistration(paddingValues: PaddingValues, windowSize: WindowSize, isOw
 @Composable
 fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
     //variable that holds a default state of text-field
-    var organizationName by remember { mutableStateOf("") }
+    val organizationName = signUpViewModel.organizationName.collectAsState(initial = "")
     //variable that stores the error message that will be displayed based on the user's input of the organization name
     var errorMessage by remember { mutableStateOf("") }
     //variable used to reference the state of organizations pulled from the database through the signUpViewModel
@@ -228,13 +230,14 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
             .padding(start = 30.dp, end = 30.dp)
             .border(
                 // conditional statement used to determine the border color
-                color = if (organizationName.isBlank() ||
-                    isOrganizationNameTaken(organizationName, organizations )) Color.Red else Color.Transparent,
+                color = if (organizationName.value.isBlank() ||
+                    isOrganizationNameTaken(organizationName.value, organizations)
+                ) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
             ),
-        value = organizationName,
-        onValueChange = { organizationName = it // will take in the input from the user
+        value = organizationName.value,
+        onValueChange = {  signUpViewModel.onOrganizationChange(it) // will take in the input from the user
             errorMessage = ""  }, // Reset error message when user modifies the input
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter your organization", fontSize = 20.sp) },
@@ -306,8 +309,8 @@ fun isOrganizationNameTaken(
  * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
  */
 @Composable
-fun ownerFullNameInput(){
-    var fullName by remember { mutableStateOf("") } // variable that holds a default state of text-field
+fun ownerFullNameInput(signUpViewModel: SignUpViewModel){
+    var fullName = signUpViewModel.fullName.collectAsState(initial = "") // variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -315,12 +318,12 @@ fun ownerFullNameInput(){
             .padding(start = 30.dp, end = 30.dp)
             .border(
                 // conditional statement used to determine the border color
-                color = if (fullName.isBlank())Color.Red else Color.Transparent,
+                color = if (fullName.value.isBlank()) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
             ),
-        value = fullName,
-        onValueChange = { fullName = it }, // will take in the input from the user
+        value = fullName.value,
+        onValueChange = { signUpViewModel.onNameChange(it) }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter your full name", fontSize = 20.sp) },
         leadingIcon = {
@@ -363,7 +366,7 @@ fun ownerFullNameInput(){
  */
 @Composable
 fun emailInputOwner(signUpViewModel: SignUpViewModel) {
-    var email by remember { mutableStateOf("") }// variable that holds a default state of text-field
+    var email = signUpViewModel.email.collectAsState(initial = "")// variable that holds a default state of text-field
     var errorMessage by remember { mutableStateOf("") }
     val usersState = signUpViewModel.users.collectAsState()
     val users = usersState.value
@@ -375,13 +378,14 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
             .padding(start = 30.dp, end = 30.dp)
             .border(
                 // conditional statement used to determine the border color
-                color = if (email.isBlank() ||
-                    isEmailTaken(email, users )) Color.Red else Color.Transparent,
+                color = if (email.value.isBlank() ||
+                    isEmailTaken(email.value, users)
+                ) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
             ),
-        value = email,
-        onValueChange = { email = it // will take in the input from the user
+        value = email.value,
+        onValueChange = { signUpViewModel.onEmailChange(it) // will take in the input from the user
                         errorMessage = ""}, // Reset error message when user modifies the input
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter email", fontSize = 20.sp) },
@@ -448,8 +452,8 @@ fun isEmailTaken(
  * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
  */
 @Composable
-fun passwordInputOwner() {
-    var password by remember { mutableStateOf("") }// variable that holds a default state of text-field
+fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
+    var password = signUpViewModel.password.collectAsState(initial = "")// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -457,12 +461,12 @@ fun passwordInputOwner() {
             .padding(start = 30.dp, end = 30.dp)
             .border(
                 // conditional statement used to determine the border color
-                color = if (password.isBlank())Color.Red else Color.Transparent,
+                color = if (password.value.isBlank()) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
             ),
-        value = password,
-        onValueChange = { password = it }, // will take in the input from the user
+        value = password.value,
+        onValueChange = {signUpViewModel.onPasswordChange(it)}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter password", fontSize = 20.sp) },
         visualTransformation = PasswordVisualTransformation(),// makes the password not visible to the user
@@ -689,10 +693,12 @@ fun signSnackBar(windowSize: WindowSize, isOwner: Boolean) {
 
     // a variable that determines if the snack-bar will be displayed or not
     var showSnackBar by remember { mutableStateOf(false) }
+
     ElevatedButton(
         onClick = {
             signUpViewModel.onSignUp(isOwner)
             showSnackBar = true
+            Log.d("OwnerRegistration.kt", "Owner status:  $isOwner")
         },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),
@@ -720,7 +726,7 @@ fun signSnackBar(windowSize: WindowSize, isOwner: Boolean) {
                     /* Will close the snack-bar and navigate to the next screen */
                     /** ask group about adding a button/snack bar that users can click to
                     // resend verification email once user has attempted to sign up
-                    */
+                     */
                 })
                 .height(snackBarHeight.dp)
                 .padding(start = 25.dp, end = 25.dp)

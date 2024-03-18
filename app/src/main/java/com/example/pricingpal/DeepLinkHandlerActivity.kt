@@ -1,18 +1,22 @@
 package com.example.pricingpal
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.pricingpal.ui.theme.PricingpalTheme
+import com.example.pricingpal.view.SignUpVerified
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.handleDeeplinks
@@ -50,11 +54,20 @@ class DeepLinkHandlerActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
+
                 ) {
+                    SignUpVerified(
+                        modifier = Modifier.padding(20.dp),
+                        navController = navController,
+                        email = emailState.value,
+                        createdAt = createdAtState.value,
+                        onClick = { navigateToMainApp() }
+                    )
 
                 }
             }
         }
+
     }
 
     private fun navigateToMainApp() {

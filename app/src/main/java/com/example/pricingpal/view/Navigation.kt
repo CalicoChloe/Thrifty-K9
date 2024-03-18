@@ -1,7 +1,10 @@
 package com.example.pricingpal.view
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -53,7 +56,9 @@ fun Navigation(
         composable(route = Screen.LoginInScreen.route){
            LoginHeader(navController = navController , windowSize = windowSize )
         }
-
+        composable(route = Screen.SignUpVerified.route){
+            SignUpVerified(navController = navController, modifier = Modifier.padding(20.dp), email = "", createdAt = "")
+        }
         //The route to the CategoryList. This is the start destination
         composable(route = Screen.CategoryList.route) {
             CategoryList(
