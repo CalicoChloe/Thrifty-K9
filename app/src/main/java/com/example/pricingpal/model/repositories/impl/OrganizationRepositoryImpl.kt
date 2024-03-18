@@ -1,6 +1,5 @@
 package com.example.pricingpal.model.repositories.impl
 
-import com.example.pricingpal.model.datatransferobjects.ItemDTO
 import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
 import com.example.pricingpal.model.repositories.OrganizationRepository
 import io.github.jan.supabase.postgrest.Postgrest
