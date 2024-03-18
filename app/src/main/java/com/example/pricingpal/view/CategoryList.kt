@@ -20,6 +20,9 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -109,7 +112,13 @@ fun CategoryList (
 
                     // takes each category card and put into a list
                     for (category: Category in categories.values) {
-                        item { CategoryCard(category = category, navController) }
+                        item {
+                            CategoryCard(
+                                category = category,
+                                navController,
+                                onEditClick = {
+                                    // Define what should happen when edit is clicked
+                                }) }
                     }
                 }
             }
@@ -122,7 +131,11 @@ fun CategoryList (
 
 @Composable
 //puts the category name into a card view
-fun CategoryCard(category: Category, navController: NavController){
+fun CategoryCard(
+    category: Category,
+    navController: NavController,
+    onEditClick: () -> Unit
+){
     Card(
         modifier = Modifier
             //Makes the card clickable, and when clicked navigates to the ItemList passing along the category name as a String
@@ -180,7 +193,17 @@ fun CategoryCard(category: Category, navController: NavController){
                     modifier = Modifier
                         .padding(10.dp)
                 )
+
+                EditIcon(onEditClick)
             }
         }
     }
+}
+@Composable
+private fun EditIcon(onClick: () -> Unit) {
+    Icon(
+        imageVector = Icons.Default.Edit,
+        contentDescription = "Edit",
+        modifier = Modifier.clickable(onClick = onClick)
+    )
 }
