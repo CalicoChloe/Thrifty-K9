@@ -40,6 +40,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -60,6 +61,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pricingpal.R
+import com.example.pricingpal.model.Organization
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
@@ -84,6 +86,8 @@ fun VolunteerCompanyListHeader(
     windowSize: WindowSize,
     viewModel: OrganizationViewModel = hiltViewModel()
 ){
+    val organizationList = viewModel.organizationList.collectAsState(initial = listOf()).value
+
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -124,7 +128,9 @@ fun VolunteerCompanyListHeader(
                     // changes the opacity of the image
                     alpha = 0.1F
                 )
-                volunteerCompanyDivider(padding, windowSize)
+                if (organizationList != null) {
+                    volunteerCompanyDivider(organizationList, padding, windowSize)
+                }
             },
         )
     }
@@ -141,7 +147,7 @@ fun VolunteerCompanyListHeader(
  * This was done to match more of the figma prototype.
  */
 @Composable
-fun volunteerCompanyDivider(paddingValues: PaddingValues, windowSize: WindowSize){
+fun volunteerCompanyDivider(organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
     Box(
         modifier = Modifier
             .padding(paddingValues)
@@ -149,7 +155,7 @@ fun volunteerCompanyDivider(paddingValues: PaddingValues, windowSize: WindowSize
             .fillMaxWidth()
             .background(color = Persian_indigo)
     )
-    volunteerCompanyList(paddingValues,windowSize)
+    volunteerCompanyList(organizationList, paddingValues, windowSize)
 }
 
 /**
@@ -165,13 +171,15 @@ fun volunteerCompanyDivider(paddingValues: PaddingValues, windowSize: WindowSize
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun volunteerCompanyList(paddingValues: PaddingValues,windowSize: WindowSize){
+fun volunteerCompanyList(organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
     LazyColumn(
         modifier = Modifier
             .padding(paddingValues)
             // this is here so the line above the pricing pal logo
             .padding(top = 4.dp)
     ) {
+
+
 
         item {
             // holds the pricing pal logo
@@ -190,19 +198,14 @@ fun volunteerCompanyList(paddingValues: PaddingValues,windowSize: WindowSize){
         item {
             volunteerCompaniesTitle(windowSize)
         }
-        item {
-            volunteerFavorites(windowSize)
-        }
-        for (i in 1..2) { // this will change when it is being pulled from the database
-            item {
-                volunteerFavoriteCompanyName(windowSize)
+        if (!organizationList.isNullOrEmpty()) {
+            for (i in organizationList) { // this will change when it is being pulled from the database
+                item {
+                    organizationCard(i.organizationName, windowSize)
+                }
             }
         }
-        for (i in 1..10) { // this will change when it is being pulled from the database
-            item {
-                volunteerCompanyName(windowSize)
-            }
-        }
+
     }
 }
 
@@ -271,7 +274,7 @@ fun volunteerCompaniesTitle(windowSize: WindowSize){
  * A company should be added when the owner register their organization.
  */
 @Composable
-fun volunteerCompanyName(windowSize: WindowSize){
+fun organizationCard(organizationName: String, windowSize: WindowSize){
     // will scale the height of the row
     val rowHeight by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 70 else 80) }
     // will scale the size of the text
@@ -303,7 +306,7 @@ fun volunteerCompanyName(windowSize: WindowSize){
         )
         {
             Text(
-                text = "Organization Name", // Will show up from database when Owner makes registration
+                text = organizationName, // Will show up from database when Owner makes registration
                 fontSize = textSize.sp,
                 color = Color.Black,
                 modifier = Modifier

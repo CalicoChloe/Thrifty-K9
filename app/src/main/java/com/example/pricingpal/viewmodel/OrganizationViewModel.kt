@@ -34,7 +34,9 @@ class OrganizationViewModel @Inject constructor(
 
     private fun OrganizationDTO.asDomainModel(): Organization {
         return Organization(
+            organizationId = this.organizationId,
             organizationName = this.organizationName,
+            ownerId = this.ownerId
         )
     }
 

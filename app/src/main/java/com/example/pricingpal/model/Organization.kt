@@ -1,4 +1,7 @@
 package com.example.pricingpal.model
+
+import java.util.UUID
+
 /**
  * Data class for a category
  *
@@ -8,4 +11,4 @@ package com.example.pricingpal.model
  *
  * @Abdoulie NJie
  **/
-data class Organization(val organizationName: String)
+data class Organization(val organizationId: String, val organizationName: String, val ownerId: String)
