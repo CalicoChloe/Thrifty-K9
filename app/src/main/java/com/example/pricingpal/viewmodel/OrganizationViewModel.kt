@@ -26,11 +26,11 @@ class OrganizationViewModel @Inject constructor(
     fun getOrganizations() {
         viewModelScope.launch {
             val organizations = organizationRepository.getAllOrganizations()
-            _organizationList.emit(organizations?.map { it -> it.asDomainModel() })
+            _organizationList.emit(organizations.map { it -> it.asDomainModel() })
         }
     }
 
-    suspend fun OrganizationDTO.asDomainModel(): Organization {
+    private fun OrganizationDTO.asDomainModel(): Organization {
         return Organization(
             organizationName = this.organizationName,
         )
