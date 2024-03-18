@@ -1,5 +1,7 @@
 package com.example.pricingpal.model.repositories
 
+import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
+
 /**
  * Interface: OrganizationRepository
  * @author Abdoulie NJie
@@ -8,6 +10,7 @@ package com.example.pricingpal.model.repositories
  */
 interface OrganizationRepository {
 
+    suspend fun getAllOrganizations(): List<OrganizationDTO>
     // delete organization
     suspend fun deleteOrganization(organizationName: String)
     // update organization
