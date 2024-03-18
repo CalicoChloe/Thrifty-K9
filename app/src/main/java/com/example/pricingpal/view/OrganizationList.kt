@@ -57,12 +57,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
+import com.example.pricingpal.viewmodel.OrganizationViewModel
 
 /**
  * Function: Volunteer Company List Header
@@ -76,7 +79,11 @@ import com.example.pricingpal.ui.theme.Uranian_Blue
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VolunteerCompanyListHeader(windowSize: WindowSize){
+fun VolunteerCompanyListHeader(
+    navController: NavController,
+    windowSize: WindowSize,
+    viewModel: OrganizationViewModel = hiltViewModel()
+){
     Surface(
         modifier = Modifier
             .fillMaxSize(),

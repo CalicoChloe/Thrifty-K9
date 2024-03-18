@@ -3,10 +3,12 @@ package com.example.pricingpal.model.modules
 import com.example.pricingpal.model.repositories.AuthRepository
 import com.example.pricingpal.model.repositories.CategoryRepository
 import com.example.pricingpal.model.repositories.ItemRepository
+import com.example.pricingpal.model.repositories.OrganizationRepository
 import com.example.pricingpal.model.repositories.UserRepository
 import com.example.pricingpal.model.repositories.impl.AuthRepositoryImpl
 import com.example.pricingpal.model.repositories.impl.CategoryRepositoryImpl
 import com.example.pricingpal.model.repositories.impl.ItemRepositoryImpl
+import com.example.pricingpal.model.repositories.impl.OrganizationRepositoryImpl
 import com.example.pricingpal.model.repositories.impl.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -69,4 +71,7 @@ abstract class RepositoryModule {
      */
     @Binds
     abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
+
+    @Binds
+    abstract fun bindOrganizationRepository(impl: OrganizationRepositoryImpl): OrganizationRepository
 }

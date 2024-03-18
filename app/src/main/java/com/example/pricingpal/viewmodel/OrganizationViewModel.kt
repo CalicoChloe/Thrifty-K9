@@ -5,11 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Organization
 import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
 import com.example.pricingpal.model.repositories.OrganizationRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class OrganizationViewModel @Inject constructor(
     private val organizationRepository: OrganizationRepository
 ) : ViewModel() {
@@ -26,7 +28,7 @@ class OrganizationViewModel @Inject constructor(
     fun getOrganizations() {
         viewModelScope.launch {
             val organizations = organizationRepository.getAllOrganizations()
-            _organizationList.emit(organizations.map { it -> it.asDomainModel() })
+            _organizationList.emit(organizations?.map { it -> it.asDomainModel() })
         }
     }
 

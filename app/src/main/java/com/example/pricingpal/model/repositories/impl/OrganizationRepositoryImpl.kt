@@ -10,7 +10,7 @@ import javax.inject.Inject
 class OrganizationRepositoryImpl @Inject constructor(
     private val postgrest: Postgrest
     ) : OrganizationRepository {
-    override suspend fun getAllOrganizations(): List<OrganizationDTO> {
+    override suspend fun getAllOrganizations(): List<OrganizationDTO>? {
         return withContext(Dispatchers.IO) {
             val results = postgrest["organization"].select().decodeList<OrganizationDTO>()
             results
