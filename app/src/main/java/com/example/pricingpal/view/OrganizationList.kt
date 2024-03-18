@@ -267,10 +267,6 @@ fun organizationCard(organizationName: String, windowSize: WindowSize){
     // will scale the padding around the card
     val cardPadding by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 10 else 15) }
 
-    /*
-    Only one card can be clicked at a time
-    This will navigate to the Guest Registration Screen
-     */
     Card(
         modifier = Modifier
             .clickable { /*TODO*/ }
@@ -299,140 +295,42 @@ fun organizationCard(organizationName: String, windowSize: WindowSize){
                     .align(alignment = Alignment.CenterVertically)
             )
 
-            volunteerCookiesAndPrivacy(windowSize)
+            FavoriteButton()
         }
     }
 }
 
 /**
- * Function: Volunteer Favorites
- * @author: Shianne Lesure
+ * Function: FavoriteButton
+ * @author: Chloe Jackson
  *
- * @param windowSize an adjuster used to change scale of screens based on the user's device
- *
- * This function will display the title favorites to the user. Below the title card will show the list
- * of organization that have been favorite by the user.
+ * This is an icon displayed within each organization card to toggle favorite status. Currently not functional.
  */
 @Composable
-fun volunteerFavorites(windowSize: WindowSize){
-    // will scale the height of the row
-    val rowHeight by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 90 else 110) }
-    // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 35 else 50) }
-    // will scale the padding around the card
-    val cardPadding by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 10 else 15) }
-    // will scale the padding around the card
-    val iconPadding by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 5 else 10) }
+fun FavoriteButton() {
+    var isFavorite by remember { mutableStateOf(false)}
+    //default is unfavorited
+    var icon = Icons.Filled.FavoriteBorder
+    var description = "Outline Heart"
 
-    Card(
-        modifier = Modifier
-            .padding(cardPadding.dp)
-            .border(
-                border = BorderStroke(4.dp, color = Persian_indigo),
-                shape = RectangleShape
-            ),
-        elevation = CardDefaults.cardElevation(12.dp),
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .background(color = Cornflower_blue, shape = RectangleShape)
-                .fillMaxWidth()
-                .height(rowHeight.dp)
-        )
-        {
-            Text(
-                text = "Favorites",
-                fontSize = textSize.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .padding(start = 20.dp)
-                    .align(alignment = Alignment.CenterVertically)
-            )
-
-            IconButton(onClick = { /*TODO*/ },
-                modifier = Modifier
-                    .size(60.dp)
-                    .padding(top = iconPadding.dp, start = 20.dp),
-            ) {
-                Icon(imageVector = Icons.Filled.Favorite,
-                    contentDescription = "Closed Heart",
-                    tint = Color.Black,
-                    modifier = Modifier
-                        .size(60.dp)
-                )
-
-            }
-        }
+    if (isFavorite) {
+        icon = Icons.Filled.Favorite
+        description = "Filled Heart"
     }
-}
 
-/**
- * Function: Volunteer Favorite Company Name
- * @author: Shianne Lesure
- *
- * @param windowSize an adjuster used to change scale of screens based on the user's device
- *
- * This function will show the name of the companies that the user add as favorites.
- * A company should be added when the owner register their organization.
- */
-@Composable
-fun volunteerFavoriteCompanyName(windowSize: WindowSize){
-    // will scale the height of the row
-    val rowHeight by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 70 else 80) }
-    // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 25 else 30) }
-    // will scale the padding around the card
-    val cardPadding by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 10 else 15) }
-
-    /*
-    Only one card can be clicked at a time
-    This will navigate to the Guest Registration Screen
-     */
-    Card(
+    IconButton(onClick = { isFavorite = !isFavorite },
         modifier = Modifier
-            .clickable { /*TODO*/ }
-            .padding(cardPadding.dp)
-            .border(
-                border = BorderStroke(4.dp, color = Persian_indigo),
-                shape = RectangleShape
-            ),
-        elevation = CardDefaults.cardElevation(12.dp),
+            .size(60.dp)
+            .padding(end = 20.dp),
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+        Icon(
+            imageVector = icon,
+            contentDescription = description,
+            tint = Color.Black,
             modifier = Modifier
-                .background(color = Periwinkle, shape = RectangleShape)
-                .fillMaxWidth()
-                .height(rowHeight.dp)
+                .size(60.dp)
         )
-        {
-            Text(
-                text = "Organization Name", // Will show up from database when Owner makes registration
-                fontSize = textSize.sp,
-                color = Color.Black,
-                modifier = Modifier
-                    .padding(start = 20.dp)
-                    .align(alignment = Alignment.CenterVertically)
-            )
 
-            IconButton(onClick = { /*TODO*/ },
-                modifier = Modifier
-                    .size(60.dp)
-                    .padding(end = 20.dp),
-            ) {
-                Icon(imageVector = Icons.Filled.Favorite,
-                    contentDescription = "Filled Heart",
-                    tint = Color.Black,
-                    modifier = Modifier
-                        .size(60.dp)
-                )
-
-            }
-        }
     }
 }
 
@@ -514,121 +412,5 @@ fun volunteerSearchBarCompany(windowSize: WindowSize){
         )
 
         Spacer(modifier = Modifier.height(spacerHeight.dp))
-    }
-}
-
-/**
- * Function: Volunteer Cookies And Privacy
- * @author: Shianne Lesure
- *
- * @param windowSize an adjuster used to change scale of screens based on the user's device
- *
- * This function will have a dialog pop up the moment the user try to make an organization a favorite.
- * If the user accepts the cookies the can save the organization.
- * If the user declines the cookies, the organization will not be save.
- */
-@Composable
-fun volunteerCookiesAndPrivacy(windowSize: WindowSize){
-    // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 20 else 30) }
-
-    /*
-    This dialog will always pop up everytime the user wants to add an organization to a favorite.
-    I am not sure how it can be done the one time.
-     */
-    var showDialog by remember { mutableStateOf(false) }
-    IconButton(onClick = { showDialog = true },
-        modifier = Modifier
-            .size(60.dp)
-            .padding(end = 20.dp),
-    ) {
-        Icon(imageVector = Icons.Filled.FavoriteBorder,
-            contentDescription = "Outline Heart",
-            tint = Color.Black,
-            modifier = Modifier
-                .size(60.dp)
-        )
-
-    }
-    // the dialog shows if why button is clicked
-    if (showDialog) {
-        Dialog(onDismissRequest = {showDialog = false}) {
-
-            //Hold makes up the dialog box
-            Surface(
-                shape = RectangleShape,
-                color = Color.White,
-                modifier = Modifier
-                    .shadow(elevation = 8.dp, RectangleShape)
-                    .border(2.dp, color = Color.Black),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    // Holds the message that will be shown in dialog
-                    Text(text = "Cookies & Privacy",
-                        fontSize = textSize.sp,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                    )
-
-                    // Holds the message that will be shown in dialog
-                    Text(text = "This app uses cookies to ensure you get the best experience on our app.",
-                        fontSize = textSize.sp,
-                        textAlign = TextAlign.Center,
-                        color = Color.Black,
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        /*
-                        if the user clicks accept, the dialog will close and
-                        then the user will be able to save the organizations
-                         */
-                        Button(
-                            onClick = { showDialog = false },
-                            shape = RectangleShape,
-                            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-                            modifier = Modifier
-                                .padding(top = 16.dp)
-                                .border(3.dp, color = Persian_indigo),
-                        ) {
-                            Text(
-                                "Accept",
-                                fontSize = textSize.sp,
-                                color = Color.Black
-                            )
-                        }
-
-                        /*
-                        if the user clicks decline, the dialog will close and
-                        then the user will not be able to save the organizations
-                         */
-                        Button(
-                            onClick = { showDialog = false },
-                            shape = RectangleShape,
-                            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-                            modifier = Modifier
-                                .padding(top = 16.dp)
-                                .border(3.dp, color = Persian_indigo),
-                        ) {
-                            Text(
-                                "Decline",
-                                fontSize = textSize.sp,
-                                color = Color.Black
-                            )
-                        }
-                    }
-                }
-            }
-        }
     }
 }
