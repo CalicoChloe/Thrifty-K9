@@ -60,6 +60,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.R
 import com.example.pricingpal.model.Organization
 import com.example.pricingpal.ui.theme.Anti_flash_white
@@ -96,25 +97,9 @@ fun VolunteerCompanyListHeader(
         Scaffold(
             // creates the top app bar for the back arrow navigation
             topBar = {
-                TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Cornflower_blue,
-                    ),
-                    title = {
-                        Text(text = "")
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { /*TODO*/ },
-                        ) {
-                            Icon(imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back arrow Button",
-                                tint = Color.Black,
-                                modifier = Modifier
-                                    .size(50.dp)
-                            )
-
-                        }
-                    },
+                PricingPalAppBar(
+                    navigateUp = { navController.navigateUp() },
+                    canNavigateBack = navController.previousBackStackEntry != null
                 )
             },
             content = { padding ->
