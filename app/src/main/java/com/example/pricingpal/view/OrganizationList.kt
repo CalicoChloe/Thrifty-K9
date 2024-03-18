@@ -19,13 +19,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -37,8 +34,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -47,7 +42,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
@@ -57,7 +51,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pricingpal.PricingPalAppBar
@@ -114,7 +107,7 @@ fun VolunteerCompanyListHeader(
                     alpha = 0.1F
                 )
                 if (organizationList != null) {
-                    volunteerCompanyDivider(organizationList, padding, windowSize)
+                    VolunteerCompanyDivider(organizationList, padding, windowSize)
                 }
             },
         )
@@ -132,7 +125,7 @@ fun VolunteerCompanyListHeader(
  * This was done to match more of the figma prototype.
  */
 @Composable
-fun volunteerCompanyDivider(organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
+fun VolunteerCompanyDivider(organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
     Box(
         modifier = Modifier
             .padding(paddingValues)
@@ -140,7 +133,7 @@ fun volunteerCompanyDivider(organizationList: List<Organization>, paddingValues:
             .fillMaxWidth()
             .background(color = Persian_indigo)
     )
-    volunteerCompanyList(organizationList, paddingValues, windowSize)
+    VolunteerCompanyList(organizationList, paddingValues, windowSize)
 }
 
 /**
@@ -156,7 +149,7 @@ fun volunteerCompanyDivider(organizationList: List<Organization>, paddingValues:
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun volunteerCompanyList(organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
+fun VolunteerCompanyList(organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
     LazyColumn(
         modifier = Modifier
             .padding(paddingValues)
@@ -177,16 +170,16 @@ fun volunteerCompanyList(organizationList: List<Organization>, paddingValues: Pa
              * bar to still show when scrolling down.
              * */
             // This will allow for you to look up the company's name if the list became too long
-            volunteerSearchBarCompany(windowSize)
+            VolunteerSearchBarCompany(windowSize)
             Divider(thickness = 4.dp, color = Persian_indigo)
         }
         item {
-            volunteerCompaniesTitle(windowSize)
+            VolunteerCompaniesTitle(windowSize)
         }
         if (!organizationList.isNullOrEmpty()) {
             for (i in organizationList) { // this will change when it is being pulled from the database
                 item {
-                    organizationCard(i.organizationName, windowSize)
+                    OrganizationCard(i.organizationName, windowSize)
                 }
             }
         }
@@ -204,7 +197,7 @@ fun volunteerCompanyList(organizationList: List<Organization>, paddingValues: Pa
  * Below the title card will show the list of organization that have been added by the owner.
  */
 @Composable
-fun volunteerCompaniesTitle(windowSize: WindowSize){
+fun VolunteerCompaniesTitle(windowSize: WindowSize){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 45 else 60) }
     // will scale the size of the text
@@ -250,7 +243,7 @@ fun volunteerCompaniesTitle(windowSize: WindowSize){
 }
 
 /**
- * Function: Volunteer Company Name
+ * Function: Organization Card
  * @author: Shianne Lesure
  *
  * @param windowSize an adjuster used to change scale of screens based on the user's device
@@ -259,7 +252,7 @@ fun volunteerCompaniesTitle(windowSize: WindowSize){
  * A company should be added when the owner register their organization.
  */
 @Composable
-fun organizationCard(organizationName: String, windowSize: WindowSize){
+fun OrganizationCard(organizationName: String, windowSize: WindowSize){
     // will scale the height of the row
     val rowHeight by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 70 else 80) }
     // will scale the size of the text
@@ -347,7 +340,7 @@ fun FavoriteButton() {
  * bar to still show when scrolling down.
  */
 @Composable
-fun volunteerSearchBarCompany(windowSize: WindowSize){
+fun VolunteerSearchBarCompany(windowSize: WindowSize){
     // will scale the height of the search bar text field
     val searchHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 50 else 60) }
     // will scale the width of the search bar text field

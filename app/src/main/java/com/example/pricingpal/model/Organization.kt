@@ -1,7 +1,5 @@
 package com.example.pricingpal.model
 
-import java.util.UUID
-
 /**
  * Data class for a category
  *
