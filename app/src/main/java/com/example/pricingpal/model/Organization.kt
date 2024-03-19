@@ -8,4 +8,4 @@ package com.example.pricingpal.model
  *
  * @Abdoulie NJie
  **/
-data class Organization(val organizationName: String)
+data class Organization(val organizationName: String, val ownerID: String, val organizationID: String)

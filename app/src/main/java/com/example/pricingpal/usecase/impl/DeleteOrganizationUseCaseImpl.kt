@@ -7,7 +7,7 @@ import javax.inject.Inject
 class DeleteOrganizationUseCaseImpl @Inject constructor(private val organizationRepository: OrganizationRepository):
     DeleteOrganizationUseCase {
     override suspend fun execute(input: DeleteOrganizationUseCase.Input): DeleteOrganizationUseCase.Output {
-        organizationRepository.deleteOrganization(input.orgName)
+        organizationRepository.deleteOrganization(input.orgName, input.isOwner)
         return DeleteOrganizationUseCase.Output.Success
     }
 }
