@@ -179,7 +179,7 @@ fun VolunteerCompanyList(organizationList: List<Organization>, paddingValues: Pa
         if (!organizationList.isNullOrEmpty()) {
             for (i in organizationList) { // this will change when it is being pulled from the database
                 item {
-                    OrganizationCard(i.organizationName, windowSize)
+                    OrganizationCard(i, windowSize)
                 }
             }
         }
@@ -252,7 +252,7 @@ fun VolunteerCompaniesTitle(windowSize: WindowSize){
  * A company should be added when the owner register their organization.
  */
 @Composable
-fun OrganizationCard(organizationName: String, windowSize: WindowSize){
+fun OrganizationCard(org: Organization, windowSize: WindowSize){
     // will scale the height of the row
     val rowHeight by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 70 else 80) }
     // will scale the size of the text
@@ -280,7 +280,7 @@ fun OrganizationCard(organizationName: String, windowSize: WindowSize){
         )
         {
             Text(
-                text = organizationName, // Will show up from database when Owner makes registration
+                text = org.organizationName, // Will show up from database when Owner makes registration
                 fontSize = textSize.sp,
                 color = Color.Black,
                 modifier = Modifier

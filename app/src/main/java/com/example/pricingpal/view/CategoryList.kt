@@ -46,10 +46,9 @@ const val  CATEGORY_NAMES = "categories"
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CategoryList (
-    categories: HashMap<String, Category>,
     navController: NavController,
     windowSize: WindowSize,
-    viewModel: CategoryViewModel = hiltViewModel(),
+    viewModel: CategoryViewModel = hiltViewModel()
 ){
 
     val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value
@@ -108,7 +107,7 @@ fun CategoryList (
                     }
 
                     // takes each category card and put into a list
-                    for (category: Category in categories.values) {
+                    for (category: Category in categoryList) {
                         item { CategoryCard(category = category, navController) }
                     }
                 }
@@ -126,7 +125,7 @@ fun CategoryCard(category: Category, navController: NavController){
     Card(
         modifier = Modifier
             //Makes the card clickable, and when clicked navigates to the ItemList passing along the category name as a String
-            .clickable(onClick = { navController.navigate(Screen.ItemList.withArgs(category.category)) })
+            .clickable(onClick = { navController.navigate(Screen.ItemList.withArgs(category.categoryId)) })
 
             // padding around the card
             .padding(15.dp)
@@ -170,7 +169,7 @@ fun CategoryCard(category: Category, navController: NavController){
                 // Displays category name
                 Text(
                     // takes the text from the category variable
-                    text = category.category,
+                    text = category.categoryName,
                     // changes the size of the font
                     fontSize = 30.sp,
                     // allows for the font to be in bold

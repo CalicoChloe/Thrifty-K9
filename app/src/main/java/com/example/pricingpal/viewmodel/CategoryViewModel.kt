@@ -1,9 +1,12 @@
 package com.example.pricingpal.viewmodel
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
+import com.example.pricingpal.model.Organization
 import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 import com.example.pricingpal.model.datatransferobjects.ItemDTO
 import com.example.pricingpal.model.repositories.CategoryRepository
@@ -11,6 +14,8 @@ import com.example.pricingpal.model.repositories.ItemRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,11 +30,13 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
-    private val itemRepository: ItemRepository
+    private val itemRepository: ItemRepository,
 ) : ViewModel() {
-    //A hashmap of the categories, where the key is the Category name as a String, and the value is the corresponding Category object
-    //This hashmap is used by the navigation to know which category was selected when a category is tapped on the main screen
-    val categories = HashMap<String, Category>()
+    private lateinit var organizationViewModel: OrganizationViewModel
+
+    fun initializeOrganizationViewModel(fragment: Fragment) {
+        organizationViewModel = ViewModelProvider(fragment).get(OrganizationViewModel::class.java)
+    }
 
     //lists of the categories from the database that are updated by the ViewModel
     private val _categoryList = MutableStateFlow<List<Category>?>(listOf())
@@ -37,32 +44,27 @@ class CategoryViewModel @Inject constructor(
 
     //When this ViewModel is created, call these two functions
     init {
-        getCategories()
-        observeCategories()
+        initializeOrganizationViewModel(fragment = Fragment())
+        observeSelectedOrganization()
+        //observeCategories()
     }
 
-    //Observes the categoryList and calls the populateCategories function once the data has been retrieved
-    fun observeCategories() {
+    private fun observeSelectedOrganization() {
         viewModelScope.launch {
-            categoryList.collect { categoryList ->
-                categoryList?.let {
-                    populateCategories(it)
+            organizationViewModel.selectedOrganization
+                .filterNotNull() // Ignore null values
+                .distinctUntilChanged() // Emit only distinct organization objects
+                .collect { organization ->
+                    // Fetch categories for the selected organization
+                    getCategories(organization)
                 }
-            }
-        }
-    }
-
-    //Populates the HashMap with the Category objects from the database
-    fun populateCategories(categoryList: List<Category>) {
-        for (c in categoryList) {
-            categories.put(c.category, c)
         }
     }
 
     //Gets the list of categories from the database and emits it to _categoryList
-    fun getCategories() {
+    fun getCategories(organization: Organization) {
         viewModelScope.launch {
-            val categories2 = categoryRepository.getCategories()
+            val categories2 = categoryRepository.getCategories(organization)
             _categoryList.emit(categories2?.map { it -> it.asDomainModel() })
         }
     }
@@ -70,8 +72,9 @@ class CategoryViewModel @Inject constructor(
     //When the Category data from the database is pulled, this function will translate it from a DTO to the real object
     suspend fun CategoryDTO.asDomainModel(): Category {
         return Category(
-            category = this.categoryName,
-            item = getItems(this.categoryId)!!
+            categoryId = this.categoryId,
+            categoryName = this.categoryName,
+            items = getItems(this.categoryId)!!
         )
     }
 

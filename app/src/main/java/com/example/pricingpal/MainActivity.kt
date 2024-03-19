@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import com.example.pricingpal.ui.theme.PricingpalTheme
 import com.example.pricingpal.view.rememberSize
 import com.example.pricingpal.viewmodel.CategoryViewModel
+import com.example.pricingpal.viewmodel.OrganizationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,13 +14,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val organizationViewModel: OrganizationViewModel by viewModels()
             //Initialize the viewmodel
-            val viewModel: CategoryViewModel by viewModels()
+            val categoryViewModel: CategoryViewModel by viewModels()
             // Initialize the window
             val window = rememberSize()
 
             PricingpalTheme {
-                PricingPalApp(categories = viewModel.categories, windowSize = window)
+                PricingPalApp(windowSize = window)
             }
         }
     }

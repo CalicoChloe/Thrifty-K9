@@ -4,10 +4,10 @@ package com.example.pricingpal.model
  *
  * This class defines the category class properties.
  *
- * @property category the name of a category.
- * @property item an array list of Item class objects
+ * @property categoryName the name of a category.
+ * @property items an array list of Item class objects
  *
  * @Abdoulie NJie
  **/
 
-data class Category(val category: String, val item: ArrayList<Item>)
+data class Category(val categoryId: Int, val categoryName: String, val items: ArrayList<Item>)

@@ -8,6 +8,7 @@ import com.example.pricingpal.model.repositories.OrganizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,8 +16,8 @@ import javax.inject.Inject
 class OrganizationViewModel @Inject constructor(
     private val organizationRepository: OrganizationRepository
 ) : ViewModel() {
-    private val _selectedOrganizationName = MutableStateFlow<String?>(null)
-    val selectedOrganizationName: Flow<String?> = _selectedOrganizationName
+    private val _selectedOrganization = MutableStateFlow<Organization?>(null)
+    val selectedOrganization: StateFlow<Organization?> = _selectedOrganization
 
     private val _organizationList = MutableStateFlow<List<Organization>?>(listOf())
     val organizationList: Flow<List<Organization>?> = _organizationList
@@ -40,7 +41,7 @@ class OrganizationViewModel @Inject constructor(
         )
     }
 
-    fun setSelectedOrganizationName(organizationName: String) {
-        _selectedOrganizationName.value = organizationName
+    fun setSelectedOrganization(organization: Organization) {
+        _selectedOrganization.value = organization
     }
 }

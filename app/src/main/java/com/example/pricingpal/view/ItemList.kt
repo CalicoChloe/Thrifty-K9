@@ -19,6 +19,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.R
@@ -40,16 +42,19 @@ import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.viewmodel.CategoryViewModel
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemList(
-    selectedCategory: String?,
-    categories: HashMap<String, Category>,
+    selectedCategoryId: Int?,
     navController: NavController,
-    windowSize: WindowSize
+    windowSize: WindowSize,
+    viewModel: CategoryViewModel = hiltViewModel()
 ) {
+    val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value
+
     Scaffold(
         //Create an app bar of medium size at the top of the scaffold
         topBar = {
@@ -83,8 +88,8 @@ fun ItemList(
             )
             //When the selectedCategory is received,
             // it needs to not be null to avoid causing problems. Same with the currentCategory.
-            if (selectedCategory != null) {
-                val currentCategory = categories.get(selectedCategory)
+            if (selectedCategoryId != null) {
+                val currentCategory = categoryList?.find { it.categoryId == selectedCategoryId }
 
                 if (currentCategory != null) {
                     //Everything above this line should not be touched!
@@ -107,10 +112,10 @@ fun ItemList(
                         }
                         item {
                             //Text(text = currentCategory.category, fontSize = 70.sp)
-                            CategoryCard(categoryName = currentCategory)
+                            CategoryCard(currentCategory)
                         }
                         item {
-                            for (i in currentCategory.item) {
+                            for (i in currentCategory.items) {
                                 ItemCard(i, windowSize = windowSize)
                             }
                         }
@@ -154,7 +159,7 @@ fun CategoryCard(categoryName: Category) {
 
             Text(
                 //shows the name of the category
-                text = categoryName.category,
+                text = categoryName.categoryName,
                 fontSize = 40.sp,
                 // have it in bold to make it stand out
                 fontWeight = FontWeight.Bold,

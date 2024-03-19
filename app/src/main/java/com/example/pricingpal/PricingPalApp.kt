@@ -95,7 +95,7 @@ fun PricingPalAppBar(
  * @author Shianne Lesure
  **/
 @Composable
-fun PricingPalApp(categories: HashMap<String, Category>, windowSize: WindowSize) {
+fun PricingPalApp(windowSize: WindowSize) {
     //Initialize navController
     val navController = rememberNavController()
 
@@ -124,7 +124,7 @@ fun PricingPalApp(categories: HashMap<String, Category>, windowSize: WindowSize)
                     alpha = 0.1F
                 )
 
-                Navigation(categories = categories, padding, windowSize)
+                Navigation(padding, windowSize)
             }
         },
         //Background color for the content

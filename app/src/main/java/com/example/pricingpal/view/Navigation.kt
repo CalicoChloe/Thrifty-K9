@@ -30,7 +30,6 @@ import com.example.pricingpal.model.Category
 
 @Composable
 fun Navigation(
-    categories: HashMap<String, Category>,
     padding: PaddingValues,
     windowSize: WindowSize
 ) {
@@ -59,22 +58,21 @@ fun Navigation(
         //The route to the CategoryList. This is the start destination
         composable(route = Screen.CategoryList.route) {
             CategoryList(
-                categories = categories,
                 navController = navController,
                 windowSize = windowSize
             )
         }
         //The route to the ItemList. This route requires a categoryName String to be passed in to get the list of items down the line
-        composable(route = Screen.ItemList.route + "/{categoryName}",
+        composable(route = Screen.ItemList.route + "/{categoryId}",
             arguments = listOf(
-                navArgument("categoryName") {
-                    type = NavType.StringType
+                navArgument("categoryId") {
+                    type = NavType.IntType
                 }
             )
         ) { entry ->
+            val category = entry.arguments?.getInt("category")
             ItemList(
-                selectedCategory = entry.arguments?.getString("categoryName"),
-                categories,
+                selectedCategoryId = category,
                 navController = navController,
                 windowSize = windowSize
             )

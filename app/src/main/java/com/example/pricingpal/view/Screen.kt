@@ -21,7 +21,7 @@ sealed class Screen(val route: String) {
 
 
 
-    fun withArgs(vararg args: String): String {
+    fun withArgs(vararg args: Int): String {
         return buildString {
             append(route)
             args.forEach { arg ->

@@ -1,6 +1,7 @@
 package com.example.pricingpal.model.repositories.impl
 
 import com.example.pricingpal.model.Category
+import com.example.pricingpal.model.Organization
 import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 import com.example.pricingpal.model.repositories.CategoryRepository
 import io.github.jan.supabase.postgrest.Postgrest
@@ -25,9 +26,11 @@ class CategoryRepositoryImpl @Inject constructor (
 
 
     //Gets a list of all categories from the database
-    override suspend fun getCategories(): List<CategoryDTO>? {
+    override suspend fun getCategories(org: Organization): List<CategoryDTO>? {
         return withContext(Dispatchers.IO) {
-            val results = postgrest["category"].select().decodeList<CategoryDTO>()
+            val results = postgrest["category"].select {
+                eq("items:organization_name", org.organizationName)
+            }.decodeList<CategoryDTO>()
             results
         }
     }
