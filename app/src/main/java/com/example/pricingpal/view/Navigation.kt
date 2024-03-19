@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.pricingpal.model.Category
 
 /**
  *
@@ -16,7 +15,6 @@ import com.example.pricingpal.model.Category
  * This function creates the NavHost and NavController,
  * and handles the application's navigation  function is call.
  *
- * @property categories the HashMap of category objects,
  * @param  padding value used to store padding values of content
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *

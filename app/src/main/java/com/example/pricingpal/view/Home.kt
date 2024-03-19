@@ -167,7 +167,7 @@ fun StartScreen(navController: NavController, windowSize: WindowSize){
                     )
                 }
                 Spacer(modifier = Modifier.height(linkSpacer.dp))
-                webButton()
+                WebButton()
             }
         }
     }
@@ -178,7 +178,7 @@ fun StartScreen(navController: NavController, windowSize: WindowSize){
  * */
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun webButton(){
+fun WebButton(){
     val context = LocalContext.current // will allow access for the app to run the website
     val webIntent: Intent = Intent(Intent.ACTION_VIEW, // will allow the use to see the website when app is running
         Uri.parse("https://calicochloe.github.io/Thrifty-K9/") ) // the link to the git docs

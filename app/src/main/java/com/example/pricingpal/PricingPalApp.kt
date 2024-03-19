@@ -22,10 +22,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.example.pricingpal.model.Category
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
-import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.view.Navigation
 import com.example.pricingpal.view.WindowSize
 
