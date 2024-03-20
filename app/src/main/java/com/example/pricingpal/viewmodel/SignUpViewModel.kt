@@ -136,10 +136,10 @@ class SignUpViewModel @Inject constructor(
                         _message.emit(SIGN_UP_FAILED)
                     }
                 }
-                Log.d("SignUpViewModel.kt", "Email:  $email")
-                Log.d("SignUpViewModel.kt", "password:  $password")
-                Log.d("SignUpViewModel.kt", "full name:  $fullName")
-                Log.d("SignUpViewModel.kt", "organization name:  $organizationName")
+                Log.d("SignUpViewModel.kt", "Email:  ${email.value}")
+                Log.d("SignUpViewModel.kt", "password:  ${password.value}")
+                Log.d("SignUpViewModel.kt", "full name:  ${fullName.value}")
+                Log.d("SignUpViewModel.kt", "organization name:  ${organizationName.value}")
                 Log.d("SignUpViewModel.kt", "Owner status:  $isOwner")
 
             }

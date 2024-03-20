@@ -1,4 +1,5 @@
 package com.example.pricingpal.model.repositories.impl
+import android.util.Log
 import com.example.pricingpal.model.repositories.AuthRepository
 import com.example.pricingpal.usecase.SignUpUseCase
 import io.github.jan.supabase.gotrue.Auth
@@ -38,11 +39,11 @@ class AuthRepositoryImpl @Inject constructor(
             val result =  auth.signUpWith(Email) {
                 this.email = email
                 this.password = password
-                buildJsonObject {
+               this.data = buildJsonObject {
                     put("fullName", fullName)
                     put("organizationName", organizationName)
-                    put("isOwner", isOwner)
                 }
+
             }
             if (result != null) {
                 if (result.equals(true)){
@@ -52,29 +53,10 @@ class AuthRepositoryImpl @Inject constructor(
                     SignUpUseCase.Output.Failure
                 }
             }
-
             true
         } catch (e: Exception) {
+            e.message?.let { Log.d("AuthRepImp", it) }
             false
         }
     }
 }
-
-/*
-try {
-            // Attempt to sign up the user through the repository
-            val result = authRepository.signUp(input.email,
-             input.password, input.fullName, input.organizationName, input.isOwner)
-            // If sign-up is successful, return Success output
-            if (result) {
-                SignUpUseCase.Output.Success
-            } else {
-                // If sign-up fails, return Failure output
-                SignUpUseCase.Output.Failure
-            }
-        } catch (e: Exception) {
-            // If an exception occurs during sign-up, return Failure output
-            SignUpUseCase.Output.Failure
-        }
-    }
- */

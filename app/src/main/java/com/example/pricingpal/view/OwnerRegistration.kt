@@ -1,6 +1,5 @@
 package com.example.pricingpal.view
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -240,7 +239,7 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
         onValueChange = {  signUpViewModel.onOrganizationChange(it) // will take in the input from the user
             errorMessage = ""  }, // Reset error message when user modifies the input
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-        placeholder = { Text("Enter your organization", fontSize = 20.sp) },
+        placeholder = { Text("Enter organization", fontSize = 20.sp) },
         //supportingText = { Text(text = "*required") },
         leadingIcon = {
             Icon(
@@ -271,14 +270,21 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
             color = Color.DarkGray
         )
     }
-    // Display error message if organization name is already taken
-    errorMessage.takeIf { it.isNotBlank() }?.let { message ->
-        Text(
-            text = message,
-            color = Color.Red,
-            fontSize = 12.sp,
-            modifier = Modifier.padding(start = 30.dp, top = 4.dp)
-        )
+    Row(
+        horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp, start = 50.dp)
+    ) {
+        // Display error message if organization name is already taken
+        errorMessage.takeIf { it.isNotBlank() }?.let { message ->
+            Text(
+                text = message,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 30.dp, top = 4.dp)
+            )
+        }
     }
 }
 
@@ -366,7 +372,8 @@ fun ownerFullNameInput(signUpViewModel: SignUpViewModel){
  */
 @Composable
 fun emailInputOwner(signUpViewModel: SignUpViewModel) {
-    var email = signUpViewModel.email.collectAsState(initial = "")// variable that holds a default state of text-field
+    var email =
+        signUpViewModel.email.collectAsState(initial = "")// variable that holds a default state of text-field
     var errorMessage by remember { mutableStateOf("") }
     val usersState = signUpViewModel.users.collectAsState()
     val users = usersState.value
@@ -385,8 +392,10 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
                 shape = RectangleShape
             ),
         value = email.value,
-        onValueChange = { signUpViewModel.onEmailChange(it) // will take in the input from the user
-                        errorMessage = ""}, // Reset error message when user modifies the input
+        onValueChange = {
+            signUpViewModel.onEmailChange(it) // will take in the input from the user
+            errorMessage = ""
+        }, // Reset error message when user modifies the input
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter email", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
@@ -415,15 +424,23 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
             color = Color.DarkGray
         )
     }
-    // Display error message if organization name is already taken
-    errorMessage.takeIf { it.isNotBlank() }?.let { message ->
-        Text(
-            text = message,
-            color = Color.Red,
-            fontSize = 12.sp,
-            modifier = Modifier.padding(start = 30.dp, top = 4.dp)
-        )
+    Row(
+        horizontalArrangement = Arrangement.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp, start = 50.dp)
+    ) {
+        // Display error message if organization name is already taken
+        errorMessage.takeIf { it.isNotBlank() }?.let { message ->
+            Text(
+                text = message,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 30.dp, top = 4.dp)
+            )
+        }
     }
+
 }
 
 // Function to check if the email the user input's is already taken
@@ -698,7 +715,6 @@ fun signSnackBar(windowSize: WindowSize, isOwner: Boolean) {
         onClick = {
             signUpViewModel.onSignUp(isOwner)
             showSnackBar = true
-            Log.d("OwnerRegistration.kt", "Owner status:  $isOwner")
         },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),

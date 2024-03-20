@@ -14,14 +14,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserDTO(
-    @SerialName("user_id")
+    @SerialName("id")
     @Contextual
     val userID: String,
-    @SerialName("full_Name")
+    @SerialName("full_name")
     val fullName: String,
     @SerialName("email")
     val email: String,
-    @SerialName("organization_Name")
+    @SerialName("organization_name")
     val organizationName: String,
     @SerialName("is_owner")
     val isOwner: Boolean

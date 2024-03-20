@@ -14,13 +14,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class OrganizationDTO (
-    @SerialName("organization_ID")
+    @SerialName("organization_id")
     @Contextual
     val organizationID: String,
-    @SerialName("owner_ID")
+    @SerialName("owner_id")
     @Contextual
     val ownerID: String,
-    @SerialName("organization_Name")
+    @SerialName("organization_name")
     val organizationName: String
 )
 
