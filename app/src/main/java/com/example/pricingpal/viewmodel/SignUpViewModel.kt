@@ -116,7 +116,7 @@ class SignUpViewModel @Inject constructor(
             isOwner = this.isOwner
         )
     }
-    //This function
+    //This function is used to send the information the user inputs on pages relating to signing up on the app
     fun onSignUp(isOwner : Boolean) {
             viewModelScope.launch {
                 val result = signUpUseCase.execute(

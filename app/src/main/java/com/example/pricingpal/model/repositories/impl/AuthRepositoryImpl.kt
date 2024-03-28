@@ -39,12 +39,13 @@ class AuthRepositoryImpl @Inject constructor(
             val result =  auth.signUpWith(Email) {
                 this.email = email
                 this.password = password
-               this.data = buildJsonObject {
-                    put("fullName", fullName)
-                    put("organizationName", organizationName)
+                this.data = buildJsonObject {
+                    put("full_name", fullName)
+                    put("organization_name", organizationName)
+                    put("is_owner", isOwner)
                 }
-
             }
+            //if else block that will determine which message will be displayed when the user attempts to sign up on the app
             if (result != null) {
                 if (result.equals(true)){
                     SignUpUseCase.Output.Success
