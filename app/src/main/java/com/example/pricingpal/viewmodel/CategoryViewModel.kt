@@ -35,11 +35,6 @@ class CategoryViewModel @Inject constructor(
     private val _categoryList = MutableStateFlow<List<Category>?>(listOf())
     val categoryList: Flow<List<Category>?> = _categoryList
 
-    //When this ViewModel is created, call these two functions
-    init {
-        getCategories()
-        observeCategories()
-    }
 
     //Observes the categoryList and calls the populateCategories function once the data has been retrieved
     fun observeCategories() {

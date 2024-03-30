@@ -30,10 +30,10 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,11 +45,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.viewmodel.UserViewModel
 
 /**
  * Function: Change Name Header
@@ -138,7 +140,7 @@ fun ChangeNameHeader(windowSize: WindowSize){
  * and new name which will be saved for update.
  */
 @Composable
-fun changeName(paddingValues: PaddingValues, windowSize: WindowSize){
+fun changeName(paddingValues: PaddingValues, windowSize: WindowSize, viewModel: UserViewModel = hiltViewModel()){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 40 else 60) }
     // will scale the size of the text
@@ -176,13 +178,13 @@ fun changeName(paddingValues: PaddingValues, windowSize: WindowSize){
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        oldInputChangeName()
+        oldInputChangeName(viewModel)
         Spacer(modifier = Modifier.height(10.dp))
-        newInputChangeName()
+        newInputChangeName(viewModel)
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        saveName(windowSize)
+        saveName(windowSize,viewModel)
         Spacer(modifier = Modifier.height(buttonSpacer.dp))
     }
 }
@@ -194,15 +196,16 @@ fun changeName(paddingValues: PaddingValues, windowSize: WindowSize){
  * This function set up the text-field for the user to be able to input their old name.
  */
 @Composable
-fun oldInputChangeName(){
-    var oldName by remember { mutableStateOf("") }// variable that holds a default state of text-field
+fun oldInputChangeName(viewModel: UserViewModel){
+    //var oldName by remember { mutableStateOf("") }// variable that holds a default state of text-field
+    val oldName = viewModel.userName.collectAsState(initial = "")
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
-        value = oldName,
-        onValueChange = {oldName = it}, // will take in the input from the user
+        value = oldName.value,
+        onValueChange = {viewModel.onNameChange(it)}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter old name", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
@@ -238,15 +241,19 @@ fun oldInputChangeName(){
  * This function set up the text-field for the user to be able to input their new name.
  */
 @Composable
-fun newInputChangeName(){
-    var newName by remember { mutableStateOf("") }// variable that holds a default state of text-field
+fun newInputChangeName(viewModel: UserViewModel){
+    //var newName by remember { mutableStateOf("") }// variable that holds a default state of text-field
+    val newName = viewModel.userName.collectAsState(initial = "")
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(start = 30.dp, end = 30.dp),
-        value = newName,
-        onValueChange = {newName = it}, // will take in the input from the user
+        value = newName.value,
+        onValueChange = {
+
+            viewModel.onNameChange(it)
+                        }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter new name", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
@@ -284,14 +291,21 @@ fun newInputChangeName(){
  * This function will display a button that will allow the user to save the updated information.
  */
 @Composable
-fun saveName(windowSize: WindowSize){
+fun saveName(windowSize: WindowSize, viewModel: UserViewModel){
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 120) }
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
+    //val userMessage = viewModel.userMessage.collectAsState("")
+    val userMessage by viewModel.userMessage.collectAsState("")
 
-    ElevatedButton(
-        onClick = { /*TODO*/ },
+    ElevatedButton( enabled = false,
+        onClick = {
+            viewModel.updateUser()
+                  if(userMessage == "Username successfully updated."){
+
+                  }
+                  },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),
         elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -309,4 +323,5 @@ fun saveName(windowSize: WindowSize){
             color = Color.Black,
         )
     }
+    // make another button, and put it within a box() method. This button will hold the fail or success message.
 }

@@ -17,6 +17,13 @@ sealed class Screen(val route: String) {
     object HomeScreen : Screen("Home Screen")
     object RegisterScreen: Screen("Register Screen")
     object LoginInScreen: Screen ("Log in Screen")
+    object UploadFormat: Screen("Upload Format")
+    object Setting: Screen("Settings")
+    object OwnerAccount: Screen("Owner Account")
+    object ChangeOrganization: Screen("Change Organization")
+    object ChangeUsername: Screen("Change Username")
+    object ChangeEmail: Screen("Change Email")
+    object ChangePassword: Screen("Change Password")
 
 
 

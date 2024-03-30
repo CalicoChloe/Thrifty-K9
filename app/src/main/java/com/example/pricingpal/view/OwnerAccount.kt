@@ -46,6 +46,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -67,7 +68,7 @@ import com.example.pricingpal.ui.theme.Uranian_Blue
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ownerAccountHeader(windowSize: WindowSize){
+fun ownerAccountHeader(windowSize: WindowSize, navController: NavController){
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -120,7 +121,7 @@ fun ownerAccountHeader(windowSize: WindowSize){
                 },
 
                 content = { padding ->
-                    ownerAccount(padding, windowSize)
+                    ownerAccount(padding, windowSize, navController)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -142,7 +143,7 @@ fun ownerAccountHeader(windowSize: WindowSize){
  * the user's name, email, & password. They will also have the option to delete their account.
  */
 @Composable
-fun ownerAccount(paddingValues: PaddingValues, windowSize: WindowSize){
+fun ownerAccount(paddingValues: PaddingValues, windowSize: WindowSize, navController: NavController){
     Card(
         modifier = Modifier
             .padding(paddingValues)
@@ -168,7 +169,7 @@ fun ownerAccount(paddingValues: PaddingValues, windowSize: WindowSize){
                 accountTitle(windowSize)
                 Spacer(modifier = Modifier.height(20.dp))
                 organizationNameEdit(windowSize)
-                nameEdit(windowSize)
+                nameEdit(windowSize, navController)
                 emailEdit(windowSize)
                 passwordEdit(windowSize)
                 Spacer(modifier = Modifier.height(20.dp))
@@ -296,7 +297,7 @@ fun organizationNameEdit(windowSize: WindowSize){
  * This function will allow the user to change the name of the user through the edit button.
  */
 @Composable
-fun nameEdit(windowSize: WindowSize){
+fun nameEdit(windowSize: WindowSize, navController: NavController){
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
     // will scale the size of the text
@@ -333,7 +334,7 @@ fun nameEdit(windowSize: WindowSize){
         )
         // Edit Button will navigate to the change password screen
         ElevatedButton(
-            onClick = { /*TODO*/ },
+            onClick = { navController.navigate(Screen.ChangeUsername.route) },
             shape = RectangleShape,
             colors = ButtonDefaults.buttonColors(Uranian_Blue),
             elevation = ButtonDefaults.buttonElevation(8.dp),

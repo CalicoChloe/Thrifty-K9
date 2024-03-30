@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -42,6 +43,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -62,7 +64,7 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UploadFormatHeader(windowSize: WindowSize){
+fun UploadFormatHeader(windowSize: WindowSize, navController: NavController){
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -110,6 +112,18 @@ fun UploadFormatHeader(windowSize: WindowSize){
 
                             }
                         },
+                        actions = {
+                            IconButton(onClick = { navController.navigate(Screen.Setting.route) },
+                            ) {
+                                Icon(imageVector = Icons.Filled.Settings,
+                                    contentDescription = "Settings Button",
+                                    tint = Color.Black,
+                                    modifier = Modifier
+                                        .size(50.dp)
+                                )
+
+                            }
+                        }
                     )
                 },
                 content = { padding ->

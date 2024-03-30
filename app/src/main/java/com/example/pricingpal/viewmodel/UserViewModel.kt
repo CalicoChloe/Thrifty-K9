@@ -7,6 +7,7 @@ import com.example.pricingpal.usecase.DeleteUserUseCase
 import com.example.pricingpal.usecase.GetUserUseCase
 import com.example.pricingpal.usecase.UpdateUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -33,10 +34,19 @@ class UserViewModel @Inject constructor(
 ): ViewModel() {
 
     private val _userFullName = MutableStateFlow("")
+    val userName: Flow<String> = _userFullName
+
     private val _userEmail = MutableStateFlow("")
+    val userEmail: Flow<String> = _userEmail
+
     private val _userOrganizationName = MutableStateFlow("")
+    val userOrganizationName: Flow<String> = _userOrganizationName
+
     private val _isOwner = MutableStateFlow(false)
+    val userOwner: Flow<Boolean> = _isOwner
+
     private val _userMessage = MutableStateFlow("")
+    val userMessage: Flow<String> = _userMessage
 
     // Is the value use for the input of UseCase functions for the user's id.
     private val userID = saveUUID(getUUID())
@@ -71,9 +81,12 @@ class UserViewModel @Inject constructor(
     }
 
     // When the ViewModel is called, it will start with this function
+    /*
     init {
         getUser(userID = userID.toString())
     }
+
+     */
 
     /**
      * Function: Get User

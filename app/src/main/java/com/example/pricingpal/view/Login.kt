@@ -200,7 +200,7 @@ fun Login(navController: NavController, paddingValues: PaddingValues, windowSize
 
         //Register Here Button
         // will navigate to the Choose Registration Screen
-        TextButton(onClick = { /*TODO*/ }) {
+        TextButton(onClick = { navController.navigate(Screen.UploadFormat.route) }) {
             Text(
                 textAlign = TextAlign.Center,
                 text = "Register Here",
@@ -344,7 +344,8 @@ fun loginButton(windowSize: WindowSize, navController: NavController, viewModel:
             viewModel.onLogin()
             if (message == "Login Successful") {
                 //navigate to the Upload Screen
-                navController.navigate(Screen.HomeScreen.route)
+                //navController.navigate(Screen.HomeScreen.route)
+                navController.navigate(Screen.UploadFormat.route)
             }
             else {
                 //display the failure message (snackbar?)

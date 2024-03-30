@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -32,7 +31,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -51,6 +49,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -71,7 +70,7 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingHeader(windowSize: WindowSize){
+fun SettingHeader(windowSize: WindowSize, navController: NavController){
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -124,7 +123,7 @@ fun SettingHeader(windowSize: WindowSize){
                 },
 
                 content = { padding ->
-                    settings(padding, windowSize)
+                    settings(padding, windowSize, navController)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -146,7 +145,7 @@ fun SettingHeader(windowSize: WindowSize){
  * as being able to log out the app.
  */
 @Composable
-fun settings(paddingValues: PaddingValues, windowSize: WindowSize){
+fun settings(paddingValues: PaddingValues, windowSize: WindowSize, navController: NavController){
     // scale height of the lazy column
     val lazyHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 310 else 370) }
 
@@ -169,7 +168,7 @@ fun settings(paddingValues: PaddingValues, windowSize: WindowSize){
 
             ) {
                 item {
-                    ownerAccountButton(windowSize)
+                    ownerAccountButton(windowSize, navController)
                     Divider(thickness = 4.dp, color = Persian_indigo)
                 }
 
@@ -199,7 +198,7 @@ fun settings(paddingValues: PaddingValues, windowSize: WindowSize){
  * This function creates the button that will navigate to the owner's account screen.
  */
 @Composable
-fun ownerAccountButton(windowSize: WindowSize){
+fun ownerAccountButton(windowSize: WindowSize, navController: NavController){
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
     // will scale the size of the text
@@ -224,7 +223,7 @@ fun ownerAccountButton(windowSize: WindowSize){
             )
             /** Account Button
              * Will navigate you to the account setting screen*/
-            IconButton(onClick = { /*TODO*/ },
+            IconButton(onClick = { navController.navigate(Screen.OwnerAccount.route) },
                 modifier = Modifier
                     .size(50.dp)
             ) {
