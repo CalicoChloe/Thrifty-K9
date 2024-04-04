@@ -27,10 +27,11 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     //Gets a list of all users from the database
-    override suspend fun getUsers(): List<UserDTO>? {
+    override suspend fun getUsersEmails(): List<String>? {
         return withContext(Dispatchers.IO) {
-            val results = postgrest["registered_users"].select().decodeList<UserDTO>()
-            results
+            val results = postgrest["registered_user"].select().decodeList<UserDTO>()
+            val emails = results.map { it.email };
+            emails
         }
     }
 

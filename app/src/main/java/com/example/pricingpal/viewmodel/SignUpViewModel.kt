@@ -1,12 +1,7 @@
 package com.example.pricingpal.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pricingpal.model.Organization
-import com.example.pricingpal.model.User
-import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
-import com.example.pricingpal.model.datatransferobjects.UserDTO
 import com.example.pricingpal.model.repositories.OrganizationRepository
 import com.example.pricingpal.model.repositories.UserRepository
 import com.example.pricingpal.usecase.SignUpUseCase
@@ -33,14 +28,14 @@ class SignUpViewModel @Inject constructor(
     private val signUpUseCase : SignUpUseCase,
 ) : ViewModel() {
     //list of the organizations from the database
-    private val _organizationsList = MutableStateFlow<List<Organization>?>(listOf())
+    private val _organizationsList = MutableStateFlow<List<String>?>(listOf())
 
-    //list of the organizations from the database
-    private val _userList = MutableStateFlow<List<User>?>(listOf())
+    //list of the users from the database
+    private val _userList = MutableStateFlow<List<String>?>(listOf())
 
-    val organizations: MutableStateFlow<List<Organization>?> = _organizationsList
+    val organizationsNames: MutableStateFlow<List<String>?> = _organizationsList
 
-    val users: MutableStateFlow<List<User>?> = _userList
+    val usersEmails: MutableStateFlow<List<String>?> = _userList
 
     //val used to store the user's input for their email
     private val _email = MutableStateFlow("")
@@ -62,6 +57,11 @@ class SignUpViewModel @Inject constructor(
     private val _message = MutableStateFlow("")
     val message = _message
 
+    init{
+        getOrganizationsNames()
+        getUsersEmails()
+    }
+
     //function used to update user's input for their email
     fun onEmailChange(email: String) {
         _email.value = email
@@ -82,39 +82,21 @@ class SignUpViewModel @Inject constructor(
         _organizationName.value = organizationName
     }
 
-    //Gets the list of organizations from the database and emits it to _organizationsList, then returns it
-    fun getOrganizations () {
+    //Gets the list of organization names from the database and emits it to _organizationsList, then returns it
+    fun getOrganizationsNames() {
         viewModelScope.launch {
-            val organizations = organizationRepository.getOrganizations()
-            _organizationsList.emit(organizations?.map { it -> it.asDomainModel() })
+            val organizationsNames= organizationRepository.getOrganizationsNames()
+            _organizationsList.emit(organizationsNames?: emptyList())
         }
     }
 
-    //When the Organization data from the database is pulled, this function will translate it from a DTO to the real object
-    private fun OrganizationDTO.asDomainModel(): Organization {
-        return Organization(
-            organizationID = this.organizationID,
-            ownerID = this.ownerID,
-            organizationName = this.organizationName
-        )
-    }
 
     //Gets the list of user from the database and emits it to _userList, then returns it
-     fun getUsers(){
+     fun getUsersEmails(){
         viewModelScope.launch {
-            val users = userRepository.getUsers()
-            _userList.emit(users?.map { it -> it.asDomainModel() })
+            val users = userRepository.getUsersEmails()
+            _userList.emit(users?: emptyList())
         }
-    }
-    //When the User data from the database is pulled, this function will translate it from a DTO to the real object
-    private fun UserDTO.asDomainModel(): User {
-        return User(
-            userID = this.userID,
-            fullName = this.fullName,
-            email = this.email,
-            organizationName = this.organizationName,
-            isOwner = this.isOwner
-        )
     }
     //This function is used to send the information the user inputs on pages relating to signing up on the app
     fun onSignUp(isOwner : Boolean) {
@@ -136,12 +118,6 @@ class SignUpViewModel @Inject constructor(
                         _message.emit(SIGN_UP_FAILED)
                     }
                 }
-                Log.d("SignUpViewModel.kt", "Email:  ${email.value}")
-                Log.d("SignUpViewModel.kt", "password:  ${password.value}")
-                Log.d("SignUpViewModel.kt", "full name:  ${fullName.value}")
-                Log.d("SignUpViewModel.kt", "organization name:  ${organizationName.value}")
-                Log.d("SignUpViewModel.kt", "Owner status:  $isOwner")
-
             }
     }
 }

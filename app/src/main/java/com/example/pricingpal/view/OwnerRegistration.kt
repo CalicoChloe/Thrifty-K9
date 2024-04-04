@@ -1,5 +1,6 @@
 package com.example.pricingpal.view
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -60,8 +61,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.R
-import com.example.pricingpal.model.Organization
-import com.example.pricingpal.model.User
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
@@ -69,7 +68,6 @@ import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.utilites.ErrorMessages.EMAIL_ALREADY_TAKEN
 import com.example.pricingpal.utilites.ErrorMessages.ORGANIZATION_NAME_ALREADY_TAKEN
 import com.example.pricingpal.viewmodel.SignUpViewModel
-
 
 
 /**
@@ -152,7 +150,12 @@ fun OwnerRegisterationHeader(
  * Below that will be the list of buttons the user can navigate to.
  */
 @Composable
-fun ownerRegistration(paddingValues: PaddingValues, windowSize: WindowSize, isOwner: Boolean, signUpViewModel: SignUpViewModel = hiltViewModel()) {
+fun ownerRegistration(
+    paddingValues: PaddingValues,
+    windowSize: WindowSize,
+    isOwner: Boolean,
+    signUpViewModel: SignUpViewModel = hiltViewModel()
+) {
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 50 else 60) }
     Column(
@@ -213,14 +216,10 @@ fun ownerRegistration(paddingValues: PaddingValues, windowSize: WindowSize, isOw
  */
 @Composable
 fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
-    //variable that holds a default state of text-field
-    val organizationName = signUpViewModel.organizationName.collectAsState(initial = "")
     //variable that stores the error message that will be displayed based on the user's input of the organization name
     var errorMessage by remember { mutableStateOf("") }
-    //variable used to reference the state of organizations pulled from the database through the signUpViewModel
-    val organizationsState = signUpViewModel.organizations.collectAsState()
     //variable used to reference the values stored in the organizationState
-    val organizations = organizationsState.value
+    val organizationsNames = signUpViewModel.organizationsNames.collectAsState().value
 
     TextField(
         modifier = Modifier
@@ -229,15 +228,35 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
             .padding(start = 30.dp, end = 30.dp)
             .border(
                 // conditional statement used to determine the border color
-                color = if (organizationName.value.isBlank() ||
-                    isOrganizationNameTaken(organizationName.value, organizations)
+                color = if (signUpViewModel.organizationName
+                        .collectAsState()
+                        .value.isBlank() ||
+                    isOrganizationNameTaken(
+                        signUpViewModel.organizationName
+                            .collectAsState()
+                            .value, organizationsNames
+                    )
                 ) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
             ),
-        value = organizationName.value,
-        onValueChange = {  signUpViewModel.onOrganizationChange(it) // will take in the input from the user
-            errorMessage = ""  }, // Reset error message when user modifies the input
+        value = signUpViewModel.organizationName
+            .collectAsState()
+            .value.trim(),
+        onValueChange = {
+            signUpViewModel.onOrganizationChange(it) // will take in the input from the user
+            // if statement that determines if the error message needs to be display
+            errorMessage =
+                if (isOrganizationNameTaken(
+                        signUpViewModel.organizationName.value.trim(),
+                        organizationsNames
+                    )
+                ) {
+                    ORGANIZATION_NAME_ALREADY_TAKEN
+                } else {
+                    ""
+                }
+        }, // Reset error message when user modifies the input
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter organization", fontSize = 20.sp) },
         //supportingText = { Text(text = "*required") },
@@ -269,43 +288,36 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
             fontSize = 20.sp,
             color = Color.DarkGray
         )
-    }
-    Row(
-        horizontalArrangement = Arrangement.Start,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 5.dp, start = 50.dp)
-    ) {
-        // Display error message if organization name is already taken
-        errorMessage.takeIf { it.isNotBlank() }?.let { message ->
+        Row(
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, start = 50.dp)
+        ) {
+            // Display error message if organization name is already taken
             Text(
-                text = message,
+                text = errorMessage,
                 color = Color.Red,
-                fontSize = 12.sp,
-                modifier = Modifier.padding(start = 30.dp, top = 4.dp)
+                fontSize = 20.sp,
             )
         }
     }
 }
 
-
 // Function to check if the organization name is already taken
 fun isOrganizationNameTaken(
     name: String,
-    organizations: List<Organization>?,
+    organizations: List<String>?,
 ): Boolean {
-    var errorMessage : String
     organizations?.forEach { organization ->
-        if (organization.organizationName == name) {
-            // Set error message if organization name already exists in database
-            errorMessage = ORGANIZATION_NAME_ALREADY_TAKEN
+        if (organization.equals(name, ignoreCase = true)) {
             return true
         }
     }
-    // Clear error message if organization name is valid
-    errorMessage = ""
+    Log.d("OwnerRegistration.kt", organizations.toString())
     return false
 }
+
 /**
  * Function: Owner Organization Input
  * @author: Shianne Lesure
@@ -315,8 +327,9 @@ fun isOrganizationNameTaken(
  * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
  */
 @Composable
-fun ownerFullNameInput(signUpViewModel: SignUpViewModel){
-    var fullName = signUpViewModel.fullName.collectAsState(initial = "") // variable that holds a default state of text-field
+fun ownerFullNameInput(signUpViewModel: SignUpViewModel) {
+    var fullName =
+        signUpViewModel.fullName.collectAsState(initial = "") // variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -361,8 +374,6 @@ fun ownerFullNameInput(signUpViewModel: SignUpViewModel){
 }
 
 
-
-
 /**
  * Function: Email Input Owner
  * @author: Shianne Lesure
@@ -372,12 +383,8 @@ fun ownerFullNameInput(signUpViewModel: SignUpViewModel){
  */
 @Composable
 fun emailInputOwner(signUpViewModel: SignUpViewModel) {
-    var email =
-        signUpViewModel.email.collectAsState(initial = "")// variable that holds a default state of text-field
     var errorMessage by remember { mutableStateOf("") }
-    val usersState = signUpViewModel.users.collectAsState()
-    val users = usersState.value
-
+    val users = signUpViewModel.usersEmails.collectAsState().value
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -385,16 +392,23 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
             .padding(start = 30.dp, end = 30.dp)
             .border(
                 // conditional statement used to determine the border color
-                color = if (email.value.isBlank() ||
-                    isEmailTaken(email.value, users)
+                color = if (signUpViewModel.email
+                        .collectAsState().value
+                        .isBlank() ||
+                    isEmailTaken(signUpViewModel.email.collectAsState().value, users)
                 ) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
             ),
-        value = email.value,
+        value = signUpViewModel.email.collectAsState().value.trim(),
         onValueChange = {
             signUpViewModel.onEmailChange(it) // will take in the input from the user
-            errorMessage = ""
+            // if statement that determines if the error message needs to be display
+            errorMessage = if (isEmailTaken(signUpViewModel.email.value.trim(), users)) {
+                EMAIL_ALREADY_TAKEN
+            } else {
+                ""
+            }
         }, // Reset error message when user modifies the input
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter email", fontSize = 20.sp) },
@@ -423,41 +437,32 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
             fontSize = 20.sp,
             color = Color.DarkGray
         )
-    }
-    Row(
-        horizontalArrangement = Arrangement.Start,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 5.dp, start = 50.dp)
-    ) {
-        // Display error message if organization name is already taken
-        errorMessage.takeIf { it.isNotBlank() }?.let { message ->
+        Row(
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, start = 50.dp)
+        ) {
+            // Display error message if organization name is already taken
             Text(
-                text = message,
+                text = errorMessage,
                 color = Color.Red,
-                fontSize = 12.sp,
-                modifier = Modifier.padding(start = 30.dp, top = 4.dp)
+                fontSize = 20.sp,
             )
         }
     }
-
 }
 
 // Function to check if the email the user input's is already taken
 fun isEmailTaken(
     email: String,
-    users: List<User>?,
+    users: List<String>?,
 ): Boolean {
-    var errorMessage : String
-    users?.forEach { users ->
-        if (users.email == email) {
-            // Set error message if organization name already exists in database
-            errorMessage = EMAIL_ALREADY_TAKEN
+    users?.forEach { usersEmails ->
+        if (usersEmails.equals(email, ignoreCase = true)) {
             return true
         }
     }
-    // Clear error message if organization name is valid
-    errorMessage = ""
     return false
 }
 
@@ -470,7 +475,8 @@ fun isEmailTaken(
  */
 @Composable
 fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
-    var password = signUpViewModel.password.collectAsState(initial = "")// variable that holds a default state of text-field
+    var password =
+        signUpViewModel.password.collectAsState(initial = "")// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -483,7 +489,7 @@ fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
                 shape = RectangleShape
             ),
         value = password.value,
-        onValueChange = {signUpViewModel.onPasswordChange(it)}, // will take in the input from the user
+        onValueChange = { signUpViewModel.onPasswordChange(it) }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp),
         placeholder = { Text("Enter password", fontSize = 20.sp) },
         visualTransformation = PasswordVisualTransformation(),// makes the password not visible to the user
@@ -706,15 +712,22 @@ fun signSnackBar(windowSize: WindowSize, isOwner: Boolean) {
     val snackBarPaddingTop by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 15 else 20) }
     // will scale the size of the snack-bar padding
     val snackBarPadding by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 15 else 30) }
+    // variable used to reference the message produced from the sign up process
     val message by signUpViewModel.message.collectAsState(initial = "")
-
+    // variable used to reference the values stored in the organizationNames
+    val organizationsNames = signUpViewModel.organizationsNames.collectAsState().value
+    // variable used to reference the values stored in the userEmails
+    val users = signUpViewModel.usersEmails.collectAsState().value
     // a variable that determines if the snack-bar will be displayed or not
     var showSnackBar by remember { mutableStateOf(false) }
 
     ElevatedButton(
         onClick = {
-            signUpViewModel.onSignUp(isOwner)
-            showSnackBar = true
+            if(!isOrganizationNameTaken(signUpViewModel.organizationName.value.trim(), organizationsNames)
+                && !isEmailTaken(signUpViewModel.email.value.trim(), users)) {
+                signUpViewModel.onSignUp(isOwner)
+                showSnackBar = true
+            }
         },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),

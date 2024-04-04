@@ -1,7 +1,5 @@
 package com.example.pricingpal.model.repositories
 
-import com.example.pricingpal.model.datatransferobjects.UserDTO
-
 /**
  * Interface: UserRepository
  * @author Abdoulie NJie
@@ -12,7 +10,7 @@ import com.example.pricingpal.model.datatransferobjects.UserDTO
 
 interface UserRepository {
     // Get a list of users
-    suspend fun  getUsers(): List<UserDTO>?
+    suspend fun  getUsersEmails(): List<String>?
 
     //Delete a user
     suspend fun deleteUser(userID: String)

@@ -27,10 +27,11 @@ class OrganizationRepositoryImpl @Inject constructor(
     }
 
     //Gets a list of all organizations from the database
-    override suspend fun getOrganizations() : List<OrganizationDTO>? {
+    override suspend fun getOrganizationsNames() : List<String>? {
         return withContext(Dispatchers.IO) {
             val results = postgrest["organization"].select().decodeList<OrganizationDTO>()
-            results
+            val names = results.map{it.organizationName}
+            names
         }
     }
 
