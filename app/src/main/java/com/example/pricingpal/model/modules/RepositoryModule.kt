@@ -12,8 +12,10 @@ import com.example.pricingpal.model.repositories.impl.OrganizationRepositoryImpl
 import com.example.pricingpal.model.repositories.impl.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.jan.supabase.postgrest.Postgrest
 
 /**
  * This class creates a Dagger Hilt module that provides Dagger Hilt with information
@@ -74,4 +76,5 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindOrganizationRepository(impl: OrganizationRepositoryImpl): OrganizationRepository
+
 }

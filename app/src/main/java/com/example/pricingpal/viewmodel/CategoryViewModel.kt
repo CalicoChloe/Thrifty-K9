@@ -1,8 +1,6 @@
 package com.example.pricingpal.viewmodel
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
@@ -11,6 +9,7 @@ import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 import com.example.pricingpal.model.datatransferobjects.ItemDTO
 import com.example.pricingpal.model.repositories.CategoryRepository
 import com.example.pricingpal.model.repositories.ItemRepository
+import com.example.pricingpal.model.repositories.OrganizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,41 +29,22 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
-    private val itemRepository: ItemRepository,
+    private val itemRepository: ItemRepository
 ) : ViewModel() {
-    private lateinit var organizationViewModel: OrganizationViewModel
-
-    fun initializeOrganizationViewModel(fragment: Fragment) {
-        organizationViewModel = ViewModelProvider(fragment).get(OrganizationViewModel::class.java)
-    }
 
     //lists of the categories from the database that are updated by the ViewModel
     private val _categoryList = MutableStateFlow<List<Category>?>(listOf())
     val categoryList: Flow<List<Category>?> = _categoryList
 
-    //When this ViewModel is created, call these two functions
+    //When this ViewModel is created
     init {
-        initializeOrganizationViewModel(fragment = Fragment())
-        observeSelectedOrganization()
-        //observeCategories()
-    }
-
-    private fun observeSelectedOrganization() {
-        viewModelScope.launch {
-            organizationViewModel.selectedOrganization
-                .filterNotNull() // Ignore null values
-                .distinctUntilChanged() // Emit only distinct organization objects
-                .collect { organization ->
-                    // Fetch categories for the selected organization
-                    getCategories(organization)
-                }
-        }
+        getCategories()
     }
 
     //Gets the list of categories from the database and emits it to _categoryList
-    fun getCategories(organization: Organization) {
+    fun getCategories() {
         viewModelScope.launch {
-            val categories2 = categoryRepository.getCategories(organization)
+            val categories2 = categoryRepository.getCategories()
             _categoryList.emit(categories2?.map { it -> it.asDomainModel() })
         }
     }

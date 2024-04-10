@@ -1,7 +1,6 @@
 package com.example.pricingpal.model.repositories
 
 import com.example.pricingpal.model.Category
-import com.example.pricingpal.model.Organization
 import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 
 /**
@@ -14,7 +13,7 @@ import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 interface CategoryRepository {
     //Create or get a list of all Categories or a single Category
     suspend fun createCategory(category: Category): Boolean
-    suspend fun getCategories(org: Organization): List<CategoryDTO>?
+    suspend fun getCategories(): List<CategoryDTO>?
     suspend fun getCategory(id: Int): CategoryDTO
 
     // Delete a Category

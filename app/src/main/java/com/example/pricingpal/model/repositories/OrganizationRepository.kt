@@ -10,6 +10,10 @@ import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
  */
 interface OrganizationRepository {
 
+    suspend fun getSelectedOrganization() : OrganizationDTO?
+
+    suspend fun setSelectedOrganization(organizationName: String)
+    suspend fun getOrganization(organizationName: String): OrganizationDTO?
     suspend fun getAllOrganizations(): List<OrganizationDTO>?
     // delete organization
     suspend fun deleteOrganization(organizationName: String)

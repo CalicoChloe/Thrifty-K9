@@ -10,7 +10,25 @@ import javax.inject.Inject
 class OrganizationRepositoryImpl @Inject constructor(
     private val postgrest: Postgrest
     ) : OrganizationRepository {
-    override suspend fun getAllOrganizations(): List<OrganizationDTO>? {
+
+        private var selectedOrganization: OrganizationDTO? = null
+        override suspend fun getSelectedOrganization(): OrganizationDTO? {
+            return selectedOrganization
+        }
+
+        override suspend fun setSelectedOrganization(organizationName: String) {
+            selectedOrganization = getOrganization(organizationName)
+        }
+
+        override suspend fun getOrganization(organizationName: String): OrganizationDTO? {
+        return withContext(Dispatchers.IO) {
+            val results = postgrest["organization"].select {
+                eq("organization_name", organizationName)
+            }.decodeSingle<OrganizationDTO>()
+            results
+        }
+    }
+        override suspend fun getAllOrganizations(): List<OrganizationDTO>? {
         return withContext(Dispatchers.IO) {
             val results = postgrest["organization"].select().decodeList<OrganizationDTO>()
             results

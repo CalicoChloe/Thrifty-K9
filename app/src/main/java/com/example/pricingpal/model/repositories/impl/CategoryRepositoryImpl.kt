@@ -1,9 +1,9 @@
 package com.example.pricingpal.model.repositories.impl
 
 import com.example.pricingpal.model.Category
-import com.example.pricingpal.model.Organization
 import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 import com.example.pricingpal.model.repositories.CategoryRepository
+import com.example.pricingpal.model.repositories.OrganizationRepository
 import io.github.jan.supabase.postgrest.Postgrest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,7 +17,8 @@ import javax.inject.Inject
  * This class acts as an implemented version of the CategoryRepository Interface the app can use to interact with the database's Categories
  */
 class CategoryRepositoryImpl @Inject constructor (
-    private val postgrest: Postgrest
+    private val postgrest: Postgrest,
+    private val organizationRepository: OrganizationRepository
     ) : CategoryRepository {
     //This function will create a new category and push it to the database using the given Category object
     override suspend fun createCategory(category: Category): Boolean {
@@ -26,10 +27,15 @@ class CategoryRepositoryImpl @Inject constructor (
 
 
     //Gets a list of all categories from the database
-    override suspend fun getCategories(org: Organization): List<CategoryDTO>? {
+    override suspend fun getCategories(): List<CategoryDTO>? {
+
         return withContext(Dispatchers.IO) {
             val results = postgrest["category"].select {
-                eq("items:organization_name", org.organizationName)
+                organizationRepository.getSelectedOrganization()?.organizationName?.let {
+                    eq("items:organization_name",
+                        it
+                    )
+                }
             }.decodeList<CategoryDTO>()
             results
         }
