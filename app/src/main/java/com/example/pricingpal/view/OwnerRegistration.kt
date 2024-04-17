@@ -170,13 +170,23 @@ fun ownerRegistration(
 
         // holds the pricing pal logo
         innerPricingBar()
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Owner Registration",
-            fontSize = textSize.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold
-        )
+        if(windowSize.width == WindowType.Compact){
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Owner \n\n Registration",
+                fontSize = textSize.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
+            )
+        } else {
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Owner Registration",
+                fontSize = textSize.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
         Spacer(modifier = Modifier.height(25.dp))
 
@@ -257,20 +267,22 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
                     ""
                 }
         }, // Reset error message when user modifies the input
-        textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-        placeholder = { Text("Enter organization", fontSize = 20.sp) },
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp, color = Color.Black),
+        placeholder = { Text("Enter organization", fontSize = 20.sp, color = Color.Black) },
         //supportingText = { Text(text = "*required") },
         leadingIcon = {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.baseline_add_business_24),
-                contentDescription = "Business Icon"
+                contentDescription = "Business Icon",
+                tint =  Color.Black
             )
         },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
             unfocusedIndicatorColor = Anti_flash_white,
-            focusedIndicatorColor = Persian_indigo
+            focusedIndicatorColor = Persian_indigo,
+
         ),
         shape = RectangleShape,
     )
@@ -343,12 +355,13 @@ fun ownerFullNameInput(signUpViewModel: SignUpViewModel) {
             ),
         value = fullName.value,
         onValueChange = { signUpViewModel.onNameChange(it) }, // will take in the input from the user
-        textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-        placeholder = { Text("Enter your full name", fontSize = 20.sp) },
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp , color = Color.Black),
+        placeholder = { Text("Enter your full name", fontSize = 20.sp,color = Color.Black) },
         leadingIcon = {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.baseline_drive_file_rename_outline_24),
-                contentDescription = "Pencil Icon"
+                contentDescription = "Pencil Icon",
+                tint = Color.Black
             )
         },
         colors = TextFieldDefaults.colors(
@@ -410,11 +423,11 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
                 ""
             }
         }, // Reset error message when user modifies the input
-        textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-        placeholder = { Text("Enter email", fontSize = 20.sp) },
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp, color = Color.Black),
+        placeholder = { Text("Enter email", fontSize = 20.sp, color = Color.Black) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required") },
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
+        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon", tint = Color.Black) },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -490,17 +503,18 @@ fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
             ),
         value = password.value,
         onValueChange = { signUpViewModel.onPasswordChange(it) }, // will take in the input from the user
-        textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-        placeholder = { Text("Enter password", fontSize = 20.sp) },
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp,color = Color.Black),
+        placeholder = { Text("Enter password", fontSize = 20.sp, color = Color.Black) },
         visualTransformation = PasswordVisualTransformation(),// makes the password not visible to the user
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), // This will show the black dots instead of letters
-        leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon") },
+        leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon", tint = Color.Black) },
         trailingIcon = {
             //When clicked, it should switch the hidden icon to the eye icon
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.eye),
-                    contentDescription = "Lock Icon"
+                    imageVector = ImageVector.vectorResource(id = R.drawable.eye ),
+                    contentDescription = "Lock Icon",
+                    tint = Color.Black
                 )
             }
         },
