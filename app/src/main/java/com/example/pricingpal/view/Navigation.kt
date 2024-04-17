@@ -53,7 +53,7 @@ fun Navigation(
         }
         //The route to the owner registration screen of the app
         composable(route = Screen.RegisterScreen.route){
-            OwnerRegisterationHeader(navController = navController, windowSize = windowSize, isOwner = true)
+            OwnerRegisterationHeader(navController = navController, windowSize = windowSize, isOwner = false)
 
         }
         //The route to the log in screen of the app

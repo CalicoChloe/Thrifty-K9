@@ -1,6 +1,7 @@
 package com.example.pricingpal
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -33,39 +34,43 @@ class DeepLinkHandlerActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supabaseClient.handleDeeplinks(intent = intent,
-            onSessionSuccess = { userSession ->
-                Log.d("SIGN UP", "Sign up successfully with user info: ${userSession.user}")
-                userSession.user?.apply {
-                    callback(email ?: "", createdAt.toString())
+        val uri: Uri? = intent.data
+        if (uri != null && uri.host == "pricingpal.info" && uri.path == "/sign_up_verified") {
+            supabaseClient.handleDeeplinks(intent = intent,
+                onSessionSuccess = { userSession ->
+                    Log.d("SIGN UP", "Sign up successfully with user info: ${userSession.user}")
+                    userSession.user?.apply {
+                        callback(email ?: "", createdAt.toString())
+                    }
+                })
+            setContent {
+                val navController = rememberNavController()
+                val emailState = remember { mutableStateOf("") }
+                val createdAtState = remember { mutableStateOf("") }
+                LaunchedEffect(Unit) {
+                    callback = { email, created ->
+                        emailState.value = email
+                        createdAtState.value = created
+                    }
                 }
-            })
-        setContent {
-            val navController = rememberNavController()
-            val emailState = remember { mutableStateOf("") }
-            val createdAtState = remember { mutableStateOf("") }
-            LaunchedEffect(Unit) {
-                callback = { email, created ->
-                    emailState.value = email
-                    createdAtState.value = created
+                PricingpalTheme {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+
+                    ) {
+                        SignUpVerified(
+                            modifier = Modifier.padding(20.dp),
+                            navController = navController,
+                            email = emailState.value,
+                            createdAt = createdAtState.value,
+                            onClick = { navigateToMainApp() }
+                        )
+
+                    }
                 }
             }
-            PricingpalTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
 
-                ) {
-                    SignUpVerified(
-                        modifier = Modifier.padding(20.dp),
-                        navController = navController,
-                        email = emailState.value,
-                        createdAt = createdAtState.value,
-                        onClick = { navigateToMainApp() }
-                    )
-
-                }
-            }
         }
 
     }

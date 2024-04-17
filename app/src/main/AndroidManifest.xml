@@ -22,28 +22,28 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:host="supabase.com"
-                    android:scheme="app"
-                    android:path="/sign_up_verified_screen" />
-            </intent-filter>
-            <intent-filter android:autoVerify="true">
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data
-                android:host="supabase.com"
-                android:scheme="https"
-                android:pathPrefix="/sign_up_verified_screen" />
+
+                <data android:scheme="app" />
+                <data android:host="pricingpal.info" />
+                <data android:path="/sign_up_verified_screen" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:host="www.supabase.com"
-                    android:scheme="http"
-                    android:pathPrefix="/sign_up_verified_screen" />
+
+                <data android:scheme="https" />
+                <data android:host="pricingpal.info" />
+                <data android:pathPattern="/sign_up_verified" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:host="pricingpal.info" />
+                <data android:pathPattern="/sign_up_verified" />
             </intent-filter>
         </activity>
         <activity
