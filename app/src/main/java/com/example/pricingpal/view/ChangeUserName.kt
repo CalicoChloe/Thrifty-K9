@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.pricingpal.R
+import com.example.pricingpal.model.datatransferobjects.UserDTO
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
@@ -199,6 +200,10 @@ fun changeName(paddingValues: PaddingValues, windowSize: WindowSize, viewModel: 
 fun oldInputChangeName(viewModel: UserViewModel){
     //var oldName by remember { mutableStateOf("") }// variable that holds a default state of text-field
     val oldName = viewModel.userName.collectAsState(initial = "")
+    val user = viewModel.userData.collectAsState(initial = UserDTO)
+
+    //viewModel.getUser(user.toString())
+
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -302,10 +307,12 @@ fun saveName(windowSize: WindowSize, viewModel: UserViewModel){
     ElevatedButton( enabled = false,
         onClick = {
             viewModel.updateUser()
-                  if(userMessage == "Username successfully updated."){
-
-                  }
-                  },
+            if (userMessage == "Username successfully updated.") {
+                //navController.navigate(Screen.UploadFormat.route)
+            } else {
+                userMessage == "Updated Error"
+            }
+        },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),
         elevation = ButtonDefaults.buttonElevation(8.dp),

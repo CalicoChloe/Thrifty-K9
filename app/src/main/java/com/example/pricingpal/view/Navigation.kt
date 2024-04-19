@@ -92,7 +92,7 @@ fun Navigation(
             ChangeOrganizationHeader(windowSize)
         }
 
-        composable(route = Screen.ChangeUsername.route){
+        composable(route = Screen.ChangeUsername.route) {
             ChangeNameHeader(windowSize)
         }
 

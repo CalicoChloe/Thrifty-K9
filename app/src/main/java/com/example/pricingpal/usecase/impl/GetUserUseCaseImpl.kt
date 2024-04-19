@@ -21,6 +21,7 @@ class GetUserUseCaseImpl @Inject constructor(private val userRepository: UserRep
 
             // This is coming from UserDTO file
             data = User(
+                //userId = result.userID,
                 userId = result.userId,
                 fullName = result.fullName,
                 email = result.email,

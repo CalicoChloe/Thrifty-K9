@@ -1,6 +1,5 @@
 package com.example.pricingpal.model.datatransferobjects
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -23,9 +22,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserDTO(
     @SerialName("user_id")
-
+    //@Contextual val userID: UUID,
     // contextual is use as a fallback for the UUID because a serializer has not been found with UUID
-    @Contextual val userId: String,
+    //@Contextual val userId: String,
+    val userId: String,
     @SerialName("full_name")
     val fullName: String,
     @SerialName("email")

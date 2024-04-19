@@ -22,7 +22,7 @@ class UserRepositoryImpl@Inject constructor(private val postgrest: Postgrest ): 
     // Is calling the database and selecting the information from the user's id from the user's table.
     override suspend fun getUser(userId: String): UserDTO{
         return postgrest["registered_user"].select {
-            eq("user_id", userId)
+            eq("id", userId)
         }.decodeSingle<UserDTO>()
     }
 
@@ -30,7 +30,7 @@ class UserRepositoryImpl@Inject constructor(private val postgrest: Postgrest ): 
     override suspend fun deleteUser(userId: String) {
         withContext(Dispatchers.IO) {
             postgrest["registered_user"].delete {
-                eq("user_id", userId)
+                eq("id", userId)
             }
         }
     }

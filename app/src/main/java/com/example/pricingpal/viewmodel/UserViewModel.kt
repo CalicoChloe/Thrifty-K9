@@ -3,6 +3,7 @@ package com.example.pricingpal.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pricingpal.model.User
 import com.example.pricingpal.usecase.DeleteUserUseCase
 import com.example.pricingpal.usecase.GetUserUseCase
 import com.example.pricingpal.usecase.UpdateUserUseCase
@@ -49,7 +50,12 @@ class UserViewModel @Inject constructor(
     val userMessage: Flow<String> = _userMessage
 
     // Is the value use for the input of UseCase functions for the user's id.
-    private val userID = saveUUID(getUUID())
+    //private val userID = saveUUID(getUUID())
+
+    private val _userData = MutableStateFlow<List<User>?>(listOf())
+    val userData: Flow<List<User>?> = _userData
+
+
 
     /*
      * This holds the UUID key that will be coming from the database. It is put inside a companion object
@@ -113,10 +119,14 @@ class UserViewModel @Inject constructor(
                 is GetUserUseCase.Output.Failure -> {
                     _userMessage.emit("Error. User request failed.")
                 }
+
+                else -> {}
             }
         }
         return UUID.fromString(userID)
     }
+
+
 
     /**
      * Function: Delete User
@@ -139,6 +149,8 @@ class UserViewModel @Inject constructor(
                 is DeleteUserUseCase.Output.Failure -> {
                     _userMessage.emit("Was not able to delete user.")
                 }
+
+                else -> {}
             }
         }
         return UUID.fromString(deleteID)
@@ -168,6 +180,8 @@ class UserViewModel @Inject constructor(
                 is UpdateUserUseCase.Output.Failure -> {
                     _userMessage.emit("Was not able to update user.")
                 }
+
+                else -> {}
             }
         }
     }
