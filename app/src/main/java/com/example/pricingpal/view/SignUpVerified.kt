@@ -18,6 +18,14 @@ import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 
+/**
+ * Function: SignUpVerified
+ * @author: Abdoulie NJie
+ * @version: 1
+ *
+ * This function displays a simple verification page that contains a button used to redirect the user
+ * to the main page of the application
+ */
 @Composable
 fun SignUpVerified(
     navController: NavController,

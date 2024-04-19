@@ -221,6 +221,9 @@ fun ownerRegistration(
 /**
  * Function: Owner Organization Input
  * @author: Shianne Lesure
+ * @author: Abdoulie NJie
+ * @version 2
+ * @written 4/19/2024
  *
  * This function sets up the text-field for the user to be able to put in their organization to be able to
  * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
@@ -318,7 +321,14 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
     }
 }
 
-// Function to check if the organization name is already taken
+/**
+ * Function isOrganizationNameTake
+ * @author: Abdoulie NJie
+ * @version 1
+ * @written 3/20/2024
+ * This function is used search through a list of organization names and determine if the user's input matches
+ * a record already stored in the list
+ */
 fun isOrganizationNameTaken(
     name: String,
     organizations: List<String>?,
@@ -336,7 +346,8 @@ fun isOrganizationNameTaken(
  * Function: Owner Organization Input
  * @author: Shianne Lesure
  * @author: Abdoulie NJie
- *
+ * @version 2
+ * @written 4/19/2024
  * This function sets up the text-field for the user to be able to put in their full name to be able to
  * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
  */
@@ -393,7 +404,9 @@ fun ownerFullNameInput(signUpViewModel: SignUpViewModel) {
 /**
  * Function: Email Input Owner
  * @author: Shianne Lesure
- *
+ * @author: Abdoulie NJie
+ * @version 2
+ * @written 4/19/2024
  * This function sets up the text-field for the user to be able to put in their email to be able to
  * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
  */
@@ -470,7 +483,15 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
     }
 }
 
-// Function to check if the email the user input's is already taken
+
+/**
+ * Function isEmailTaken
+ * @author: Abdoulie NJie
+ * @version 1
+ * @written 3/20/2024
+ * This function is used search through a list of emails and determine if the user's input matches
+ * a record already stored in the list
+ */
 fun isEmailTaken(
     email: String,
     users: List<String>?,
@@ -708,7 +729,8 @@ fun passwordStrengthOwnerDialog(windowSize: WindowSize) {
 /**
  * Function: Sign Snack Bar
  * @author: Shianne Lesure
- *
+ * @author: Abdoulie NJie
+ * @version 2
  * @param windowSize an adjuster used to change scale of screens based on the user's device
  *
  * This function will display a snack-bar when the sign up button is clicked. The snack bar will show a
@@ -765,7 +787,7 @@ fun signSnackBar(windowSize: WindowSize, isOwner: Boolean) {
             color = Color.Black,
         )
     }
-    // the snack-bar will show if the login button is clicked
+    // the snack-bar will display an success or error message when the submit button is clicked
     if (showSnackBar) {
         Row(
             modifier = Modifier

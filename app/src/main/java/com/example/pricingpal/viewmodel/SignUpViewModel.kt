@@ -57,6 +57,7 @@ class SignUpViewModel @Inject constructor(
     private val _message = MutableStateFlow("")
     val message = _message
 
+    // initial call to methods whenever a sign up view model is initialized
     init{
         getOrganizationsNames()
         getUsersEmails()
