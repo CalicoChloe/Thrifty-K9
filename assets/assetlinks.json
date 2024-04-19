@@ -1,9 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.example.pricingpal",
-    "sha256_cert_fingerprints":
-    ["6B:46:AE:86:A2:14:C3:03:12:06:8B:2D:8C:33:C5:80:33:24:03:89:00:C9:33:04:1F:97:40:C2:5E:CD:01:BE"]
-  }
-}]
