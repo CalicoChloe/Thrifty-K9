@@ -3,6 +3,7 @@ package com.example.pricingpal.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -227,16 +228,17 @@ fun emailInputLogin(viewModel: LoginViewModel){
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .padding(start = 30.dp, end = 30.dp),
+            .padding(start = 30.dp, end = 30.dp)
+            .horizontalScroll(rememberScrollState()),
         value = email.value,
         onValueChange = {
             viewModel.onEmailChange(it)
         }, // will take in the input from the user
-        textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
-        placeholder = { Text("Enter email", fontSize = 20.sp) },
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp, color = Color.Black) ,
+        placeholder = { Text("Enter email", fontSize = 20.sp, color = Color.Black) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required") },
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
+        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon", tint = Color.Black) },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -276,23 +278,24 @@ fun passwordInputLogin(viewModel: LoginViewModel){
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .padding(start = 30.dp, end = 30.dp),
+            .padding(start = 30.dp, end = 30.dp)
+            .horizontalScroll(rememberScrollState()),
         value = password.value,
         onValueChange = {
             viewModel.onPasswordChange(it)
         }, // will take in the input from the user
-        textStyle = TextStyle.Default.copy(fontSize = 20.sp),
-        placeholder = { Text("Enter password", fontSize = 20.sp) },
+        textStyle = TextStyle.Default.copy(fontSize = 20.sp, color = Color.Black),
+        placeholder = { Text("Enter password", fontSize = 20.sp, color = Color.Black) },
         /** The support text will not work if you have a modifier.*/
         //supportingText = { Text(text = "*required")},
 
         visualTransformation = if(hidePass) PasswordVisualTransformation() else VisualTransformation.None,// makes the password not visible to the user
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), // This will show the black dots instead of letters
-        leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon") },
+        leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon", tint = Color.Black) },
         trailingIcon = {
             //When clicked, it should switch the hidden icon to the eye icon
             IconButton(onClick = { hidePass = !hidePass }) {
-                Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")
+                Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon", tint = Color.Black)
             }
         },
         colors = TextFieldDefaults.colors(

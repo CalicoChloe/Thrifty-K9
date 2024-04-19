@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -249,7 +250,8 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
                 ) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
-            ),
+            )
+            .horizontalScroll(rememberScrollState()),
         value = signUpViewModel.organizationName
             .collectAsState()
             .value.trim(),
@@ -352,7 +354,8 @@ fun ownerFullNameInput(signUpViewModel: SignUpViewModel) {
                 color = if (fullName.value.isBlank()) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
-            ),
+            )
+            .horizontalScroll(rememberScrollState()),
         value = fullName.value,
         onValueChange = { signUpViewModel.onNameChange(it) }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp , color = Color.Black),
@@ -412,7 +415,8 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
                 ) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
-            ),
+            )
+            .horizontalScroll(rememberScrollState()),
         value = signUpViewModel.email.collectAsState().value.trim(),
         onValueChange = {
             signUpViewModel.onEmailChange(it) // will take in the input from the user
@@ -500,7 +504,8 @@ fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
                 color = if (password.value.isBlank()) Color.Red else Color.Transparent,
                 width = 2.dp,
                 shape = RectangleShape
-            ),
+            )
+            .horizontalScroll(rememberScrollState()),
         value = password.value,
         onValueChange = { signUpViewModel.onPasswordChange(it) }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp,color = Color.Black),
@@ -782,9 +787,12 @@ fun signSnackBar(windowSize: WindowSize, isOwner: Boolean) {
                 textAlign = TextAlign.Start,
                 text = message,
                 modifier = Modifier
-                    .padding(top = snackBarPaddingTop.dp, start = snackBarPadding.dp),
+                    .padding(top = snackBarPaddingTop.dp, start = snackBarPadding.dp)
+                    .horizontalScroll(rememberScrollState()),
+
                 fontSize = 25.sp,
                 color = Color.Black,
+
             )
         }
     }

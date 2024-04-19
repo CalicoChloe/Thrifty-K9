@@ -62,7 +62,7 @@ fun Navigation(
         }
         //The route to the sign up verified screen of the app
         composable(route = Screen.SignUpVerified.route){
-            SignUpVerified(navController = navController, modifier = Modifier.padding(20.dp), email = "", createdAt = "")
+            SignUpVerified(navController = navController, modifier = Modifier.padding(20.dp))
         }
         //The route to the CategoryList. This is the start destination
         composable(route = Screen.CategoryList.route) {

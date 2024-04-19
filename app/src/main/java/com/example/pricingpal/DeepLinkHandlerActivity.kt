@@ -62,8 +62,6 @@ class DeepLinkHandlerActivity : ComponentActivity() {
                         SignUpVerified(
                             modifier = Modifier.padding(20.dp),
                             navController = navController,
-                            email = emailState.value,
-                            createdAt = createdAtState.value,
                             onClick = { navigateToMainApp() }
                         )
 
@@ -72,7 +70,6 @@ class DeepLinkHandlerActivity : ComponentActivity() {
             }
 
         }
-
     }
 
     private fun navigateToMainApp() {
