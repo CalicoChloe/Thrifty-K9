@@ -35,6 +35,7 @@ class DeepLinkHandlerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val uri: Uri? = intent.data
+        if (uri != null && uri.host == "pricingpal.info" && uri.path == "/sign_up_verified_screen") {
             supabaseClient.handleDeeplinks(intent = intent,
                 onSessionSuccess = { userSession ->
                     Log.d("SIGN UP", "Sign up successfully with user info: ${userSession.user}")
@@ -69,6 +70,8 @@ class DeepLinkHandlerActivity : ComponentActivity() {
                     }
                 }
             }
+
+        }
 
     }
 
