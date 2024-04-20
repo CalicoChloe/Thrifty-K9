@@ -19,6 +19,13 @@ import javax.inject.Inject
  */
 class UserRepositoryImpl@Inject constructor(private val postgrest: Postgrest ): UserRepository{
 
+    override suspend fun getUsers(): List<UserDTO>? {
+        return withContext(Dispatchers.IO){
+            val result = postgrest["registered_user"].select().decodeList<UserDTO>()
+            result
+        }
+    }
+
     // Is calling the database and selecting the information from the user's id from the user's table.
     override suspend fun getUser(userId: String): UserDTO{
         return postgrest["registered_user"].select {

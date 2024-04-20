@@ -200,7 +200,7 @@ fun changeName(paddingValues: PaddingValues, windowSize: WindowSize, viewModel: 
 fun oldInputChangeName(viewModel: UserViewModel){
     //var oldName by remember { mutableStateOf("") }// variable that holds a default state of text-field
     val oldName = viewModel.userName.collectAsState(initial = "")
-    val user = viewModel.userData.collectAsState(initial = UserDTO)
+    val user = viewModel.userList.collectAsState(initial = UserDTO)
 
     //viewModel.getUser(user.toString())
 

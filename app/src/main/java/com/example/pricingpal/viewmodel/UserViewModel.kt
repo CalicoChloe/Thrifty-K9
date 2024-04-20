@@ -1,9 +1,10 @@
 package com.example.pricingpal.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.User
+import com.example.pricingpal.model.datatransferobjects.UserDTO
+import com.example.pricingpal.model.repositories.UserRepository
 import com.example.pricingpal.usecase.DeleteUserUseCase
 import com.example.pricingpal.usecase.GetUserUseCase
 import com.example.pricingpal.usecase.UpdateUserUseCase
@@ -28,10 +29,12 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class UserViewModel @Inject constructor(
+    private val userRepository: UserRepository,
     private val getUserUseCase: GetUserUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
-    private val savedStateHandle: SavedStateHandle
+    //private val savedStateHandle: SavedStateHandle
+
 ): ViewModel() {
 
     private val _userFullName = MutableStateFlow("")
@@ -52,47 +55,37 @@ class UserViewModel @Inject constructor(
     // Is the value use for the input of UseCase functions for the user's id.
     //private val userID = saveUUID(getUUID())
 
-    private val _userData = MutableStateFlow<List<User>?>(listOf())
-    val userData: Flow<List<User>?> = _userData
+    private val _userList = MutableStateFlow<List<User>?>(listOf())
+    val userList: Flow<List<User>?> = _userList
 
-
-
-    /*
-     * This holds the UUID key that will be coming from the database. It is put inside a companion object
-     * because it associates the constant value to the user's ViewModel and ensures it is scoped to the class.
-     */
-    companion object {private const val UUID_KEY = "uuid_key"}
-
-    /**
-     * Function: saveUUID
-     * @author Shianne Lesure
-     *
-     * @param uuid is the id that is coming from the user's table from the database
-     *
-     * This will take the UUID and converted into a string so it can be saved into the state handle.
-     */
-    fun saveUUID(uuid: UUID) {
-        savedStateHandle[UUID_KEY] = uuid.toString()
-    }
-
-    /**
-     * Function: getUUID
-     * @author Shianne Lesure
-     *
-     * This will get the string UUID value and return it back to a UUID object using fromString().
-     */
-    fun getUUID(): UUID {
-        val uuidString = savedStateHandle.get<String>(UUID_KEY)
-        return uuidString.let { UUID.fromString(it) }
-    }
 
     // When the ViewModel is called, it will start with this function
-    /*
     init {
-        getUser(userID = userID.toString())
+        getUsers()
     }
 
+
+
+
+    /**
+     * Get Users
      */
+    fun getUsers(){
+        viewModelScope.launch {
+            val users = userRepository.getUsers()
+            _userList.emit(users?.map { it -> it.asDomainModel() })
+        }
+    }
+
+    private fun UserDTO.asDomainModel(): User {
+        return User(
+            userId = this.userId,
+            fullName = this.fullName,
+            email = this.email,
+            organizationName = this.organizationName,
+            isOwner = this.isOwner
+        )
+    }
 
     /**
      * Function: Get User

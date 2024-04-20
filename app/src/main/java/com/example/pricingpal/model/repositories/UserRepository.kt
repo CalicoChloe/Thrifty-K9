@@ -11,6 +11,8 @@ import com.example.pricingpal.model.datatransferobjects.UserDTO
  */
 interface UserRepository {
 
+    suspend fun getUsers(): List<UserDTO>?
+
     //get user
     suspend fun getUser(userId: String): UserDTO
 

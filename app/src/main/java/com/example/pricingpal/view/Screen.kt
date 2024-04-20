@@ -20,6 +20,7 @@ sealed class Screen(val route: String) {
     object UploadFormat: Screen("Upload Format")
     object Setting: Screen("Settings")
     object OwnerAccount: Screen("Owner Account")
+    object GuestAccount: Screen("Guest Account")
     object ChangeOrganization: Screen("Change Organization")
     object ChangeUsername: Screen("Change Username")
     object ChangeEmail: Screen("Change Email")

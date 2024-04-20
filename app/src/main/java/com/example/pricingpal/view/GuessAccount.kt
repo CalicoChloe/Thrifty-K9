@@ -34,6 +34,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,15 +50,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.pricingpal.R
+import com.example.pricingpal.model.User
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.viewmodel.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun guestAccountHeader(windowSize: WindowSize){
+fun guestAccountHeader(windowSize: WindowSize, viewModel: UserViewModel = hiltViewModel()){
+
+    val userList = viewModel.userList.collectAsState(initial = listOf()).value
+
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -110,7 +117,9 @@ fun guestAccountHeader(windowSize: WindowSize){
                 },
 
                 content = { padding ->
-                    guestAccount(padding, windowSize)
+                    if (userList != null) {
+                        guestAccount(padding, windowSize, userList)
+                    }
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -122,7 +131,8 @@ fun guestAccountHeader(windowSize: WindowSize){
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun guestAccount(paddingValues: PaddingValues, windowSize: WindowSize ){
+fun guestAccount(paddingValues: PaddingValues, windowSize: WindowSize, userList: List<User> ){
+
     Card(
         modifier = Modifier
             .padding(paddingValues)
@@ -170,8 +180,10 @@ fun guestAccount(paddingValues: PaddingValues, windowSize: WindowSize ){
                     organizationUser(windowSize)
                     Spacer(modifier = Modifier.height(10.dp))
                 }
-                for(i in 1..10){
-                    item { guestUsers() }
+                if(!userList.isNullOrEmpty()){
+                    for(user in userList){
+                        item { guestUsers(user) }
+                    }
                 }
             }
             //Spacer(modifier = Modifier.height(20.dp))
@@ -244,7 +256,7 @@ fun organizationUser(windowSize: WindowSize) {
 }
 
 @Composable
-fun guestUsers(){
+fun guestUsers(user: User){
     Card(
         modifier = Modifier
             .padding(10.dp)
@@ -266,7 +278,7 @@ fun guestUsers(){
         {
             Column() {
                 Text(
-                    text = "Full Name",
+                    text = user.fullName,
                     fontSize = 30.sp,
                     color = Color.Black,
                     modifier = Modifier
@@ -274,7 +286,7 @@ fun guestUsers(){
                 )
 
                 Text(
-                    text = "Email",
+                    text = user.email,
                     fontSize = 30.sp,
                     color = Color.Black,
                     modifier = Modifier
@@ -368,77 +380,6 @@ fun deleteIconDialog(){
                             )
                         }
 
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun deleteGuestDialog() {
-    var showDialog by remember { mutableStateOf(false) }// a variable that determines if the state of the dialog to be use or not
-    Column {
-        // Yes Button
-        // will send you to a dialog telling you the guest account has been deleted
-        // this should be remove from the database
-        ElevatedButton(
-            onClick = { showDialog = true },
-            elevation = ButtonDefaults.buttonElevation(8.dp),
-            shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .border(3.dp, color = Persian_indigo),
-
-            ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Yes",
-                fontSize = 25.sp,
-                color = Color.Black,
-            )
-        }
-    }
-    if (showDialog) {
-        Dialog(onDismissRequest = { showDialog = false }) {
-            // Custom shape, background, and layout for the dialog
-            Surface(
-                shape = RectangleShape,
-                color = Color.White,
-                modifier = Modifier
-                    .shadow(elevation = 8.dp, RectangleShape)
-                    .border(2.dp, color = Color.Black),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "The account has been deleted.",
-                        fontSize = 40.sp,
-                        textAlign = TextAlign.Center,
-                        color = Color.Black,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                    )
-                    // Close Button
-                    // will close the dialog box
-                    Button(
-                        onClick = { showDialog = false },
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(Cornflower_blue),
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .border(3.dp, color = Persian_indigo),
-                    ) {
-                        Text(
-                            "Close",
-                            fontSize = 25.sp,
-                            color = Color.Black
-                        )
                     }
                 }
             }
