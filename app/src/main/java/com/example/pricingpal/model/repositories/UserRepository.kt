@@ -13,6 +13,8 @@ interface UserRepository {
 
     suspend fun getUsers(): List<UserDTO>?
 
+    suspend fun getOneUser(email: String): UserDTO
+
     //get user
     suspend fun getUser(userId: String): UserDTO
 

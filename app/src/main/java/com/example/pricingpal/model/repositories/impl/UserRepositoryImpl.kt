@@ -21,8 +21,15 @@ class UserRepositoryImpl@Inject constructor(private val postgrest: Postgrest ): 
 
     override suspend fun getUsers(): List<UserDTO>? {
         return withContext(Dispatchers.IO){
-            val result = postgrest["registered_user"].select().decodeList<UserDTO>()
-            result
+            val results = postgrest["registered_user"].select().decodeList<UserDTO>()
+            results
+        }
+    }
+
+    override suspend fun getOneUser(email: String): UserDTO {
+        return withContext(Dispatchers.IO){
+            val results = postgrest["registered_user"].select().decodeSingle<UserDTO>()
+            results
         }
     }
 

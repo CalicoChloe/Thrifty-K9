@@ -61,19 +61,32 @@ class UserViewModel @Inject constructor(
 
     // When the ViewModel is called, it will start with this function
     init {
-        getUsers()
+        getAllUsers()
     }
 
 
 
 
     /**
-     * Get Users
+     * Get All Users
      */
-    fun getUsers(){
+    fun getAllUsers(){
         viewModelScope.launch {
             val users = userRepository.getUsers()
             _userList.emit(users?.map { it -> it.asDomainModel() })
+        }
+    }
+
+    /**
+     * Get One User
+     */
+    fun getOneUser(userEmail: String){
+        viewModelScope.launch {
+            val user = userRepository.getOneUser(email = userEmail)
+            _userEmail.emit(user.email)
+            _userFullName.emit(user.fullName)
+            _userOrganizationName.emit(user.organizationName)
+            _isOwner.emit(user.isOwner)
         }
     }
 
