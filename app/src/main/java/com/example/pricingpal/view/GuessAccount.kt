@@ -257,26 +257,27 @@ fun organizationUser(windowSize: WindowSize) {
 
 @Composable
 fun guestUsers(user: User){
-    Card(
-        modifier = Modifier
-            .padding(10.dp)
-            .padding(start = 20.dp, end = 20.dp)
-            .border(
-                border = BorderStroke(4.dp, color = Persian_indigo),
-
-                shape = RectangleShape
-            ),
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+    if(!user.isOwner) {
+        Card(
             modifier = Modifier
-                .background(color = Cornflower_blue, shape = RectangleShape)
-                .fillMaxWidth()
-                .height(110.dp)
-        )
-        {
-            Column() {
+                .padding(10.dp)
+                .padding(start = 20.dp, end = 20.dp)
+                .border(
+                    border = BorderStroke(4.dp, color = Persian_indigo),
+
+                    shape = RectangleShape
+                ),
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .background(color = Cornflower_blue, shape = RectangleShape)
+                    .fillMaxWidth()
+                    .height(110.dp)
+            )
+            {
+                Column() {
                 Text(
                     text = user.fullName,
                     fontSize = 30.sp,
@@ -292,8 +293,9 @@ fun guestUsers(user: User){
                     modifier = Modifier
                         .padding(start = 20.dp)
                 )
+                }
+                deleteIconDialog()
             }
-            deleteIconDialog()
         }
     }
 }
