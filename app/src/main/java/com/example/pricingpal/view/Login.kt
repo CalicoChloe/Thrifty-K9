@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
@@ -154,7 +153,7 @@ fun Login(navController: NavController, paddingValues: PaddingValues, windowSize
             .padding(top = 4.dp)
             .background(color = Periwinkle)
             //allows for the column to be scrollable. Might not show because there is not enough to scroll
-            .verticalScroll(rememberScrollState()),
+            .horizontalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // holds the pricing pal logo
