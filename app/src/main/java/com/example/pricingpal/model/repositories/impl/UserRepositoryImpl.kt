@@ -46,5 +46,14 @@ class UserRepositoryImpl@Inject constructor(private val postgrest: Postgrest ): 
         }
     }
 
+    //Gets a list of all users from the database
+    override suspend fun getUsersEmails(): List<String>? {
+        return withContext(Dispatchers.IO) {
+            val results = postgrest["registered_user"].select().decodeList<UserDTO>()
+            val emails = results.map { it.email };
+            emails
+        }
+    }
+
 
 }
