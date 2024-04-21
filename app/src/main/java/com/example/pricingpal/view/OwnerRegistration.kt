@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
@@ -164,7 +165,7 @@ fun ownerRegistration(
             // this is here so the line above the pricing pal logo
             .padding(top = 4.dp)
             .background(color = Periwinkle)
-            .horizontalScroll(rememberScrollState()), // allows for the items in the column to scroll
+            .verticalScroll(rememberScrollState()), // allows for the items in the column to scroll
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
