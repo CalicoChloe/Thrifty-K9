@@ -19,7 +19,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,7 +29,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -56,7 +54,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pricingpal.PricingPalAppBar
@@ -565,85 +562,6 @@ fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
     }
 }
 
-
-/**
- * Function: Password Strength Owner Dialog
- * @author: Shianne Lesure
- *
- * @param windowSize an adjuster used to change scale of screens based on the user's device
- *
- * This function will display a dialog when the why button is clicked. The dialog will show the user
- * what is needed to make their password stronger.
- */
-@Composable
-fun passwordStrengthOwnerDialog(windowSize: WindowSize) {
-    // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 20 else 30) }
-
-    // a variable that determines if the state of the dialog to be use or not
-    var showDialog by remember { mutableStateOf(false) }
-    Column {
-        TextButton(onClick = { showDialog = true }) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Why?",
-                fontSize = textSize.sp,
-                color = Color.Black,
-            )
-        }
-    }
-    // the dialog shows if why button is clicked
-    if (showDialog) {
-        Dialog(onDismissRequest = { showDialog = false }) {
-
-            //Hold makes up the dialog box
-            Surface(
-                shape = RectangleShape,
-                color = Color.White,
-                modifier = Modifier
-                    .shadow(elevation = 8.dp, RectangleShape)
-                    .border(2.dp, color = Color.Black),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    // Holds the message that will be shown in dialog
-                    Text(
-                        text = "Passwords needs to be more than 8 characters.\n\n" +
-                                "Must consist of one of each:\n" +
-                                "- uppercase letter\n" +
-                                "- symbol\n" +
-                                "- digit\n" +
-                                "- lower case letter",
-                        fontSize = textSize.sp,
-                        color = Color.Black,
-                    )
-
-                    //Close button
-                    // will exit the dialog
-                    Button(
-                        onClick = { showDialog = false },
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(Cornflower_blue),
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .border(3.dp, color = Persian_indigo),
-                    ) {
-                        Text(
-                            "Close",
-                            fontSize = textSize.sp,
-                            color = Color.Black
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
 
 /**
  * Function: Sign Snack Bar
