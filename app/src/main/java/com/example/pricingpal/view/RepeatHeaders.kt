@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -31,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pricingpal.R
@@ -163,6 +166,62 @@ fun innerPricingBar(){
             modifier = Modifier
                 .padding(15.dp)
         )
+    }
+    Box(
+        modifier = Modifier
+            .height(height = 4.dp)
+            .fillMaxWidth()
+            .background(color = Persian_indigo)
+    )
+}
+
+/**
+ * Function: Settings Bar
+ * @author: Shianne Lesure
+ *
+ * @param windowSize an adjuster used to change scale of screens based on the user's device
+ *
+ * This function will display a header that shows the setting icon along with the name Settings.
+ */
+@Composable
+fun settingsBar(windowSize: WindowSize){
+    // will scale the height of the row
+    val padHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 15 else 20) }
+    // will scale the text
+    val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 30 else 40) }
+    // will scale the icon
+    val iconSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 45 else 50) }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth(),
+        shape = RectangleShape,
+        colors = CardDefaults.cardColors(containerColor = Cornflower_blue)
+    ){
+        Row(
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = padHeight.dp, bottom = padHeight.dp)
+                .background(color = Cornflower_blue),
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Settings,
+                contentDescription = "Setting Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(iconSize.dp)
+                    .padding(start = 10.dp, top = 5.dp)
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(
+                textAlign = TextAlign.Center,
+                text = "Settings",
+                fontSize = textSize.sp,
+                color = Color.Black,
+            )
+        }
     }
     Box(
         modifier = Modifier
