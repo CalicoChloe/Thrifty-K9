@@ -326,7 +326,7 @@ fun isOrganizationNameTaken(
     organizations: List<String>?,
 ): Boolean {
     organizations?.forEach { organization ->
-        if (organization.equals(name, ignoreCase = true)) {
+        if (organization.equals(name, ignoreCase = true) || organization.equals("$name.*\\s$", ignoreCase = true)) {
             return true
         }
     }
@@ -487,7 +487,7 @@ fun isEmailTaken(
     users: List<String>?,
 ): Boolean {
     users?.forEach { usersEmails ->
-        if (usersEmails.equals(email, ignoreCase = true)) {
+        if (usersEmails.equals(email, ignoreCase = true) || usersEmails.equals("$email.*\\s$", ignoreCase = true) ) {
             return true
         }
     }
