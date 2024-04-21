@@ -1,10 +1,8 @@
 package com.example.pricingpal.view
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -54,6 +52,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -257,13 +256,13 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
             .horizontalScroll(rememberScrollState()),
         value = signUpViewModel.organizationName
             .collectAsState()
-            .value.trim(),
+            .value,
         onValueChange = {
             signUpViewModel.onOrganizationChange(it) // will take in the input from the user
             // if statement that determines if the error message needs to be display
             errorMessage =
                 if (isOrganizationNameTaken(
-                        signUpViewModel.organizationName.value.trim(),
+                        signUpViewModel.organizationName.value.trimEnd(),
                         organizationsNames
                     )
                 ) {
@@ -338,7 +337,6 @@ fun isOrganizationNameTaken(
             return true
         }
     }
-    Log.d("OwnerRegistration.kt", organizations.toString())
     return false
 }
 
@@ -430,11 +428,11 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
                 shape = RectangleShape
             )
             .horizontalScroll(rememberScrollState()),
-        value = signUpViewModel.email.collectAsState().value.trim(),
+        value = signUpViewModel.email.collectAsState().value,
         onValueChange = {
             signUpViewModel.onEmailChange(it) // will take in the input from the user
             // if statement that determines if the error message needs to be display
-            errorMessage = if (isEmailTaken(signUpViewModel.email.value.trim(), users)) {
+            errorMessage = if (isEmailTaken(signUpViewModel.email.value.trimEnd(), users)) {
                 EMAIL_ALREADY_TAKEN
             } else {
                 ""
@@ -507,6 +505,8 @@ fun isEmailTaken(
 /**
  * Function: Password Input Owner
  * @author: Shianne Lesure
+ * @author Abdoulie NJie
+ * @version 2
  *
  * This function set up the text-field for the user to be able to put in their password to be able to
  * sign up. This is a requirement for the user to be able to navigate to the Upload screen.
@@ -515,6 +515,8 @@ fun isEmailTaken(
 fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
     var password =
         signUpViewModel.password.collectAsState(initial = "")// variable that holds a default state of text-field
+        var hidePass by remember { mutableStateOf(true) } // variable that holds a default state of the password being hidden
+
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -531,12 +533,12 @@ fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
         onValueChange = { signUpViewModel.onPasswordChange(it) }, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp,color = Color.Black),
         placeholder = { Text("Enter password", fontSize = 20.sp, color = Color.Black) },
-        visualTransformation = PasswordVisualTransformation(),// makes the password not visible to the user
+        visualTransformation = if(hidePass) PasswordVisualTransformation() else VisualTransformation.None,// makes the password not visible to the user
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), // This will show the black dots instead of letters
         leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Lock Icon", tint = Color.Black) },
         trailingIcon = {
             //When clicked, it should switch the hidden icon to the eye icon
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { hidePass = !hidePass }){
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.eye ),
                     contentDescription = "Lock Icon",
@@ -544,13 +546,6 @@ fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
                 )
             }
         },
-        /** This is for the hidden Icon that will turn the password hidden again.
-
-        trailingIcon = {
-        IconButton(onClick = { /*TODO*/ }) {
-        Icon(imageVector = ImageVector.vectorResource(id = R.drawable.eye), contentDescription = "Lock Icon")}
-        },
-         */
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
             unfocusedContainerColor = Anti_flash_white,
@@ -764,8 +759,8 @@ fun signSnackBar(windowSize: WindowSize, isOwner: Boolean) {
 
     ElevatedButton(
         onClick = {
-            if(!isOrganizationNameTaken(signUpViewModel.organizationName.value.trim(), organizationsNames)
-                && !isEmailTaken(signUpViewModel.email.value.trim(), users)) {
+            if(!isOrganizationNameTaken(signUpViewModel.organizationName.value.trimEnd(), organizationsNames)
+                && !isEmailTaken(signUpViewModel.email.value.trimEnd(), users)) {
                 signUpViewModel.onSignUp(isOwner)
                 showSnackBar = true
             }
@@ -792,12 +787,6 @@ fun signSnackBar(windowSize: WindowSize, isOwner: Boolean) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable(onClick = { /*TODO*/
-                    /* Will close the snack-bar and navigate to the next screen */
-                    /** ask group about adding a button/snack bar that users can click to
-                    // resend verification email once user has attempted to sign up
-                     */
-                })
                 .height(snackBarHeight.dp)
                 .padding(start = 25.dp, end = 25.dp)
                 .border(2.dp, color = Persian_indigo)

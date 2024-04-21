@@ -104,10 +104,10 @@ class SignUpViewModel @Inject constructor(
             viewModelScope.launch {
                 val result = signUpUseCase.execute(
                 SignUpUseCase.Input(
-                    email = _email.value,
-                    password = _password.value,
-                    fullName = _fullName.value,
-                    organizationName = _organizationName.value,
+                    email = _email.value.trimEnd(),
+                    password = _password.value.trimEnd(),
+                    fullName = _fullName.value.trimEnd(),
+                    organizationName = _organizationName.value.trimEnd(),
                     isOwner = isOwner
                 )
                 )
