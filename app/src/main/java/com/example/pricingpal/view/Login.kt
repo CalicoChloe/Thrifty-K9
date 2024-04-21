@@ -345,7 +345,7 @@ fun loginButton(windowSize: WindowSize, navController: NavController, viewModel:
     ElevatedButton(
         onClick = {
             viewModel.onLogin()
-            if (message == "Login Successful") {
+            if (message == "Login \n\nSuccessful") {
                 //navigate to the Upload Screen
                 navController.navigate(Screen.HomeScreen.route)
             }

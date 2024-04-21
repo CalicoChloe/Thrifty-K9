@@ -206,9 +206,6 @@ fun ownerRegistration(
         passwordInputOwner(signUpViewModel)
         Spacer(modifier = Modifier.height(25.dp))
 
-        // check whether password is strong or weak
-        passwordStrengthOwner(windowSize)
-        Spacer(modifier = Modifier.height(20.dp))
 
         // Sign up Button
         signSnackBar(windowSize, isOwner)
@@ -273,7 +270,6 @@ fun ownerOrganizationInput(signUpViewModel: SignUpViewModel) {
         }, // Reset error message when user modifies the input
         textStyle = TextStyle.Default.copy(fontSize = 20.sp, color = Color.Black),
         placeholder = { Text("Enter organization", fontSize = 20.sp, color = Color.Black) },
-        //supportingText = { Text(text = "*required") },
         leadingIcon = {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.baseline_add_business_24),
@@ -441,7 +437,6 @@ fun emailInputOwner(signUpViewModel: SignUpViewModel) {
         textStyle = TextStyle.Default.copy(fontSize = 20.sp, color = Color.Black),
         placeholder = { Text("Enter email", fontSize = 20.sp, color = Color.Black) },
         /** The support text will not work if you have a modifier.*/
-        //supportingText = { Text(text = "*required") },
         leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon", tint = Color.Black) },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Anti_flash_white,
@@ -563,84 +558,13 @@ fun passwordInputOwner(signUpViewModel: SignUpViewModel) {
             .padding(top = 5.dp, start = 50.dp)
     ) {
         Text(
-            text = "*required",
+            text = "*required\nmust contain at least 9 characters",
             fontSize = 20.sp,
             color = Color.DarkGray
         )
     }
 }
 
-/**
- * Function: Password Strength Owner
- * @author: Shianne Lesure
- *
- * @param windowSize an adjuster used to change scale of screens based on the user's device
- *
- * This function displays the message of whether their password is strong or weak.
- * If their password is weak, a message pops up saying that that the passwords is weak and it needs
- * to be stronger.
- */
-@Composable
-fun passwordStrengthOwner(windowSize: WindowSize) {
-    // will scale the size of the text
-    val textSize by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 20 else 30) }
-    Row(
-        horizontalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Password strength: ",
-            fontSize = textSize.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold
-        )
-
-        /*
-        The password check would be coming from database. A if statement will be letting the user
-        know if the password is weak or strong.
-
-        if(password doesn't meet requirement ){
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Weak",
-            fontSize = 30.sp,
-            color = Color.Black
-        )
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Password need to be stronger",
-            fontSize = 30.sp,
-            color = Color.Black
-        )
-        } else{
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Strong",
-            fontSize = 30.sp,
-            color = Color.Black
-        )
-        }
-         */
-        Text(
-            textAlign = TextAlign.Center,
-            text = "Weak",
-            fontSize = textSize.sp,
-            color = Color.Black
-        )
-    }
-    Text(
-        textAlign = TextAlign.Center,
-        text = "Password need to be stronger",
-        fontSize = textSize.sp,
-        color = Color.Black
-    )
-
-    Spacer(modifier = Modifier.height(20.dp))
-
-    passwordStrengthOwnerDialog(windowSize)
-}
 
 /**
  * Function: Password Strength Owner Dialog
