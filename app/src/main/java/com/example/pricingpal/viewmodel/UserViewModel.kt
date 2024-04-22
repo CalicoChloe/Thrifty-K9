@@ -1,5 +1,6 @@
 package com.example.pricingpal.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.User
@@ -33,7 +34,7 @@ class UserViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
-    //private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 
 ): ViewModel() {
 
@@ -59,8 +60,12 @@ class UserViewModel @Inject constructor(
     val userList: Flow<List<User>?> = _userList
 
 
+    companion object {private const val userIdEmail = "user_id_email"}
+
     // When the ViewModel is called, it will start with this function
     init {
+        val userSingleId = savedStateHandle.get<String>(userIdEmail)
+        userSingleId?.let { getOneUser(userEmail = it) }
         getAllUsers()
     }
 
@@ -82,6 +87,7 @@ class UserViewModel @Inject constructor(
      */
     fun getOneUser(userEmail: String){
         viewModelScope.launch {
+            //getAllUsers()
             val user = userRepository.getOneUser(email = userEmail)
             _userEmail.emit(user.email)
             _userFullName.emit(user.fullName)
@@ -98,6 +104,18 @@ class UserViewModel @Inject constructor(
             organizationName = this.organizationName,
             isOwner = this.isOwner
         )
+    }
+
+    /**
+     * Delete One User
+     */
+    fun deleteOneUser(user: User){
+        viewModelScope.launch {
+            val newList = mutableListOf<User>().apply { _userList.value?.let { addAll(it) } }
+            newList.remove(user)
+            userRepository.deleteOneUser(user.email)
+            getAllUsers()
+        }
     }
 
     /**
@@ -224,3 +242,4 @@ class UserViewModel @Inject constructor(
         _isOwner.value = isOwner
     }
 }
+

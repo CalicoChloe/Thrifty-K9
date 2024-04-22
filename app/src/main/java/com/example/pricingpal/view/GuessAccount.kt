@@ -63,7 +63,7 @@ import com.example.pricingpal.viewmodel.UserViewModel
 @Composable
 fun guestAccountHeader(windowSize: WindowSize, viewModel: UserViewModel = hiltViewModel()){
 
-    val userList = viewModel.userList.collectAsState(initial = listOf()).value
+    val userList = viewModel.userList.collectAsState(initial = listOf()).value /*listOf()).value */
 
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
@@ -118,7 +118,7 @@ fun guestAccountHeader(windowSize: WindowSize, viewModel: UserViewModel = hiltVi
 
                 content = { padding ->
                     if (userList != null) {
-                        guestAccount(padding, windowSize, userList)
+                        guestAccount(padding, windowSize, userList, viewModel)
                     }
                 },
 
@@ -131,7 +131,7 @@ fun guestAccountHeader(windowSize: WindowSize, viewModel: UserViewModel = hiltVi
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun guestAccount(paddingValues: PaddingValues, windowSize: WindowSize, userList: List<User> ){
+fun guestAccount(paddingValues: PaddingValues, windowSize: WindowSize, userList: List<User>, userViewModel: UserViewModel ){
 
     Card(
         modifier = Modifier
@@ -182,7 +182,7 @@ fun guestAccount(paddingValues: PaddingValues, windowSize: WindowSize, userList:
                 }
                 if(!userList.isNullOrEmpty()){
                     for(user in userList){
-                        item { guestUsers(user) }
+                        item { guestUsers(user, userViewModel) }
                     }
                 }
             }
@@ -256,7 +256,7 @@ fun organizationUser(windowSize: WindowSize) {
 }
 
 @Composable
-fun guestUsers(user: User){
+fun guestUsers(user: User, userViewModel: UserViewModel){
     if(!user.isOwner) {
         Card(
             modifier = Modifier
@@ -294,19 +294,24 @@ fun guestUsers(user: User){
                         .padding(start = 20.dp)
                 )
                 }
-                deleteIconDialog()
+                deleteIconDialog(userViewModel, user, user.email)
             }
         }
     }
 }
 
 @Composable
-fun deleteIconDialog(){
+fun deleteIconDialog(userViewModel: UserViewModel, user: User, email: String){
+    val userOrganization = userViewModel.userOrganizationName.collectAsState(initial = userViewModel.getOneUser(email))
+    val userFullName = userViewModel.userName.collectAsState(initial = userViewModel.getOneUser(email))
+    val userEmail = userViewModel.userEmail.collectAsState(initial = userViewModel.getOneUser(email))
     var showDialog by remember { mutableStateOf(false) }// a variable that determines if the state of the dialog to be use or not
     Column {
         // Delete Icon Button
         // will send you to a dialog asking if you want to delete the guest account
-        IconButton(onClick = { showDialog = true },
+        IconButton(onClick = { showDialog = true
+                             //userViewModel.getOneUser(user.email)
+                             },
             modifier = Modifier
                 .size(50.dp)
         ) {
@@ -336,8 +341,11 @@ fun deleteIconDialog(){
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Do you want to delete this account?",
-                        fontSize = 40.sp,
+                    Text(text = "Do you want to delete this account?\n\n" +
+                            userOrganization.value + "\n\n" +
+                            userFullName.value + "\n\n" + userEmail.value + "\n\n" + user.email,
+
+                        fontSize = 40.sp, // 40
                         textAlign = TextAlign.Center,
                         color = Color.Black,
                         modifier = Modifier
@@ -347,7 +355,11 @@ fun deleteIconDialog(){
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ){
                         ElevatedButton(
-                            onClick = { showDialog = false },
+                            onClick = { showDialog = false
+                                if(userEmail.value == user.email) {
+                                    //userViewModel.deleteOneUser(user)
+                                    userViewModel.deleteUser(user.userId)
+                                } },
                             elevation = ButtonDefaults.buttonElevation(8.dp),
                             shape = RectangleShape,
                             colors = ButtonDefaults.buttonColors(Cornflower_blue),

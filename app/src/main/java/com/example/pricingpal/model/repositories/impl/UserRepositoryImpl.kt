@@ -27,11 +27,26 @@ class UserRepositoryImpl@Inject constructor(private val postgrest: Postgrest ): 
     }
 
     override suspend fun getOneUser(email: String): UserDTO {
+
         return withContext(Dispatchers.IO){
-            val results = postgrest["registered_user"].select().decodeSingle<UserDTO>()
+            val results = postgrest["registered_user"].select {eq("email", email)}.decodeSingle<UserDTO>()
             results
         }
+
+
+       // return postgrest["registered_user"].select {eq("email", email)}.decodeSingle<UserDTO>()
     }
+
+    override suspend fun deleteOneUser(email: String) {
+        withContext(Dispatchers.IO) {
+            postgrest["registered_user"].delete {
+                eq("email", email)
+            }
+        }
+    }
+
+
+
 
     // Is calling the database and selecting the information from the user's id from the user's table.
     override suspend fun getUser(userId: String): UserDTO{
