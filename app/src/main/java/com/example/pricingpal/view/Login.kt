@@ -342,13 +342,6 @@ fun loginButton(windowSize: WindowSize, navController: NavController, viewModel:
     ElevatedButton(
         onClick = {
             viewModel.onLogin()
-            if (message == "Login Successful") {
-                //navigate to the Upload Screen
-                navController.navigate(Screen.HomeScreen.route)
-            }
-            else {
-                //display the failure message (snackbar?)
-            }
         },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),

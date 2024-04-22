@@ -48,7 +48,7 @@ const val  CATEGORY_NAMES = "categories"
 fun CategoryList (
     navController: NavController,
     windowSize: WindowSize,
-    viewModel: CategoryViewModel = hiltViewModel()
+    viewModel: CategoryViewModel = hiltViewModel(),
 ){
 
     val categoryList = viewModel.categoryList.collectAsState(initial = listOf()).value

@@ -1,5 +1,6 @@
 package com.example.pricingpal.model.repositories.impl
 
+import com.example.pricingpal.model.Organization
 import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
 import com.example.pricingpal.model.repositories.OrganizationRepository
 import io.github.jan.supabase.postgrest.Postgrest
@@ -11,13 +12,13 @@ class OrganizationRepositoryImpl @Inject constructor(
     private val postgrest: Postgrest
     ) : OrganizationRepository {
 
-        private var selectedOrganization: OrganizationDTO? = null
-        override suspend fun getSelectedOrganization(): OrganizationDTO? {
+        private var selectedOrganization: Organization? = null
+        override suspend fun getSelectedOrganization(): Organization? {
             return selectedOrganization
         }
 
-        override suspend fun setSelectedOrganization(organizationName: String) {
-            selectedOrganization = getOrganization(organizationName)
+        override suspend fun setSelectedOrganization(org: Organization) {
+            selectedOrganization = org
         }
 
         override suspend fun getOrganization(organizationName: String): OrganizationDTO? {

@@ -1,10 +1,13 @@
 package com.example.pricingpal.model.repositories.impl
 
+import android.renderscript.Sampler
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 import com.example.pricingpal.model.repositories.CategoryRepository
 import com.example.pricingpal.model.repositories.OrganizationRepository
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.postgrest.query.FilterOperator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -29,34 +32,41 @@ class CategoryRepositoryImpl @Inject constructor (
     //Gets a list of all categories from the database
     override suspend fun getCategories(): List<CategoryDTO>? {
 
-        return withContext(Dispatchers.IO) {
-            val results = postgrest["category"].select {
-                organizationRepository.getSelectedOrganization()?.organizationName?.let {
-                    eq("items:organization_name",
-                        it
-                    )
-                }
-            }.decodeList<CategoryDTO>()
-            results
+        val selectedOrganizationName = organizationRepository.getSelectedOrganization()?.organizationName
+
+        if (selectedOrganizationName != null) {
+            return withContext(Dispatchers.IO) {
+                val columns = Columns.raw("""
+                category_id,
+                category_name
+            """.trimIndent())
+                val results = postgrest["category"]
+                    .select (
+                        columns = columns
+                    ) {
+                        filter(
+                            "item.organization_name",
+                            FilterOperator.EQ,
+                            selectedOrganizationName
+                        )
+                    }
+                    .decodeList<CategoryDTO>()
+
+                results
+            }
+        } else {
+            return null // Handle case where selected organization is null
         }
     }
 
-    //Gets a specific category by its id value
     override suspend fun getCategory(id: Int): CategoryDTO {
-        return withContext(Dispatchers.IO) {
-            postgrest["category"].select {
-                eq("id", id)
-            }.decodeSingle<CategoryDTO>()
-        }
+        TODO("Not yet implemented")
     }
 
-    //This function will remove a category from the database
     override suspend fun deleteCategory(id: Int) {
         TODO("Not yet implemented")
-        //This function will remove a category from the database
     }
 
-    //This function will update an existing category's name using the given String value that will be input by the user
     override suspend fun updateCategory(name: String) {
         TODO("Not yet implemented")
     }

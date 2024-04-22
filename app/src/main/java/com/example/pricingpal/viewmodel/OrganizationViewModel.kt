@@ -16,9 +16,6 @@ import javax.inject.Inject
 class OrganizationViewModel @Inject constructor(
     private val organizationRepository: OrganizationRepository
 ) : ViewModel() {
-    private val _selectedOrganization = MutableStateFlow<Organization?>(null)
-    val selectedOrganization: StateFlow<Organization?> = _selectedOrganization
-
     private val _organizationList = MutableStateFlow<List<Organization>?>(listOf())
     val organizationList: Flow<List<Organization>?> = _organizationList
 
@@ -41,7 +38,7 @@ class OrganizationViewModel @Inject constructor(
         )
     }
 
-    fun setSelectedOrganization(organization: Organization) {
-        _selectedOrganization.value = organization
+    suspend fun setSelectedOrganization(org: Organization) {
+        organizationRepository.setSelectedOrganization(org)
     }
 }

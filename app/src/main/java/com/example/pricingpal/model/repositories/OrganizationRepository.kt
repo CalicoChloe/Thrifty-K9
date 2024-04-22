@@ -1,5 +1,6 @@
 package com.example.pricingpal.model.repositories
 
+import com.example.pricingpal.model.Organization
 import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
 
 /**
@@ -10,9 +11,9 @@ import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
  */
 interface OrganizationRepository {
 
-    suspend fun getSelectedOrganization() : OrganizationDTO?
+    suspend fun getSelectedOrganization() : Organization?
 
-    suspend fun setSelectedOrganization(organizationName: String)
+    suspend fun setSelectedOrganization(org: Organization)
     suspend fun getOrganization(organizationName: String): OrganizationDTO?
     suspend fun getAllOrganizations(): List<OrganizationDTO>?
     // delete organization

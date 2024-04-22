@@ -14,6 +14,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val organizationViewModel: OrganizationViewModel by viewModels()
             val window = rememberSize()
 
             PricingpalTheme {

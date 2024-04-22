@@ -3,6 +3,7 @@ package com.example.pricingpal.model.repositories.impl
 import com.example.pricingpal.model.Item
 import com.example.pricingpal.model.datatransferobjects.ItemDTO
 import com.example.pricingpal.model.repositories.ItemRepository
+import com.example.pricingpal.model.repositories.OrganizationRepository
 import io.github.jan.supabase.postgrest.Postgrest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,7 +17,8 @@ import javax.inject.Inject
  * This class acts as an implemented version of the ItemRepository Interface the app can use to interact with the database's Items
  */
 class ItemRepositoryImpl@Inject constructor(
-    private val postgrest: Postgrest
+    private val postgrest: Postgrest,
+    private val organizationRepository: OrganizationRepository
 ) : ItemRepository {
     //This function will create a new item and push it to the database using the given Item object
     override suspend fun createItem(item: Item): Boolean {
@@ -25,11 +27,19 @@ class ItemRepositoryImpl@Inject constructor(
 
     //Gets a list of all items that belong to a specific categoryID value
     override suspend fun getItems(categoryID: Int): List<ItemDTO>? {
-        return withContext(Dispatchers.IO) {
-            val results = postgrest["item"].select() {
-                eq("category_id", categoryID)
-            }.decodeList<ItemDTO>()
-            results
+        val selectedOrganizationName = organizationRepository.getSelectedOrganization()?.organizationName
+
+        if (selectedOrganizationName != null) {
+            return withContext(Dispatchers.IO) {
+                val results = postgrest["item"].select() {
+                    eq("category_id", categoryID)
+                    eq("organization_name", selectedOrganizationName)
+
+                }.decodeList<ItemDTO>()
+                results
+            }
+        } else {
+            return null // Handle case where selected organization is null
         }
     }
 
