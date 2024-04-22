@@ -3,7 +3,9 @@ import android.util.Log
 import com.example.pricingpal.model.repositories.AuthRepository
 import com.example.pricingpal.usecase.SignUpUseCase
 import io.github.jan.supabase.gotrue.Auth
+import io.github.jan.supabase.gotrue.SignOutScope
 import io.github.jan.supabase.gotrue.providers.builtin.Email
+import io.github.jan.supabase.gotrue.user.UserInfo
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import javax.inject.Inject
@@ -57,6 +59,52 @@ class AuthRepositoryImpl @Inject constructor(
             true
         } catch (e: Exception) {
             e.message?.let { Log.d("AuthRepImp", it) }
+            false
+        }
+    }
+
+
+    override suspend fun retrieve(): UserInfo {
+        return auth.retrieveUserForCurrentSession(updateSession = true)
+    }
+
+    override suspend fun updateEmail(email: String): Boolean{
+        return try {
+            auth.modifyUser { this.email = email }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    override suspend fun updatePassword(password: String): Boolean {
+        return try {
+            auth.modifyUser { this.password = password }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    override suspend fun update(fullName: String, organizationName: String): Boolean{
+        return try{
+            auth.modifyUser {
+                this.data = buildJsonObject {
+                    put("full_name", fullName)
+                    put("organization_name", organizationName)
+                }
+            }
+            true
+        } catch (e: Exception){
+            false
+        }
+    }
+
+    override suspend fun signOut(): Boolean {
+        return try {
+            auth.signOut(SignOutScope.LOCAL)
+            true
+        } catch (e: Exception) {
             false
         }
     }

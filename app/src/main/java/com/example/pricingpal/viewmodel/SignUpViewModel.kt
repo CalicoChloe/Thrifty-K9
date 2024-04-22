@@ -118,6 +118,10 @@ class SignUpViewModel @Inject constructor(
                     is SignUpUseCase.Output.Failure -> {
                         _message.emit(SIGN_UP_FAILED)
                     }
+
+                    else -> {
+
+                    }
                 }
             }
     }

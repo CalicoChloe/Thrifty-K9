@@ -83,4 +83,7 @@ abstract class UseCaseModule {
     @Binds
     abstract fun bindUpdateUserUseCase(impl: UpdateUserUseCaseImpl): UpdateUserUseCase
 
+    @Binds
+    abstract fun bindUpdateEmailUseCase(impl: UpdateUserUseCaseImpl): UpdateEmailUseCase
+
 }
