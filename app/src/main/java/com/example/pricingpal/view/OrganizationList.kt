@@ -36,7 +36,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -64,6 +63,7 @@ import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
 import com.example.pricingpal.ui.theme.Uranian_Blue
+import com.example.pricingpal.viewmodel.CategoryViewModel
 import com.example.pricingpal.viewmodel.OrganizationViewModel
 import kotlinx.coroutines.launch
 
@@ -82,9 +82,10 @@ import kotlinx.coroutines.launch
 fun VolunteerCompanyListHeader(
     navController: NavController,
     windowSize: WindowSize,
-    viewModel: OrganizationViewModel = hiltViewModel()
+    orgViewModel: OrganizationViewModel = hiltViewModel(),
+    catViewModel: CategoryViewModel = hiltViewModel()
 ){
-    val organizationList = viewModel.organizationList.collectAsState(initial = listOf()).value
+    val organizationList = orgViewModel.organizationList.collectAsState(initial = listOf()).value
 
     Surface(
         modifier = Modifier
@@ -111,7 +112,7 @@ fun VolunteerCompanyListHeader(
                     alpha = 0.1F
                 )
                 if (organizationList != null) {
-                    VolunteerCompanyDivider(navController, viewModel, organizationList, padding, windowSize)
+                    VolunteerCompanyDivider(navController, catViewModel, orgViewModel, organizationList, padding, windowSize)
                 }
             },
         )
@@ -129,7 +130,7 @@ fun VolunteerCompanyListHeader(
  * This was done to match more of the figma prototype.
  */
 @Composable
-fun VolunteerCompanyDivider(navController: NavController, viewModel: OrganizationViewModel, organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
+fun VolunteerCompanyDivider(navController: NavController, catViewModel: CategoryViewModel, orgViewModel: OrganizationViewModel, organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
     Box(
         modifier = Modifier
             .padding(paddingValues)
@@ -137,7 +138,7 @@ fun VolunteerCompanyDivider(navController: NavController, viewModel: Organizatio
             .fillMaxWidth()
             .background(color = Persian_indigo)
     )
-    VolunteerCompanyList(navController, viewModel, organizationList, paddingValues, windowSize)
+    VolunteerCompanyList(navController, catViewModel, orgViewModel, organizationList, paddingValues, windowSize)
 }
 
 /**
@@ -153,7 +154,7 @@ fun VolunteerCompanyDivider(navController: NavController, viewModel: Organizatio
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun VolunteerCompanyList(navController: NavController, viewModel: OrganizationViewModel, organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
+fun VolunteerCompanyList(navController: NavController, catViewModel: CategoryViewModel, orgViewModel: OrganizationViewModel, organizationList: List<Organization>, paddingValues: PaddingValues, windowSize: WindowSize){
     LazyColumn(
         modifier = Modifier
             .padding(paddingValues)
@@ -183,7 +184,7 @@ fun VolunteerCompanyList(navController: NavController, viewModel: OrganizationVi
         if (!organizationList.isNullOrEmpty()) {
             for (i in organizationList) { // this will change when it is being pulled from the database
                 item {
-                    OrganizationCard(navController, viewModel, i, windowSize)
+                    OrganizationCard(navController, catViewModel, orgViewModel, i, windowSize)
                 }
             }
         }
@@ -256,7 +257,7 @@ fun VolunteerCompaniesTitle(windowSize: WindowSize){
  * A company should be added when the owner register their organization.
  */
 @Composable
-fun OrganizationCard(navController: NavController, viewModel: OrganizationViewModel, org: Organization, windowSize: WindowSize){
+fun OrganizationCard(navController: NavController, catViewModel: CategoryViewModel, orgViewModel: OrganizationViewModel, org: Organization, windowSize: WindowSize){
     // will scale the height of the row
     val rowHeight by remember(key1 = windowSize) { mutableStateOf(if (windowSize.width == WindowType.Compact) 70 else 80) }
     // will scale the size of the text
@@ -272,8 +273,12 @@ fun OrganizationCard(navController: NavController, viewModel: OrganizationViewMo
             .clickable {
                 // Launching a coroutine to call the suspend function setSelectedOrganization
                 coroutineScope.launch {
-                    viewModel.setSelectedOrganization(org)
-                    navController.navigate(Screen.CategoryList.route)
+                    orgViewModel.setSelectedOrganization(org)
+                    var testOrg = orgViewModel.getSelectedOrganization()
+                    if (testOrg != null) {
+                        Log.i("Organization Name:", testOrg.organizationName)
+                        navController.navigate(Screen.CategoryList.route)
+                    }
                 }
             }
             .padding(cardPadding.dp)

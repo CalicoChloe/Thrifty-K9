@@ -1,16 +1,19 @@
 package com.example.pricingpal.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pricingpal.model.Category
 import com.example.pricingpal.model.Item
 import com.example.pricingpal.model.Organization
+import kotlinx.coroutines.flow.collect
 import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 import com.example.pricingpal.model.datatransferobjects.ItemDTO
 import com.example.pricingpal.model.repositories.CategoryRepository
 import com.example.pricingpal.model.repositories.ItemRepository
 import com.example.pricingpal.model.repositories.OrganizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -29,7 +32,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
-    private val itemRepository: ItemRepository
+    private val itemRepository: ItemRepository,
+    private val organizationRepository: OrganizationRepository
 ) : ViewModel() {
 
     //lists of the categories from the database that are updated by the ViewModel
@@ -39,6 +43,21 @@ class CategoryViewModel @Inject constructor(
     //When this ViewModel is created
     init {
         getCategories()
+    }
+
+    init {
+        observeSelectedOrganization()
+    }
+
+    private fun observeSelectedOrganization() {
+        organizationRepository.selectedOrganization.observeForever { selectedOrganization ->
+            selectedOrganization?.let { org ->
+                viewModelScope.launch(Dispatchers.IO) {
+                    getCategories()
+                    Log.i("Selected Organization Name:", org.organizationName)
+                }
+            }
+        }
     }
 
     //Gets the list of categories from the database and emits it to _categoryList

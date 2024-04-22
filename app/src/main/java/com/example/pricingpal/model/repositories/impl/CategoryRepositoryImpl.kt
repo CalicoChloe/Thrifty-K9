@@ -1,7 +1,12 @@
 package com.example.pricingpal.model.repositories.impl
 
 import android.renderscript.Sampler
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.ViewModel
 import com.example.pricingpal.model.Category
+import com.example.pricingpal.model.Organization
 import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 import com.example.pricingpal.model.repositories.CategoryRepository
 import com.example.pricingpal.model.repositories.OrganizationRepository
@@ -28,22 +33,16 @@ class CategoryRepositoryImpl @Inject constructor (
         TODO("Not yet implemented")
     }
 
-
     //Gets a list of all categories from the database
     override suspend fun getCategories(): List<CategoryDTO>? {
-
         val selectedOrganizationName = organizationRepository.getSelectedOrganization()?.organizationName
 
         if (selectedOrganizationName != null) {
+            Log.i("Selected Organization Name:", selectedOrganizationName)
             return withContext(Dispatchers.IO) {
-                val columns = Columns.raw("""
-                category_id,
-                category_name
-            """.trimIndent())
-                val results = postgrest["category"]
+                val results = postgrest.from("category")
                     .select (
-                        columns = columns
-                    ) {
+                    ){
                         filter(
                             "item.organization_name",
                             FilterOperator.EQ,

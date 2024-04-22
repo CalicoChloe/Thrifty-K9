@@ -41,4 +41,8 @@ class OrganizationViewModel @Inject constructor(
     suspend fun setSelectedOrganization(org: Organization) {
         organizationRepository.setSelectedOrganization(org)
     }
+
+    suspend fun getSelectedOrganization(): Organization? {
+        return organizationRepository.getSelectedOrganization()
+    }
 }

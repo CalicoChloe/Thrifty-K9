@@ -15,6 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val organizationViewModel: OrganizationViewModel by viewModels()
+            val categoryViewModel: CategoryViewModel by viewModels()
             val window = rememberSize()
 
             PricingpalTheme {

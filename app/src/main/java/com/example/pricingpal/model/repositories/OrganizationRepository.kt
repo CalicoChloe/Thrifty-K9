@@ -1,7 +1,9 @@
 package com.example.pricingpal.model.repositories
 
+import androidx.lifecycle.LiveData
 import com.example.pricingpal.model.Organization
 import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface: OrganizationRepository
@@ -11,6 +13,7 @@ import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
  */
 interface OrganizationRepository {
 
+    val selectedOrganization : LiveData<Organization>
     suspend fun getSelectedOrganization() : Organization?
 
     suspend fun setSelectedOrganization(org: Organization)

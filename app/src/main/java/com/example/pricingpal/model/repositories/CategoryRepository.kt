@@ -11,6 +11,7 @@ import com.example.pricingpal.model.datatransferobjects.CategoryDTO
  * This interface is a repository of functions that are required to interact with Categories from the database
  */
 interface CategoryRepository {
+
     //Create or get a list of all Categories or a single Category
     suspend fun createCategory(category: Category): Boolean
     suspend fun getCategories(): List<CategoryDTO>?
