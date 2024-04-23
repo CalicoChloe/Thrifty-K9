@@ -201,7 +201,7 @@ fun Login(navController: NavController, paddingValues: PaddingValues, windowSize
 
         //Register Here Button
         // will navigate to the Choose Registration Screen
-        TextButton(onClick = { /*TODO*/ }) {
+        TextButton(onClick = { navController.navigate(Screen.UploadFormat.route) }) {
             Text(
                 textAlign = TextAlign.Center,
                 text = "Register Here",

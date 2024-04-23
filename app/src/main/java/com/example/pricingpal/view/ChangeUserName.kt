@@ -148,7 +148,7 @@ fun changeName(paddingValues: PaddingValues, windowSize: WindowSize, navControll
     // will scale the size of the text
     val instructionTextSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 30) }
     // will scale the space between the buttons
-    val buttonSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 180 else 260) }
+    val buttonSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 230 else 310) }
 
     Column(
         modifier = Modifier
