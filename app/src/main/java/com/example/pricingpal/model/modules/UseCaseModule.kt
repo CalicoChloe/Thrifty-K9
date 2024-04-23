@@ -4,6 +4,7 @@ import com.example.pricingpal.usecase.*
 import com.example.pricingpal.usecase.impl.DeleteUserUseCaseImpl
 import com.example.pricingpal.usecase.impl.GetUserUseCaseImpl
 import com.example.pricingpal.usecase.impl.LoginUseCaseImpl
+import com.example.pricingpal.usecase.impl.RetrieveUseCaseImpl
 import com.example.pricingpal.usecase.impl.SignUpUseCaseImpl
 import com.example.pricingpal.usecase.impl.UpdateEmailUseCaseImpl
 import com.example.pricingpal.usecase.impl.UpdatePasswordUseCaseImpl
@@ -95,5 +96,8 @@ abstract class UseCaseModule {
 
     @Binds
     abstract fun bindUpdatePasswordUseCase(impl: UpdatePasswordUseCaseImpl): UpdatePasswordUseCase
+
+    @Binds
+    abstract fun bindRetrieveUseCase(impl: RetrieveUseCaseImpl): RetrieveUseCase
 
 }

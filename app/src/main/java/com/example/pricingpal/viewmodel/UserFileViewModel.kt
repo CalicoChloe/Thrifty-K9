@@ -2,10 +2,12 @@ package com.example.pricingpal.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pricingpal.usecase.RetrieveUseCase
 import com.example.pricingpal.usecase.UpdateEmailUseCase
 import com.example.pricingpal.usecase.UpdatePasswordUseCase
 import com.example.pricingpal.usecase.UpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,7 +16,8 @@ import javax.inject.Inject
 class UserFileViewModel @Inject constructor(
     private val updateEmailUseCase: UpdateEmailUseCase,
     private  val updatePasswordUseCase: UpdatePasswordUseCase,
-    private val updateUseCase: UpdateUseCase
+    private val updateUseCase: UpdateUseCase,
+    private val retrieveUseCase: RetrieveUseCase
 ): ViewModel() {
     private val _email = MutableStateFlow("")
     val email = _email
@@ -31,7 +34,8 @@ class UserFileViewModel @Inject constructor(
     private val _message = MutableStateFlow("")
     val message = _message
 
-
+    private val _userList = MutableStateFlow<List<String>?>(listOf())
+    val userList: Flow<List<String>?> = _userList
 
     fun onEmailChange(email: String){ _email.value = email }
     fun onPasswordChange(password: String){ _password.value = password }
@@ -81,6 +85,21 @@ class UserFileViewModel @Inject constructor(
                 else -> {
                     UpdateUseCase.Output.Failure
                     _message.emit("Updated Failed.")
+                }
+            }
+        }
+    }
+
+    fun retrieveAllUsers(){
+        viewModelScope.launch {
+            val result = retrieveUseCase.execute(RetrieveUseCase.Input())
+            when (result){
+                is RetrieveUseCase.Output.Success -> {
+                    _message.emit("Pulled User List!")
+                }
+                else -> {
+                    RetrieveUseCase.Output.Failure
+                    _message.emit("User List Error.")
                 }
             }
         }

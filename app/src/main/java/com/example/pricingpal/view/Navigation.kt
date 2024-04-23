@@ -100,6 +100,10 @@ fun Navigation(
             ownerAccountHeader(windowSize, navController)
         }
 
+        composable(route = Screen.GuestAccount.route){
+            guestAccountHeader(windowSize)
+        }
+
         composable(route = Screen.ChangeOrganization.route){
             ChangeOrganizationHeader(windowSize)
         }

@@ -65,7 +65,8 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun retrieve(): Boolean {
         return try {
-            auth.retrieveUserForCurrentSession(updateSession = true)
+            //auth.retrieveUserForCurrentSession(updateSession = true)
+            auth.admin.retrieveUsers(1,10)
             true
         } catch (e: Exception) {
             false

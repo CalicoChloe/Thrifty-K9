@@ -173,7 +173,7 @@ fun settings(paddingValues: PaddingValues, windowSize: WindowSize, navController
                 }
 
                 item {
-                    guestAccountButton(windowSize)
+                    guestAccountButton(windowSize, navController)
                     Divider(thickness = 4.dp, color = Persian_indigo)
                 }
 
@@ -248,7 +248,7 @@ fun ownerAccountButton(windowSize: WindowSize, navController: NavController){
  * This function creates the button that will navigate to the guest account screen.
  */
 @Composable
-fun guestAccountButton(windowSize: WindowSize){
+fun guestAccountButton(windowSize: WindowSize, navController: NavController){
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 70 else 90) }
     // will scale the size of the text
@@ -273,7 +273,7 @@ fun guestAccountButton(windowSize: WindowSize){
         )
         /** Guest Account Button
          * Will navigate you to the guest account setting screen*/
-        IconButton(onClick = { /*TODO*/ },
+        IconButton(onClick = { navController.navigate(Screen.GuestAccount.route) },
             modifier = Modifier
                 .size(50.dp)
         ) {
