@@ -321,7 +321,7 @@ fun deleteIconDialog(userFileViewModel: UserFileViewModel, user: User, email: St
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Do you want to delete this account?\n\n" + user.email,
+                    Text(text = "Do you want to delete this account?",
 
                         fontSize = 40.sp, // 40
                         textAlign = TextAlign.Center,
