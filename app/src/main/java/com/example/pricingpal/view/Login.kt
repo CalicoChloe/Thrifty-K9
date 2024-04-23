@@ -347,7 +347,7 @@ fun loginButton(windowSize: WindowSize, navController: NavController, viewModel:
             viewModel.onLogin()
             if (message == "Login \n\nSuccessful") {
                 //navigate to the Upload Screen
-                navController.navigate(Screen.HomeScreen.route)
+                navController.navigate(Screen.UploadFormat.route)
             }
             else {
                 //display the failure message (snackbar?)
