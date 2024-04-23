@@ -44,6 +44,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -213,7 +214,8 @@ fun emailInputForgotPassword(){
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .padding(start = 30.dp, end = 30.dp),
+            .padding(start = 30.dp, end = 30.dp)
+            .testTag("emailTextField"),
         value = email,
         onValueChange = {email = it}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
