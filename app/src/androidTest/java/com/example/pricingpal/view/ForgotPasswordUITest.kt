@@ -37,10 +37,10 @@ class ForgotPasswordUITest {
         }
 
         // Verify if the text field is displayed
-        composeTestRule.onNodeWithTag("Email").assertExists()
+        composeTestRule.onNodeWithTag("emailTextField").assertExists()
 
         // Enter text into the email text field
-        composeTestRule.onNodeWithTag("Email").performTextInput("test@example.com")
+        composeTestRule.onNodeWithTag("emailTextField").performTextInput("test@example.com")
 
         // Verify if the entered text is displayed
         composeTestRule.onNodeWithText("test@example.com").assertExists()
