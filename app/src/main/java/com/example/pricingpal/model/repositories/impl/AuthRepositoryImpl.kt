@@ -5,7 +5,6 @@ import com.example.pricingpal.usecase.SignUpUseCase
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.gotrue.SignOutScope
 import io.github.jan.supabase.gotrue.providers.builtin.Email
-import io.github.jan.supabase.gotrue.user.UserInfo
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import javax.inject.Inject
@@ -64,8 +63,13 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun retrieve(): UserInfo {
-        return auth.retrieveUserForCurrentSession(updateSession = true)
+    override suspend fun retrieve(): Boolean {
+        return try {
+            auth.retrieveUserForCurrentSession(updateSession = true)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     override suspend fun updateEmail(email: String): Boolean{
