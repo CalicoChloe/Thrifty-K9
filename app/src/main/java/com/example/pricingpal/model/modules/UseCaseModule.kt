@@ -5,6 +5,7 @@ import com.example.pricingpal.usecase.impl.DeleteUserUseCaseImpl
 import com.example.pricingpal.usecase.impl.GetUserUseCaseImpl
 import com.example.pricingpal.usecase.impl.LoginUseCaseImpl
 import com.example.pricingpal.usecase.impl.SignUpUseCaseImpl
+import com.example.pricingpal.usecase.impl.UpdatePasswordUseCaseImpl
 import com.example.pricingpal.usecase.impl.UpdateUserUseCaseImpl
 import dagger.Binds
 import dagger.Module
@@ -85,5 +86,10 @@ abstract class UseCaseModule {
 
     @Binds
     abstract fun bindUpdateEmailUseCase(impl: UpdateUserUseCaseImpl): UpdateEmailUseCase
+
+    @Binds
+    abstract fun bindUpdatePasswordUseCase(impl: UpdatePasswordUseCaseImpl): UpdatePasswordUseCase
+
+
 
 }
