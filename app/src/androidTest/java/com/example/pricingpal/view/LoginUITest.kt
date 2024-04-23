@@ -16,15 +16,15 @@ class LoginUITest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    @Composable
     @Test
+    @Composable
     fun testLoginScreen() {
         // Mock NavController
         val navController = Mockito.mock(NavController::class.java)
-        val windowSize = rememberSize()
-        // Launch the Login screen
+
+        // Set up UI elements inside a Composable function
         composeTestRule.setContent {
-            LoginHeader(navController, windowSize) // Pass appropriate window size
+            TestLoginScreen(navController)
         }
 
         // Verify UI elements
@@ -35,5 +35,11 @@ class LoginUITest {
         composeTestRule.onNodeWithText("Register Here").assertExists()
 
         // You can perform interactions and assertions as needed
+    }
+
+    @Composable
+    private fun TestLoginScreen(navController: NavController) {
+        val windowSize = rememberSize()
+        LoginHeader(navController, windowSize) // Pass appropriate window size
     }
 }

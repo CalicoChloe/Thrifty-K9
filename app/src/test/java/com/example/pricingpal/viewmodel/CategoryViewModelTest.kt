@@ -4,6 +4,7 @@ import com.example.pricingpal.model.datatransferobjects.CategoryDTO
 import com.example.pricingpal.model.repositories.CategoryRepository
 import com.example.pricingpal.model.repositories.ItemRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,7 +36,7 @@ class CategoryViewModelTest {
     }
 
     @Test
-    suspend fun testGetCategories() {
+    fun testGetCategories() = runBlocking {
         // Given
         val categoryDTOList = ArrayList<CategoryDTO>()
         categoryDTOList.add(CategoryDTO(1, "Category 1"))

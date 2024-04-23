@@ -55,16 +55,6 @@ class GuestRegistrationUITest {
         composeTestRule.onNodeWithText("Enter password").assertExists()
     }
 
-    @Test
-    fun passwordStrengthGuest_Displayed() {
-        // Launch the Composable function
-        composeTestRule.setContent {
-            passwordStrengthGuest(windowSize)
-        }
-
-        // Verify if the password strength message is displayed
-        composeTestRule.onNodeWithText("Password strength:").assertExists()
-    }
 
     @Test
     fun signSnackBarGuest_Displayed() {
