@@ -10,13 +10,14 @@ package com.example.pricingpal.view
  * @author Connor Murdock
  */
 sealed class Screen(val route: String) {
-    object CategoryList : Screen("Category List")
-    object ItemList : Screen("Items List")
-    object SearchResults : Screen("Search Results")
-    object LoadingScreen : Screen("Loading Screen")
-    object HomeScreen : Screen("Home Screen")
-    object RegisterScreen: Screen("Register Screen")
-    object LoginInScreen: Screen ("Log in Screen")
+    object CategoryList : Screen("category_list")
+    object ItemList : Screen("items_list")
+    object SearchResults : Screen("search_results")
+    object LoadingScreen : Screen("loading_screen")
+    object HomeScreen : Screen("home_screen")
+    object RegisterScreen: Screen("register_screen")
+    object LoginInScreen: Screen ("login_screen")
+    object SignUpVerified: Screen ("sign_up_verified_screen")
 
 
 

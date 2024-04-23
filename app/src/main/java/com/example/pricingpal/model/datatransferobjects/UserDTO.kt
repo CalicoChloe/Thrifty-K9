@@ -22,8 +22,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class UserDTO(
-    @SerialName("user_id")
-
+    @SerialName("id")
     // contextual is use as a fallback for the UUID because a serializer has not been found with UUID
     @Contextual val userId: String,
     @SerialName("full_name")

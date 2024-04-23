@@ -1,7 +1,10 @@
 package com.example.pricingpal.view
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,20 +41,29 @@ fun Navigation(
     val navController = rememberNavController()
     //Setup the NavHost
     NavHost(navController = navController, startDestination = Screen.LoadingScreen.route) {
+        //variable used to determine if the user will be considered an owner or not
+        var isOwner : Boolean
+        //The route to the loading screen of the app
         composable(route = Screen.LoadingScreen.route){
             AnimatedSlashScreen(navController = navController,windowSize = windowSize)
         }
+        //The route to the home screen of the app
         composable(route = Screen.HomeScreen.route){
             StartScreen(navController = navController,windowSize = windowSize)
         }
+        //The route to the owner registration screen of the app
         composable(route = Screen.RegisterScreen.route){
-            OwnerRegisterationHeader(navController = navController, windowSize = windowSize)
+            OwnerRegisterationHeader(navController = navController, windowSize = windowSize, isOwner = true)
 
         }
+        //The route to the log in screen of the app
         composable(route = Screen.LoginInScreen.route){
            LoginHeader(navController = navController , windowSize = windowSize )
         }
-
+        //The route to the sign up verified screen of the app
+        composable(route = Screen.SignUpVerified.route){
+            SignUpVerified(navController = navController, modifier = Modifier.padding(20.dp))
+        }
         //The route to the CategoryList. This is the start destination
         composable(route = Screen.CategoryList.route) {
             CategoryList(

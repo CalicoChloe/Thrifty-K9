@@ -1,15 +1,20 @@
 package com.example.pricingpal.model.repositories
 
+
 /**
  * Interface: OrganizationRepository
  * @author Abdoulie NJie
- * @written 2/19/2024
- * This interface is a repository of functions that are required to interact with organizations from the database
+ * @version 1
+ * @written 03/06/2024
+ * This interface is a repository of functions that are required to interact with Organizations from the database
  */
 interface OrganizationRepository {
-
-    // delete organization
+    //delete an organization
     suspend fun deleteOrganization(organizationName: String)
-    // update organization
+
+    //update an organization
     suspend fun updateOrganization(organizationName: String)
+
+    //get a list of all the organizations in the database
+    suspend fun getOrganizationsNames() : List<String>?
 }

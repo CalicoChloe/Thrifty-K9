@@ -8,7 +8,6 @@ import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
-import io.github.jan.supabase.gotrue.FlowType
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
@@ -17,10 +16,14 @@ import io.github.jan.supabase.storage.storage
 import javax.inject.Singleton
 
 /**
+ * Object: SupabaseModule
+ * @author Abdoulie NJie
+ * @author Chloe Jackson
+ * @version 2
+ * @written 3/06/2024
+ *
  * This file contains a Dagger Hilt module that provides instances of the
  * Supabase client and related components
- *
- * @author Abdoulie NJie
  */
 
 @InstallIn(SingletonComponent::class)
@@ -47,9 +50,8 @@ object SupabaseModule {
             supabaseKey
         ) {
             install(Auth) {
-                flowType = FlowType.PKCE
                 scheme = "app"
-                host = "supabase.com"
+                host = "pricingpal.info"
             }
             install(Postgrest)
             }
