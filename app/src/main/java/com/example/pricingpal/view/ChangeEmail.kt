@@ -46,11 +46,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.viewmodel.UserViewModel
 
 /**
  * Function: Change Email Header
@@ -139,7 +141,7 @@ fun ChangeEmailHeader(windowSize: WindowSize){
  * and new email which will be saved for update.
  */
 @Composable
-fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
+fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize, userViewModel: UserViewModel = hiltViewModel()){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 40 else 60) }
     // will scale the size of the text
@@ -177,9 +179,9 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        oldEmailInputChangeEmail()
+        //oldEmailInputChangeEmail(userViewModel)
         Spacer(modifier = Modifier.height(10.dp))
-        newEmailInputChangeEmail()
+        newEmailInputChangeEmail(userViewModel)
 
         Spacer(modifier = Modifier.height(50.dp))
 
@@ -195,7 +197,7 @@ fun changeEmail(paddingValues: PaddingValues, windowSize: WindowSize){
  * This function set up the text-field for the user to be able to input their old email.
  */
 @Composable
-fun oldEmailInputChangeEmail(){
+fun oldEmailInputChangeEmail(userViewModel: UserViewModel){
     var oldEmail by remember { mutableStateOf("") }// variable that holds a default state of text-field
     TextField(
         modifier = Modifier
@@ -240,8 +242,9 @@ fun oldEmailInputChangeEmail(){
  * This function set up the text-field for the user to be able to input their new email.
  */
 @Composable
-fun newEmailInputChangeEmail(){
+fun newEmailInputChangeEmail(userViewModel: UserViewModel){
     var newEmail by remember { mutableStateOf("") }// variable that holds a default state of text-field
+
     TextField(
         modifier = Modifier
             .fillMaxWidth()

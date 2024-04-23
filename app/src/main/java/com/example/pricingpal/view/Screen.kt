@@ -18,8 +18,13 @@ sealed class Screen(val route: String) {
     object RegisterScreen: Screen("register_screen")
     object LoginInScreen: Screen ("login_screen")
     object SignUpVerified: Screen ("sign_up_verified_screen")
-
-
+    object UploadFormat: Screen("Upload Format")
+    object Setting: Screen("Settings")
+    object OwnerAccount: Screen("Owner Account")
+    object ChangeOrganization: Screen("Change Organization")
+    object ChangeUsername: Screen("Change Username")
+    object ChangeEmail: Screen("Change Email")
+    object ChangePassword: Screen("Change Password")
 
     fun withArgs(vararg args: String): String {
         return buildString {

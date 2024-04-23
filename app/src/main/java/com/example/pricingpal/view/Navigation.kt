@@ -87,6 +87,34 @@ fun Navigation(
                 windowSize = windowSize
             )
         }
+
+        composable(route = Screen.UploadFormat.route){
+            UploadFormatHeader(windowSize,navController)
+        }
+
+        composable(route = Screen.Setting.route){
+            SettingHeader(windowSize, navController)
+        }
+
+        composable(route = Screen.OwnerAccount.route){
+            ownerAccountHeader(windowSize, navController)
+        }
+
+        composable(route = Screen.ChangeOrganization.route){
+            ChangeOrganizationHeader(windowSize)
+        }
+
+        composable(route = Screen.ChangeUsername.route) {
+            ChangeNameHeader(windowSize, navController)
+        }
+
+        composable(route = Screen.ChangeEmail.route){
+            ChangeEmailHeader(windowSize)
+        }
+
+        composable(route = Screen.ChangePassword.route){
+            ChangePasswordHeader(windowSize)
+        }
     }
 }
 

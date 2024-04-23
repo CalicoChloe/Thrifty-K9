@@ -30,6 +30,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,11 +46,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
 import com.example.pricingpal.ui.theme.Persian_indigo
+import com.example.pricingpal.viewmodel.UserFileViewModel
 
 /**
  * Function: Change Name Header
@@ -65,7 +69,7 @@ import com.example.pricingpal.ui.theme.Persian_indigo
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChangeNameHeader(windowSize: WindowSize){
+fun ChangeNameHeader(windowSize: WindowSize, navController: NavController){
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -116,7 +120,7 @@ fun ChangeNameHeader(windowSize: WindowSize){
                     )
                 },
                 content = { padding ->
-                    changeName(padding, windowSize)
+                    changeName(padding, windowSize, navController)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -138,7 +142,7 @@ fun ChangeNameHeader(windowSize: WindowSize){
  * and new name which will be saved for update.
  */
 @Composable
-fun changeName(paddingValues: PaddingValues, windowSize: WindowSize){
+fun changeName(paddingValues: PaddingValues, windowSize: WindowSize, navController: NavController, userFileViewModel: UserFileViewModel =  hiltViewModel() ){
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 40 else 60) }
     // will scale the size of the text
@@ -176,13 +180,13 @@ fun changeName(paddingValues: PaddingValues, windowSize: WindowSize){
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        oldInputChangeName()
+        //oldInputChangeName()
         Spacer(modifier = Modifier.height(10.dp))
-        newInputChangeName()
+        newInputChangeName(userFileViewModel)
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        saveName(windowSize)
+        saveName(windowSize, navController)
         Spacer(modifier = Modifier.height(buttonSpacer.dp))
     }
 }
@@ -238,15 +242,23 @@ fun oldInputChangeName(){
  * This function set up the text-field for the user to be able to input their new name.
  */
 @Composable
-fun newInputChangeName(){
+fun newInputChangeName(userFileViewModel: UserFileViewModel){
     var newName by remember { mutableStateOf("") }// variable that holds a default state of text-field
+
+    val updateName = userFileViewModel.name.collectAsState(initial = "")
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .padding(start = 30.dp, end = 30.dp),
-        value = newName,
-        onValueChange = {newName = it}, // will take in the input from the user
+            .padding(start = 30.dp, end = 30.dp)
+            .border(
+                // conditional statement used to determine the border color
+                color = if (updateName.value.isBlank()) Color.Red else Color.Transparent,
+                width = 2.dp,
+                shape = RectangleShape
+            ),
+        value = updateName.value,
+        onValueChange = {userFileViewModel.onNameChange(it)}, // will take in the input from the user
         textStyle = TextStyle.Default.copy(fontSize = 20.sp) ,
         placeholder = { Text("Enter new name", fontSize = 20.sp) },
         /** The support text will not work if you have a modifier.*/
@@ -284,14 +296,22 @@ fun newInputChangeName(){
  * This function will display a button that will allow the user to save the updated information.
  */
 @Composable
-fun saveName(windowSize: WindowSize){
+fun saveName(windowSize: WindowSize, navController: NavController){
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 120) }
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
 
+    val userFileViewModel: UserFileViewModel = hiltViewModel()
+    val updateName = userFileViewModel.name.collectAsState().value
+
     ElevatedButton(
-        onClick = { /*TODO*/ },
+        onClick = {
+                  if(updateName.isNotBlank()){
+                      userFileViewModel.updateOthers()
+                      navController.navigate(Screen.OwnerAccount.route)
+                  }
+                  },
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Cornflower_blue),
         elevation = ButtonDefaults.buttonElevation(8.dp),
