@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.pricingpal.R
+import com.example.pricingpal.model.User
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
 import com.example.pricingpal.ui.theme.Periwinkle
@@ -61,6 +62,7 @@ import com.example.pricingpal.viewmodel.UserFileViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun guestAccountHeader(windowSize: WindowSize){
+
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
     Surface(
@@ -113,7 +115,7 @@ fun guestAccountHeader(windowSize: WindowSize){
                 },
 
                 content = { padding ->
-                    guestAccount(padding, windowSize)
+                        guestAccount(padding, windowSize)
                 },
 
                 // this needs to stay this color so the scaffold can have the lines beneath it.
@@ -126,6 +128,9 @@ fun guestAccountHeader(windowSize: WindowSize){
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun guestAccount(paddingValues: PaddingValues, windowSize: WindowSize, userFileViewModel: UserFileViewModel = hiltViewModel() ){
+
+    val userList = userFileViewModel.userList.collectAsState(initial = listOf()).value
+
     Card(
         modifier = Modifier
             .padding(paddingValues)
@@ -157,8 +162,10 @@ fun guestAccount(paddingValues: PaddingValues, windowSize: WindowSize, userFileV
                     organizationUser(windowSize)
                     Spacer(modifier = Modifier.height(10.dp))
                 }
-                for(i in 1..10){
-                    item { guestUsers(userFileViewModel) }
+                if(!userList.isNullOrEmpty()){
+                    for(user in userList){
+                        item { guestUsers(user, userFileViewModel) }
+                    }
                 }
             }
             //Spacer(modifier = Modifier.height(20.dp))
@@ -231,58 +238,60 @@ fun organizationUser(windowSize: WindowSize) {
 }
 
 @Composable
-fun guestUsers(userFileViewModel: UserFileViewModel){
-    val userFullName = userFileViewModel.name.collectAsState(initial = userFileViewModel.retrieveAllUsers())
-    val userEmail = userFileViewModel.email.collectAsState(initial = userFileViewModel.retrieveAllUsers())
-
-    Card(
-        modifier = Modifier
-            .padding(10.dp)
-            .padding(start = 20.dp, end = 20.dp)
-            .border(
-                border = BorderStroke(4.dp, color = Persian_indigo),
-
-                shape = RectangleShape
-            ),
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+fun guestUsers(user: User, userFileViewModel: UserFileViewModel){
+    if(!user.isOwner) {
+        Card(
             modifier = Modifier
-                .background(color = Cornflower_blue, shape = RectangleShape)
-                .fillMaxWidth()
-                .height(110.dp)
-        )
-        {
-            Column() {
-                Text(
-                    text = userFullName.value.toString(),
-                    fontSize = 30.sp,
-                    color = Color.Black,
-                    modifier = Modifier
-                        .padding(start = 20.dp)
-                )
+                .padding(10.dp)
+                .padding(start = 20.dp, end = 20.dp)
+                .border(
+                    border = BorderStroke(4.dp, color = Persian_indigo),
 
-                Text(
-                    text = userEmail.value.toString(),
-                    fontSize = 30.sp,
-                    color = Color.Black,
-                    modifier = Modifier
-                        .padding(start = 20.dp)
-                )
+                    shape = RectangleShape
+                ),
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .background(color = Cornflower_blue, shape = RectangleShape)
+                    .fillMaxWidth()
+                    .height(110.dp)
+            )
+            {
+                Column() {
+                    Text(
+                        text = user.fullName,
+                        fontSize = 30.sp,
+                        color = Color.Black,
+                        modifier = Modifier
+                            .padding(start = 20.dp)
+                    )
+
+                    Text(
+                        text = user.email,
+                        fontSize = 30.sp,
+                        color = Color.Black,
+                        modifier = Modifier
+                            .padding(start = 20.dp)
+                    )
+                }
+                deleteIconDialog(userFileViewModel, user, user.email)
             }
-            deleteIconDialog()
         }
     }
 }
 
+
 @Composable
-fun deleteIconDialog(){
+fun deleteIconDialog(userFileViewModel: UserFileViewModel, user: User, email: String){
     var showDialog by remember { mutableStateOf(false) }// a variable that determines if the state of the dialog to be use or not
     Column {
         // Delete Icon Button
         // will send you to a dialog asking if you want to delete the guest account
-        IconButton(onClick = { showDialog = true },
+        IconButton(onClick = { showDialog = true
+            //userViewModel.getOneUser(user.email)
+        },
             modifier = Modifier
                 .size(50.dp)
         ) {
@@ -312,8 +321,9 @@ fun deleteIconDialog(){
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Do you want to delete this account?",
-                        fontSize = 40.sp,
+                    Text(text = "Do you want to delete this account?\n\n" + user.email,
+
+                        fontSize = 40.sp, // 40
                         textAlign = TextAlign.Center,
                         color = Color.Black,
                         modifier = Modifier
@@ -323,7 +333,8 @@ fun deleteIconDialog(){
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ){
                         ElevatedButton(
-                            onClick = { showDialog = false },
+                            onClick = { showDialog = false
+                                 },
                             elevation = ButtonDefaults.buttonElevation(8.dp),
                             shape = RectangleShape,
                             colors = ButtonDefaults.buttonColors(Cornflower_blue),
@@ -365,75 +376,9 @@ fun deleteIconDialog(){
     }
 }
 
-@Composable
-fun deleteGuestDialog() {
-    var showDialog by remember { mutableStateOf(false) }// a variable that determines if the state of the dialog to be use or not
-    Column {
-        // Yes Button
-        // will send you to a dialog telling you the guest account has been deleted
-        // this should be remove from the database
-        ElevatedButton(
-            onClick = { showDialog = true },
-            elevation = ButtonDefaults.buttonElevation(8.dp),
-            shape = RectangleShape,
-            colors = ButtonDefaults.buttonColors(Cornflower_blue),
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .border(3.dp, color = Persian_indigo),
 
-            ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = "Yes",
-                fontSize = 25.sp,
-                color = Color.Black,
-            )
-        }
-    }
-    if (showDialog) {
-        Dialog(onDismissRequest = { showDialog = false }) {
-            // Custom shape, background, and layout for the dialog
-            Surface(
-                shape = RectangleShape,
-                color = Color.White,
-                modifier = Modifier
-                    .shadow(elevation = 8.dp, RectangleShape)
-                    .border(2.dp, color = Color.Black),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "The account has been deleted.",
-                        fontSize = 40.sp,
-                        textAlign = TextAlign.Center,
-                        color = Color.Black,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                    )
-                    // Close Button
-                    // will close the dialog box
-                    Button(
-                        onClick = { showDialog = false },
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(Cornflower_blue),
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .border(3.dp, color = Persian_indigo),
-                    ) {
-                        Text(
-                            "Close",
-                            fontSize = 25.sp,
-                            color = Color.Black
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
+
+
+
 
 

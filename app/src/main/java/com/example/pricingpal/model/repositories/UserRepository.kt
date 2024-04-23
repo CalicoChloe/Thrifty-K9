@@ -14,6 +14,8 @@ interface UserRepository {
     // Get a list of user's emails
     suspend fun  getUsersEmails(): List<String>?
 
+    suspend fun getUsers(): List<UserDTO>?
+
     //get user
     suspend fun getUser(userId: String): UserDTO
 

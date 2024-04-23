@@ -2,6 +2,9 @@ package com.example.pricingpal.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pricingpal.model.User
+import com.example.pricingpal.model.datatransferobjects.UserDTO
+import com.example.pricingpal.model.repositories.UserRepository
 import com.example.pricingpal.usecase.RetrieveUseCase
 import com.example.pricingpal.usecase.UpdateEmailUseCase
 import com.example.pricingpal.usecase.UpdatePasswordUseCase
@@ -14,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserFileViewModel @Inject constructor(
+    private val userRepository: UserRepository,
     private val updateEmailUseCase: UpdateEmailUseCase,
     private  val updatePasswordUseCase: UpdatePasswordUseCase,
     private val updateUseCase: UpdateUseCase,
@@ -34,8 +38,8 @@ class UserFileViewModel @Inject constructor(
     private val _message = MutableStateFlow("")
     val message = _message
 
-    private val _userList = MutableStateFlow<List<String>?>(listOf())
-    val userList: Flow<List<String>?> = _userList
+    private val _userList = MutableStateFlow<List<User>?>(listOf())
+    val userList: Flow<List<User>?> = _userList
 
     fun onEmailChange(email: String){ _email.value = email }
     fun onPasswordChange(password: String){ _password.value = password }
@@ -43,6 +47,10 @@ class UserFileViewModel @Inject constructor(
     fun onOrganizationChange(organization: String){ _organizationName.value = organization }
 
 
+    init {
+        getAllUsers()
+        retrieveAllUsers()
+    }
 
 
     fun updateEmail(){
@@ -103,6 +111,23 @@ class UserFileViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun getAllUsers(){
+        viewModelScope.launch {
+            val users = userRepository.getUsers()
+            _userList.emit(users?.map { it -> it.asDomainModel() })
+        }
+    }
+
+    private fun UserDTO.asDomainModel(): User {
+        return User(
+            userId = this.userId,
+            fullName = this.fullName,
+            email = this.email,
+            organizationName = this.organizationName,
+            isOwner = this.isOwner
+        )
     }
 
 }
