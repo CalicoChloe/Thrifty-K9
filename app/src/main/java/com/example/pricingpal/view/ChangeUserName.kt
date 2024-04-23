@@ -12,23 +12,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -48,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.R
 import com.example.pricingpal.ui.theme.Anti_flash_white
 import com.example.pricingpal.ui.theme.Cornflower_blue
@@ -97,6 +91,7 @@ fun ChangeNameHeader(windowSize: WindowSize, navController: NavController){
         ) {
             Scaffold(
                 // creates the top app bar for the back arrow navigation
+                /*
                 topBar = {
                     TopAppBar(
                         colors = TopAppBarDefaults.topAppBarColors(
@@ -117,6 +112,14 @@ fun ChangeNameHeader(windowSize: WindowSize, navController: NavController){
 
                             }
                         },
+                    )
+                },
+
+                 */
+                topBar = {
+                    PricingPalAppBar(
+                        navigateUp = { navController.navigateUp() },
+                        canNavigateBack = navController.previousBackStackEntry != null
                     )
                 },
                 content = { padding ->
@@ -186,7 +189,7 @@ fun changeName(paddingValues: PaddingValues, windowSize: WindowSize, navControll
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        saveName(windowSize, navController)
+        saveName(windowSize, navController, userFileViewModel)
         Spacer(modifier = Modifier.height(buttonSpacer.dp))
     }
 }
@@ -296,13 +299,13 @@ fun newInputChangeName(userFileViewModel: UserFileViewModel){
  * This function will display a button that will allow the user to save the updated information.
  */
 @Composable
-fun saveName(windowSize: WindowSize, navController: NavController){
+fun saveName(windowSize: WindowSize, navController: NavController, userFileViewModel: UserFileViewModel){
     // will scale the height of the button
     val buttonHeight by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 100 else 120) }
     // will scale the size of the text
     val textSize by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 35 else 40) }
 
-    val userFileViewModel: UserFileViewModel = hiltViewModel()
+   // val userFileViewModel: UserFileViewModel = hiltViewModel()
     val updateName = userFileViewModel.name.collectAsState().value
 
     ElevatedButton(

@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -31,8 +30,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -51,6 +48,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.example.pricingpal.PricingPalAppBar
 import com.example.pricingpal.R
 import com.example.pricingpal.model.User
 import com.example.pricingpal.ui.theme.Anti_flash_white
@@ -61,7 +60,7 @@ import com.example.pricingpal.viewmodel.UserFileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun guestAccountHeader(windowSize: WindowSize){
+fun guestAccountHeader(windowSize: WindowSize, navController: NavController){
 
     // will scale the space of the card
     val cardSpacer by remember(key1 = windowSize) { mutableStateOf(if(windowSize.width == WindowType.Compact) 25 else 40) }
@@ -91,6 +90,7 @@ fun guestAccountHeader(windowSize: WindowSize){
 
             Scaffold(
                 // creates the top app bar for the back arrow navigation
+                /*
                 topBar = {
                     TopAppBar(
                         colors = TopAppBarDefaults.topAppBarColors(
@@ -111,6 +111,15 @@ fun guestAccountHeader(windowSize: WindowSize){
 
                             }
                         }
+                    )
+                },
+
+                 */
+
+                topBar = {
+                    PricingPalAppBar(
+                        navigateUp = { navController.navigateUp() },
+                        canNavigateBack = navController.previousBackStackEntry != null
                     )
                 },
 
