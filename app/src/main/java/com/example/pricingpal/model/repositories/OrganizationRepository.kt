@@ -12,7 +12,7 @@ interface OrganizationRepository {
 
 
     // delete organization
-    suspend fun deleteOrganization(organizationName: String, isOwner: Boolean)
+    suspend fun deleteOrganization(organizationName: String, isOwner: Boolean) : Boolean
     // update organization
     suspend fun updateOrganization(organizationName: String)
 

@@ -2,8 +2,6 @@ package com.example.pricingpal.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pricingpal.model.Organization
-import com.example.pricingpal.model.datatransferobjects.OrganizationDTO
 import com.example.pricingpal.model.repositories.OrganizationRepository
 import com.example.pricingpal.model.repositories.UserRepository
 import com.example.pricingpal.usecase.DeleteOrganizationUseCase
@@ -30,7 +28,7 @@ class OrganizationViewModel @Inject constructor(
 
     fun onDeleteOrganization(isOwner: Boolean, orgName: String) {
         viewModelScope.launch {
-            val result = DeleteOrganizationUseCase.Input(orgName, isOwner)
+            val result = deleteOrganizationUseCase.execute(DeleteOrganizationUseCase.Input(orgName, isOwner))
             organizationRepository.deleteOrganization(orgName, isOwner)
             when(result) {
                 is DeleteOrganizationUseCase.Output.Success -> {
@@ -44,21 +42,21 @@ class OrganizationViewModel @Inject constructor(
 
     }
 
-    fun onGetOrganization(orgName: String) {
+    /*fun onGetOrganization(orgName: String) {
         viewModelScope.launch {
             val result = organizationRepository.getOrganization(orgName)
             _organizationName.emit(result.organizationName)
             }
-        }
+        }*/
     }
 
-    private fun OrganizationDTO.asDomainModel(): Organization {
+   /* private fun OrganizationDTO.asDomainModel(): Organization {
         return Organization(
-            organizationID = this.organizationId,
-            ownerID = this.ownerId,
-            organizationName = this.organizationName
+            organization_ID = this.organizationId,
+            ownerID = ownerId,
+            organizationName = organizationName
         )
-    }
+    }*/
 
     fun onUpdateOrganization(orgName: String) {
         viewModelScope.launch {

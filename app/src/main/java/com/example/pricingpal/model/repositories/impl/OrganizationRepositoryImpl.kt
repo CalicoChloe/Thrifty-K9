@@ -10,15 +10,15 @@ import javax.inject.Inject
 class OrganizationRepositoryImpl @Inject constructor(
     private val postgrest: Postgrest
     ) : OrganizationRepository {
-    override suspend fun deleteOrganization(organizationName: String, isOwner: Boolean) {
+    override suspend fun deleteOrganization(organizationName: String, isOwner: Boolean) : Boolean {
        if(isOwner) {
            withContext(Dispatchers.IO) {
-            postgrest["registered_user"].delete {
+            postgrest["items"].delete {
                 eq("organizationName", organizationName)
             }
         }
         withContext(Dispatchers.IO) {
-            postgrest["items"].delete {
+            postgrest["registered_users"].delete {
                 eq("organizationName", organizationName)
             }
         }
@@ -28,6 +28,7 @@ class OrganizationRepositoryImpl @Inject constructor(
             }
         }
        }
+        return true
     }
 
     override suspend fun updateOrganization(organizationName: String) {
